@@ -9,28 +9,20 @@ from orq_ai_sdk.types import (
     serialize_with_info,
 )
 from pydantic import model_serializer
-from typing import Optional
+from typing import Any, Dict, Optional
 from typing_extensions import NotRequired, TypedDict
-
-
-class PatchTaskCellRequestValueTypedDict(TypedDict):
-    pass
-
-
-class PatchTaskCellRequestValue(BaseModel):
-    pass
 
 
 class PatchTaskCellRequestTypedDict(TypedDict):
     repeat_index: NotRequired[int]
-    value: NotRequired[PatchTaskCellRequestValueTypedDict]
+    value: NotRequired[Dict[str, Any]]
     artifacts: NotRequired[ArtifactRefsTypedDict]
 
 
 class PatchTaskCellRequest(BaseModel):
     repeat_index: Optional[int] = None
 
-    value: Optional[PatchTaskCellRequestValue] = None
+    value: Optional[Dict[str, Any]] = None
 
     artifacts: Optional[ArtifactRefs] = None
 

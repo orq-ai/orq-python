@@ -9,6 +9,9 @@ from .runstatus import RunStatus
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
     UNSET_SENTINEL,
     current_exclude_none,
     serialize_with_info,
@@ -28,9 +31,11 @@ class RunTypedDict(TypedDict):
     row_count: NotRequired[int]
     cell_status_counts: NotRequired[CellStatusCountsTypedDict]
     columns: NotRequired[List[ColumnTypedDict]]
-    settings: NotRequired[RunSettingsTypedDict]
-    started_at: NotRequired[datetime]
-    completed_at: NotRequired[datetime]
+    settings: NotRequired[Nullable[RunSettingsTypedDict]]
+    r"""Null on runs created without settings, such as evaluatorq uploads."""
+    started_at: NotRequired[Nullable[datetime]]
+    r"""Null until the run is executed."""
+    completed_at: NotRequired[Nullable[datetime]]
     created_at: NotRequired[datetime]
     updated_at: NotRequired[datetime]
     metrics: NotRequired[Dict[str, float]]
@@ -60,11 +65,13 @@ class Run(BaseModel):
 
     columns: Optional[List[Column]] = None
 
-    settings: Optional[RunSettings] = None
+    settings: OptionalNullable[RunSettings] = UNSET
+    r"""Null on runs created without settings, such as evaluatorq uploads."""
 
-    started_at: Optional[datetime] = None
+    started_at: OptionalNullable[datetime] = UNSET
+    r"""Null until the run is executed."""
 
-    completed_at: Optional[datetime] = None
+    completed_at: OptionalNullable[datetime] = UNSET
 
     created_at: Optional[datetime] = None
 
@@ -105,6 +112,7 @@ class Run(BaseModel):
                 "created_by_id",
             ]
         )
+        nullable_fields = set(["settings", "started_at", "completed_at"])
         exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
@@ -114,9 +122,17 @@ class Run(BaseModel):
             if k not in serialized and n not in serialized and exclude_none is False:
                 continue
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

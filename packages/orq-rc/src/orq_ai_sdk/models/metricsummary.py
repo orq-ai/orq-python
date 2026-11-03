@@ -10,6 +10,9 @@ from .metricbaseline import MetricBaseline, MetricBaselineTypedDict
 from .numbermetricsummary import NumberMetricSummary, NumberMetricSummaryTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
     UNSET_SENTINEL,
     current_exclude_none,
     serialize_with_info,
@@ -23,7 +26,8 @@ class MetricSummaryTypedDict(TypedDict):
     number: NotRequired[NumberMetricSummaryTypedDict]
     boolean: NotRequired[BooleanMetricSummaryTypedDict]
     categorical: NotRequired[CategoricalMetricSummaryTypedDict]
-    baseline: NotRequired[MetricBaselineTypedDict]
+    baseline: NotRequired[Nullable[MetricBaselineTypedDict]]
+    r"""Null unless a baseline run was requested."""
 
 
 class MetricSummary(BaseModel):
@@ -33,7 +37,8 @@ class MetricSummary(BaseModel):
 
     categorical: Optional[CategoricalMetricSummary] = None
 
-    baseline: Optional[MetricBaseline] = None
+    baseline: OptionalNullable[MetricBaseline] = UNSET
+    r"""Null unless a baseline run was requested."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -41,6 +46,7 @@ class MetricSummary(BaseModel):
 
     def serialize_model(self, handler):
         optional_fields = set(["number", "boolean", "categorical", "baseline"])
+        nullable_fields = set(["baseline"])
         exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
@@ -50,9 +56,17 @@ class MetricSummary(BaseModel):
             if k not in serialized and n not in serialized and exclude_none is False:
                 continue
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

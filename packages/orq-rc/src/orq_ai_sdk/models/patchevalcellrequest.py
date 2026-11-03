@@ -8,24 +8,16 @@ from orq_ai_sdk.types import (
     serialize_with_info,
 )
 from pydantic import model_serializer
-from typing import Optional
+from typing import Any, Dict, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class ValueTypedDict(TypedDict):
-    pass
-
-
-class Value(BaseModel):
-    pass
-
-
 class PatchEvalCellRequestTypedDict(TypedDict):
-    value: NotRequired[ValueTypedDict]
+    value: NotRequired[Dict[str, Any]]
 
 
 class PatchEvalCellRequest(BaseModel):
-    value: Optional[Value] = None
+    value: Optional[Dict[str, Any]] = None
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

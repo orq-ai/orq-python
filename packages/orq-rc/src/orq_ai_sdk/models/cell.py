@@ -8,27 +8,16 @@ from .celltype import CellType
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
     UNSET_SENTINEL,
     current_exclude_none,
     serialize_with_info,
 )
 from pydantic import model_serializer
-from typing import Optional
+from typing import Any, Dict, Optional
 from typing_extensions import NotRequired, TypedDict
-
-
-class CellValueTypedDict(TypedDict):
-    r"""Stored documents are returned as-is; strings are wrapped as {\"text\"},
-    arrays as {\"messages\"} on messages cells and {\"items\"} elsewhere, other
-    scalars as {\"value\"}.
-    """
-
-
-class CellValue(BaseModel):
-    r"""Stored documents are returned as-is; strings are wrapped as {\"text\"},
-    arrays as {\"messages\"} on messages cells and {\"items\"} elsewhere, other
-    scalars as {\"value\"}.
-    """
 
 
 class CellTypedDict(TypedDict):
@@ -37,19 +26,22 @@ class CellTypedDict(TypedDict):
     column_id: NotRequired[str]
     repeat_index: NotRequired[int]
     status: NotRequired[CellStatus]
-    value: NotRequired[CellValueTypedDict]
+    value: NotRequired[Nullable[Dict[str, Any]]]
     r"""Stored documents are returned as-is; strings are wrapped as {\"text\"},
     arrays as {\"messages\"} on messages cells and {\"items\"} elsewhere, other
-    scalars as {\"value\"}.
+    scalars as {\"value\"}. Null for a cell that has no value yet.
     """
-    artifacts: NotRequired[ArtifactRefsTypedDict]
-    progress: NotRequired[CellProgressTypedDict]
+    artifacts: NotRequired[Nullable[ArtifactRefsTypedDict]]
+    r"""Null when the cell holds no trace, response or session references."""
+    progress: NotRequired[Nullable[CellProgressTypedDict]]
+    r"""Only present while the cell is running."""
     error_message: NotRequired[str]
     type: NotRequired[CellType]
     task_column_id: NotRequired[str]
     r"""Task column an evaluator, metric or review cell belongs to."""
-    created_at: NotRequired[datetime]
-    updated_at: NotRequired[datetime]
+    created_at: NotRequired[Nullable[datetime]]
+    r"""Null on cells written before timestamps were recorded."""
+    updated_at: NotRequired[Nullable[datetime]]
 
 
 class Cell(BaseModel):
@@ -63,15 +55,17 @@ class Cell(BaseModel):
 
     status: Optional[CellStatus] = None
 
-    value: Optional[CellValue] = None
+    value: OptionalNullable[Dict[str, Any]] = UNSET
     r"""Stored documents are returned as-is; strings are wrapped as {\"text\"},
     arrays as {\"messages\"} on messages cells and {\"items\"} elsewhere, other
-    scalars as {\"value\"}.
+    scalars as {\"value\"}. Null for a cell that has no value yet.
     """
 
-    artifacts: Optional[ArtifactRefs] = None
+    artifacts: OptionalNullable[ArtifactRefs] = UNSET
+    r"""Null when the cell holds no trace, response or session references."""
 
-    progress: Optional[CellProgress] = None
+    progress: OptionalNullable[CellProgress] = UNSET
+    r"""Only present while the cell is running."""
 
     error_message: Optional[str] = None
 
@@ -80,9 +74,10 @@ class Cell(BaseModel):
     task_column_id: Optional[str] = None
     r"""Task column an evaluator, metric or review cell belongs to."""
 
-    created_at: Optional[datetime] = None
+    created_at: OptionalNullable[datetime] = UNSET
+    r"""Null on cells written before timestamps were recorded."""
 
-    updated_at: Optional[datetime] = None
+    updated_at: OptionalNullable[datetime] = UNSET
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -106,6 +101,9 @@ class Cell(BaseModel):
                 "updated_at",
             ]
         )
+        nullable_fields = set(
+            ["value", "artifacts", "progress", "created_at", "updated_at"]
+        )
         exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
@@ -115,9 +113,17 @@ class Cell(BaseModel):
             if k not in serialized and n not in serialized and exclude_none is False:
                 continue
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

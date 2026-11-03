@@ -8,7 +8,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Iterable, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 
 
 class ExportRunAcceptEnum(str, Enum):
@@ -3579,7 +3579,7 @@ class Experiments(BaseSDK):
         run_id: str,
         eval_id: str,
         datapoint_id: str,
-        value: Optional[Union[models.Value, models.ValueTypedDict]] = None,
+        value: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -3618,7 +3618,7 @@ class Experiments(BaseSDK):
             eval_id=eval_id,
             datapoint_id=datapoint_id,
             patch_eval_cell_request=models.PatchEvalCellRequest(
-                value=utils.get_pydantic_model(value, Optional[models.Value]),
+                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
             ),
         )
 
@@ -3696,7 +3696,7 @@ class Experiments(BaseSDK):
         run_id: str,
         eval_id: str,
         datapoint_id: str,
-        value: Optional[Union[models.Value, models.ValueTypedDict]] = None,
+        value: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -3735,7 +3735,7 @@ class Experiments(BaseSDK):
             eval_id=eval_id,
             datapoint_id=datapoint_id,
             patch_eval_cell_request=models.PatchEvalCellRequest(
-                value=utils.get_pydantic_model(value, Optional[models.Value]),
+                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
             ),
         )
 
@@ -5471,12 +5471,7 @@ class Experiments(BaseSDK):
         run_id: str,
         review_id: str,
         datapoint_id: str,
-        value: Optional[
-            Union[
-                models.PatchReviewCellRequestValue,
-                models.PatchReviewCellRequestValueTypedDict,
-            ]
-        ] = None,
+        value: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -5513,9 +5508,7 @@ class Experiments(BaseSDK):
             review_id=review_id,
             datapoint_id=datapoint_id,
             patch_review_cell_request=models.PatchReviewCellRequest(
-                value=utils.get_pydantic_model(
-                    value, Optional[models.PatchReviewCellRequestValue]
-                ),
+                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
             ),
         )
 
@@ -5593,12 +5586,7 @@ class Experiments(BaseSDK):
         run_id: str,
         review_id: str,
         datapoint_id: str,
-        value: Optional[
-            Union[
-                models.PatchReviewCellRequestValue,
-                models.PatchReviewCellRequestValueTypedDict,
-            ]
-        ] = None,
+        value: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -5635,9 +5623,7 @@ class Experiments(BaseSDK):
             review_id=review_id,
             datapoint_id=datapoint_id,
             patch_review_cell_request=models.PatchReviewCellRequest(
-                value=utils.get_pydantic_model(
-                    value, Optional[models.PatchReviewCellRequestValue]
-                ),
+                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
             ),
         )
 
@@ -5971,12 +5957,7 @@ class Experiments(BaseSDK):
         run_id: str,
         row_id: str,
         cell_id: str,
-        value: Optional[
-            Union[
-                models.UpdateRunCellRequestValue,
-                models.UpdateRunCellRequestValueTypedDict,
-            ]
-        ] = None,
+        value: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -6015,9 +5996,7 @@ class Experiments(BaseSDK):
             row_id=row_id,
             cell_id=cell_id,
             update_run_cell_request=models.UpdateRunCellRequest(
-                value=utils.get_pydantic_model(
-                    value, Optional[models.UpdateRunCellRequestValue]
-                ),
+                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
             ),
         )
 
@@ -6112,12 +6091,7 @@ class Experiments(BaseSDK):
         run_id: str,
         row_id: str,
         cell_id: str,
-        value: Optional[
-            Union[
-                models.UpdateRunCellRequestValue,
-                models.UpdateRunCellRequestValueTypedDict,
-            ]
-        ] = None,
+        value: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -6156,9 +6130,7 @@ class Experiments(BaseSDK):
             row_id=row_id,
             cell_id=cell_id,
             update_run_cell_request=models.UpdateRunCellRequest(
-                value=utils.get_pydantic_model(
-                    value, Optional[models.UpdateRunCellRequestValue]
-                ),
+                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
             ),
         )
 
@@ -7476,12 +7448,7 @@ class Experiments(BaseSDK):
         task_id: str,
         datapoint_id: str,
         repeat_index: Optional[int] = None,
-        value: Optional[
-            Union[
-                models.PatchTaskCellRequestValue,
-                models.PatchTaskCellRequestValueTypedDict,
-            ]
-        ] = None,
+        value: Optional[Mapping[str, Any]] = None,
         artifacts: Optional[
             Union[models.ArtifactRefs, models.ArtifactRefsTypedDict]
         ] = None,
@@ -7526,9 +7493,7 @@ class Experiments(BaseSDK):
             datapoint_id=datapoint_id,
             patch_task_cell_request=models.PatchTaskCellRequest(
                 repeat_index=repeat_index,
-                value=utils.get_pydantic_model(
-                    value, Optional[models.PatchTaskCellRequestValue]
-                ),
+                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
                 artifacts=utils.get_pydantic_model(
                     artifacts, Optional[models.ArtifactRefs]
                 ),
@@ -7610,12 +7575,7 @@ class Experiments(BaseSDK):
         task_id: str,
         datapoint_id: str,
         repeat_index: Optional[int] = None,
-        value: Optional[
-            Union[
-                models.PatchTaskCellRequestValue,
-                models.PatchTaskCellRequestValueTypedDict,
-            ]
-        ] = None,
+        value: Optional[Mapping[str, Any]] = None,
         artifacts: Optional[
             Union[models.ArtifactRefs, models.ArtifactRefsTypedDict]
         ] = None,
@@ -7660,9 +7620,7 @@ class Experiments(BaseSDK):
             datapoint_id=datapoint_id,
             patch_task_cell_request=models.PatchTaskCellRequest(
                 repeat_index=repeat_index,
-                value=utils.get_pydantic_model(
-                    value, Optional[models.PatchTaskCellRequestValue]
-                ),
+                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
                 artifacts=utils.get_pydantic_model(
                     artifacts, Optional[models.ArtifactRefs]
                 ),

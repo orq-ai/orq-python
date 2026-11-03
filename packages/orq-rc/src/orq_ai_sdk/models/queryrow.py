@@ -6,6 +6,9 @@ from .rowstatus import RowStatus
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
     UNSET_SENTINEL,
     current_exclude_none,
     serialize_with_info,
@@ -20,8 +23,9 @@ class QueryRowTypedDict(TypedDict):
     display_name: NotRequired[str]
     cells: NotRequired[List[CellTypedDict]]
     status: NotRequired[RowStatus]
-    created_at: NotRequired[datetime]
-    updated_at: NotRequired[datetime]
+    created_at: NotRequired[Nullable[datetime]]
+    r"""Null on rows written before timestamps were recorded."""
+    updated_at: NotRequired[Nullable[datetime]]
 
 
 class QueryRow(BaseModel):
@@ -33,9 +37,10 @@ class QueryRow(BaseModel):
 
     status: Optional[RowStatus] = None
 
-    created_at: Optional[datetime] = None
+    created_at: OptionalNullable[datetime] = UNSET
+    r"""Null on rows written before timestamps were recorded."""
 
-    updated_at: Optional[datetime] = None
+    updated_at: OptionalNullable[datetime] = UNSET
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -45,6 +50,7 @@ class QueryRow(BaseModel):
         optional_fields = set(
             ["row_id", "display_name", "cells", "status", "created_at", "updated_at"]
         )
+        nullable_fields = set(["created_at", "updated_at"])
         exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
@@ -54,9 +60,17 @@ class QueryRow(BaseModel):
             if k not in serialized and n not in serialized and exclude_none is False:
                 continue
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

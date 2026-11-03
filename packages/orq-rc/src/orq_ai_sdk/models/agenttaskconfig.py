@@ -9,22 +9,14 @@ from orq_ai_sdk.types import (
     serialize_with_info,
 )
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
-
-
-class AgentTaskConfigMessagesTypedDict(TypedDict):
-    pass
-
-
-class AgentTaskConfigMessages(BaseModel):
-    pass
 
 
 class AgentTaskConfigTypedDict(TypedDict):
     agent_key: NotRequired[str]
     messages_source: NotRequired[MessagesSource]
-    messages: NotRequired[List[AgentTaskConfigMessagesTypedDict]]
+    messages: NotRequired[List[Dict[str, Any]]]
     engine: NotRequired[str]
     parent_id: NotRequired[str]
     agent_tag: NotRequired[str]
@@ -35,7 +27,7 @@ class AgentTaskConfig(BaseModel):
 
     messages_source: Optional[MessagesSource] = None
 
-    messages: Optional[List[AgentTaskConfigMessages]] = None
+    messages: Optional[List[Dict[str, Any]]] = None
 
     engine: Optional[str] = None
 

@@ -9,74 +9,34 @@ from orq_ai_sdk.types import (
     serialize_with_info,
 )
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class PromptConfigTypedDict(TypedDict):
-    pass
-
-
-class PromptConfig(BaseModel):
-    pass
-
-
-class ToolsModelTypedDict(TypedDict):
-    pass
-
-
-class ToolsModel(BaseModel):
-    pass
-
-
-class KnowledgeBasesTypedDict(TypedDict):
-    pass
-
-
-class KnowledgeBases(BaseModel):
-    pass
-
-
-class PromptTaskConfigMetadataTypedDict(TypedDict):
-    pass
-
-
-class PromptTaskConfigMetadata(BaseModel):
-    pass
-
-
-class EntityConfigurationTypedDict(TypedDict):
-    pass
-
-
-class EntityConfiguration(BaseModel):
-    pass
-
-
 class PromptTaskConfigTypedDict(TypedDict):
-    prompt_config: NotRequired[PromptConfigTypedDict]
+    prompt_config: NotRequired[Dict[str, Any]]
     messages_source: NotRequired[MessagesSource]
     engine: NotRequired[str]
-    tools: NotRequired[List[ToolsModelTypedDict]]
-    knowledge_bases: NotRequired[List[KnowledgeBasesTypedDict]]
-    metadata: NotRequired[PromptTaskConfigMetadataTypedDict]
-    entity_configuration: NotRequired[EntityConfigurationTypedDict]
+    tools: NotRequired[List[Dict[str, Any]]]
+    knowledge_bases: NotRequired[List[Dict[str, Any]]]
+    metadata: NotRequired[Dict[str, Any]]
+    entity_configuration: NotRequired[Dict[str, Any]]
 
 
 class PromptTaskConfig(BaseModel):
-    prompt_config: Optional[PromptConfig] = None
+    prompt_config: Optional[Dict[str, Any]] = None
 
     messages_source: Optional[MessagesSource] = None
 
     engine: Optional[str] = None
 
-    tools: Optional[List[ToolsModel]] = None
+    tools: Optional[List[Dict[str, Any]]] = None
 
-    knowledge_bases: Optional[List[KnowledgeBases]] = None
+    knowledge_bases: Optional[List[Dict[str, Any]]] = None
 
-    metadata: Optional[PromptTaskConfigMetadata] = None
+    metadata: Optional[Dict[str, Any]] = None
 
-    entity_configuration: Optional[EntityConfiguration] = None
+    entity_configuration: Optional[Dict[str, Any]] = None
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
