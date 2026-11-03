@@ -33,6 +33,7 @@ from orq_ai_sdk.types import (
     current_exclude_none,
     serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
@@ -79,12 +80,13 @@ class UpdateAgentResponseFormatAgentsJSONSchema(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["description", "schema", "strict"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -266,12 +268,13 @@ class UpdateAgentToolChoice2(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["type"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -404,12 +407,13 @@ class ModelConfigurationCache(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -444,12 +448,13 @@ class UpdateAgentLoadBalancerModels(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["weight"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -547,12 +552,13 @@ class UpdateAgentModelConfigurationCacheControl(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -771,12 +777,13 @@ class ModelConfigurationParameters(BaseModel):
             ]
         )
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
@@ -820,12 +827,13 @@ class ModelConfigurationRetry(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["count", "on_codes"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -872,12 +880,13 @@ class UpdateAgentModelConfiguration2(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["parameters", "retry"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -937,12 +946,13 @@ class UpdateAgentResponseFormatAgentsRequestRequestBodyJSONSchema(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["description", "schema", "strict"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -1128,12 +1138,13 @@ class UpdateAgentToolChoiceAgents2(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["type"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -1266,12 +1277,13 @@ class UpdateAgentFallbackModelConfigurationCache(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -1306,12 +1318,13 @@ class UpdateAgentLoadBalancerAgentsModels(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["weight"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -1411,12 +1424,13 @@ class UpdateAgentFallbackModelConfigurationCacheControl(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -1653,12 +1667,13 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
             ]
         )
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
@@ -1702,12 +1717,13 @@ class UpdateAgentFallbackModelConfigurationRetry(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["count", "on_codes"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -1748,12 +1764,13 @@ class UpdateAgentFallbackModelConfiguration2(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["parameters", "retry"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -1823,12 +1840,13 @@ class UpdateAgentEvaluators(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["sample_rate", "options"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -1877,12 +1895,13 @@ class UpdateAgentGuardrails(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["sample_rate", "options"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -1945,12 +1964,13 @@ class UpdateAgentSettings(BaseModel):
             ]
         )
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -1992,12 +2012,13 @@ class UpdateAgentTeamOfAgents(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["role"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -2169,12 +2190,13 @@ class UpdateAgentUpdateAgentRequest(BaseModel):
         )
         nullable_fields = set(["system_prompt", "skills", "agent_plugins"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
@@ -2263,12 +2285,13 @@ class UpdateAgentAgentsTeamOfAgents(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["role"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -2304,12 +2327,13 @@ class UpdateAgentMetrics(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["total_cost"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -2381,7 +2405,6 @@ class UpdateAgentConditions(BaseModel):
 
 class UpdateAgentToolsTypedDict(TypedDict):
     id: str
-    r"""The id of the resource"""
     action_type: str
     key: NotRequired[str]
     r"""Optional tool key for custom tools"""
@@ -2402,7 +2425,6 @@ class UpdateAgentToolsTypedDict(TypedDict):
 
 class UpdateAgentTools(BaseModel):
     id: str
-    r"""The id of the resource"""
 
     action_type: str
 
@@ -2449,12 +2471,13 @@ class UpdateAgentTools(BaseModel):
             ]
         )
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -2503,12 +2526,13 @@ class UpdateAgentAgentsEvaluators(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["sample_rate", "options"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -2557,12 +2581,13 @@ class UpdateAgentAgentsGuardrails(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["sample_rate", "options"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -2635,12 +2660,13 @@ class UpdateAgentAgentsSettings(BaseModel):
             ]
         )
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -2685,12 +2711,13 @@ class UpdateAgentResponseFormatAgentsResponseJSONSchema(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["description", "schema", "strict"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -2876,12 +2903,13 @@ class UpdateAgentToolChoiceAgentsResponse2(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["type"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -3015,12 +3043,13 @@ class UpdateAgentCache(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -3055,12 +3084,13 @@ class UpdateAgentLoadBalancerAgentsResponseModels(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["weight"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -3158,12 +3188,13 @@ class UpdateAgentCacheControl(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -3382,12 +3413,13 @@ class UpdateAgentParameters(BaseModel):
             ]
         )
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
@@ -3431,12 +3463,13 @@ class UpdateAgentRetry(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["count", "on_codes"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -3485,12 +3518,13 @@ class UpdateAgentResponseFormatAgentsResponse200ApplicationJSONJSONSchema(BaseMo
     def serialize_model(self, handler):
         optional_fields = set(["description", "schema", "strict"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -3689,12 +3723,13 @@ class UpdateAgentToolChoiceAgentsResponse2002(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["type"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -3834,12 +3869,13 @@ class UpdateAgentFallbackModelConfigurationAgentsCache(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -3874,12 +3910,13 @@ class UpdateAgentLoadBalancerAgentsResponse200Models(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["weight"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -3981,12 +4018,13 @@ class UpdateAgentFallbackModelConfigurationAgentsCacheControl(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -4239,12 +4277,13 @@ class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
             ]
         )
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
@@ -4288,12 +4327,13 @@ class UpdateAgentFallbackModelConfigurationAgentsRetry(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["count", "on_codes"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -4336,12 +4376,13 @@ class UpdateAgentFallbackModelConfigurationAgents2(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["parameters", "retry"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -4409,12 +4450,13 @@ class UpdateAgentModel(BaseModel):
         )
         nullable_fields = set(["integration_id", "parameters", "fallback_models"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
@@ -4581,12 +4623,13 @@ class UpdateAgentResponseBody(BaseModel):
         )
         nullable_fields = set(["created_by_id", "updated_by_id", "system_prompt"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (

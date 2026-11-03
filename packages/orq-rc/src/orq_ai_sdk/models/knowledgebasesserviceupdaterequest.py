@@ -14,6 +14,7 @@ from orq_ai_sdk.types import (
     current_exclude_none,
     serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Literal, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
@@ -57,12 +58,13 @@ class KnowledgeBasesServiceUpdateRequest2RerankConfig(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["top_k", "rerank_threshold"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -146,12 +148,13 @@ class KnowledgeBasesServiceUpdateRequest2RetrievalSettings(BaseModel):
         )
         nullable_fields = set(["rerank_config", "agentic_rag_config"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
@@ -238,12 +241,13 @@ class KnowledgeBasesServiceUpdateRequest2(BaseModel):
         )
         nullable_fields = set(["description"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
@@ -292,12 +296,13 @@ class KnowledgeBasesServiceUpdateRequestRerankConfig(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["top_k", "rerank_threshold"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -368,12 +373,13 @@ class KnowledgeBasesServiceUpdateRequestRetrievalSettings(BaseModel):
         )
         nullable_fields = set(["rerank_config", "agentic_rag_config"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
@@ -422,12 +428,13 @@ class KnowledgeBasesServiceUpdateRequestExternalConfig(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(["name", "api_url", "api_key"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
 
@@ -508,12 +515,13 @@ class KnowledgeBasesServiceUpdateRequest1(BaseModel):
         )
         nullable_fields = set(["description"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (

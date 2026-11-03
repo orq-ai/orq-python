@@ -4,27 +4,33 @@ from __future__ import annotations
 from .messagessource import MessagesSource
 from orq_ai_sdk.types import (
     BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
     UNSET_SENTINEL,
     current_exclude_none,
     serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class PromptTaskConfigTypedDict(TypedDict):
-    prompt_config: NotRequired[Dict[str, Any]]
+    prompt_config: Dict[str, Any]
     messages_source: NotRequired[MessagesSource]
     engine: NotRequired[str]
     tools: NotRequired[List[Dict[str, Any]]]
     knowledge_bases: NotRequired[List[Dict[str, Any]]]
-    metadata: NotRequired[Dict[str, Any]]
-    entity_configuration: NotRequired[Dict[str, Any]]
+    metadata: NotRequired[Nullable[Dict[str, Any]]]
+    r"""Null when the column was saved without metadata."""
+    entity_configuration: NotRequired[Nullable[Dict[str, Any]]]
+    r"""Null when the column was saved without an entity configuration."""
 
 
 class PromptTaskConfig(BaseModel):
-    prompt_config: Optional[Dict[str, Any]] = None
+    prompt_config: Dict[str, Any]
 
     messages_source: Optional[MessagesSource] = None
 
@@ -34,9 +40,11 @@ class PromptTaskConfig(BaseModel):
 
     knowledge_bases: Optional[List[Dict[str, Any]]] = None
 
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: OptionalNullable[Dict[str, Any]] = UNSET
+    r"""Null when the column was saved without metadata."""
 
-    entity_configuration: Optional[Dict[str, Any]] = None
+    entity_configuration: OptionalNullable[Dict[str, Any]] = UNSET
+    r"""Null when the column was saved without an entity configuration."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -45,7 +53,6 @@ class PromptTaskConfig(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
-                "prompt_config",
                 "messages_source",
                 "engine",
                 "tools",
@@ -54,18 +61,28 @@ class PromptTaskConfig(BaseModel):
                 "entity_configuration",
             ]
         )
+        nullable_fields = set(["metadata", "entity_configuration"])
         exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias if f.alias is not None else n
-            if k not in serialized and n not in serialized and exclude_none is False:
+            if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
