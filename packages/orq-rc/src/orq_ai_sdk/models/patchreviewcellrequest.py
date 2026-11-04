@@ -15,10 +15,12 @@ from typing_extensions import NotRequired, TypedDict
 
 class PatchReviewCellRequestTypedDict(TypedDict):
     value: NotRequired[Dict[str, Any]]
+    r"""Human review value. type is required: range uses {type: range, value: number}; single- and multi-select use {type: categorical, value: string} or {type: categorical, values: [{value: string, sentiment: string}]}; text and correction use {type: free_form_text, text: string}."""
 
 
 class PatchReviewCellRequest(BaseModel):
     value: Optional[Dict[str, Any]] = None
+    r"""Human review value. type is required: range uses {type: range, value: number}; single- and multi-select use {type: categorical, value: string} or {type: categorical, values: [{value: string, sentiment: string}]}; text and correction use {type: free_form_text, text: string}."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

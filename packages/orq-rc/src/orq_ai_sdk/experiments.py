@@ -5483,7 +5483,7 @@ class Experiments(BaseSDK):
         :param run_id:
         :param review_id:
         :param datapoint_id:
-        :param value:
+        :param value: Human review value. type is required: range uses {type: range, value: number}; single- and multi-select use {type: categorical, value: string} or {type: categorical, values: [{value: string, sentiment: string}]}; text and correction use {type: free_form_text, text: string}.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -5598,7 +5598,7 @@ class Experiments(BaseSDK):
         :param run_id:
         :param review_id:
         :param datapoint_id:
-        :param value:
+        :param value: Human review value. type is required: range uses {type: range, value: number}; single- and multi-select use {type: categorical, value: string} or {type: categorical, values: [{value: string, sentiment: string}]}; text and correction use {type: free_form_text, text: string}.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
