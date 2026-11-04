@@ -2000,7 +2000,7 @@ class Models(BaseSDK):
     ) -> models.ModelCreateOpenAILikeResponseBody:
         r"""Create OpenAI-compatible custom model
 
-        Creates a custom model backed by any OpenAI-compatible endpoint. The handler probes the target API with the supplied credentials before persisting the model.
+        Creates a custom model backed by any OpenAI-compatible endpoint. Orq.ai calls the target API with the supplied credentials before saving the model.
 
         :param api_key:
         :param base_url:
@@ -2171,7 +2171,7 @@ class Models(BaseSDK):
     ) -> models.ModelCreateOpenAILikeResponseBody:
         r"""Create OpenAI-compatible custom model
 
-        Creates a custom model backed by any OpenAI-compatible endpoint. The handler probes the target API with the supplied credentials before persisting the model.
+        Creates a custom model backed by any OpenAI-compatible endpoint. Orq.ai calls the target API with the supplied credentials before saving the model.
 
         :param api_key:
         :param base_url:

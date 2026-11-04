@@ -43,7 +43,7 @@ class CreateBudgetRequestTypedDict(TypedDict):
     """
     expires_at: NotRequired[datetime]
     r"""Optional expiration. When set in combination with is_active=true,
-    the value MUST be in the future; the handler rejects past values.
+    the value MUST be in the future; the API rejects a past value.
     """
     alerts: NotRequired[List[BudgetAlertTypedDict]]
     r"""Optional threshold notifications. Ids are assigned by the server, so
@@ -80,7 +80,7 @@ class CreateBudgetRequest(BaseModel):
 
     expires_at: Optional[datetime] = None
     r"""Optional expiration. When set in combination with is_active=true,
-    the value MUST be in the future; the handler rejects past values.
+    the value MUST be in the future; the API rejects a past value.
     """
 
     alerts: Optional[List[BudgetAlert]] = None

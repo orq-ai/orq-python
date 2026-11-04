@@ -295,7 +295,7 @@ class Budgets(BaseSDK):
         :param is_active: Whether the budget should be active immediately. Defaults to true
             when omitted.
         :param expires_at: Optional expiration. When set in combination with is_active=true,
-            the value MUST be in the future; the handler rejects past values.
+            the value MUST be in the future; the API rejects a past value.
         :param alerts: Optional threshold notifications. Ids are assigned by the server, so
             `alerts[].id` must be omitted here; supplying one is rejected.
         :param retries: Override the default retry configuration for this method
@@ -437,7 +437,7 @@ class Budgets(BaseSDK):
         :param is_active: Whether the budget should be active immediately. Defaults to true
             when omitted.
         :param expires_at: Optional expiration. When set in combination with is_active=true,
-            the value MUST be in the future; the handler rejects past values.
+            the value MUST be in the future; the API rejects a past value.
         :param alerts: Optional threshold notifications. Ids are assigned by the server, so
             `alerts[].id` must be omitted here; supplying one is rejected.
         :param retries: Override the default retry configuration for this method
