@@ -493,7 +493,17 @@ def _pending_function_calls(response: Any) -> list[Any]:
     if status != "completed" or error:
         detail = error or _item_field(response, "incomplete_details")
         raise ToolLoopError(f"response {_item_field(response, 'id')!r} ended with status {status!r}: {detail}", response)
-    return [item for item in (_item_field(response, "output") or []) if _item_field(item, "type") == "function_call"]
+    output = _item_field(response, "output") or []
+    # The router returns a hosted tool it already ran as a `function_call` plus a completed
+    # `orq:*` item with the same call_id. Only the rest are ours to run.
+    hosted = {
+        _item_field(item, "call_id") for item in output if str(_item_field(item, "type") or "").startswith("orq:")
+    }
+    return [
+        item
+        for item in output
+        if _item_field(item, "type") == "function_call" and _item_field(item, "call_id") not in hosted
+    ]
 
 
 def _tool_output_str(result: Any) -> str:

@@ -713,6 +713,31 @@ def test_run_tool_loop_forwards_hosted_tools_unregistered():
     assert client.responses.calls[1]["tools"] == [add, hosted]
 
 
+def test_run_tool_loop_leaves_a_hosted_tool_the_router_already_ran():
+    # The real shape: a function_call plus a completed orq:* item sharing its call_id.
+    client = _FakeClient([
+        _FakeResp(
+            [
+                {"type": "function_call", "name": "orq_datetime", "arguments": "{}", "call_id": "h1"},
+                {"type": "orq:datetime", "call_id": "h1", "status": "completed"},
+                _FakeCall("add", '{"a": 2, "b": 3}', "c1"),
+            ],
+            "r1",
+        ),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    result = run_tool_loop(client, [_adder(), {"type": "orq:datetime"}], model="m", input="x")
+    assert result.final.id == "r2"
+    assert [call.call_id for call in result.tool_results] == ["c1"]
+    assert [item["call_id"] for item in client.responses.calls[1]["input"]] == ["c1"]
+
+
+def test_run_tool_loop_still_rejects_an_unknown_function_call_with_no_hosted_item():
+    client = _FakeClient([_FakeResp([_FakeCall("orq_datetime", "{}", "h1")], "r1")])
+    with pytest.raises(ToolLoopError, match="not passed to the loop"):
+        run_tool_loop(client, [_adder(), {"type": "orq:datetime"}], model="m", input="x")
+
+
 def test_run_tool_loop_rejects_plain_function_schema_before_any_call():
     client = _FakeClient([])
     plain = {"type": "function", "name": "add", "parameters": {}}
