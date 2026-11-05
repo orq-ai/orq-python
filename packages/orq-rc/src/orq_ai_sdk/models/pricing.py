@@ -28,6 +28,8 @@ class PricingTypedDict(TypedDict):
     cache_write_30m: NotRequired[PriceTypedDict]
     cache_write_5m: NotRequired[PriceTypedDict]
     fetch: NotRequired[PriceTypedDict]
+    image_cache_read: NotRequired[PriceTypedDict]
+    image_input: NotRequired[PriceTypedDict]
     input: NotRequired[PriceTypedDict]
     output: NotRequired[PriceTypedDict]
     reasoning: NotRequired[PriceTypedDict]
@@ -54,6 +56,10 @@ class Pricing(BaseModel):
     cache_write_5m: Optional[Price] = None
 
     fetch: Optional[Price] = None
+
+    image_cache_read: Optional[Price] = None
+
+    image_input: Optional[Price] = None
 
     input: Optional[Price] = None
 
@@ -83,6 +89,8 @@ class Pricing(BaseModel):
                 "cache_write_30m",
                 "cache_write_5m",
                 "fetch",
+                "image_cache_read",
+                "image_input",
                 "input",
                 "output",
                 "reasoning",
