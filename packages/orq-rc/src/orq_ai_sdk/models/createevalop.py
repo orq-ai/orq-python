@@ -55,6 +55,8 @@ class PythonTypedDict(TypedDict):
     code: str
     type: CreateEvalRequestBodyType
     key: str
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[RequestBodyOutputType]
     path: NotRequired[str]
@@ -70,6 +72,9 @@ class Python(BaseModel):
     type: CreateEvalRequestBodyType
 
     key: str
+
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
 
     guardrail_config: Optional[Any] = None
 
@@ -89,8 +94,16 @@ class Python(BaseModel):
 
     def serialize_model(self, handler):
         optional_fields = set(
-            ["guardrail_config", "output_type", "path", "project_id", "description"]
+            [
+                "timeout",
+                "guardrail_config",
+                "output_type",
+                "path",
+                "project_id",
+                "description",
+            ]
         )
+        nullable_fields = set(["timeout"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
@@ -101,9 +114,17 @@ class Python(BaseModel):
             if k not in serialized and n not in serialized and skip_filtered:
                 continue
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -367,6 +388,8 @@ class LLMJuryTypedDict(TypedDict):
     key: str
     mode: CreateEval1Mode
     jury: OneJuryTypedDict
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[CreateEval1OutputType]
     r"""The type of output expected from the evaluator"""
@@ -393,6 +416,9 @@ class LLMJury(BaseModel):
     mode: CreateEval1Mode
 
     jury: OneJury
+
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
 
     guardrail_config: Optional[Any] = None
 
@@ -422,6 +448,7 @@ class LLMJury(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "timeout",
                 "guardrail_config",
                 "output_type",
                 "repetitions",
@@ -434,7 +461,7 @@ class LLMJury(BaseModel):
             ]
         )
         nullable_fields = set(
-            ["repetitions", "categories", "categorical_labels", "dataset_id"]
+            ["timeout", "repetitions", "categories", "categorical_labels", "dataset_id"]
         )
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
@@ -517,6 +544,8 @@ class LlmTypedDict(TypedDict):
     key: str
     mode: OneMode
     model: str
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[OneOutputType]
     r"""The type of output expected from the evaluator"""
@@ -541,6 +570,9 @@ class Llm(BaseModel):
     mode: OneMode
 
     model: str
+
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
 
     guardrail_config: Optional[Any] = None
 
@@ -570,6 +602,7 @@ class Llm(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "timeout",
                 "guardrail_config",
                 "output_type",
                 "repetitions",
@@ -582,7 +615,7 @@ class Llm(BaseModel):
             ]
         )
         nullable_fields = set(
-            ["repetitions", "categories", "categorical_labels", "dataset_id"]
+            ["timeout", "repetitions", "categories", "categorical_labels", "dataset_id"]
         )
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()

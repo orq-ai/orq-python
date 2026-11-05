@@ -286,6 +286,8 @@ class EvaluatorResponseLlmTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     repetitions: NotRequired[Nullable[int]]
     categories: NotRequired[Nullable[List[str]]]
@@ -320,6 +322,9 @@ class EvaluatorResponseLlm(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     repetitions: OptionalNullable[int] = UNSET
@@ -345,6 +350,7 @@ class EvaluatorResponseLlm(BaseModel):
                 "updated",
                 "updated_by_id",
                 "project_id",
+                "timeout",
                 "guardrail_config",
                 "repetitions",
                 "categories",
@@ -357,6 +363,7 @@ class EvaluatorResponseLlm(BaseModel):
         nullable_fields = set(
             [
                 "updated_by_id",
+                "timeout",
                 "repetitions",
                 "categories",
                 "categorical_labels",

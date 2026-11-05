@@ -3828,7 +3828,7 @@ class Experiments(BaseSDK):
     ) -> models.Run:
         r"""Execute a run
 
-        Executes cells at the requested scope. FULL, PARTIAL, ROW and COLUMN queue the matching cells (a task column also queues its linked evaluator, metric and review cells) and start the orchestrator, which also re-runs failed cells of every row it picks up; a run that is already running accepts new work. CELL re-runs one task or evaluator cell in place. Re-executing does not require creating a new run.
+        Executes cells at the requested scope. FULL, PARTIAL, ROW and COLUMN queue the matching cells (a task column also queues its linked evaluator, metric and review cells) and start the orchestrator, which also re-runs failed cells of every row it picks up. A run that is already queued or running rejects new execution until it finishes or is cancelled. CELL re-runs one task or evaluator cell in place. Re-executing a terminal run does not require creating a new run.
 
         :param experiment_id:
         :param run_id:
@@ -3975,7 +3975,7 @@ class Experiments(BaseSDK):
     ) -> models.Run:
         r"""Execute a run
 
-        Executes cells at the requested scope. FULL, PARTIAL, ROW and COLUMN queue the matching cells (a task column also queues its linked evaluator, metric and review cells) and start the orchestrator, which also re-runs failed cells of every row it picks up; a run that is already running accepts new work. CELL re-runs one task or evaluator cell in place. Re-executing does not require creating a new run.
+        Executes cells at the requested scope. FULL, PARTIAL, ROW and COLUMN queue the matching cells (a task column also queues its linked evaluator, metric and review cells) and start the orchestrator, which also re-runs failed cells of every row it picks up. A run that is already queued or running rejects new execution until it finishes or is cancelled. CELL re-runs one task or evaluator cell in place. Re-executing a terminal run does not require creating a new run.
 
         :param experiment_id:
         :param run_id:

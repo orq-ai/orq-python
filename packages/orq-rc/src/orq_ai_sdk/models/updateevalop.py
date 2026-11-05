@@ -324,6 +324,8 @@ class UpdateEvalRequestBodyTypedDict(TypedDict):
     headers: NotRequired[Dict[str, str]]
     payload: NotRequired[Dict[str, Any]]
     code: NotRequired[str]
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     version_increment: NotRequired[UpdateEvalVersionIncrement]
     version_description: NotRequired[str]
@@ -373,6 +375,9 @@ class UpdateEvalRequestBody(BaseModel):
 
     code: Optional[str] = None
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     version_increment: Annotated[
@@ -410,12 +415,15 @@ class UpdateEvalRequestBody(BaseModel):
                 "headers",
                 "payload",
                 "code",
+                "timeout",
                 "guardrail_config",
                 "versionIncrement",
                 "versionDescription",
             ]
         )
-        nullable_fields = set(["categories", "categorical_labels", "dataset_id"])
+        nullable_fields = set(
+            ["categories", "categorical_labels", "dataset_id", "timeout"]
+        )
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

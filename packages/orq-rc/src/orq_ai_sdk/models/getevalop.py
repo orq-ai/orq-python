@@ -130,6 +130,8 @@ class BedrockGuardrailTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[
         GetEvalResponseBodyEvalsResponse200ApplicationJSON8OutputType
@@ -169,6 +171,9 @@ class BedrockGuardrail(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[
@@ -194,6 +199,7 @@ class BedrockGuardrail(BaseModel):
                 "created_by_id",
                 "updated_by_id",
                 "project_id",
+                "timeout",
                 "guardrail_config",
                 "output_type",
                 "guardrail_version",
@@ -201,7 +207,9 @@ class BedrockGuardrail(BaseModel):
                 "integration_id",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id", "integration_id"])
+        nullable_fields = set(
+            ["created_by_id", "updated_by_id", "timeout", "integration_id"]
+        )
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
@@ -311,6 +319,8 @@ class TypescriptTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[
         GetEvalResponseBodyEvalsResponse200ApplicationJSON7OutputType
@@ -348,6 +358,9 @@ class Typescript(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[
@@ -368,11 +381,12 @@ class Typescript(BaseModel):
                 "created_by_id",
                 "updated_by_id",
                 "project_id",
+                "timeout",
                 "guardrail_config",
                 "output_type",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "timeout"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
@@ -479,6 +493,8 @@ class ResponseBodyPythonTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[
         GetEvalResponseBodyEvalsResponse200ApplicationJSONOutputType
@@ -515,6 +531,9 @@ class ResponseBodyPython(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[
@@ -534,11 +553,12 @@ class ResponseBodyPython(BaseModel):
                 "created_by_id",
                 "updated_by_id",
                 "project_id",
+                "timeout",
                 "guardrail_config",
                 "output_type",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "timeout"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
@@ -657,6 +677,8 @@ class GetEvalResponseBodyHTTPTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[GetEvalResponseBodyEvalsResponse200OutputType]
     r"""The type of output expected from the evaluator"""
@@ -698,6 +720,9 @@ class GetEvalResponseBodyHTTP(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[GetEvalResponseBodyEvalsResponse200OutputType] = None
@@ -716,11 +741,12 @@ class GetEvalResponseBodyHTTP(BaseModel):
                 "created_by_id",
                 "updated_by_id",
                 "project_id",
+                "timeout",
                 "guardrail_config",
                 "output_type",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "timeout"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
@@ -824,6 +850,8 @@ class JSONTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[GetEvalResponseBodyEvalsResponseOutputType]
 
@@ -858,6 +886,9 @@ class JSON(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[GetEvalResponseBodyEvalsResponseOutputType] = None
@@ -875,11 +906,12 @@ class JSON(BaseModel):
                 "created_by_id",
                 "updated_by_id",
                 "project_id",
+                "timeout",
                 "guardrail_config",
                 "output_type",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "timeout"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
@@ -1043,6 +1075,8 @@ class RagasTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[GetEvalResponseBodyEvalsOutputType]
 
@@ -1079,6 +1113,9 @@ class Ragas(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[GetEvalResponseBodyEvalsOutputType] = None
@@ -1096,11 +1133,12 @@ class Ragas(BaseModel):
                 "created_by_id",
                 "updated_by_id",
                 "project_id",
+                "timeout",
                 "guardrail_config",
                 "output_type",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "timeout"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
@@ -1730,6 +1768,8 @@ class GetEvalResponseBodyFunctionTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
 
 
@@ -1765,6 +1805,9 @@ class GetEvalResponseBodyFunction(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     @model_serializer(mode="wrap")
@@ -1780,10 +1823,11 @@ class GetEvalResponseBodyFunction(BaseModel):
                 "created_by_id",
                 "updated_by_id",
                 "project_id",
+                "timeout",
                 "guardrail_config",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "timeout"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
@@ -2687,6 +2731,8 @@ class ResponseBodyLLMTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[ResponseBodyOutputType]
     r"""The type of output expected from the evaluator"""
@@ -2731,6 +2777,9 @@ class ResponseBodyLLM(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[ResponseBodyOutputType] = None
@@ -2763,6 +2812,7 @@ class ResponseBodyLLM(BaseModel):
                 "created_by_id",
                 "updated_by_id",
                 "project_id",
+                "timeout",
                 "guardrail_config",
                 "output_type",
                 "mode",
@@ -2778,6 +2828,7 @@ class ResponseBodyLLM(BaseModel):
             [
                 "created_by_id",
                 "updated_by_id",
+                "timeout",
                 "mode",
                 "repetitions",
                 "jury",
