@@ -5099,3 +5099,13 @@ Based on:
 - [python v4.17.25] .
 ### Releases
 - [PyPI v4.17.25] https://pypi.org/project/orq-ai-sdk/4.17.25 - .
+
+## 2026-11-06 12:48:01
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.806.0 (2.956.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.26] .
+### Releases
+- [PyPI v4.17.26] https://pypi.org/project/orq-ai-sdk/4.17.26 - .
