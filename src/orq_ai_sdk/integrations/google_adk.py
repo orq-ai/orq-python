@@ -20,14 +20,18 @@ def instrument_google_adk(*, tracer_provider: TracerProvider | None = None) -> N
         raise RuntimeError("Google ADK integration requires Python 3.11 or later.")
 
     try:
-        from openinference.instrumentation.google_adk import GoogleADKInstrumentor
+        from openinference.instrumentation.google_adk import (  # pylint: disable=import-outside-toplevel
+            GoogleADKInstrumentor,
+        )
     except ImportError as exc:
         raise ImportError(
             "Google ADK tracing requires the optional integration: "
             "pip install 'orq-ai-sdk[google-adk]'"
         ) from exc
 
-    from orq_ai_sdk.traced.http_propagation import install_http_propagation
+    from orq_ai_sdk.traced.http_propagation import (  # pylint: disable=import-outside-toplevel
+        install_http_propagation,
+    )
 
     instrumentor = GoogleADKInstrumentor()
     if not instrumentor.is_instrumented_by_opentelemetry:

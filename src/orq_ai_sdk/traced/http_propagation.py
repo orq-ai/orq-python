@@ -28,8 +28,8 @@ def install_http_propagation(*, otel_context: bool = False) -> None:
 def _active_headers() -> tuple[dict[str, str], bool]:
     if _OTEL_CONTEXT:
         try:
-            from opentelemetry import trace
-            from opentelemetry.trace.propagation.tracecontext import (
+            from opentelemetry import trace  # pylint: disable=import-outside-toplevel
+            from opentelemetry.trace.propagation.tracecontext import (  # pylint: disable=import-outside-toplevel
                 TraceContextTextMapPropagator,
             )
 
@@ -106,7 +106,7 @@ def _patch_httpx(module_name: str) -> None:
 
 def _patch_requests() -> None:
     try:
-        import requests
+        import requests  # pylint: disable=import-outside-toplevel
     except ImportError:
         return
 
@@ -122,14 +122,14 @@ def _patch_requests() -> None:
 
 def _patch_aiohttp() -> None:
     try:
-        import aiohttp
-        from multidict import CIMultiDict
+        import aiohttp  # pylint: disable=import-outside-toplevel
+        from multidict import CIMultiDict  # pylint: disable=import-outside-toplevel
     except ImportError:
         return
 
     def wrap_request(original: Callable[..., Any]) -> Callable[..., Any]:
         async def request(self: Any, *args: Any, **kwargs: Any) -> Any:
-            headers = CIMultiDict(self.headers)
+            headers: CIMultiDict[str] = CIMultiDict(self.headers)
             headers.update(kwargs.get("headers") or {})
             _inject(headers)
             kwargs["headers"] = headers
