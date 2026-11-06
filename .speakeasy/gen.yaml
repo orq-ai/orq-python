@@ -55,19 +55,29 @@ python:
   compileCommands:
     - - uv
       - lock
+      - --python
+      - "3.12"
     - - uv
       - run
+      - --python
+      - "3.12"
       - python
       - scripts/prepare_readme.py
     - - uv
       - sync
+      - --python
+      - "3.12"
       - --dev
     - - uv
       - run
+      - --python
+      - "3.12"
       - python
       - scripts/apply_patches.py
     - - uv
       - run
+      - --python
+      - "3.12"
       - python
       - -m
       - compileall
@@ -75,12 +85,16 @@ python:
       - .
     - - uv
       - run
+      - --python
+      - "3.12"
       - python
       - -m
       - mypy
       - src/orq_ai_sdk
     - - uv
       - run
+      - --python
+      - "3.12"
       - python
       - -m
       - pylint
@@ -90,6 +104,8 @@ python:
       - NODE_OPTIONS=--max-old-space-size=8192
       - uv
       - run
+      - --python
+      - "3.12"
       - python
       - -m
       - pyright
