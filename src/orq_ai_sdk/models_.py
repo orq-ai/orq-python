@@ -1352,7 +1352,7 @@ class Models(BaseSDK):
     ) -> models.ModelAzureFoundryDeploymentsResponseBody:
         r"""List Azure Foundry deployments under a resource
 
-        Lists Azure Foundry deployments under the given base_url and merges each entry with the matching Orq model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
+        Lists Azure Foundry deployments under the given base_url and merges each entry with the matching model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
 
         :param api_key:
         :param base_url:
@@ -1469,7 +1469,7 @@ class Models(BaseSDK):
     ) -> models.ModelAzureFoundryDeploymentsResponseBody:
         r"""List Azure Foundry deployments under a resource
 
-        Lists Azure Foundry deployments under the given base_url and merges each entry with the matching Orq model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
+        Lists Azure Foundry deployments under the given base_url and merges each entry with the matching model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
 
         :param api_key:
         :param base_url:
@@ -2000,7 +2000,7 @@ class Models(BaseSDK):
     ) -> models.ModelCreateOpenAILikeResponseBody:
         r"""Create OpenAI-compatible custom model
 
-        Creates a custom model backed by any OpenAI-compatible endpoint. The handler probes the target API with the supplied credentials before persisting the model.
+        Creates a custom model backed by any OpenAI-compatible endpoint. The platform calls the target API with the supplied credentials before saving the model.
 
         :param api_key:
         :param base_url:
@@ -2171,7 +2171,7 @@ class Models(BaseSDK):
     ) -> models.ModelCreateOpenAILikeResponseBody:
         r"""Create OpenAI-compatible custom model
 
-        Creates a custom model backed by any OpenAI-compatible endpoint. The handler probes the target API with the supplied credentials before persisting the model.
+        Creates a custom model backed by any OpenAI-compatible endpoint. The platform calls the target API with the supplied credentials before saving the model.
 
         :param api_key:
         :param base_url:

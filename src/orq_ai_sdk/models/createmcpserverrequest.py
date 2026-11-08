@@ -3,6 +3,10 @@
 from __future__ import annotations
 from .mcpauthconfig import McpAuthConfig, McpAuthConfigTypedDict
 from .mcpconnection import McpConnection, McpConnectionTypedDict
+from .mcpopenapiconfig_input import (
+    McpOpenAPIConfigInput,
+    McpOpenAPIConfigInputTypedDict,
+)
 from .mcptoolexposure import McpToolExposure, McpToolExposureTypedDict
 from .sharing import Sharing, SharingTypedDict
 from orq_ai_sdk.types import (
@@ -32,6 +36,8 @@ class CreateMcpServerRequestTypedDict(TypedDict):
     r"""Free-form note about what this server is for."""
     sharing: NotRequired[SharingTypedDict]
     r"""Which projects in the workspace may use this server. Defaults to every project."""
+    openapi: NotRequired[McpOpenAPIConfigInputTypedDict]
+    r"""Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`."""
 
 
 class CreateMcpServerRequest(BaseModel):
@@ -56,12 +62,15 @@ class CreateMcpServerRequest(BaseModel):
     sharing: Optional[Sharing] = None
     r"""Which projects in the workspace may use this server. Defaults to every project."""
 
+    openapi: Optional[McpOpenAPIConfigInput] = None
+    r"""Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["description", "sharing"])
+        optional_fields = set(["description", "sharing", "openapi"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

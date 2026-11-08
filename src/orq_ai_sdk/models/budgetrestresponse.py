@@ -37,7 +37,7 @@ class BudgetRestResponseTypedDict(TypedDict):
     limits: BudgetLimitsRestResponseTypedDict
     r"""BudgetLimits is the per-period spend and token ceiling. At least one
     of `amount`, `token_limit`, or RateLimit.requests_per_minute MUST be
-    set on a Budget; that invariant is enforced by the handler.
+    set on a Budget; the API rejects a budget that sets none of the three.
     """
     created_at: datetime
     updated_at: datetime
@@ -79,7 +79,7 @@ class BudgetRestResponse(BaseModel):
     limits: BudgetLimitsRestResponse
     r"""BudgetLimits is the per-period spend and token ceiling. At least one
     of `amount`, `token_limit`, or RateLimit.requests_per_minute MUST be
-    set on a Budget; that invariant is enforced by the handler.
+    set on a Budget; the API rejects a budget that sets none of the three.
     """
 
     created_at: Annotated[datetime, pydantic.Field(alias="createdAt")]

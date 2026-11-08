@@ -1,0 +1,10 @@
+# McpOpenAPIConfigInput
+
+
+## Fields
+
+| Field                                                                                 | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `document`                                                                            | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | OpenAPI 3.x document as JSON or YAML; accepted on write and never stored or returned. |
+| `document_url`                                                                        | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | URL the document is fetched from; `:sync` fetches it again.                           |
+| `operations`                                                                          | List[*str*]                                                                           | :heavy_minus_sign:                                                                    | Tool names of the operations to expose; empty exposes every operation.                |

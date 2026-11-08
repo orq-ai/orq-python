@@ -20,6 +20,8 @@ class McpToolExposureTypedDict(TypedDict):
     r"""Keeps only the tools the upstream annotates as read-only."""
     tool_ids: NotRequired[List[str]]
     r"""`McpTool.id` values to expose when mode is SELECTED; a tool renamed upstream gets a new id on the next sync."""
+    excluded_tool_ids: NotRequired[List[str]]
+    r"""`McpTool.id` values deliberately left unexposed when mode is SELECTED; an active tool in neither list is new to this selection."""
 
 
 class McpToolExposure(BaseModel):
@@ -31,12 +33,15 @@ class McpToolExposure(BaseModel):
     tool_ids: Optional[List[str]] = None
     r"""`McpTool.id` values to expose when mode is SELECTED; a tool renamed upstream gets a new id on the next sync."""
 
+    excluded_tool_ids: Optional[List[str]] = None
+    r"""`McpTool.id` values deliberately left unexposed when mode is SELECTED; an active tool in neither list is new to this selection."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["read_only", "tool_ids"])
+        optional_fields = set(["read_only", "tool_ids", "excluded_tool_ids"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

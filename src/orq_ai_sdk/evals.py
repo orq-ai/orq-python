@@ -931,6 +931,7 @@ class Evals(BaseSDK):
         headers: Optional[Mapping[str, str]] = None,
         payload: Optional[Mapping[str, Any]] = None,
         code: Optional[str] = None,
+        timeout: OptionalNullable[int] = UNSET,
         guardrail_config: Optional[Any] = None,
         version_increment: Optional[models.UpdateEvalVersionIncrement] = None,
         version_description: Optional[str] = None,
@@ -964,6 +965,7 @@ class Evals(BaseSDK):
         :param headers:
         :param payload:
         :param code:
+        :param timeout: Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000.
         :param guardrail_config:
         :param version_increment:
         :param version_description:
@@ -1011,6 +1013,7 @@ class Evals(BaseSDK):
                 headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
                 payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
                 code=code,
+                timeout=timeout,
                 guardrail_config=guardrail_config,
                 version_increment=version_increment,
                 version_description=version_description,
@@ -1124,6 +1127,7 @@ class Evals(BaseSDK):
         headers: Optional[Mapping[str, str]] = None,
         payload: Optional[Mapping[str, Any]] = None,
         code: Optional[str] = None,
+        timeout: OptionalNullable[int] = UNSET,
         guardrail_config: Optional[Any] = None,
         version_increment: Optional[models.UpdateEvalVersionIncrement] = None,
         version_description: Optional[str] = None,
@@ -1157,6 +1161,7 @@ class Evals(BaseSDK):
         :param headers:
         :param payload:
         :param code:
+        :param timeout: Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000.
         :param guardrail_config:
         :param version_increment:
         :param version_description:
@@ -1204,6 +1209,7 @@ class Evals(BaseSDK):
                 headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
                 payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
                 code=code,
+                timeout=timeout,
                 guardrail_config=guardrail_config,
                 version_increment=version_increment,
                 version_description=version_description,

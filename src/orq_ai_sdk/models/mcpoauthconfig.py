@@ -14,19 +14,31 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class McpOAuthConfigTypedDict(TypedDict):
+    r"""McpOAuthConfig is the OAuth client orq presents to the upstream authorization
+    server for OAUTH_CLIENT_CREDENTIALS, PER_USER_OAUTH and ENTERPRISE_MANAGED.
+    """
+
     client_id: NotRequired[str]
     r"""OAuth client identifier presented to the upstream authorization server."""
     client_secret: NotRequired[str]
     r"""OAuth client secret; accepted on write and never returned."""
     token_url: NotRequired[str]
-    r"""Token endpoint the gateway calls to mint upstream access tokens."""
+    r"""Token endpoint for OAUTH_CLIENT_CREDENTIALS; PER_USER_OAUTH and ENTERPRISE_MANAGED discover it from `resource`."""
     scopes: NotRequired[List[str]]
     r"""Scopes requested when minting upstream access tokens."""
     masked_value: NotRequired[str]
     r"""Redacted preview of `client_secret`, returned in its place."""
+    issuer: NotRequired[str]
+    r"""Exact authorization-server issuer; pins discovery for PER_USER_OAUTH and ENTERPRISE_MANAGED."""
+    resource: NotRequired[str]
+    r"""Protected resource identifier; defaults to the upstream connection URL."""
 
 
 class McpOAuthConfig(BaseModel):
+    r"""McpOAuthConfig is the OAuth client orq presents to the upstream authorization
+    server for OAUTH_CLIENT_CREDENTIALS, PER_USER_OAUTH and ENTERPRISE_MANAGED.
+    """
+
     client_id: Optional[str] = None
     r"""OAuth client identifier presented to the upstream authorization server."""
 
@@ -34,7 +46,7 @@ class McpOAuthConfig(BaseModel):
     r"""OAuth client secret; accepted on write and never returned."""
 
     token_url: Optional[str] = None
-    r"""Token endpoint the gateway calls to mint upstream access tokens."""
+    r"""Token endpoint for OAUTH_CLIENT_CREDENTIALS; PER_USER_OAUTH and ENTERPRISE_MANAGED discover it from `resource`."""
 
     scopes: Optional[List[str]] = None
     r"""Scopes requested when minting upstream access tokens."""
@@ -42,13 +54,27 @@ class McpOAuthConfig(BaseModel):
     masked_value: Optional[str] = None
     r"""Redacted preview of `client_secret`, returned in its place."""
 
+    issuer: Optional[str] = None
+    r"""Exact authorization-server issuer; pins discovery for PER_USER_OAUTH and ENTERPRISE_MANAGED."""
+
+    resource: Optional[str] = None
+    r"""Protected resource identifier; defaults to the upstream connection URL."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
         optional_fields = set(
-            ["client_id", "client_secret", "token_url", "scopes", "masked_value"]
+            [
+                "client_id",
+                "client_secret",
+                "token_url",
+                "scopes",
+                "masked_value",
+                "issuer",
+                "resource",
+            ]
         )
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()

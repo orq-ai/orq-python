@@ -16,6 +16,14 @@ from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
+class RuleAttributesTypedDict(TypedDict):
+    pass
+
+
+class RuleAttributes(BaseModel):
+    pass
+
+
 class SpanSummaryTypedDict(TypedDict):
     object: NotRequired[str]
     trace_id: NotRequired[str]
@@ -36,14 +44,14 @@ class SpanSummaryTypedDict(TypedDict):
     level: NotRequired[int]
     has_children: NotRequired[bool]
     trace_framework: NotRequired[str]
-    r"""Row badge inputs, so the tree does not need a detail fetch per span:
-    trace_framework is set on the trace root, leading_span_type where the
-    ingest marked one, guardrail_enabled on evaluator spans run as guardrails.
-    """
+    r"""Framework that produced the trace, recorded on the root span."""
     leading_span_type: NotRequired[str]
+    r"""Span type assigned at ingest when the trace has one."""
     guardrail_enabled: NotRequired[bool]
+    r"""Whether the span is an evaluator span running as a guardrail."""
     finish_reasons: NotRequired[List[str]]
     r"""Why the span's generation stopped, for example stop, length or content_filter."""
+    rule_attributes: NotRequired[RuleAttributesTypedDict]
 
 
 class SpanSummary(BaseModel):
@@ -84,17 +92,18 @@ class SpanSummary(BaseModel):
     has_children: Optional[bool] = None
 
     trace_framework: Optional[str] = None
-    r"""Row badge inputs, so the tree does not need a detail fetch per span:
-    trace_framework is set on the trace root, leading_span_type where the
-    ingest marked one, guardrail_enabled on evaluator spans run as guardrails.
-    """
+    r"""Framework that produced the trace, recorded on the root span."""
 
     leading_span_type: Optional[str] = None
+    r"""Span type assigned at ingest when the trace has one."""
 
     guardrail_enabled: Optional[bool] = None
+    r"""Whether the span is an evaluator span running as a guardrail."""
 
     finish_reasons: Optional[List[str]] = None
     r"""Why the span's generation stopped, for example stop, length or content_filter."""
+
+    rule_attributes: Optional[RuleAttributes] = None
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -125,6 +134,7 @@ class SpanSummary(BaseModel):
                 "leading_span_type",
                 "guardrail_enabled",
                 "finish_reasons",
+                "rule_attributes",
             ]
         )
         exclude_none = current_exclude_none()

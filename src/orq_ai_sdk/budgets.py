@@ -295,7 +295,7 @@ class Budgets(BaseSDK):
         :param is_active: Whether the budget should be active immediately. Defaults to true
             when omitted.
         :param expires_at: Optional expiration. When set in combination with is_active=true,
-            the value MUST be in the future; the handler rejects past values.
+            the value MUST be in the future; the API rejects a past value.
         :param alerts: Optional threshold notifications. Ids are assigned by the server, so
             `alerts[].id` must be omitted here; supplying one is rejected.
         :param retries: Override the default retry configuration for this method
@@ -369,10 +369,15 @@ class Budgets(BaseSDK):
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
+                            "label": "cURL",
+                            "lang": "curl",
+                            "source": 'curl -X POST \'https://my.orq.ai/v2/budgets\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "scope": { "workspace": {} },\n    "limits": { "period": "BUDGET_PERIOD_MONTHLY", "amount": 1000 }\n  }\'\n',
+                        },
+                        {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.budgets.create({ scope: { kind: "workspace" }, limits: { period: "MONTHLY", amount: 1000 } });\n',
-                        }
+                            "source": 'await orq.budgets.create({ scope: { workspace: {} }, limits: { period: "BUDGET_PERIOD_MONTHLY", amount: 1000 } });\n',
+                        },
                     ],
                 },
             ),
@@ -432,7 +437,7 @@ class Budgets(BaseSDK):
         :param is_active: Whether the budget should be active immediately. Defaults to true
             when omitted.
         :param expires_at: Optional expiration. When set in combination with is_active=true,
-            the value MUST be in the future; the handler rejects past values.
+            the value MUST be in the future; the API rejects a past value.
         :param alerts: Optional threshold notifications. Ids are assigned by the server, so
             `alerts[].id` must be omitted here; supplying one is rejected.
         :param retries: Override the default retry configuration for this method
@@ -506,10 +511,15 @@ class Budgets(BaseSDK):
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
+                            "label": "cURL",
+                            "lang": "curl",
+                            "source": 'curl -X POST \'https://my.orq.ai/v2/budgets\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "scope": { "workspace": {} },\n    "limits": { "period": "BUDGET_PERIOD_MONTHLY", "amount": 1000 }\n  }\'\n',
+                        },
+                        {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.budgets.create({ scope: { kind: "workspace" }, limits: { period: "MONTHLY", amount: 1000 } });\n',
-                        }
+                            "source": 'await orq.budgets.create({ scope: { workspace: {} }, limits: { period: "BUDGET_PERIOD_MONTHLY", amount: 1000 } });\n',
+                        },
                     ],
                 },
             ),

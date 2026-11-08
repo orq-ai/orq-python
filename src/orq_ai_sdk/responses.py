@@ -444,7 +444,7 @@ class Responses(BaseSDK):
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
         :param guardrails: Guardrails to evaluate the request against.
         :param identity:
-        :param include: Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide for the supported values.
+        :param include: Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide.
         :param input: Input to the model: a string or an array of input items (messages, files, etc.).
         :param instructions: System prompt / instructions for the model.
         :param integration_id: Integration ID used to resolve provider credentials for this request.
@@ -454,7 +454,7 @@ class Responses(BaseSDK):
         :param max_tool_calls: Maximum number of tool call rounds in the agentic loop.
         :param memory:
         :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400.
-        :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from the orq.ai platform.
+        :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from this platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
         :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response; response_healing, which repairs malformed JSON in non-streaming model output; and trace_scrubbing, which removes selected sensitive fields from exported traces.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
@@ -817,7 +817,7 @@ class Responses(BaseSDK):
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
         :param guardrails: Guardrails to evaluate the request against.
         :param identity:
-        :param include: Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide for the supported values.
+        :param include: Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide.
         :param input: Input to the model: a string or an array of input items (messages, files, etc.).
         :param instructions: System prompt / instructions for the model.
         :param integration_id: Integration ID used to resolve provider credentials for this request.
@@ -827,7 +827,7 @@ class Responses(BaseSDK):
         :param max_tool_calls: Maximum number of tool call rounds in the agentic loop.
         :param memory:
         :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400.
-        :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from the orq.ai platform.
+        :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from this platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
         :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response; response_healing, which repairs malformed JSON in non-streaming model output; and trace_scrubbing, which removes selected sensitive fields from exported traces.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.

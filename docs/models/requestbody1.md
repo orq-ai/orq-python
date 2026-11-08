@@ -1,13 +1,17 @@
 # RequestBody1
 
 
-## Fields
+## Supported Types
 
-| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `display_name`                                                           | *str*                                                                    | :heavy_check_mark:                                                       | Display name of the human review set                                     |
-| `description`                                                            | *Optional[str]*                                                          | :heavy_minus_sign:                                                       | Detailed description of the human review set                             |
-| `human_eval_ids`                                                         | List[*str*]                                                              | :heavy_check_mark:                                                       | Array of human review IDs to be applied to matching spans                |
-| `project_id`                                                             | *Optional[str]*                                                          | :heavy_minus_sign:                                                       | Optional project ID to scope this human review set to a specific project |
-| `filter_type`                                                            | [models.FilterType](../models/filtertype.md)                             | :heavy_check_mark:                                                       | N/A                                                                      |
-| `filter_values`                                                          | List[*str*]                                                              | :heavy_check_mark:                                                       | Array of span types to match                                             |
+### `models.Llm`
+
+```python
+value: models.Llm = /* values here */
+```
+
+### `models.LLMJury`
+
+```python
+value: models.LLMJury = /* values here */
+```
+

@@ -557,7 +557,7 @@ class CreateImageVariationRequestBodyTypedDict(TypedDict):
     model: str
     r"""The model to use for image generation."""
     image: NotRequired[CreateImageVariationImageTypedDict]
-    r"""The image to edit. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB."""
+    r"""The image to vary. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB."""
     n: NotRequired[Nullable[float]]
     r"""The number of images to generate. Must be between 1 and 10."""
     response_format: NotRequired[CreateImageVariationResponseFormat]
@@ -593,7 +593,7 @@ class CreateImageVariationRequestBody(BaseModel):
         Optional[CreateImageVariationImage],
         FieldMetadata(multipart=MultipartFormMetadata(file=True)),
     ] = None
-    r"""The image to edit. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB."""
+    r"""The image to vary. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB."""
 
     n: Annotated[OptionalNullable[float], FieldMetadata(multipart=True)] = 1.0
     r"""The number of images to generate. Must be between 1 and 10."""

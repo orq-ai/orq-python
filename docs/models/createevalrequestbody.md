@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.CreateEvalRequestBody1`
+### `models.RequestBody1`
 
 ```python
-value: models.CreateEvalRequestBody1 = /* values here */
+value: models.RequestBody1 = /* values here */
 ```
 
 ### `models.Python`

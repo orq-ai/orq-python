@@ -59,6 +59,8 @@ class EvaluatorResponseRagasTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
 
 
@@ -87,6 +89,9 @@ class EvaluatorResponseRagas(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     @model_serializer(mode="wrap")
@@ -95,9 +100,16 @@ class EvaluatorResponseRagas(BaseModel):
 
     def serialize_model(self, handler):
         optional_fields = set(
-            ["created", "updated", "updated_by_id", "project_id", "guardrail_config"]
+            [
+                "created",
+                "updated",
+                "updated_by_id",
+                "project_id",
+                "timeout",
+                "guardrail_config",
+            ]
         )
-        nullable_fields = set(["updated_by_id"])
+        nullable_fields = set(["updated_by_id", "timeout"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

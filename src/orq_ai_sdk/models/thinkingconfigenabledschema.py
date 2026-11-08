@@ -26,6 +26,14 @@ ThinkingLevel = Literal[
 r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
+Display = Literal[
+    "summarized",
+    "omitted",
+    "updates",
+]
+r"""Controls how Anthropic thinking content appears in the response. Use updates for progress summaries on supported models."""
+
+
 class ThinkingConfigEnabledSchemaTypedDict(TypedDict):
     r"""Enables the thinking mode capability"""
 
@@ -35,6 +43,8 @@ class ThinkingConfigEnabledSchemaTypedDict(TypedDict):
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
     thinking_level: NotRequired[ThinkingLevel]
     r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+    display: NotRequired[Display]
+    r"""Controls how Anthropic thinking content appears in the response. Use updates for progress summaries on supported models."""
 
 
 class ThinkingConfigEnabledSchema(BaseModel):
@@ -49,12 +59,15 @@ class ThinkingConfigEnabledSchema(BaseModel):
     thinking_level: Optional[ThinkingLevel] = None
     r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
+    display: Optional[Display] = None
+    r"""Controls how Anthropic thinking content appears in the response. Use updates for progress summaries on supported models."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["thinking_level"])
+        optional_fields = set(["thinking_level", "display"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

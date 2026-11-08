@@ -71,7 +71,7 @@ class Variations(BaseSDK):
         Create an Image Variation
 
         :param model: The model to use for image generation.
-        :param image: The image to edit. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB.
+        :param image: The image to vary. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB.
         :param n: The number of images to generate. Must be between 1 and 10.
         :param response_format: The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated.
         :param size: The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`.
@@ -264,7 +264,7 @@ class Variations(BaseSDK):
         Create an Image Variation
 
         :param model: The model to use for image generation.
-        :param image: The image to edit. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB.
+        :param image: The image to vary. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB.
         :param n: The number of images to generate. Must be between 1 and 10.
         :param response_format: The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated.
         :param size: The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`.

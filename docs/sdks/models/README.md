@@ -267,7 +267,7 @@ with Orq(
 
 ## azure_foundry_deployments
 
-Lists Azure Foundry deployments under the given base_url and merges each entry with the matching Orq model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
+Lists Azure Foundry deployments under the given base_url and merges each entry with the matching model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
 
 ### Example Usage
 
@@ -406,7 +406,7 @@ with Orq(
 
 ## create_openai_like
 
-Creates a custom model backed by any OpenAI-compatible endpoint. The handler probes the target API with the supplied credentials before persisting the model.
+Creates a custom model backed by any OpenAI-compatible endpoint. The platform calls the target API with the supplied credentials before saving the model.
 
 ### Example Usage
 

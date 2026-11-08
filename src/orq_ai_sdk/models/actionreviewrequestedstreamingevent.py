@@ -41,7 +41,6 @@ class Conditions(BaseModel):
 
 class ToolTypedDict(TypedDict):
     id: str
-    r"""The id of the resource"""
     action_type: str
     key: NotRequired[str]
     r"""Optional tool key for custom tools"""
@@ -62,7 +61,6 @@ class ToolTypedDict(TypedDict):
 
 class Tool(BaseModel):
     id: str
-    r"""The id of the resource"""
 
     action_type: str
 

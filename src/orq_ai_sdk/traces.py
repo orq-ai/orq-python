@@ -114,7 +114,11 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "aggregate"},
+                extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-list-fields": ["group", "metrics"],
+                    "x-cli-name": "aggregate",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -239,7 +243,11 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "aggregate"},
+                extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-list-fields": ["group", "metrics"],
+                    "x-cli-name": "aggregate",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

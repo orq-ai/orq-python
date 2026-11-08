@@ -1313,14 +1313,14 @@ CreateRouterResponseToolsResponsesRequestType = Literal[
     "orq:http",
     "orq:function",
 ]
-r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+r"""The platform tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
 
 
 class OrqAiToolTypedDict(TypedDict):
-    r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
+    r"""A platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
     type: CreateRouterResponseToolsResponsesRequestType
-    r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+    r"""The platform tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
     files: NotRequired[List[ToolsFilesTypedDict]]
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
     max_results: NotRequired[int]
@@ -1334,10 +1334,10 @@ class OrqAiToolTypedDict(TypedDict):
 
 
 class OrqAiTool(BaseModel):
-    r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
+    r"""A platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
     type: CreateRouterResponseToolsResponsesRequestType
-    r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+    r"""The platform tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
 
     files: Optional[List[ToolsFiles]] = None
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
@@ -1645,7 +1645,7 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""Guardrails to evaluate the request against."""
     identity: NotRequired[ResponseIdentityTypedDict]
     include: NotRequired[List[str]]
-    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide for the supported values."""
+    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide."""
     input: NotRequired[CreateRouterResponseInputTypedDict]
     r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
     instructions: NotRequired[str]
@@ -1662,7 +1662,7 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, str]]
     r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400."""
     model: NotRequired[str]
-    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from the orq.ai platform."""
+    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from this platform."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to allow parallel tool calls."""
     plugins: NotRequired[Nullable[List[PublicPluginTypedDict]]]
@@ -1742,7 +1742,7 @@ class CreateRouterResponseRequestBody(BaseModel):
     identity: Optional[ResponseIdentity] = None
 
     include: Optional[List[str]] = None
-    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide for the supported values."""
+    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide."""
 
     input: Optional[CreateRouterResponseInput] = None
     r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
@@ -1769,7 +1769,7 @@ class CreateRouterResponseRequestBody(BaseModel):
     r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400."""
 
     model: Optional[str] = None
-    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from the orq.ai platform."""
+    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from this platform."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to allow parallel tool calls."""
@@ -2007,8 +2007,6 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     frequency_penalty: float
     id: str
     incomplete_details: Nullable[IncompleteDetailsTypedDict]
-    input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
     instructions: Nullable[str]
     max_output_tokens: Nullable[int]
     max_tool_calls: Nullable[int]
@@ -2066,9 +2064,6 @@ class CreateRouterResponseResponseBody(BaseModel):
     id: str
 
     incomplete_details: Nullable[IncompleteDetails]
-
-    input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
 
     instructions: Nullable[str]
 
@@ -2154,7 +2149,6 @@ class CreateRouterResponseResponseBody(BaseModel):
                 "completed_at",
                 "error",
                 "incomplete_details",
-                "input",
                 "instructions",
                 "max_output_tokens",
                 "max_tool_calls",
