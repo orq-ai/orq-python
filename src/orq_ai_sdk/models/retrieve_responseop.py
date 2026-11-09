@@ -100,6 +100,8 @@ class RetrieveResponseResponseBodyTypedDict(TypedDict):
     frequency_penalty: float
     id: str
     incomplete_details: Nullable[IncompleteDetailsTypedDict]
+    input: Nullable[List[Any]]
+    r"""Always null. Retained for compatibility with older SDKs; input content is not returned."""
     instructions: Nullable[str]
     max_output_tokens: Nullable[int]
     max_tool_calls: Nullable[int]
@@ -157,6 +159,9 @@ class RetrieveResponseResponseBody(BaseModel):
     id: str
 
     incomplete_details: Nullable[IncompleteDetails]
+
+    input: Nullable[List[Any]]
+    r"""Always null. Retained for compatibility with older SDKs; input content is not returned."""
 
     instructions: Nullable[str]
 
@@ -242,6 +247,7 @@ class RetrieveResponseResponseBody(BaseModel):
                 "completed_at",
                 "error",
                 "incomplete_details",
+                "input",
                 "instructions",
                 "max_output_tokens",
                 "max_tool_calls",
