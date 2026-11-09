@@ -30,7 +30,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: 4.18.5
+  version: 4.18.6
   additionalDependencies:
     dev:
       aiohttp: '>=3.9.0,<4.0.0'
