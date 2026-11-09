@@ -867,3 +867,38 @@ def test_run_tool_loop_usage_cost_is_none_when_unreported():
 
 def _item(key, item):
     return item[key] if isinstance(item, dict) else getattr(item, key)
+
+
+def test_tool_loop_error_carries_the_partial_result_on_non_convergence():
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1", usage={"input_tokens": 4, "output_tokens": 2, "total_tokens": 6}),
+        _FakeResp([_FakeCall("add", '{"a": 2, "b": 2}', "c2")], "r2", usage={"input_tokens": 8, "output_tokens": 2, "total_tokens": 10}),
+    ])
+    with pytest.raises(ToolLoopError, match="after 1 rounds") as exc:
+        run_tool_loop(client, [_adder()], max_iterations=1, model="m", input="x")
+    partial = exc.value.result
+    assert partial is not None and partial.final.id == "r2"
+    assert [(r.call_id, r.output) for r in partial.tool_results] == [("c1", "2")]
+    assert [_item("type", o) for o in partial.output] == ["function_call", "function_call_output", "function_call"]
+    assert partial.usage == ToolLoopUsage(input_tokens=12, output_tokens=4, total_tokens=16)
+
+
+def test_tool_loop_error_keeps_tools_that_ran_before_a_failing_call():
+    # add has run (and had its side effects) before boom fails in the same round.
+    @tool
+    def boom(x: int) -> int:
+        """Always fails."""
+        raise ValueError("kaboom")
+
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 2}', "c1"), _FakeCall("boom", '{"x": 1}', "c2")], "r1"),
+    ])
+    with pytest.raises(ToolLoopError, match="raised while executing") as exc:
+        asyncio.run(run_tool_loop_async(client, [_adder(), boom], model="m", input="x"))
+    assert [(r.name, r.output) for r in exc.value.result.tool_results] == [("add", "3")]
+
+
+def test_tool_loop_error_result_is_none_before_any_response():
+    with pytest.raises(ToolLoopError) as exc:
+        run_tool_loop(_FakeClient([]), [_adder()], model="m", input="x", stream=True)
+    assert exc.value.result is None

@@ -431,11 +431,15 @@ class ToolLoopError(RuntimeError):
     """Raised by the tool loop on a bad tool call (unknown tool, malformed call,
     arguments that do not fit the tool, a tool that raised), a response that did not
     complete, or a loop that did not converge. A tool's own exception is chained as
-    ``__cause__``; ``response`` is the last response received, if any."""
+    ``__cause__``; ``response`` is the last response received, if any. ``result``
+    holds what the loop collected before failing (a :class:`ToolLoopResult` whose
+    ``final`` is that last response), or None if it failed before the first response.
+    Its ``tool_results`` include tools that already ran in the failing round."""
 
     def __init__(self, message: str, response: Any = None) -> None:
         super().__init__(message)
         self.response = response
+        self.result: ToolLoopResult | None = None
 
 
 def _item_field(item: Any, key: str) -> Any:
@@ -593,9 +597,11 @@ class _Transcript:
         self.tool_results: list[ToolCallResult] = []
         self._usage = {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0}
         self._cost: float | None = None
+        self.last: Any = None
 
     def record(self, response: Any) -> list[Any]:
         """Add a response's items and usage; return its pending function calls."""
+        self.last = response
         calls = _pending_function_calls(response)
         self.output.extend(_item_field(response, "output") or [])
         usage = _item_field(response, "usage")
@@ -609,8 +615,11 @@ class _Transcript:
 
     def execute(self, calls: list[Any], response: Any) -> list[dict[str, Any]]:
         """Run the calls and return the ``function_call_output`` items to resubmit."""
-        results = _execute_calls(calls, self._registry, response)
-        self.tool_results.extend(results)
+        results: list[ToolCallResult] = []
+        for call in calls:
+            # One at a time, so tools that ran before a failing call stay recorded.
+            results.extend(_execute_calls([call], self._registry, response))
+            self.tool_results.append(results[-1])
         items = [{"type": "function_call_output", "call_id": r.call_id, "output": r.output} for r in results]
         self.output.extend(items)
         return items
@@ -646,20 +655,25 @@ def run_tool_loop(
     # A free function, not a client method: this hand-written module survives Speakeasy regen.
     tool_list, registry, follow = _prepare_loop(tools, max_iterations, create_kwargs)
     transcript = _Transcript(registry)
-    response = client.responses.create(tools=tool_list, **create_kwargs)
-    for _ in range(max_iterations):
-        calls = transcript.record(response)
-        if not calls:
-            return transcript.result(response)
-        response = client.responses.create(
-            input=transcript.execute(calls, response),
-            previous_response_id=_item_field(response, "id"),
-            tools=tool_list,
-            **follow,
-        )
-    if transcript.record(response):
-        raise ToolLoopError(f"tool loop still calling tools after {max_iterations} rounds", response)
-    return transcript.result(response)
+    try:
+        response = client.responses.create(tools=tool_list, **create_kwargs)
+        for _ in range(max_iterations):
+            calls = transcript.record(response)
+            if not calls:
+                return transcript.result(response)
+            response = client.responses.create(
+                input=transcript.execute(calls, response),
+                previous_response_id=_item_field(response, "id"),
+                tools=tool_list,
+                **follow,
+            )
+        if transcript.record(response):
+            raise ToolLoopError(f"tool loop still calling tools after {max_iterations} rounds", response)
+        return transcript.result(response)
+    except ToolLoopError as exc:
+        if transcript.last is not None:
+            exc.result = transcript.result(transcript.last)
+        raise
 
 
 async def run_tool_loop_async(
@@ -675,20 +689,25 @@ async def run_tool_loop_async(
     """
     tool_list, registry, follow = _prepare_loop(tools, max_iterations, create_kwargs)
     transcript = _Transcript(registry)
-    response = await client.responses.create_async(tools=tool_list, **create_kwargs)
-    for _ in range(max_iterations):
-        calls = transcript.record(response)
-        if not calls:
-            return transcript.result(response)
-        response = await client.responses.create_async(
-            input=transcript.execute(calls, response),
-            previous_response_id=_item_field(response, "id"),
-            tools=tool_list,
-            **follow,
-        )
-    if transcript.record(response):
-        raise ToolLoopError(f"tool loop still calling tools after {max_iterations} rounds", response)
-    return transcript.result(response)
+    try:
+        response = await client.responses.create_async(tools=tool_list, **create_kwargs)
+        for _ in range(max_iterations):
+            calls = transcript.record(response)
+            if not calls:
+                return transcript.result(response)
+            response = await client.responses.create_async(
+                input=transcript.execute(calls, response),
+                previous_response_id=_item_field(response, "id"),
+                tools=tool_list,
+                **follow,
+            )
+        if transcript.record(response):
+            raise ToolLoopError(f"tool loop still calling tools after {max_iterations} rounds", response)
+        return transcript.result(response)
+    except ToolLoopError as exc:
+        if transcript.last is not None:
+            exc.result = transcript.result(transcript.last)
+        raise
 
 
 __all__ = [
