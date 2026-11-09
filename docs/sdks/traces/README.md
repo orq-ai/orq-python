@@ -29,7 +29,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.aggregate()
@@ -61,6 +61,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_facets
@@ -76,7 +77,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.list_facets()
@@ -100,6 +101,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_facet_values
@@ -115,7 +117,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.list_facet_values(field="<value>")
@@ -144,6 +146,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 400, 401               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_fields
@@ -159,7 +162,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.list_fields()
@@ -183,6 +186,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_filters
@@ -198,7 +202,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.list_filters()
@@ -223,6 +227,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## query
@@ -239,7 +244,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.query(from_=parse_datetime("2025-02-10T08:55:05.233Z"), to=parse_datetime("2024-12-12T15:00:42.128Z"), oql="<value>")
@@ -268,6 +273,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## search
@@ -284,7 +290,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.search(from_=parse_datetime("2025-05-02T22:00:26.030Z"), to=parse_datetime("2025-09-17T16:33:38.335Z"))
@@ -316,6 +322,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
@@ -331,7 +338,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.get(trace_id="<id>")
@@ -356,6 +363,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_conversation
@@ -371,7 +379,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.get_conversation(trace_id="<id>")
@@ -397,6 +405,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_spans
@@ -412,7 +421,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.list_spans(trace_id="<id>")
@@ -439,6 +448,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_span
@@ -454,7 +464,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.traces.get_span(trace_id="<id>", span_id="<id>")
@@ -466,11 +476,11 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `trace_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `span_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `trace_id`                                                           | *str*                                                                | :heavy_check_mark:                                                   | Optional: queue items predating trace_id capture only have the span. |
+| `span_id`                                                            | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `retries`                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)     | :heavy_minus_sign:                                                   | Configuration to override the default retry behavior of the client.  |
 
 ### Response
 
@@ -480,4 +490,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

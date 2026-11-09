@@ -23,7 +23,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.projects.list()
@@ -50,6 +50,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
@@ -65,7 +66,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.projects.create(name="<value>")
@@ -92,6 +93,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
@@ -107,7 +109,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.projects.get(project_id="<id>")
@@ -132,6 +134,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 403               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -147,7 +150,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.projects.delete(project_id="<id>")
@@ -172,6 +175,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
@@ -187,7 +191,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.projects.update(project_id="<value>")
@@ -215,4 +219,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

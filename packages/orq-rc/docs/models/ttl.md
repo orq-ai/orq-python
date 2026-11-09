@@ -1,5 +1,7 @@
 # TTL
 
+Minimum cache lifetime. Only 30m is supported by native OpenAI Decisions.
+
 ## Example Usage
 
 ```python

@@ -2,16 +2,84 @@
 
 from __future__ import annotations
 from .mcpauthtype import McpAuthType
-from .mcpenterpriseauthconfig import (
-    McpEnterpriseAuthConfig,
-    McpEnterpriseAuthConfigTypedDict,
-)
 from .mcpheadersecret import McpHeaderSecret, McpHeaderSecretTypedDict
 from .mcpoauthconfig import McpOAuthConfig, McpOAuthConfigTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
+import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Annotated, NotRequired, TypedDict, deprecated
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
+class EnterpriseTypedDict(TypedDict):
+    r"""Superseded by `oauth` for ENTERPRISE_MANAGED; accepted on write and mirrored on read."""
+
+    resource: NotRequired[str]
+    r"""RFC 9728 resource identifier the tokens are bound to; defaults to the connection URL."""
+    client_id: NotRequired[str]
+    r"""OAuth client identifier registered at the upstream authorization server."""
+    client_secret: NotRequired[str]
+    r"""OAuth client secret; accepted on write and never returned."""
+    masked_value: NotRequired[str]
+    r"""Redacted preview of `client_secret`, returned in its place."""
+    scopes: NotRequired[List[str]]
+    r"""Scopes requested when redeeming the identity assertion grant."""
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
+class Enterprise(BaseModel):
+    r"""Superseded by `oauth` for ENTERPRISE_MANAGED; accepted on write and mirrored on read."""
+
+    resource: Optional[str] = None
+    r"""RFC 9728 resource identifier the tokens are bound to; defaults to the connection URL."""
+
+    client_id: Optional[str] = None
+    r"""OAuth client identifier registered at the upstream authorization server."""
+
+    client_secret: Optional[str] = None
+    r"""OAuth client secret; accepted on write and never returned."""
+
+    masked_value: Optional[str] = None
+    r"""Redacted preview of `client_secret`, returned in its place."""
+
+    scopes: Optional[List[str]] = None
+    r"""Scopes requested when redeeming the identity assertion grant."""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["resource", "client_id", "client_secret", "masked_value", "scopes"]
+        )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class McpAuthConfigTypedDict(TypedDict):
@@ -19,9 +87,9 @@ class McpAuthConfigTypedDict(TypedDict):
     static_headers: NotRequired[List[McpHeaderSecretTypedDict]]
     r"""Headers sent upstream on every request; at least one entry when type is STATIC_HEADERS."""
     oauth: NotRequired[McpOAuthConfigTypedDict]
-    r"""OAuth client credentials the gateway presents to the upstream authorization server; set when type is OAUTH_CLIENT_CREDENTIALS."""
-    enterprise: NotRequired[McpEnterpriseAuthConfigTypedDict]
-    r"""Client for the upstream authorization server; set when type is ENTERPRISE_MANAGED."""
+    r"""OAuth client for the upstream authorization server; set when type is OAUTH_CLIENT_CREDENTIALS, PER_USER_OAUTH or ENTERPRISE_MANAGED."""
+    enterprise: NotRequired[EnterpriseTypedDict]
+    r"""Superseded by `oauth` for ENTERPRISE_MANAGED; accepted on write and mirrored on read."""
 
 
 class McpAuthConfig(BaseModel):
@@ -31,19 +99,31 @@ class McpAuthConfig(BaseModel):
     r"""Headers sent upstream on every request; at least one entry when type is STATIC_HEADERS."""
 
     oauth: Optional[McpOAuthConfig] = None
-    r"""OAuth client credentials the gateway presents to the upstream authorization server; set when type is OAUTH_CLIENT_CREDENTIALS."""
+    r"""OAuth client for the upstream authorization server; set when type is OAUTH_CLIENT_CREDENTIALS, PER_USER_OAUTH or ENTERPRISE_MANAGED."""
 
-    enterprise: Optional[McpEnterpriseAuthConfig] = None
-    r"""Client for the upstream authorization server; set when type is ENTERPRISE_MANAGED."""
+    enterprise: Annotated[
+        Optional[Enterprise],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""Superseded by `oauth` for ENTERPRISE_MANAGED; accepted on write and mirrored on read."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["static_headers", "oauth", "enterprise"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

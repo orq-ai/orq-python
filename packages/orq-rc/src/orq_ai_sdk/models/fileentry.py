@@ -16,9 +16,9 @@ r"""Kind of entry"""
 
 
 class FileEntryTypedDict(TypedDict):
-    r"""The file content messages below mirror the tools-pod JSON contract one for
-    one. `path` is always relative to the file system root; an absolute path or a
-    `..` segment is refused rather than clamped.
+    r"""The file content messages below share one shape. `path` is always relative
+    to the file system root; an absolute path or a `..` segment is refused rather
+    than clamped.
     """
 
     path: str
@@ -34,9 +34,9 @@ class FileEntryTypedDict(TypedDict):
 
 
 class FileEntry(BaseModel):
-    r"""The file content messages below mirror the tools-pod JSON contract one for
-    one. `path` is always relative to the file system root; an absolute path or a
-    `..` segment is refused rather than clamped.
+    r"""The file content messages below share one shape. `path` is always relative
+    to the file system root; an absolute path or a `..` segment is refused rather
+    than clamped.
     """
 
     path: str

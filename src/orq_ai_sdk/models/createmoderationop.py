@@ -4,7 +4,14 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional, Union
@@ -24,7 +31,7 @@ class CreateModerationRequestBodyTypedDict(TypedDict):
 
     input: InputTypedDict
     r"""Input (or inputs) to classify. Can be a single string, an array of strings, or an array of multi-modal input objects similar to other models."""
-    model: str
+    model: NotRequired[str]
     r"""The content moderation model you would like to use. Defaults to omni-moderation-latest"""
 
 
@@ -34,15 +41,38 @@ class CreateModerationRequestBody(BaseModel):
     input: Input
     r"""Input (or inputs) to classify. Can be a single string, an array of strings, or an array of multi-modal input objects similar to other models."""
 
-    model: str
+    model: Optional[str] = None
     r"""The content moderation model you would like to use. Defaults to omni-moderation-latest"""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["model"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class CreateModerationErrorTypedDict(TypedDict):
     message: str
     type: str
     param: Nullable[str]
-    code: str
+    code: Nullable[str]
 
 
 class CreateModerationError(BaseModel):
@@ -52,15 +82,22 @@ class CreateModerationError(BaseModel):
 
     param: Nullable[str]
 
-    code: str
+    code: Nullable[str]
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -473,13 +510,20 @@ class Results1(BaseModel):
     r"""A list of the categories along with the input type(s) that the score applies to"""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["category_applied_input_types"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

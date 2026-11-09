@@ -6,7 +6,13 @@ from .routingrulemodelsconfig import (
     RoutingRuleModelsConfigTypedDict,
 )
 from .signalscheck import SignalsCheck, SignalsCheckTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -19,7 +25,7 @@ class RoutingRulePluginTypedDict(TypedDict):
     r"""Languages, regions and entity types are checked against the live
     pii-detection capabilities catalog when the rule is saved, not pinned
     here, so a language or region the detector gains becomes writable without
-    a proto change.
+    a future update.
     """
     entities: NotRequired[List[str]]
     r"""Entity types to redact. On their own a strict allowlist; alongside regions they add to the region coverage."""
@@ -42,7 +48,7 @@ class RoutingRulePlugin(BaseModel):
     r"""Languages, regions and entity types are checked against the live
     pii-detection capabilities catalog when the rule is saved, not pinned
     here, so a language or region the detector gains becomes writable without
-    a proto change.
+    a future update.
     """
 
     entities: Optional[List[str]] = None
@@ -65,6 +71,9 @@ class RoutingRulePlugin(BaseModel):
     checks: Optional[Dict[str, SignalsCheck]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -80,11 +89,15 @@ class RoutingRulePlugin(BaseModel):
                 "checks",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

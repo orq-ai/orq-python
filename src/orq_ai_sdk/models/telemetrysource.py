@@ -5,7 +5,6 @@ from typing import Literal
 
 
 TelemetrySource = Literal[
-    "TELEMETRY_SOURCE_UNSPECIFIED",
     "TELEMETRY_SOURCE_TRACES",
     "TELEMETRY_SOURCE_METRICS",
     "TELEMETRY_SOURCE_LOGS",

@@ -5,7 +5,6 @@ from typing import Literal
 
 
 ThreadKind = Literal[
-    "THREAD_KIND_UNSPECIFIED",
     "THREAD_KIND_CONVERSATION",
     "THREAD_KIND_CODING_AGENT",
 ]

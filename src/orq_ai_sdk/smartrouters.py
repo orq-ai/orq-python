@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class SmartRouters(BaseSDK):
@@ -99,6 +99,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List Smart Routers",
@@ -110,7 +112,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.smartRouters.list({ limit: 25 });\n\nfor (const router of page.data) {\n  console.log(router.key, router.profile);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -118,8 +120,12 @@ class SmartRouters(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.ListSmartRoutersResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models_.ErrorResponseData, http_res)
+            raise models_.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -218,6 +224,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List Smart Routers",
@@ -229,7 +237,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.smartRouters.list({ limit: 25 });\n\nfor (const router of page.data) {\n  console.log(router.key, router.profile);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -237,8 +245,12 @@ class SmartRouters(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.ListSmartRoutersResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models_.ErrorResponseData, http_res)
+            raise models_.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -254,6 +266,12 @@ class SmartRouters(BaseSDK):
         key: str,
         models: Iterable[str],
         profile: models_.SmartRouterProfile,
+        session_affinity: Optional[
+            Union[
+                models_.SmartRouterSessionAffinity,
+                models_.SmartRouterSessionAffinityTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -266,6 +284,7 @@ class SmartRouters(BaseSDK):
         :param key: Unique key for the Smart Router within the workspace. Use lowercase letters, numbers, and hyphens.
         :param models: Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format.
         :param profile:
+        :param session_affinity:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -288,6 +307,9 @@ class SmartRouters(BaseSDK):
             key=key,
             models=utils.unmarshal(models, List[str]),
             profile=profile,
+            session_affinity=utils.get_pydantic_model(
+                session_affinity, Optional[models_.SmartRouterSessionAffinity]
+            ),
         )
 
         req = self._build_request(
@@ -329,6 +351,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create a Smart Router",
@@ -340,7 +364,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.create({\n  key: 'production-assistant',\n  models: ['anthropic/claude-opus-5', 'openai/gpt-5.4-mini'],\n  profile: 'SMART_ROUTER_PROFILE_QUALITY',\n});\n\nconsole.log(result.smartRouter.modelRef);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -348,8 +372,12 @@ class SmartRouters(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.CreateSmartRouterResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models_.ErrorResponseData, http_res)
+            raise models_.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -365,6 +393,12 @@ class SmartRouters(BaseSDK):
         key: str,
         models: Iterable[str],
         profile: models_.SmartRouterProfile,
+        session_affinity: Optional[
+            Union[
+                models_.SmartRouterSessionAffinity,
+                models_.SmartRouterSessionAffinityTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -377,6 +411,7 @@ class SmartRouters(BaseSDK):
         :param key: Unique key for the Smart Router within the workspace. Use lowercase letters, numbers, and hyphens.
         :param models: Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format.
         :param profile:
+        :param session_affinity:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -399,6 +434,9 @@ class SmartRouters(BaseSDK):
             key=key,
             models=utils.unmarshal(models, List[str]),
             profile=profile,
+            session_affinity=utils.get_pydantic_model(
+                session_affinity, Optional[models_.SmartRouterSessionAffinity]
+            ),
         )
 
         req = self._build_request_async(
@@ -440,6 +478,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create a Smart Router",
@@ -451,7 +491,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.create({\n  key: 'production-assistant',\n  models: ['anthropic/claude-opus-5', 'openai/gpt-5.4-mini'],\n  profile: 'SMART_ROUTER_PROFILE_QUALITY',\n});\n\nconsole.log(result.smartRouter.modelRef);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -459,8 +499,12 @@ class SmartRouters(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.CreateSmartRouterResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models_.ErrorResponseData, http_res)
+            raise models_.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -542,6 +586,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve a Smart Router",
@@ -553,7 +599,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.get({\n  smartRouterId: '019d-smart-router-id',\n});\n\nconsole.log(result.smartRouter.key);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -561,8 +607,12 @@ class SmartRouters(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.GetSmartRouterResponse, http_res)
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
+            response_data = unmarshal_json_response(models_.ErrorResponseData, http_res)
+            raise models_.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -644,6 +694,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve a Smart Router",
@@ -655,7 +707,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.get({\n  smartRouterId: '019d-smart-router-id',\n});\n\nconsole.log(result.smartRouter.key);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -663,8 +715,12 @@ class SmartRouters(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.GetSmartRouterResponse, http_res)
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
+            response_data = unmarshal_json_response(models_.ErrorResponseData, http_res)
+            raise models_.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -746,6 +802,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete a Smart Router",
@@ -757,7 +815,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.delete({\n  smartRouterId: '019d-smart-router-id',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -765,8 +823,12 @@ class SmartRouters(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.DeleteSmartRouterResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models_.ErrorResponseData, http_res)
+            raise models_.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -848,6 +910,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete a Smart Router",
@@ -859,7 +923,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.delete({\n  smartRouterId: '019d-smart-router-id',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -867,8 +931,12 @@ class SmartRouters(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.DeleteSmartRouterResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models_.ErrorResponseData, http_res)
+            raise models_.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -884,6 +952,12 @@ class SmartRouters(BaseSDK):
         smart_router_id: str,
         models: Optional[Iterable[str]] = None,
         profile: Optional[models_.SmartRouterProfile] = None,
+        session_affinity: Optional[
+            Union[
+                models_.SmartRouterSessionAffinity,
+                models_.SmartRouterSessionAffinityTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -891,11 +965,12 @@ class SmartRouters(BaseSDK):
     ) -> models_.UpdateSmartRouterResponse:
         r"""Update a Smart Router
 
-        Updates the model pool, routing profile, or both. Omitted fields retain their current values. The router key and model reference cannot be changed.
+        Updates the model pool, routing profile, session affinity, or any combination. Omitted fields retain their current values. The router key and model reference cannot be changed.
 
         :param smart_router_id:
         :param models: Replacement pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format. Omit to keep the current pool.
         :param profile:
+        :param session_affinity:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -919,6 +994,9 @@ class SmartRouters(BaseSDK):
             update_smart_router_request=models_.UpdateSmartRouterRequest(
                 models=utils.unmarshal(models, Optional[List[str]]),
                 profile=profile,
+                session_affinity=utils.get_pydantic_model(
+                    session_affinity, Optional[models_.SmartRouterSessionAffinity]
+                ),
             ),
         )
 
@@ -965,6 +1043,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update a Smart Router",
@@ -976,7 +1056,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.update(\n  { profile: 'SMART_ROUTER_PROFILE_COST' },\n  '019d-smart-router-id',\n);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -984,8 +1064,12 @@ class SmartRouters(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.UpdateSmartRouterResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models_.ErrorResponseData, http_res)
+            raise models_.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1001,6 +1085,12 @@ class SmartRouters(BaseSDK):
         smart_router_id: str,
         models: Optional[Iterable[str]] = None,
         profile: Optional[models_.SmartRouterProfile] = None,
+        session_affinity: Optional[
+            Union[
+                models_.SmartRouterSessionAffinity,
+                models_.SmartRouterSessionAffinityTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1008,11 +1098,12 @@ class SmartRouters(BaseSDK):
     ) -> models_.UpdateSmartRouterResponse:
         r"""Update a Smart Router
 
-        Updates the model pool, routing profile, or both. Omitted fields retain their current values. The router key and model reference cannot be changed.
+        Updates the model pool, routing profile, session affinity, or any combination. Omitted fields retain their current values. The router key and model reference cannot be changed.
 
         :param smart_router_id:
         :param models: Replacement pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format. Omit to keep the current pool.
         :param profile:
+        :param session_affinity:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1036,6 +1127,9 @@ class SmartRouters(BaseSDK):
             update_smart_router_request=models_.UpdateSmartRouterRequest(
                 models=utils.unmarshal(models, Optional[List[str]]),
                 profile=profile,
+                session_affinity=utils.get_pydantic_model(
+                    session_affinity, Optional[models_.SmartRouterSessionAffinity]
+                ),
             ),
         )
 
@@ -1082,6 +1176,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update a Smart Router",
@@ -1093,7 +1189,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.update(\n  { profile: 'SMART_ROUTER_PROFILE_COST' },\n  '019d-smart-router-id',\n);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1101,8 +1197,12 @@ class SmartRouters(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.UpdateSmartRouterResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models_.ErrorResponseData, http_res)
+            raise models_.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)

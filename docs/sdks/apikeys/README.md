@@ -24,7 +24,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.api_keys.list()
@@ -65,7 +65,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.api_keys.create(name="<value>")
@@ -112,7 +112,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.api_keys.list_capabilities()
@@ -136,6 +136,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -151,7 +152,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.api_keys.delete(api_key_id="<id>")
@@ -186,7 +187,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.api_keys.get(api_key_id="<id>")
@@ -226,7 +227,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.api_keys.update(api_key_id="<value>")

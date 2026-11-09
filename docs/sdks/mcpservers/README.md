@@ -25,7 +25,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_servers.list()
@@ -53,6 +53,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
@@ -68,7 +69,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_servers.create(key="<key>", display_name="Felton.Daugherty-Reynolds", connection={
@@ -83,7 +84,7 @@ with Orq(
             },
         ],
     }, default_tool_exposure={
-        "mode": "MCP_TOOL_EXPOSURE_MODE_UNSPECIFIED",
+        "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",
     })
 
     # Handle response
@@ -102,6 +103,7 @@ with Orq(
 | `default_tool_exposure`                                                                                                                             | [models.McpToolExposure](../../models/mcptoolexposure.md)                                                                                           | :heavy_check_mark:                                                                                                                                  | Fallback exposure used by any gateway link that does not set its own.                                                                               |                                                                                                                                                     |
 | `description`                                                                                                                                       | *Optional[str]*                                                                                                                                     | :heavy_minus_sign:                                                                                                                                  | Free-form note about what this server is for.                                                                                                       |                                                                                                                                                     |
 | `sharing`                                                                                                                                           | [Optional[models.Sharing]](../../models/sharing.md)                                                                                                 | :heavy_minus_sign:                                                                                                                                  | Which projects in the workspace may use this server. Defaults to every project.                                                                     |                                                                                                                                                     |
+| `openapi`                                                                                                                                           | [Optional[models.McpOpenAPIConfigInput]](../../models/mcpopenapiconfiginput.md)                                                                     | :heavy_minus_sign:                                                                                                                                  | Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`.                                                 |                                                                                                                                                     |
 | `retries`                                                                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                    | :heavy_minus_sign:                                                                                                                                  | Configuration to override the default retry behavior of the client.                                                                                 |                                                                                                                                                     |
 
 ### Response
@@ -112,6 +114,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## retrieve
@@ -127,7 +130,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_servers.retrieve(id="<id>")
@@ -152,6 +155,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -167,7 +171,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_servers.delete(id="<id>")
@@ -192,6 +196,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
@@ -207,7 +212,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_servers.update(id="<id>", connection={
@@ -242,6 +247,7 @@ with Orq(
 | `auth`                                                                                                                                                                                                             | [Optional[models.McpAuthConfig]](../../models/mcpauthconfig.md)                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                 | Credentials the gateway sends upstream; send `type: NONE` explicitly for public servers.                                                                                                                           |
 | `default_tool_exposure`                                                                                                                                                                                            | [Optional[models.McpToolExposure]](../../models/mcptoolexposure.md)                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                 | Fallback exposure used by any gateway link that does not set its own.                                                                                                                                              |
 | `sharing`                                                                                                                                                                                                          | [Optional[models.Sharing]](../../models/sharing.md)                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                 | Which projects in the workspace may use this server. Defaults to every project.                                                                                                                                    |
+| `openapi`                                                                                                                                                                                                          | [Optional[models.McpOpenAPIConfigInput]](../../models/mcpopenapiconfiginput.md)                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                 | Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again.                                                                                                          |
 | `retries`                                                                                                                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                 | Configuration to override the default retry behavior of the client.                                                                                                                                                |
 
 ### Response
@@ -252,6 +258,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## test_tool
@@ -267,7 +274,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_servers.test_tool(id="<id>", tool_name="<value>")
@@ -295,6 +302,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## sync
@@ -310,7 +318,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_servers.sync(id="<id>")
@@ -336,4 +344,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

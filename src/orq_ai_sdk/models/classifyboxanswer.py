@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from .classifybox import ClassifyBox, ClassifyBoxTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Literal, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -27,13 +33,20 @@ class ClassifyBoxAnswer(BaseModel):
     r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice, score and box answers."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["confidence"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

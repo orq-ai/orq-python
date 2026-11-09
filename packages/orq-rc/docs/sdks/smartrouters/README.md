@@ -23,7 +23,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.smart_routers.list()
@@ -69,7 +69,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.smart_routers.create(key="<key>", models=[
@@ -117,7 +117,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.smart_routers.get(smart_router_id="<id>")
@@ -158,7 +158,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.smart_routers.delete(smart_router_id="<id>")
@@ -199,7 +199,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.smart_routers.update(smart_router_id="<id>")

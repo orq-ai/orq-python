@@ -19,7 +19,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.router.audio.speech.create(input="<value>", model="Grand Caravan", voice="<value>", response_format="mp3", speed=1.0, retry={

@@ -21,7 +21,10 @@ from orq_ai_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import List, Literal, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
@@ -64,6 +67,8 @@ class CreateEmbeddingRequestBodyTypedDict(TypedDict):
     r"""The number of dimensions the resulting output embeddings should have."""
     encoding_format: NotRequired[EncodingFormat]
     r"""The format to return the embeddings in. Can be either float or base64."""
+    fallback_on_codes: NotRequired[Nullable[List[int]]]
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
     r"""Array of fallback models to use if primary model fails."""
     load_balancer: NotRequired[EmbeddingLoadBalancerConfigTypedDict]
@@ -91,6 +96,9 @@ class CreateEmbeddingRequestBody(BaseModel):
     encoding_format: Optional[EncodingFormat] = None
     r"""The format to return the embeddings in. Can be either float or base64."""
 
+    fallback_on_codes: OptionalNullable[List[int]] = UNSET
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
+
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
     r"""Array of fallback models to use if primary model fails."""
 
@@ -109,12 +117,16 @@ class CreateEmbeddingRequestBody(BaseModel):
     r"""A unique identifier representing your end-user."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
                 "cache",
                 "dimensions",
                 "encoding_format",
+                "fallback_on_codes",
                 "fallbacks",
                 "load_balancer",
                 "name",
@@ -124,12 +136,16 @@ class CreateEmbeddingRequestBody(BaseModel):
                 "user",
             ]
         )
-        nullable_fields = set(["fallbacks"])
+        nullable_fields = set(["fallback_on_codes", "fallbacks"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
@@ -178,12 +194,19 @@ class CreateEmbeddingResponseBody(BaseModel):
     usage: PublicEmbeddingUsage
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

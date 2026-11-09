@@ -97,6 +97,8 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List datasets",
@@ -113,7 +115,7 @@ class Datasets(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.datasets.list({\n  limit: 25,\n});\n\nfor (const dataset of page.data) {\n  console.log(dataset.datasetId, dataset.displayName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -121,8 +123,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListDatasetsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -219,6 +225,8 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List datasets",
@@ -235,7 +243,7 @@ class Datasets(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.datasets.list({\n  limit: 25,\n});\n\nfor (const dataset of page.data) {\n  console.log(dataset.datasetId, dataset.displayName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -243,8 +251,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListDatasetsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -332,6 +344,8 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create dataset",
@@ -348,7 +362,7 @@ class Datasets(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.create({\n  displayName: 'support_quality_eval',\n  path: '/customer-success/datasets/support-quality-eval',\n});\n\nconsole.log(dataset.datasetId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -356,8 +370,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Dataset, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -445,6 +463,8 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create dataset",
@@ -461,7 +481,7 @@ class Datasets(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.create({\n  displayName: 'support_quality_eval',\n  path: '/customer-success/datasets/support-quality-eval',\n});\n\nconsole.log(dataset.datasetId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -469,8 +489,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Dataset, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -552,6 +576,8 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "retrieve",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve dataset",
@@ -568,7 +594,7 @@ class Datasets(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.retrieve({\n  datasetId: '01J6V6G8M4F5N8P9Q0R1S2T3U4',\n});\n\nconsole.log(dataset.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -576,8 +602,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Dataset, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -659,6 +689,8 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "retrieve",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve dataset",
@@ -675,7 +707,7 @@ class Datasets(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.retrieve({\n  datasetId: '01J6V6G8M4F5N8P9Q0R1S2T3U4',\n});\n\nconsole.log(dataset.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -683,8 +715,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Dataset, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -740,7 +776,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -766,13 +802,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete dataset",
                             "lang": "curl",
                             "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -780,8 +818,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -837,7 +879,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -863,13 +905,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete dataset",
                             "lang": "curl",
                             "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -877,8 +921,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -894,6 +942,7 @@ class Datasets(BaseSDK):
         dataset_id: str,
         display_name: Optional[str] = None,
         project_id: Optional[str] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -906,6 +955,7 @@ class Datasets(BaseSDK):
         :param dataset_id:
         :param display_name:
         :param project_id:
+        :param path: Project path to move the dataset to, in the format `project/folder/subfolder`. With a project-scoped API key the path is relative to that project. Takes precedence over `project_id`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -929,6 +979,7 @@ class Datasets(BaseSDK):
             update_dataset_request=models.UpdateDatasetRequest(
                 display_name=display_name,
                 project_id=project_id,
+                path=path,
             ),
         )
 
@@ -975,13 +1026,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update dataset",
                             "lang": "curl",
                             "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval_v2\"\n  }'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -989,8 +1042,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Dataset, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1006,6 +1063,7 @@ class Datasets(BaseSDK):
         dataset_id: str,
         display_name: Optional[str] = None,
         project_id: Optional[str] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1018,6 +1076,7 @@ class Datasets(BaseSDK):
         :param dataset_id:
         :param display_name:
         :param project_id:
+        :param path: Project path to move the dataset to, in the format `project/folder/subfolder`. With a project-scoped API key the path is relative to that project. Takes precedence over `project_id`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1041,6 +1100,7 @@ class Datasets(BaseSDK):
             update_dataset_request=models.UpdateDatasetRequest(
                 display_name=display_name,
                 project_id=project_id,
+                path=path,
             ),
         )
 
@@ -1087,13 +1147,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update dataset",
                             "lang": "curl",
                             "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval_v2\"\n  }'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1101,8 +1163,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Dataset, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1158,7 +1224,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1184,13 +1250,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "clear",
                     "x-code-samples": [
                         {
                             "label": "Core - Clear dataset",
                             "lang": "curl",
                             "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/clear' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1198,8 +1266,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1255,7 +1327,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1281,13 +1353,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "clear",
                     "x-code-samples": [
                         {
                             "label": "Core - Clear dataset",
                             "lang": "curl",
                             "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/clear' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1295,8 +1369,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1387,13 +1465,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "listDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - List datapoints",
                             "lang": "curl",
                             "source": "curl --get 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1401,8 +1481,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListDatapointsResponse, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1493,13 +1577,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "listDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - List datapoints",
                             "lang": "curl",
                             "source": "curl --get 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1507,8 +1593,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListDatapointsResponse, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1600,13 +1690,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "createDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Create datapoints",
                             "lang": "curl",
                             "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "inputs": {\n        "ticket": "Customer cannot reset their password."\n      },\n      "expected_output": "Ask the customer to use the reset link and verify delivery."\n    }\n  ]\'\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1614,8 +1706,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(List[models.Datapoint1], http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1707,13 +1803,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "createDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Create datapoints",
                             "lang": "curl",
                             "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "inputs": {\n        "ticket": "Customer cannot reset their password."\n      },\n      "expected_output": "Ask the customer to use the reset link and verify delivery."\n    }\n  ]\'\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1721,8 +1819,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(List[models.Datapoint1], http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1783,7 +1885,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
@@ -1816,13 +1918,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "deleteDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete datapoints",
                             "lang": "curl",
                             "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints-bulk-delete' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"item_ids\": [\n      \"01J6V6H1Z2A3B4C5D6E7F8G9H0\"\n    ]\n  }'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1830,8 +1934,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1892,7 +2000,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
@@ -1925,13 +2033,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "deleteDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete datapoints",
                             "lang": "curl",
                             "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints-bulk-delete' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"item_ids\": [\n      \"01J6V6H1Z2A3B4C5D6E7F8G9H0\"\n    ]\n  }'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1939,8 +2049,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2036,13 +2150,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "createDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - Bulk create datapoints",
                             "lang": "curl",
                             "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/bulk\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      {\n        "inputs": {\n          "ticket": "Customer asks for an invoice copy."\n        },\n        "expected_output": "Explain where invoices are available and offer to resend it."\n      }\n    ]\n  }\'\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2050,8 +2166,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(List[models.Datapoint1], http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2147,13 +2267,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "createDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - Bulk create datapoints",
                             "lang": "curl",
                             "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/bulk\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      {\n        "inputs": {\n          "ticket": "Customer asks for an invoice copy."\n        },\n        "expected_output": "Explain where invoices are available and offer to resend it."\n      }\n    ]\n  }\'\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2161,8 +2283,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(List[models.Datapoint1], http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2247,13 +2373,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "retrieveDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve datapoint",
                             "lang": "curl",
                             "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2261,8 +2389,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Datapoint1, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2347,13 +2479,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "retrieveDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve datapoint",
                             "lang": "curl",
                             "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2361,8 +2495,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Datapoint1, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2421,7 +2559,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -2447,13 +2585,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "deleteDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete datapoint",
                             "lang": "curl",
                             "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2461,8 +2601,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2521,7 +2665,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -2547,13 +2691,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "deleteDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete datapoint",
                             "lang": "curl",
                             "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2561,8 +2707,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2665,13 +2815,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "updateDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Update datapoint",
                             "lang": "curl",
                             "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"expected_output\": \"Confirm the invoice email address before resending the invoice.\"\n  }'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2679,8 +2831,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Datapoint1, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2783,13 +2939,15 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "updateDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Update datapoint",
                             "lang": "curl",
                             "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"expected_output\": \"Confirm the invoice email address before resending the invoice.\"\n  }'\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2797,8 +2955,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Datapoint1, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

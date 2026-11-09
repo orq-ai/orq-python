@@ -4,7 +4,13 @@ from __future__ import annotations
 from .alertcondition import AlertCondition, AlertConditionTypedDict
 from .alertdisplay import AlertDisplay, AlertDisplayTypedDict
 from .alertquery import AlertQuery, AlertQueryTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -18,7 +24,9 @@ class UpdateAlertRequestTypedDict(TypedDict):
     signal: NotRequired[str]
     r"""New UI signal preset. Omit to keep the current value."""
     query: NotRequired[AlertQueryTypedDict]
-    r"""Replacement query. Omit to keep the current query."""
+    r"""Replacement query. Metric, operation, and filters may change within the
+    current telemetry source. Source changes require creating a new alert.
+    """
     condition: NotRequired[AlertConditionTypedDict]
     r"""Replacement condition. Omit to keep the current condition."""
     notifier_ids: NotRequired[List[str]]
@@ -40,7 +48,9 @@ class UpdateAlertRequest(BaseModel):
     r"""New UI signal preset. Omit to keep the current value."""
 
     query: Optional[AlertQuery] = None
-    r"""Replacement query. Omit to keep the current query."""
+    r"""Replacement query. Metric, operation, and filters may change within the
+    current telemetry source. Source changes require creating a new alert.
+    """
 
     condition: Optional[AlertCondition] = None
     r"""Replacement condition. Omit to keep the current condition."""
@@ -55,6 +65,9 @@ class UpdateAlertRequest(BaseModel):
     r"""Display options to merge. Omitted fields keep their current values."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -68,11 +81,15 @@ class UpdateAlertRequest(BaseModel):
                 "display",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

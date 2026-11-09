@@ -19,7 +19,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.router.images.variations.create(model="Altima", n=1.0, response_format="url", size="1024x1024", retry={
@@ -31,7 +31,6 @@ with Orq(
             504.0,
         ],
     }, cache={
-        "ttl": 3600.0,
         "type": "exact_match",
     }, load_balancer={
         "type": "weight_based",
@@ -74,7 +73,6 @@ with Orq(
             ],
         },
         "cache": {
-            "ttl": 3600.0,
             "type": "exact_match",
         },
         "load_balancer": {
@@ -105,7 +103,7 @@ with Orq(
 | Parameter                                                                                                                                                         | Type                                                                                                                                                              | Required                                                                                                                                                          | Description                                                                                                                                                       |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `model`                                                                                                                                                           | *str*                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                | The model to use for image generation.                                                                                                                            |
-| `image`                                                                                                                                                           | [Optional[models.CreateImageVariationImage]](../../models/createimagevariationimage.md)                                                                           | :heavy_minus_sign:                                                                                                                                                | The image to edit. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB.                                                          |
+| `image`                                                                                                                                                           | [Optional[models.CreateImageVariationImage]](../../models/createimagevariationimage.md)                                                                           | :heavy_minus_sign:                                                                                                                                                | The image to vary. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB.                                                          |
 | `n`                                                                                                                                                               | *OptionalNullable[float]*                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                | The number of images to generate. Must be between 1 and 10.                                                                                                       |
 | `response_format`                                                                                                                                                 | [Optional[models.CreateImageVariationResponseFormat]](../../models/createimagevariationresponseformat.md)                                                         | :heavy_minus_sign:                                                                                                                                                | The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. |
 | `size`                                                                                                                                                            | [Optional[models.Size]](../../models/size.md)                                                                                                                     | :heavy_minus_sign:                                                                                                                                                | The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`.                                                                            |

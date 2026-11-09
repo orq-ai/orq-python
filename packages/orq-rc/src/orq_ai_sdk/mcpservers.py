@@ -266,6 +266,9 @@ class McpServers(BaseSDK):
         ],
         description: Optional[str] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
+        openapi: Optional[
+            Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -282,6 +285,7 @@ class McpServers(BaseSDK):
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param description: Free-form note about what this server is for.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
+        :param openapi: Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -310,6 +314,9 @@ class McpServers(BaseSDK):
                 default_tool_exposure, models.McpToolExposure
             ),
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+            openapi=utils.get_pydantic_model(
+                openapi, Optional[models.McpOpenAPIConfigInput]
+            ),
         )
 
         req = self._build_request(
@@ -404,6 +411,9 @@ class McpServers(BaseSDK):
         ],
         description: Optional[str] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
+        openapi: Optional[
+            Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -420,6 +430,7 @@ class McpServers(BaseSDK):
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param description: Free-form note about what this server is for.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
+        :param openapi: Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -448,6 +459,9 @@ class McpServers(BaseSDK):
                 default_tool_exposure, models.McpToolExposure
             ),
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+            openapi=utils.get_pydantic_model(
+                openapi, Optional[models.McpOpenAPIConfigInput]
+            ),
         )
 
         req = self._build_request_async(
@@ -999,6 +1013,9 @@ class McpServers(BaseSDK):
             Union[models.McpToolExposure, models.McpToolExposureTypedDict]
         ] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
+        openapi: Optional[
+            Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1018,6 +1035,7 @@ class McpServers(BaseSDK):
         :param auth: Credentials the gateway sends upstream; send `type: NONE` explicitly for public servers.
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
+        :param openapi: Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1050,6 +1068,9 @@ class McpServers(BaseSDK):
                     default_tool_exposure, Optional[models.McpToolExposure]
                 ),
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+                openapi=utils.get_pydantic_model(
+                    openapi, Optional[models.McpOpenAPIConfigInput]
+                ),
             ),
         )
 
@@ -1154,6 +1175,9 @@ class McpServers(BaseSDK):
             Union[models.McpToolExposure, models.McpToolExposureTypedDict]
         ] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
+        openapi: Optional[
+            Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1173,6 +1197,7 @@ class McpServers(BaseSDK):
         :param auth: Credentials the gateway sends upstream; send `type: NONE` explicitly for public servers.
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
+        :param openapi: Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1205,6 +1230,9 @@ class McpServers(BaseSDK):
                     default_tool_exposure, Optional[models.McpToolExposure]
                 ),
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+                openapi=utils.get_pydantic_model(
+                    openapi, Optional[models.McpOpenAPIConfigInput]
+                ),
             ),
         )
 

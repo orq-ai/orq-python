@@ -7,7 +7,10 @@ from orq_ai_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, Literal, Optional
@@ -48,6 +51,8 @@ class EvaluatorResponseHTTPTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
 
 
@@ -80,19 +85,36 @@ class EvaluatorResponseHTTP(BaseModel):
     project_id: Optional[str] = None
     r"""Unique identifier of the project owning this evaluator."""
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
-            ["created", "updated", "updated_by_id", "project_id", "guardrail_config"]
+            [
+                "created",
+                "updated",
+                "updated_by_id",
+                "project_id",
+                "timeout",
+                "guardrail_config",
+            ]
         )
-        nullable_fields = set(["updated_by_id"])
+        nullable_fields = set(["updated_by_id", "timeout"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

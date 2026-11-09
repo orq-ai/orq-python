@@ -100,7 +100,15 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions={"x-cli-group": "logs", "x-cli-name": "aggregate"},
+                extensions={
+                    "x-cli-group": "logs",
+                    "x-cli-list-fields": [
+                        "timestamp",
+                        "total_count",
+                        "severity_counts",
+                    ],
+                    "x-cli-name": "aggregate",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -211,7 +219,15 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions={"x-cli-group": "logs", "x-cli-name": "aggregate"},
+                extensions={
+                    "x-cli-group": "logs",
+                    "x-cli-list-fields": [
+                        "timestamp",
+                        "total_count",
+                        "severity_counts",
+                    ],
+                    "x-cli-name": "aggregate",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

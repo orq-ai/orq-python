@@ -417,6 +417,7 @@ class Workspaces(BaseSDK):
             Union[models.ChatKitResources, models.ChatKitResourcesTypedDict]
         ] = None,
         tracing_enabled: Optional[bool] = None,
+        retention_period: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -435,6 +436,7 @@ class Workspaces(BaseSDK):
         :param enforce_enabled_models:
         :param chat_kit:
         :param tracing_enabled:
+        :param retention_period:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -470,6 +472,7 @@ class Workspaces(BaseSDK):
                     chat_kit, Optional[models.ChatKitResources]
                 ),
                 tracing_enabled=tracing_enabled,
+                retention_period=retention_period,
             ),
         )
 
@@ -560,6 +563,7 @@ class Workspaces(BaseSDK):
             Union[models.ChatKitResources, models.ChatKitResourcesTypedDict]
         ] = None,
         tracing_enabled: Optional[bool] = None,
+        retention_period: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -578,6 +582,7 @@ class Workspaces(BaseSDK):
         :param enforce_enabled_models:
         :param chat_kit:
         :param tracing_enabled:
+        :param retention_period:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -613,6 +618,7 @@ class Workspaces(BaseSDK):
                     chat_kit, Optional[models.ChatKitResources]
                 ),
                 tracing_enabled=tracing_enabled,
+                retention_period=retention_period,
             ),
         )
 

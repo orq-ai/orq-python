@@ -7,7 +7,14 @@ from dataclasses import dataclass, field
 import httpx
 import io
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from orq_ai_sdk.utils import FieldMetadata, MultipartFormMetadata
 import pydantic
 from pydantic import model_serializer
@@ -62,13 +69,20 @@ class CreateTranslationRetry(BaseModel):
     r"""HTTP status codes that trigger retry logic"""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["count", "on_codes"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -96,13 +110,20 @@ class CreateTranslationLoadBalancerModels(BaseModel):
     r"""Weight assigned to this model for load balancing"""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["weight"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -174,13 +195,20 @@ class CreateTranslationRouterAudioTranslationsRetry(BaseModel):
     r"""HTTP status codes that trigger retry logic"""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["count", "on_codes"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -208,13 +236,20 @@ class CreateTranslationLoadBalancerRouterAudioTranslationsModels(BaseModel):
     r"""Weight assigned to this model for load balancing"""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["weight"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -268,6 +303,8 @@ class CreateTranslationOrqTypedDict(TypedDict):
         List[CreateTranslationRouterAudioTranslationsFallbacksTypedDict]
     ]
     r"""Array of fallback models to use if primary model fails"""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     retry: NotRequired[CreateTranslationRouterAudioTranslationsRetryTypedDict]
     r"""Retry configuration for the request"""
     identity: NotRequired[PublicIdentityTypedDict]
@@ -288,6 +325,9 @@ class CreateTranslationOrq(BaseModel):
 
     fallbacks: Optional[List[CreateTranslationRouterAudioTranslationsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
+
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
 
     retry: Optional[CreateTranslationRouterAudioTranslationsRetry] = None
     r"""Retry configuration for the request"""
@@ -310,11 +350,15 @@ class CreateTranslationOrq(BaseModel):
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
                 "name",
                 "fallbacks",
+                "fallback_on_codes",
                 "retry",
                 "identity",
                 "contact",
@@ -322,11 +366,15 @@ class CreateTranslationOrq(BaseModel):
                 "timeout",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -360,13 +408,20 @@ class CreateTranslationFile(BaseModel):
     ] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["contentType"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -399,6 +454,8 @@ class CreateTranslationRequestBodyTypedDict(TypedDict):
     r"""The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateTranslationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateTranslationRetryTypedDict]
@@ -449,6 +506,11 @@ class CreateTranslationRequestBody(BaseModel):
     name: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
+    fallback_on_codes: Annotated[Optional[List[int]], FieldMetadata(multipart=True)] = (
+        None
+    )
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
+
     fallbacks: Annotated[
         Optional[List[CreateTranslationFallbacks]],
         FieldMetadata(multipart=MultipartFormMetadata(json=True)),
@@ -485,6 +547,9 @@ class CreateTranslationRequestBody(BaseModel):
     r"""The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -497,6 +562,7 @@ class CreateTranslationRequestBody(BaseModel):
                 "timestamps_granularity",
                 "temperature",
                 "name",
+                "fallback_on_codes",
                 "fallbacks",
                 "retry",
                 "load_balancer",
@@ -505,11 +571,15 @@ class CreateTranslationRequestBody(BaseModel):
                 "file",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -536,12 +606,19 @@ class CreateTranslationError(BaseModel):
     code: str
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -586,13 +663,20 @@ class ResponseBodyWords(BaseModel):
     end: Optional[float] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["word", "start", "end"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -660,13 +744,20 @@ class CreateTranslationResponseBody2(BaseModel):
     segments: Optional[List[ResponseBodySegments]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["task", "language", "duration", "words", "segments"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

@@ -3,9 +3,19 @@
 from __future__ import annotations
 from .mcpauthconfig import McpAuthConfig, McpAuthConfigTypedDict
 from .mcpconnection import McpConnection, McpConnectionTypedDict
+from .mcpopenapiconfig_input import (
+    McpOpenAPIConfigInput,
+    McpOpenAPIConfigInputTypedDict,
+)
 from .mcptoolexposure import McpToolExposure, McpToolExposureTypedDict
 from .sharing import Sharing, SharingTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
@@ -29,6 +39,8 @@ class UpdateMcpServerRequestTypedDict(TypedDict):
     r"""Fallback exposure used by any gateway link that does not set its own."""
     sharing: NotRequired[SharingTypedDict]
     r"""Which projects in the workspace may use this server. Defaults to every project."""
+    openapi: NotRequired[McpOpenAPIConfigInputTypedDict]
+    r"""Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again."""
 
 
 class UpdateMcpServerRequest(BaseModel):
@@ -56,7 +68,13 @@ class UpdateMcpServerRequest(BaseModel):
     sharing: Optional[Sharing] = None
     r"""Which projects in the workspace may use this server. Defaults to every project."""
 
+    openapi: Optional[McpOpenAPIConfigInput] = None
+    r"""Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -67,13 +85,18 @@ class UpdateMcpServerRequest(BaseModel):
                 "auth",
                 "default_tool_exposure",
                 "sharing",
+                "openapi",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

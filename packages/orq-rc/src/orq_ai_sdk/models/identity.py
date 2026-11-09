@@ -9,7 +9,13 @@ from .budgetusage import BudgetUsage, BudgetUsageTypedDict
 from .identitymetrics import IdentityMetrics, IdentityMetricsTypedDict
 from .ratelimit import RateLimit, RateLimitTypedDict
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
@@ -28,7 +34,7 @@ class BudgetTypedDict(TypedDict):
     limits: BudgetLimitsTypedDict
     r"""BudgetLimits is the per-period spend and token ceiling. At least one
     of `amount`, `token_limit`, or RateLimit.requests_per_minute MUST be
-    set on a Budget; that invariant is enforced by the handler.
+    set on a Budget; the API rejects a budget that sets none of the three.
     """
     created_at: datetime
     updated_at: datetime
@@ -75,7 +81,7 @@ class Budget(BaseModel):
     limits: BudgetLimits
     r"""BudgetLimits is the per-period spend and token ceiling. At least one
     of `amount`, `token_limit`, or RateLimit.requests_per_minute MUST be
-    set on a Budget; that invariant is enforced by the handler.
+    set on a Budget; the API rejects a budget that sets none of the three.
     """
 
     created_at: datetime
@@ -118,6 +124,9 @@ class Budget(BaseModel):
     r"""Threshold notifications. Absent when the budget has none."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -130,11 +139,15 @@ class Budget(BaseModel):
                 "alerts",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -231,6 +244,9 @@ class Identity(BaseModel):
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -243,11 +259,15 @@ class Identity(BaseModel):
                 "budget",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

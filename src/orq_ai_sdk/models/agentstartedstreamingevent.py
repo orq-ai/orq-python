@@ -13,7 +13,10 @@ from orq_ai_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from orq_ai_sdk.utils import get_discriminator
 import pydantic
 from pydantic import Discriminator, Tag, model_serializer
@@ -78,13 +81,20 @@ class InputMessage(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["messageId", "metadata"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -124,7 +134,6 @@ class AgentStartedStreamingEventConditions(BaseModel):
 
 class ToolsModelTypedDict(TypedDict):
     id: str
-    r"""The id of the resource"""
     action_type: str
     key: NotRequired[str]
     r"""Optional tool key for custom tools"""
@@ -136,6 +145,8 @@ class ToolsModelTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
     tool_id: NotRequired[str]
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
+    whole_server: NotRequired[bool]
+    r"""Set by the API on MCP tools resolved from a whole MCP server or gateway; they are resolved again on every save."""
     conditions: NotRequired[List[AgentStartedStreamingEventConditionsTypedDict]]
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
@@ -143,7 +154,6 @@ class ToolsModelTypedDict(TypedDict):
 
 class ToolsModel(BaseModel):
     id: str
-    r"""The id of the resource"""
 
     action_type: str
 
@@ -163,12 +173,18 @@ class ToolsModel(BaseModel):
     tool_id: Optional[str] = None
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
 
+    whole_server: Optional[bool] = None
+    r"""Set by the API on MCP tools resolved from a whole MCP server or gateway; they are resolved again on every save."""
+
     conditions: Optional[List[AgentStartedStreamingEventConditions]] = None
 
     timeout: Optional[float] = None
     r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -178,15 +194,20 @@ class ToolsModel(BaseModel):
                 "configuration",
                 "requires_approval",
                 "tool_id",
+                "whole_server",
                 "conditions",
                 "timeout",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -228,13 +249,20 @@ class Evaluators(BaseModel):
     r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["sample_rate", "options"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -276,13 +304,20 @@ class Guardrails(BaseModel):
     r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["sample_rate", "options"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -294,7 +329,7 @@ class Guardrails(BaseModel):
 
 class SettingsTypedDict(TypedDict):
     max_iterations: NotRequired[int]
-    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+    r"""Maximum iterations (LLM calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     max_cost: NotRequired[float]
@@ -312,7 +347,7 @@ class SettingsTypedDict(TypedDict):
 
 class Settings(BaseModel):
     max_iterations: Optional[int] = 100
-    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+    r"""Maximum iterations (LLM calls) before the agent will stop executing."""
 
     max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
@@ -335,6 +370,9 @@ class Settings(BaseModel):
     r"""Configuration for a guardrail applied to the agent. sample_rate has no effect here: a guardrail is a gate rather than a measurement, so it runs on every request."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -348,11 +386,15 @@ class Settings(BaseModel):
                 "guardrails",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -422,6 +464,9 @@ class AgentStartedStreamingEventData(BaseModel):
     response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -437,11 +482,15 @@ class AgentStartedStreamingEventData(BaseModel):
             ]
         )
         nullable_fields = set(["agent_description", "agent_source"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

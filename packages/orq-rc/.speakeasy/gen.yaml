@@ -15,6 +15,7 @@ generation:
     sharedErrorComponentsApr2025: false
     sharedNestedComponentsJan2026: false
     nameOverrideFeb2026: false
+    openSingleValueEnumsOct2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
@@ -29,7 +30,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: 4.17.0-rc.36
+  version: 4.18.0-rc.50
   additionalDependencies:
     dev:
       openai-agents: ==0.4.0
@@ -129,6 +130,7 @@ python:
   methodArguments: infer-optional-args
   methodTimeoutArgument: timeout-ms
   methodTimeoutUnits: milliseconds
+  modelSerializationMethods: false
   moduleName: ""
   multipartArrayFormat: legacy
   optionalDependencies: {}
@@ -136,6 +138,7 @@ python:
   packageManager: uv
   packageName: orq-ai-sdk
   preApplyUnionDiscriminators: false
+  preserveUnknownFields: false
   pytestFilterWarnings: []
   pytestTimeout: 0
   rawResponseHelpers: false

@@ -4,6 +4,7 @@ from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.external import External
 from orq_ai_sdk.orq_responses import OrqResponses
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
@@ -14,6 +15,7 @@ from typing_extensions import deprecated
 
 class Agents(BaseSDK):
     responses: OrqResponses
+    external: External
 
     def __init__(
         self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
@@ -26,6 +28,7 @@ class Agents(BaseSDK):
         self.responses = OrqResponses(
             self.sdk_configuration, parent_ref=self.parent_ref
         )
+        self.external = External(self.sdk_configuration, parent_ref=self.parent_ref)
 
     def create(
         self,
@@ -380,7 +383,7 @@ class Agents(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter agents by type
+        :param type_: Filter agents by type
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -478,7 +481,7 @@ class Agents(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter agents by type
+        :param type_: Filter agents by type
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1043,7 +1046,7 @@ class Agents(BaseSDK):
 
         request = models.UpdateAgentRequest(
             agent_key=agent_key,
-            request_body=models.UpdateAgentRequestBody(
+            request_body=models.UpdateAgentUpdateAgentRequest(
                 key=key,
                 display_name=display_name,
                 project_id=project_id,
@@ -1098,7 +1101,7 @@ class Agents(BaseSDK):
                 False,
                 False,
                 "json",
-                models.UpdateAgentRequestBody,
+                models.UpdateAgentUpdateAgentRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1248,7 +1251,7 @@ class Agents(BaseSDK):
 
         request = models.UpdateAgentRequest(
             agent_key=agent_key,
-            request_body=models.UpdateAgentRequestBody(
+            request_body=models.UpdateAgentUpdateAgentRequest(
                 key=key,
                 display_name=display_name,
                 project_id=project_id,
@@ -1303,7 +1306,7 @@ class Agents(BaseSDK):
                 False,
                 False,
                 "json",
-                models.UpdateAgentRequestBody,
+                models.UpdateAgentUpdateAgentRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1489,15 +1492,23 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "invoke"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "invoke",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.InvokeAgentA2ATaskResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1645,15 +1656,23 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "invoke"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "invoke",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.InvokeAgentA2ATaskResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1839,15 +1858,23 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "run"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "run",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RunAgentA2ATaskResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2033,15 +2060,23 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "run"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "run",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RunAgentA2ATaskResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2242,7 +2277,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "streamRun"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "streamRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2471,7 +2510,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "streamRun"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "streamRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2650,7 +2693,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "stream"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "stream",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2829,7 +2876,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "stream"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "stream",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

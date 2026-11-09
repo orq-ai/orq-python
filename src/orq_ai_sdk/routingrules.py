@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class RoutingRules(BaseSDK):
@@ -127,8 +127,12 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListRoutingRulesResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -255,8 +259,12 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListRoutingRulesResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -413,8 +421,12 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(models.RoutingRule, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -571,8 +583,12 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(models.RoutingRule, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -681,10 +697,14 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListRoutingRuleUsedModelsResponse, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -793,10 +813,14 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListRoutingRuleUsedModelsResponse, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -905,8 +929,12 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RoutingRule, http_res)
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1015,8 +1043,12 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RoutingRule, http_res)
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1072,7 +1104,7 @@ class RoutingRules(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1125,8 +1157,12 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1182,7 +1218,7 @@ class RoutingRules(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1235,8 +1271,12 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1379,17 +1419,17 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Configure routing rule",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}]\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}],\n      "fallback_on_codes": [429, 503]\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Configure routing rule",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.update(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    enabled=True,\n    priority=10,\n    models_config={\n        "mode": "fallback",\n        "models": [{"model": "openai/gpt-5"}],\n    },\n)\n\nprint(rule.updated_at)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.update(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    enabled=True,\n    priority=10,\n    models_config={\n        "mode": "fallback",\n        "models": [{"model": "openai/gpt-5"}],\n        "fallback_on_codes": [429, 503],\n    },\n)\n\nprint(rule.updated_at)\n',
                         },
                         {
                             "label": "Node.js - Configure routing rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n    fallbackOnCodes: [429, 503],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
                         },
                     ],
                 },
@@ -1399,8 +1439,12 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RoutingRule, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1543,17 +1587,17 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Configure routing rule",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}]\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}],\n      "fallback_on_codes": [429, 503]\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Configure routing rule",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.update(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    enabled=True,\n    priority=10,\n    models_config={\n        "mode": "fallback",\n        "models": [{"model": "openai/gpt-5"}],\n    },\n)\n\nprint(rule.updated_at)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.update(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    enabled=True,\n    priority=10,\n    models_config={\n        "mode": "fallback",\n        "models": [{"model": "openai/gpt-5"}],\n        "fallback_on_codes": [429, 503],\n    },\n)\n\nprint(rule.updated_at)\n',
                         },
                         {
                             "label": "Node.js - Configure routing rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n    fallbackOnCodes: [429, 503],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
                         },
                     ],
                 },
@@ -1563,8 +1607,12 @@ class RoutingRules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RoutingRule, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

@@ -28,7 +28,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.logs.aggregate()
@@ -72,7 +72,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.logs.list_facets()
@@ -119,7 +119,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.logs.list_facet_values(field="<value>")
@@ -164,7 +164,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.logs.list_fields()
@@ -205,7 +205,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.logs.find_patterns(from_=parse_datetime("2025-09-21T07:55:29.692Z"), to=parse_datetime("2024-10-05T00:49:57.596Z"))
@@ -252,7 +252,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.logs.query(oql="<value>", from_=parse_datetime("2026-04-01T20:23:07.108Z"), to=parse_datetime("2025-08-17T16:51:30.424Z"))
@@ -297,7 +297,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.logs.search()
@@ -345,7 +345,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.logs.get(id="<id>")
@@ -387,7 +387,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.logs.context(id="<id>", from_=parse_datetime("2025-10-13T07:44:36.992Z"), to=parse_datetime("2025-04-02T17:30:56.013Z"))
@@ -436,7 +436,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.logs.list_trace_logs(trace_id="<id>")

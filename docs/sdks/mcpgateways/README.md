@@ -24,7 +24,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_gateways.list()
@@ -42,7 +42,6 @@ with Orq(
 | `starting_after`                                                                        | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Cursor for the page after the given item id. Mutually exclusive with `ending_before`.   |
 | `ending_before`                                                                         | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Cursor for the page before the given item id. Mutually exclusive with `starting_after`. |
 | `search`                                                                                | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Case-insensitive match against the gateway key and display name.                        |
-| `status`                                                                                | [Optional[models.McpGatewayStatus]](../../models/mcpgatewaystatus.md)                   | :heavy_minus_sign:                                                                      | Returns only gateways in this status.                                                   |
 | `retries`                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                        | :heavy_minus_sign:                                                                      | Configuration to override the default retry behavior of the client.                     |
 
 ### Response
@@ -53,6 +52,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
@@ -63,22 +63,23 @@ Creates a client-facing MCP gateway that links one or more synced upstream serve
 
 <!-- UsageSnippet language="python" operationID="McpGatewayCreate" method="post" path="/v2/mcp-gateways" -->
 ```python
+import orq_ai_sdk
 from orq_ai_sdk import Orq
 import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_gateways.create(key="<key>", display_name="Litzy_Ruecker98", server_links=[
-        {
-            "mcp_server_id": "<id>",
-            "alias": "<value>",
-            "tool_exposure": {
-                "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",
-            },
-        },
+        orq_ai_sdk.McpGatewayServerLink(
+            mcp_server_id="<id>",
+            alias="<value>",
+            tool_exposure=orq_ai_sdk.McpToolExposure(
+                mode="MCP_TOOL_EXPOSURE_MODE_ALL",
+            ),
+        ),
     ])
 
     # Handle response
@@ -98,6 +99,10 @@ with Orq(
 | `mode`                                                                                                                                   | [Optional[models.McpGatewayMode]](../../models/mcpgatewaymode.md)                                                                        | :heavy_minus_sign:                                                                                                                       | N/A                                                                                                                                      |                                                                                                                                          |
 | `sharing`                                                                                                                                | [Optional[models.Sharing]](../../models/sharing.md)                                                                                      | :heavy_minus_sign:                                                                                                                       | Which projects in the workspace may use this gateway. Defaults to every project.                                                         |                                                                                                                                          |
 | `plugins`                                                                                                                                | List[[models.McpGatewayPlugin](../../models/mcpgatewayplugin.md)]                                                                        | :heavy_minus_sign:                                                                                                                       | Plugins run on every tool call this gateway serves.                                                                                      |                                                                                                                                          |
+| `skill_ids`                                                                                                                              | List[*str*]                                                                                                                              | :heavy_minus_sign:                                                                                                                       | Workspace skills this gateway serves to MCP clients through the MCP Skills extension.                                                    |                                                                                                                                          |
+| `icons`                                                                                                                                  | List[[models.McpIcon](../../models/mcpicon.md)]                                                                                          | :heavy_minus_sign:                                                                                                                       | Icons advertised to MCP clients; defaults to ORQ branding when empty.                                                                    |                                                                                                                                          |
+| `website_url`                                                                                                                            | *Optional[str]*                                                                                                                          | :heavy_minus_sign:                                                                                                                       | Website advertised to MCP clients; defaults to ORQ documentation when empty.                                                             |                                                                                                                                          |
+| `guardrails`                                                                                                                             | List[[models.GuardrailRuleGuardrail](../../models/guardrailruleguardrail.md)]                                                            | :heavy_minus_sign:                                                                                                                       | Guardrails run on the arguments and result of every tool call this gateway serves.                                                       |                                                                                                                                          |
 | `retries`                                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                         | :heavy_minus_sign:                                                                                                                       | Configuration to override the default retry behavior of the client.                                                                      |                                                                                                                                          |
 
 ### Response
@@ -108,6 +113,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_tools
@@ -123,7 +129,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_gateways.list_tools(gateway_id="<id>")
@@ -152,6 +158,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## retrieve
@@ -167,7 +174,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_gateways.retrieve(id="<id>")
@@ -192,6 +199,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -207,7 +215,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_gateways.delete(id="<id>")
@@ -232,6 +240,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
@@ -242,22 +251,23 @@ Updates mutable fields of an existing MCP gateway. Omitted optional fields keep 
 
 <!-- UsageSnippet language="python" operationID="McpGatewayUpdate" method="patch" path="/v2/mcp-gateways/{id}" -->
 ```python
+import orq_ai_sdk
 from orq_ai_sdk import Orq
 import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.mcp_gateways.update(id="<id>", server_links=[
-        {
-            "mcp_server_id": "<id>",
-            "alias": "<value>",
-            "tool_exposure": {
-                "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",
-            },
-        },
+        orq_ai_sdk.McpGatewayServerLink(
+            mcp_server_id="<id>",
+            alias="<value>",
+            tool_exposure=orq_ai_sdk.McpToolExposure(
+                mode="MCP_TOOL_EXPOSURE_MODE_ALL",
+            ),
+        ),
     ])
 
     # Handle response
@@ -275,11 +285,16 @@ with Orq(
 | `description`                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                   | Free-form note about what this gateway is for.                                                                                                                                       |
 | `server_links`                                                                                                                                                                       | List[[models.McpGatewayServerLink](../../models/mcpgatewayserverlink.md)]                                                                                                            | :heavy_minus_sign:                                                                                                                                                                   | Replaces the current links. An empty array is treated as no change; use `clear_server_links` to remove them all.                                                                     |
 | `tool_naming`                                                                                                                                                                        | [Optional[models.McpToolNaming]](../../models/mcptoolnaming.md)                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                   | N/A                                                                                                                                                                                  |
-| `status`                                                                                                                                                                             | [Optional[models.McpGatewayStatus]](../../models/mcpgatewaystatus.md)                                                                                                                | :heavy_minus_sign:                                                                                                                                                                   | N/A                                                                                                                                                                                  |
 | `mode`                                                                                                                                                                               | [Optional[models.McpGatewayMode]](../../models/mcpgatewaymode.md)                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                   | N/A                                                                                                                                                                                  |
 | `sharing`                                                                                                                                                                            | [Optional[models.Sharing]](../../models/sharing.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                   | Which projects in the workspace may use this gateway. Defaults to every project.                                                                                                     |
 | `clear_server_links`                                                                                                                                                                 | *Optional[bool]*                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                   | Set true to remove every link; cannot be combined with `server_links`.                                                                                                               |
 | `plugins`                                                                                                                                                                            | List[[models.McpGatewayPlugin](../../models/mcpgatewayplugin.md)]                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                   | Plugins run on every tool call this gateway serves.                                                                                                                                  |
+| `skill_ids`                                                                                                                                                                          | List[*str*]                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                   | Replaces the served workspace skills. An empty array is treated as no change; use `clear_skill_ids` to remove them all.                                                              |
+| `clear_skill_ids`                                                                                                                                                                    | *Optional[bool]*                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                   | Set true to stop serving every workspace skill; cannot be combined with `skill_ids`.                                                                                                 |
+| `icons`                                                                                                                                                                              | List[[models.McpIcon](../../models/mcpicon.md)]                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                   | Replaces the advertised icons when nonempty or when replace_icons is true.                                                                                                           |
+| `replace_icons`                                                                                                                                                                      | *Optional[bool]*                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                   | Set true with an empty icons list to restore default ORQ branding.                                                                                                                   |
+| `website_url`                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                   | Empty restores the default ORQ documentation website.                                                                                                                                |
+| `guardrails`                                                                                                                                                                         | List[[models.GuardrailRuleGuardrail](../../models/guardrailruleguardrail.md)]                                                                                                        | :heavy_minus_sign:                                                                                                                                                                   | Guardrails run on the arguments and result of every tool call this gateway serves.                                                                                                   |
 | `retries`                                                                                                                                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                   | Configuration to override the default retry behavior of the client.                                                                                                                  |
 
 ### Response
@@ -290,4 +305,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

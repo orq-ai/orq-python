@@ -3,12 +3,20 @@
 from __future__ import annotations
 from .mcpauthconfig_output import McpAuthConfigOutput, McpAuthConfigOutputTypedDict
 from .mcpconnection import McpConnection, McpConnectionTypedDict
+from .mcpicon import McpIcon, McpIconTypedDict
+from .mcpopenapiconfig import McpOpenAPIConfig, McpOpenAPIConfigTypedDict
 from .mcpskill import McpSkill, McpSkillTypedDict
 from .mcpsyncstate import McpSyncState, McpSyncStateTypedDict
 from .mcptool import McpTool, McpToolTypedDict
 from .mcptoolexposure import McpToolExposure, McpToolExposureTypedDict
 from .sharing import Sharing, SharingTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -43,6 +51,12 @@ class McpServerTypedDict(TypedDict):
     r"""Account that created the server."""
     skills: NotRequired[List[McpSkillTypedDict]]
     r"""Skills the upstream publishes through the MCP Skills extension, discovered by the last successful `:sync`."""
+    openapi: NotRequired[McpOpenAPIConfigTypedDict]
+    r"""Source of the tools of an `MCP_CONNECTION_TYPE_OPENAPI` server."""
+    icons: NotRequired[List[McpIconTypedDict]]
+    r"""Icons advertised by the upstream server during discovery."""
+    website_url: NotRequired[str]
+    r"""Website advertised by the upstream server during discovery."""
 
 
 class McpServer(BaseModel):
@@ -88,7 +102,19 @@ class McpServer(BaseModel):
     skills: Optional[List[McpSkill]] = None
     r"""Skills the upstream publishes through the MCP Skills extension, discovered by the last successful `:sync`."""
 
+    openapi: Optional[McpOpenAPIConfig] = None
+    r"""Source of the tools of an `MCP_CONNECTION_TYPE_OPENAPI` server."""
+
+    icons: Optional[List[McpIcon]] = None
+    r"""Icons advertised by the upstream server during discovery."""
+
+    website_url: Optional[str] = None
+    r"""Website advertised by the upstream server during discovery."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -106,13 +132,20 @@ class McpServer(BaseModel):
                 "sharing",
                 "created_by_id",
                 "skills",
+                "openapi",
+                "icons",
+                "website_url",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

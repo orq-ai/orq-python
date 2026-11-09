@@ -27,7 +27,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.audit_log_destinations.list()
@@ -70,7 +70,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.audit_log_destinations.create(display_name="Leonie73", url="https://lighthearted-overheard.org")
@@ -113,7 +113,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.audit_log_destinations.get(destination_id="<id>")
@@ -154,7 +154,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.audit_log_destinations.delete(destination_id="<id>")
@@ -195,7 +195,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.audit_log_destinations.update(destination_id="<id>")
@@ -240,7 +240,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.audit_log_destinations.list_deliveries(destination_id="<id>")
@@ -286,7 +286,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.audit_log_destinations.replay(destination_id="<id>", from_=parse_datetime("2025-10-22T02:10:16.524Z"), to=parse_datetime("2024-07-11T11:51:53.939Z"))
@@ -329,7 +329,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.audit_log_destinations.rotate_secret(destination_id="<id>")
@@ -370,7 +370,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.audit_log_destinations.test(destination_id="<id>")

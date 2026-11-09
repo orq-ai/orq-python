@@ -20,7 +20,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.annotations.create(trace_id="<id>", span_id="<id>", annotations=[])
@@ -59,7 +59,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.annotations.delete(trace_id="<id>", span_id="<id>")

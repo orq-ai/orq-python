@@ -32,7 +32,10 @@ from orq_ai_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from orq_ai_sdk.utils import get_discriminator
 from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, List, Literal, Optional, Union
@@ -52,6 +55,8 @@ class PythonTypedDict(TypedDict):
     code: str
     type: CreateEvalRequestBodyType
     key: str
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[RequestBodyOutputType]
     path: NotRequired[str]
@@ -68,6 +73,9 @@ class Python(BaseModel):
 
     key: str
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[RequestBodyOutputType] = None
@@ -81,19 +89,42 @@ class Python(BaseModel):
     description: Optional[str] = ""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
-            ["guardrail_config", "output_type", "path", "project_id", "description"]
+            [
+                "timeout",
+                "guardrail_config",
+                "output_type",
+                "path",
+                "project_id",
+                "description",
+            ]
         )
+        nullable_fields = set(["timeout"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -122,13 +153,20 @@ class CreateEval1CategoricalLabels(BaseModel):
     description: Optional[str] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["description"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -152,13 +190,20 @@ class OneRetry(BaseModel):
     on_codes: Optional[List[int]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["count", "on_codes"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -190,13 +235,20 @@ class OneJudges(BaseModel):
     fallbacks: Optional[List[OneFallbacks]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["retry", "fallbacks"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -217,13 +269,20 @@ class CreateEval1Retry(BaseModel):
     on_codes: Optional[List[int]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["count", "on_codes"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -255,13 +314,20 @@ class OneReplacementJudges(BaseModel):
     fallbacks: Optional[List[CreateEval1Fallbacks]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["retry", "fallbacks"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -291,15 +357,22 @@ class OneJury(BaseModel):
     tie_value: Optional[OneTieValue] = "Tie"
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["replacement_judges", "min_successful_judges", "tie_value"]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -315,6 +388,8 @@ class LLMJuryTypedDict(TypedDict):
     key: str
     mode: CreateEval1Mode
     jury: OneJuryTypedDict
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[CreateEval1OutputType]
     r"""The type of output expected from the evaluator"""
@@ -342,6 +417,9 @@ class LLMJury(BaseModel):
 
     jury: OneJury
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[CreateEval1OutputType] = None
@@ -364,9 +442,13 @@ class LLMJury(BaseModel):
     description: Optional[str] = ""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "timeout",
                 "guardrail_config",
                 "output_type",
                 "repetitions",
@@ -379,13 +461,17 @@ class LLMJury(BaseModel):
             ]
         )
         nullable_fields = set(
-            ["repetitions", "categories", "categorical_labels", "dataset_id"]
+            ["timeout", "repetitions", "categories", "categorical_labels", "dataset_id"]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
@@ -426,13 +512,20 @@ class OneCategoricalLabels(BaseModel):
     description: Optional[str] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["description"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -451,6 +544,8 @@ class LlmTypedDict(TypedDict):
     key: str
     mode: OneMode
     model: str
+    timeout: NotRequired[Nullable[int]]
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[OneOutputType]
     r"""The type of output expected from the evaluator"""
@@ -476,6 +571,9 @@ class Llm(BaseModel):
 
     model: str
 
+    timeout: OptionalNullable[int] = UNSET
+    r"""Maximum time in milliseconds the evaluator may run. A request can shorten it but not extend it. Defaults to 60000."""
+
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[OneOutputType] = None
@@ -498,9 +596,13 @@ class Llm(BaseModel):
     description: Optional[str] = ""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "timeout",
                 "guardrail_config",
                 "output_type",
                 "repetitions",
@@ -513,13 +615,17 @@ class Llm(BaseModel):
             ]
         )
         nullable_fields = set(
-            ["repetitions", "categories", "categorical_labels", "dataset_id"]
+            ["timeout", "repetitions", "categories", "categorical_labels", "dataset_id"]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
@@ -537,25 +643,24 @@ class Llm(BaseModel):
         return m
 
 
-CreateEvalRequestBody1TypedDict = TypeAliasType(
-    "CreateEvalRequestBody1TypedDict", Union[LlmTypedDict, LLMJuryTypedDict]
+RequestBody1TypedDict = TypeAliasType(
+    "RequestBody1TypedDict", Union[LlmTypedDict, LLMJuryTypedDict]
 )
 
 
-CreateEvalRequestBody1 = Annotated[
+RequestBody1 = Annotated[
     Union[Annotated[Llm, Tag("single")], Annotated[LLMJury, Tag("jury")]],
     Discriminator(lambda m: get_discriminator(m, "mode", "mode")),
 ]
 
 
 CreateEvalRequestBodyTypedDict = TypeAliasType(
-    "CreateEvalRequestBodyTypedDict",
-    Union[PythonTypedDict, CreateEvalRequestBody1TypedDict],
+    "CreateEvalRequestBodyTypedDict", Union[PythonTypedDict, RequestBody1TypedDict]
 )
 
 
 CreateEvalRequestBody = TypeAliasType(
-    "CreateEvalRequestBody", Union[Python, CreateEvalRequestBody1]
+    "CreateEvalRequestBody", Union[Python, RequestBody1]
 )
 
 

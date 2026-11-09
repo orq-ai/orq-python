@@ -33,7 +33,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.list(limit=10)
@@ -79,7 +79,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.create(key="<key>", embedding_config={
@@ -95,7 +95,7 @@ with Orq(
 
 | Parameter                                                                                                                                                        | Type                                                                                                                                                             | Required                                                                                                                                                         | Description                                                                                                                                                      | Example                                                                                                                                                          |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`                                                                                                                                                            | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace.                                           |                                                                                                                                                                  |
+| `key`                                                                                                                                                            | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | The unique key of the memory store. The key is unique and immutable and cannot be repeated within the same workspace.                                            |                                                                                                                                                                  |
 | `embedding_config`                                                                                                                                               | [models.MemoryStoreEmbeddingConfig](../../models/memorystoreembeddingconfig.md)                                                                                  | :heavy_check_mark:                                                                                                                                               | N/A                                                                                                                                                              |                                                                                                                                                                  |
 | `description`                                                                                                                                                    | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | N/A                                                                                                                                                              | Long-term memory store for customer preferences and interaction history.                                                                                         |
 | `path`                                                                                                                                                           | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | Entity storage path. With workspace-level API keys, the first element identifies the project. With project-level API keys, the path is relative to that project. |                                                                                                                                                                  |
@@ -110,6 +110,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## retrieve
@@ -125,7 +126,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.retrieve(memory_store_key="<value>")
@@ -166,7 +167,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.memory_stores.delete(memory_store_key="<value>")
@@ -201,7 +202,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.update(memory_store_key="<value>")
@@ -245,7 +246,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.list_memories(memory_store_key="<value>", limit=10)
@@ -274,6 +275,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 404                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create_memory
@@ -289,7 +291,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.create_memory(memory_store_key="<value>", entity_id="<id>")
@@ -330,7 +332,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.retrieve_memory(memory_store_key="<value>", memory_entity_id="<id>")
@@ -376,7 +378,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.memory_stores.delete_memory(memory_store_key="<value>", memory_entity_id="<id>")
@@ -412,7 +414,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.update_memory(memory_store_key="<value>", memory_entity_id="<id>")
@@ -454,7 +456,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.list_documents(memory_store_key="<value>", memory_entity_id="<id>", limit=10)
@@ -500,7 +502,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.create_document(memory_store_key="<value>", memory_entity_id="<id>", text="<value>")
@@ -543,7 +545,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.retrieve_document(memory_store_key="<value>", memory_entity_id="<id>", document_id="<id>")
@@ -590,7 +592,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.memory_stores.delete_document(memory_store_key="<value>", memory_entity_id="<id>", document_id="<id>")
@@ -627,7 +629,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.update_document(memory_store_key="<value>", memory_entity_id="<id>", document_id="<id>")

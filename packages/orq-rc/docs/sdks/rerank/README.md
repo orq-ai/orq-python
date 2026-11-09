@@ -19,7 +19,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.router.rerank.create(query="<value>", documents=[
@@ -33,7 +33,6 @@ with Orq(
             504.0,
         ],
     }, cache={
-        "ttl": 3600.0,
         "type": "exact_match",
     }, load_balancer={
         "type": "weight_based",
@@ -47,7 +46,6 @@ with Orq(
             },
         ],
         "cache": {
-            "ttl": 3600.0,
             "type": "exact_match",
         },
         "retry": {

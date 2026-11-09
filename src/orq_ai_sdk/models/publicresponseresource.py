@@ -12,7 +12,14 @@ from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .responseerror import ResponseError, ResponseErrorTypedDict
 from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Any, Dict, List, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -52,13 +59,11 @@ class PublicResponseResourceTypedDict(TypedDict):
     frequency_penalty: float
     id: str
     incomplete_details: Nullable[IncompleteDetailsTypedDict]
-    input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
     instructions: Nullable[str]
     max_output_tokens: Nullable[int]
     max_tool_calls: Nullable[int]
     metadata: Dict[str, str]
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>)."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`)."""
     model: str
     object: str
     r"""Always \"response\" """
@@ -110,9 +115,6 @@ class PublicResponseResource(BaseModel):
 
     incomplete_details: Nullable[IncompleteDetails]
 
-    input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
-
     instructions: Nullable[str]
 
     max_output_tokens: Nullable[int]
@@ -120,7 +122,7 @@ class PublicResponseResource(BaseModel):
     max_tool_calls: Nullable[int]
 
     metadata: Dict[str, str]
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>)."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`)."""
 
     model: str
 
@@ -185,6 +187,9 @@ class PublicResponseResource(BaseModel):
     variables: Optional[Dict[str, Any]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["conversation", "memory", "telemetry", "top_k", "variables"]
@@ -194,7 +199,6 @@ class PublicResponseResource(BaseModel):
                 "completed_at",
                 "error",
                 "incomplete_details",
-                "input",
                 "instructions",
                 "max_output_tokens",
                 "max_tool_calls",
@@ -210,11 +214,15 @@ class PublicResponseResource(BaseModel):
                 "user",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

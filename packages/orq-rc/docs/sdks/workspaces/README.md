@@ -21,7 +21,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.workspaces.list()
@@ -64,7 +64,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.workspaces.get(key="<key>")
@@ -105,7 +105,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.workspaces.update(key="<key>")
@@ -128,6 +128,7 @@ with Orq(
 | `enforce_enabled_models`                                                                          | *Optional[bool]*                                                                                  | :heavy_minus_sign:                                                                                | N/A                                                                                               |
 | `chat_kit`                                                                                        | [Optional[models.ChatKitResources]](../../models/chatkitresources.md)                             | :heavy_minus_sign:                                                                                | N/A                                                                                               |
 | `tracing_enabled`                                                                                 | *Optional[bool]*                                                                                  | :heavy_minus_sign:                                                                                | N/A                                                                                               |
+| `retention_period`                                                                                | *Optional[int]*                                                                                   | :heavy_minus_sign:                                                                                | N/A                                                                                               |
 | `retries`                                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                  | :heavy_minus_sign:                                                                                | Configuration to override the default retry behavior of the client.                               |
 
 ### Response

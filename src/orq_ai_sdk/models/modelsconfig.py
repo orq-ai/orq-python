@@ -2,10 +2,19 @@
 
 from __future__ import annotations
 from .modelref import ModelRef, ModelRefTypedDict
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import List, Literal
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 
 ModelsConfigMode = Literal[
@@ -19,6 +28,7 @@ ModelsConfigMode = Literal[
 class ModelsConfigTypedDict(TypedDict):
     mode: ModelsConfigMode
     models: Nullable[List[ModelRefTypedDict]]
+    fallback_on_codes: NotRequired[Nullable[List[int]]]
 
 
 class ModelsConfig(BaseModel):
@@ -26,16 +36,36 @@ class ModelsConfig(BaseModel):
 
     models: Nullable[List[ModelRef]]
 
+    fallback_on_codes: OptionalNullable[List[int]] = UNSET
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
+        optional_fields = set(["fallback_on_codes"])
+        nullable_fields = set(["fallback_on_codes", "models"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                m[k] = val
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m

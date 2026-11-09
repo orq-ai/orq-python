@@ -34,7 +34,7 @@ class KnowledgeSDK(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 25
         :param search: Filter knowledge bases by key (case-insensitive match)
         :param updated_by: Filter by the users who last updated the knowledge base. Accepts a comma-separated list of user IDs
-        :param type: Filter knowledge bases by type
+        :param type_: Filter knowledge bases by type
         :param project_id: Filter knowledge bases by project ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -153,7 +153,7 @@ class KnowledgeSDK(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 25
         :param search: Filter knowledge bases by key (case-insensitive match)
         :param updated_by: Filter by the users who last updated the knowledge base. Accepts a comma-separated list of user IDs
-        :param type: Filter knowledge bases by type
+        :param type_: Filter knowledge bases by type
         :param project_id: Filter knowledge bases by project ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method

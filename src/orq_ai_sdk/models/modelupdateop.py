@@ -12,7 +12,14 @@ from .modelparameterdocument import (
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
 from .updatemodelparameter import UpdateModelParameter, UpdateModelParameterTypedDict
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
 from pydantic import model_serializer
@@ -21,16 +28,21 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ModelUpdateRequestBodyTypedDict(TypedDict):
+    benchmark_model: NotRequired[str]
     display_name: NotRequired[str]
     has_functions: NotRequired[bool]
     input_cost: NotRequired[float]
     metadata: NotRequired[ModelMetadataTypedDict]
+    model_id: NotRequired[str]
+    r"""Immutable private-model slug."""
     model_type: NotRequired[str]
     output_cost: NotRequired[float]
     parameters: NotRequired[List[UpdateModelParameterTypedDict]]
 
 
 class ModelUpdateRequestBody(BaseModel):
+    benchmark_model: Optional[str] = None
+
     display_name: Optional[str] = None
 
     has_functions: Optional[bool] = None
@@ -39,6 +51,9 @@ class ModelUpdateRequestBody(BaseModel):
 
     metadata: Optional[ModelMetadata] = None
 
+    model_id: Optional[str] = None
+    r"""Immutable private-model slug."""
+
     model_type: Optional[str] = None
 
     output_cost: Optional[float] = None
@@ -46,23 +61,32 @@ class ModelUpdateRequestBody(BaseModel):
     parameters: Optional[List[UpdateModelParameter]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "benchmark_model",
                 "display_name",
                 "has_functions",
                 "input_cost",
                 "metadata",
+                "model_id",
                 "model_type",
                 "output_cost",
                 "parameters",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -177,7 +201,12 @@ class ModelUpdateResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Optional[str] = None
+    legacy_uuid: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
 
     model_developer: Optional[str] = None
 
@@ -186,6 +215,9 @@ class ModelUpdateResponseBody(BaseModel):
     sharing: Optional[ModelSharingConfig] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["legacy_uuid", "model_developer", "model_family", "sharing"]
@@ -200,11 +232,15 @@ class ModelUpdateResponseBody(BaseModel):
                 "pricing_url",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

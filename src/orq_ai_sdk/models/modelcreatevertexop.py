@@ -12,7 +12,14 @@ from .modelparameterdocument import (
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
 from .vertexconfiguration import VertexConfiguration, VertexConfigurationTypedDict
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
@@ -22,12 +29,43 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class ModelCreateVertexRequestBodyTypedDict(TypedDict):
     configuration: VertexConfigurationTypedDict
     display_name: str
+    benchmark_model: NotRequired[str]
+    model_id: NotRequired[str]
+    r"""Immutable private-model slug; defaults to display_name."""
 
 
 class ModelCreateVertexRequestBody(BaseModel):
     configuration: VertexConfiguration
 
     display_name: str
+
+    benchmark_model: Optional[str] = None
+
+    model_id: Optional[str] = None
+    r"""Immutable private-model slug; defaults to display_name."""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["benchmark_model", "model_id"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class ModelCreateVertexResponseBodyTypedDict(TypedDict):
@@ -117,7 +155,12 @@ class ModelCreateVertexResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Optional[str] = None
+    legacy_uuid: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
 
     model_developer: Optional[str] = None
 
@@ -126,6 +169,9 @@ class ModelCreateVertexResponseBody(BaseModel):
     sharing: Optional[ModelSharingConfig] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["legacy_uuid", "model_developer", "model_family", "sharing"]
@@ -140,11 +186,15 @@ class ModelCreateVertexResponseBody(BaseModel):
                 "pricing_url",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

@@ -7,7 +7,13 @@ from .budgetmatch import BudgetMatch, BudgetMatchTypedDict
 from .budgetscope import BudgetScope, BudgetScopeTypedDict
 from .ratelimit import RateLimit, RateLimitTypedDict
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -18,7 +24,7 @@ class CreateBudgetRequestTypedDict(TypedDict):
     r"""Structured scope. Mutually exclusive with `match`: provide a scope
     for the six canonical kinds (the server derives the matching CEL),
     or provide `match` for a dynamic budget. Exactly one of the two
-    must be set; the handler enforces that invariant.
+    must be set.
     """
     match: NotRequired[BudgetMatchTypedDict]
     r"""Raw CEL matching expression for dynamic budgets (e.g.
@@ -27,17 +33,17 @@ class CreateBudgetRequestTypedDict(TypedDict):
     """
     limits: NotRequired[BudgetLimitsTypedDict]
     r"""At least one of amount / token_limit / rate_limit.requests_per_minute
-    must be provided on the budget; the handler enforces that invariant.
+    must be provided on the budget.
     """
     rate_limit: NotRequired[RateLimitTypedDict]
     r"""Optional rate limit."""
     is_active: NotRequired[bool]
     r"""Whether the budget should be active immediately. Defaults to true
-    when omitted (handler enforces).
+    when omitted.
     """
     expires_at: NotRequired[datetime]
     r"""Optional expiration. When set in combination with is_active=true,
-    the value MUST be in the future; the handler rejects past values.
+    the value MUST be in the future; the API rejects a past value.
     """
     alerts: NotRequired[List[BudgetAlertTypedDict]]
     r"""Optional threshold notifications. Ids are assigned by the server, so
@@ -50,7 +56,7 @@ class CreateBudgetRequest(BaseModel):
     r"""Structured scope. Mutually exclusive with `match`: provide a scope
     for the six canonical kinds (the server derives the matching CEL),
     or provide `match` for a dynamic budget. Exactly one of the two
-    must be set; the handler enforces that invariant.
+    must be set.
     """
 
     match: Optional[BudgetMatch] = None
@@ -61,7 +67,7 @@ class CreateBudgetRequest(BaseModel):
 
     limits: Optional[BudgetLimits] = None
     r"""At least one of amount / token_limit / rate_limit.requests_per_minute
-    must be provided on the budget; the handler enforces that invariant.
+    must be provided on the budget.
     """
 
     rate_limit: Optional[RateLimit] = None
@@ -69,12 +75,12 @@ class CreateBudgetRequest(BaseModel):
 
     is_active: Optional[bool] = None
     r"""Whether the budget should be active immediately. Defaults to true
-    when omitted (handler enforces).
+    when omitted.
     """
 
     expires_at: Optional[datetime] = None
     r"""Optional expiration. When set in combination with is_active=true,
-    the value MUST be in the future; the handler rejects past values.
+    the value MUST be in the future; the API rejects a past value.
     """
 
     alerts: Optional[List[BudgetAlert]] = None
@@ -83,6 +89,9 @@ class CreateBudgetRequest(BaseModel):
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -95,11 +104,15 @@ class CreateBudgetRequest(BaseModel):
                 "alerts",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

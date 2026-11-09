@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from .telemetrysource import TelemetrySource
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
 from pydantic import model_serializer
 from typing import Optional
@@ -11,6 +17,14 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class TelemetryListCapabilitiesRequestTypedDict(TypedDict):
     source: NotRequired[TelemetrySource]
+    project_id: NotRequired[str]
+    r"""Restricts discovered runtime metrics to records attributed to this exact
+    project. Projectless workspace metrics are excluded.
+    """
+    workspace_wide: NotRequired[bool]
+    r"""Discovers runtime metrics across the complete workspace, including
+    project-attributed and projectless records. Workspace-admin only.
+    """
 
 
 class TelemetryListCapabilitiesRequest(BaseModel):
@@ -19,14 +33,37 @@ class TelemetryListCapabilitiesRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
 
+    project_id: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Restricts discovered runtime metrics to records attributed to this exact
+    project. Projectless workspace metrics are excluded.
+    """
+
+    workspace_wide: Annotated[
+        Optional[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Discovers runtime metrics across the complete workspace, including
+    project-attributed and projectless records. Workspace-admin only.
+    """
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
-        optional_fields = set(["source"])
+        optional_fields = set(["source", "project_id", "workspace_wide"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

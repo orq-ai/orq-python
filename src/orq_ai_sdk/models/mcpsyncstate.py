@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from .syncstatus import SyncStatus
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -20,6 +26,8 @@ class McpSyncStateTypedDict(TypedDict):
     r"""ISO 8601 timestamp of the last sync attempt."""
     errors: NotRequired[List[str]]
     r"""Failures reported by the last sync."""
+    skills_total: NotRequired[int]
+    r"""Skills in the catalog after the last sync."""
 
 
 class McpSyncState(BaseModel):
@@ -40,7 +48,13 @@ class McpSyncState(BaseModel):
     errors: Optional[List[str]] = None
     r"""Failures reported by the last sync."""
 
+    skills_total: Optional[int] = None
+    r"""Skills in the catalog after the last sync."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -50,13 +64,18 @@ class McpSyncState(BaseModel):
                 "tools_removed",
                 "last_synced_at",
                 "errors",
+                "skills_total",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

@@ -2,62 +2,95 @@
 
 from __future__ import annotations
 from .autorouterv2config import AutoRouterV2Config, AutoRouterV2ConfigTypedDict
+from .sessionaffinityconfig import SessionAffinityConfig, SessionAffinityConfigTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class AutoRouterConfigTypedDict(TypedDict):
+    benchmark_model: NotRequired[str]
+    r"""Catalog model whose benchmarks this private model copies to join Smart Router pools."""
     economical_model: NotRequired[str]
+    r"""Model used when the router classifies a request as simple."""
     id: NotRequired[str]
+    r"""Identifier of the Smart Router configuration."""
     models: NotRequired[Nullable[List[str]]]
+    r"""Models the router chooses from, written as provider/model_id."""
     profile: NotRequired[str]
+    r"""Routing preference: quality, balanced, or cost."""
+    session_affinity: NotRequired[SessionAffinityConfigTypedDict]
     strong_model: NotRequired[str]
+    r"""Model used when the router classifies a request as complex."""
     v2: NotRequired[AutoRouterV2ConfigTypedDict]
     version: NotRequired[str]
+    r"""Version of the Smart Router configuration format."""
 
 
 class AutoRouterConfig(BaseModel):
+    benchmark_model: Optional[str] = None
+    r"""Catalog model whose benchmarks this private model copies to join Smart Router pools."""
+
     economical_model: Optional[str] = None
+    r"""Model used when the router classifies a request as simple."""
 
     id: Optional[str] = None
+    r"""Identifier of the Smart Router configuration."""
 
     models: OptionalNullable[List[str]] = UNSET
+    r"""Models the router chooses from, written as provider/model_id."""
 
     profile: Optional[str] = None
+    r"""Routing preference: quality, balanced, or cost."""
+
+    session_affinity: Optional[SessionAffinityConfig] = None
 
     strong_model: Optional[str] = None
+    r"""Model used when the router classifies a request as complex."""
 
     v2: Optional[AutoRouterV2Config] = None
 
     version: Optional[str] = None
+    r"""Version of the Smart Router configuration format."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "benchmark_model",
                 "economical_model",
                 "id",
                 "models",
                 "profile",
+                "session_affinity",
                 "strong_model",
                 "v2",
                 "version",
             ]
         )
         nullable_fields = set(["models"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

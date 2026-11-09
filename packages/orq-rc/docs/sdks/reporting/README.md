@@ -20,7 +20,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.reporting.query(metric="genai.evaluator.score.avg", from_=parse_datetime("2026-12-14T22:21:09.964Z"), to=parse_datetime("2026-03-06T12:20:53.904Z"))

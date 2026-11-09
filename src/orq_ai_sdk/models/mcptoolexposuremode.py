@@ -5,7 +5,6 @@ from typing import Literal
 
 
 McpToolExposureMode = Literal[
-    "MCP_TOOL_EXPOSURE_MODE_UNSPECIFIED",
     "MCP_TOOL_EXPOSURE_MODE_ALL",
     "MCP_TOOL_EXPOSURE_MODE_SELECTED",
     "MCP_TOOL_EXPOSURE_MODE_NONE",

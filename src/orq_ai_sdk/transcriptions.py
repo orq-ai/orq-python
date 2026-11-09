@@ -27,6 +27,7 @@ class Transcriptions(BaseSDK):
             Iterable[models.TimestampGranularities]
         ] = None,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateTranscriptionFallbacks],
@@ -80,6 +81,7 @@ class Transcriptions(BaseSDK):
         :param language: The language of the input audio. Supplying the input language in ISO-639-1 format will improve accuracy and latency.
         :param timestamp_granularities: The timestamp granularities to populate for this transcription. response_format must be set to verbose_json to use timestamp granularities. Either or both of these options are supported: \"word\" or \"segment\". Note: There is no additional latency for segment timestamps, but generating word timestamps incurs additional latency.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param load_balancer: Load balancer configuration for the request.
@@ -119,6 +121,7 @@ class Transcriptions(BaseSDK):
                 timestamp_granularities, Optional[List[models.TimestampGranularities]]
             ),
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateTranscriptionFallbacks]]
             ),
@@ -229,6 +232,7 @@ class Transcriptions(BaseSDK):
             Iterable[models.TimestampGranularities]
         ] = None,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateTranscriptionFallbacks],
@@ -282,6 +286,7 @@ class Transcriptions(BaseSDK):
         :param language: The language of the input audio. Supplying the input language in ISO-639-1 format will improve accuracy and latency.
         :param timestamp_granularities: The timestamp granularities to populate for this transcription. response_format must be set to verbose_json to use timestamp granularities. Either or both of these options are supported: \"word\" or \"segment\". Note: There is no additional latency for segment timestamps, but generating word timestamps incurs additional latency.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param load_balancer: Load balancer configuration for the request.
@@ -321,6 +326,7 @@ class Transcriptions(BaseSDK):
                 timestamp_granularities, Optional[List[models.TimestampGranularities]]
             ),
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateTranscriptionFallbacks]]
             ),

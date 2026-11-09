@@ -5,7 +5,6 @@ from typing import Literal
 
 
 McpGatewayMode = Literal[
-    "MCP_GATEWAY_MODE_UNSPECIFIED",
     "MCP_GATEWAY_MODE_CODE",
     "MCP_GATEWAY_MODE_DIRECT",
 ]

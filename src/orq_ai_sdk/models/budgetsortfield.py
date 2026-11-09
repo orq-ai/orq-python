@@ -5,7 +5,6 @@ from typing import Literal
 
 
 BudgetSortField = Literal[
-    "BUDGET_SORT_FIELD_UNSPECIFIED",
     "BUDGET_SORT_FIELD_EXPIRES_AT",
     "BUDGET_SORT_FIELD_CREATED_AT",
     "BUDGET_SORT_FIELD_UPDATED_AT",

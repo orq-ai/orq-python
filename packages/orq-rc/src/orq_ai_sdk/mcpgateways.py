@@ -17,7 +17,6 @@ class McpGateways(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        status: Optional[models.McpGatewayStatus] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -31,7 +30,6 @@ class McpGateways(BaseSDK):
         :param starting_after: Cursor for the page after the given item id. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for the page before the given item id. Mutually exclusive with `starting_after`.
         :param search: Case-insensitive match against the gateway key and display name.
-        :param status: Returns only gateways in this status.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -55,7 +53,6 @@ class McpGateways(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             search=search,
-            status=status,
         )
 
         req = self._build_request(
@@ -100,17 +97,17 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - List MCP gateways",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'status=MCP_GATEWAY_STATUS_ACTIVE'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List MCP gateways",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.mcp_gateways.list(\n    limit=25,\n    status="MCP_GATEWAY_STATUS_ACTIVE",\n)\n\nfor gateway in page.data:\n    print(gateway.key, gateway.public_url, gateway.exposed_tools_count)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.mcp_gateways.list(limit=25)\n\nfor gateway in page.data:\n    print(gateway.key, gateway.public_url, gateway.exposed_tools_count)\n',
                         },
                         {
                             "label": "Node.js - List MCP gateways",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.mcpGateways.list({\n  limit: 25,\n  status: 'MCP_GATEWAY_STATUS_ACTIVE',\n});\n\nfor (const gateway of page.data) {\n  console.log(gateway.key, gateway.publicUrl, gateway.exposedToolsCount);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.mcpGateways.list({\n  limit: 25,\n});\n\nfor (const gateway of page.data) {\n  console.log(gateway.key, gateway.publicUrl, gateway.exposedToolsCount);\n}\n",
                         },
                     ],
                 },
@@ -142,7 +139,6 @@ class McpGateways(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        status: Optional[models.McpGatewayStatus] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -156,7 +152,6 @@ class McpGateways(BaseSDK):
         :param starting_after: Cursor for the page after the given item id. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for the page before the given item id. Mutually exclusive with `starting_after`.
         :param search: Case-insensitive match against the gateway key and display name.
-        :param status: Returns only gateways in this status.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -180,7 +175,6 @@ class McpGateways(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             search=search,
-            status=status,
         )
 
         req = self._build_request_async(
@@ -225,17 +219,17 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - List MCP gateways",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'status=MCP_GATEWAY_STATUS_ACTIVE'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List MCP gateways",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.mcp_gateways.list(\n    limit=25,\n    status="MCP_GATEWAY_STATUS_ACTIVE",\n)\n\nfor gateway in page.data:\n    print(gateway.key, gateway.public_url, gateway.exposed_tools_count)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.mcp_gateways.list(limit=25)\n\nfor gateway in page.data:\n    print(gateway.key, gateway.public_url, gateway.exposed_tools_count)\n',
                         },
                         {
                             "label": "Node.js - List MCP gateways",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.mcpGateways.list({\n  limit: 25,\n  status: 'MCP_GATEWAY_STATUS_ACTIVE',\n});\n\nfor (const gateway of page.data) {\n  console.log(gateway.key, gateway.publicUrl, gateway.exposedToolsCount);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.mcpGateways.list({\n  limit: 25,\n});\n\nfor (const gateway of page.data) {\n  console.log(gateway.key, gateway.publicUrl, gateway.exposedToolsCount);\n}\n",
                         },
                     ],
                 },
@@ -282,6 +276,16 @@ class McpGateways(BaseSDK):
             ]
         ] = None,
         skill_ids: Optional[Iterable[str]] = None,
+        icons: Optional[
+            Union[Iterable[models.McpIcon], Iterable[models.McpIconTypedDict]]
+        ] = None,
+        website_url: Optional[str] = None,
+        guardrails: Optional[
+            Union[
+                Iterable[models.GuardrailRuleGuardrail],
+                Iterable[models.GuardrailRuleGuardrailTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -300,6 +304,9 @@ class McpGateways(BaseSDK):
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param plugins: Plugins run on every tool call this gateway serves.
         :param skill_ids: Workspace skills this gateway serves to MCP clients through the MCP Skills extension.
+        :param icons: Icons advertised to MCP clients; defaults to ORQ branding when empty.
+        :param website_url: Website advertised to MCP clients; defaults to ORQ documentation when empty.
+        :param guardrails: Guardrails run on the arguments and result of every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -332,6 +339,11 @@ class McpGateways(BaseSDK):
                 plugins, Optional[List[models.McpGatewayPlugin]]
             ),
             skill_ids=utils.unmarshal(skill_ids, Optional[List[str]]),
+            icons=utils.get_pydantic_model(icons, Optional[List[models.McpIcon]]),
+            website_url=website_url,
+            guardrails=utils.get_pydantic_model(
+                guardrails, Optional[List[models.GuardrailRuleGuardrail]]
+            ),
         )
 
         req = self._build_request(
@@ -436,6 +448,16 @@ class McpGateways(BaseSDK):
             ]
         ] = None,
         skill_ids: Optional[Iterable[str]] = None,
+        icons: Optional[
+            Union[Iterable[models.McpIcon], Iterable[models.McpIconTypedDict]]
+        ] = None,
+        website_url: Optional[str] = None,
+        guardrails: Optional[
+            Union[
+                Iterable[models.GuardrailRuleGuardrail],
+                Iterable[models.GuardrailRuleGuardrailTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -454,6 +476,9 @@ class McpGateways(BaseSDK):
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param plugins: Plugins run on every tool call this gateway serves.
         :param skill_ids: Workspace skills this gateway serves to MCP clients through the MCP Skills extension.
+        :param icons: Icons advertised to MCP clients; defaults to ORQ branding when empty.
+        :param website_url: Website advertised to MCP clients; defaults to ORQ documentation when empty.
+        :param guardrails: Guardrails run on the arguments and result of every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -486,6 +511,11 @@ class McpGateways(BaseSDK):
                 plugins, Optional[List[models.McpGatewayPlugin]]
             ),
             skill_ids=utils.unmarshal(skill_ids, Optional[List[str]]),
+            icons=utils.get_pydantic_model(icons, Optional[List[models.McpIcon]]),
+            website_url=website_url,
+            guardrails=utils.get_pydantic_model(
+                guardrails, Optional[List[models.GuardrailRuleGuardrail]]
+            ),
         )
 
         req = self._build_request_async(
@@ -911,12 +941,12 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Python - Retrieve an MCP gateway",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_gateways.retrieve(id="01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n\n# public_url is the endpoint MCP clients connect to.\nprint(result.mcp_gateway.public_url, result.mcp_gateway.status)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_gateways.retrieve(id="01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n\n# public_url is the endpoint MCP clients connect to.\nprint(result.mcp_gateway.public_url)\n',
                         },
                         {
                             "label": "Node.js - Retrieve an MCP gateway",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpGateways.retrieve({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n});\n\n// publicUrl is the endpoint MCP clients connect to.\nconsole.log(result.mcpGateway.publicUrl, result.mcpGateway.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpGateways.retrieve({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n});\n\n// publicUrl is the endpoint MCP clients connect to.\nconsole.log(result.mcpGateway.publicUrl);\n",
                         },
                     ],
                 },
@@ -1024,12 +1054,12 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Python - Retrieve an MCP gateway",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_gateways.retrieve(id="01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n\n# public_url is the endpoint MCP clients connect to.\nprint(result.mcp_gateway.public_url, result.mcp_gateway.status)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_gateways.retrieve(id="01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n\n# public_url is the endpoint MCP clients connect to.\nprint(result.mcp_gateway.public_url)\n',
                         },
                         {
                             "label": "Node.js - Retrieve an MCP gateway",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpGateways.retrieve({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n});\n\n// publicUrl is the endpoint MCP clients connect to.\nconsole.log(result.mcpGateway.publicUrl, result.mcpGateway.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpGateways.retrieve({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n});\n\n// publicUrl is the endpoint MCP clients connect to.\nconsole.log(result.mcpGateway.publicUrl);\n",
                         },
                     ],
                 },
@@ -1294,7 +1324,6 @@ class McpGateways(BaseSDK):
             ]
         ] = None,
         tool_naming: Optional[models.McpToolNaming] = None,
-        status: Optional[models.McpGatewayStatus] = None,
         mode: Optional[models.McpGatewayMode] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         clear_server_links: Optional[bool] = None,
@@ -1306,6 +1335,17 @@ class McpGateways(BaseSDK):
         ] = None,
         skill_ids: Optional[Iterable[str]] = None,
         clear_skill_ids: Optional[bool] = None,
+        icons: Optional[
+            Union[Iterable[models.McpIcon], Iterable[models.McpIconTypedDict]]
+        ] = None,
+        replace_icons: Optional[bool] = None,
+        website_url: Optional[str] = None,
+        guardrails: Optional[
+            Union[
+                Iterable[models.GuardrailRuleGuardrail],
+                Iterable[models.GuardrailRuleGuardrailTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1323,13 +1363,16 @@ class McpGateways(BaseSDK):
         :param description: Free-form note about what this gateway is for.
         :param server_links: Replaces the current links. An empty array is treated as no change; use `clear_server_links` to remove them all.
         :param tool_naming:
-        :param status:
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param clear_server_links: Set true to remove every link; cannot be combined with `server_links`.
         :param plugins: Plugins run on every tool call this gateway serves.
         :param skill_ids: Replaces the served workspace skills. An empty array is treated as no change; use `clear_skill_ids` to remove them all.
         :param clear_skill_ids: Set true to stop serving every workspace skill; cannot be combined with `skill_ids`.
+        :param icons: Replaces the advertised icons when nonempty or when replace_icons is true.
+        :param replace_icons: Set true with an empty icons list to restore default ORQ branding.
+        :param website_url: Empty restores the default ORQ documentation website.
+        :param guardrails: Guardrails run on the arguments and result of every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1358,7 +1401,6 @@ class McpGateways(BaseSDK):
                     server_links, Optional[List[models.McpGatewayServerLink]]
                 ),
                 tool_naming=tool_naming,
-                status=status,
                 mode=mode,
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
                 clear_server_links=clear_server_links,
@@ -1367,6 +1409,12 @@ class McpGateways(BaseSDK):
                 ),
                 skill_ids=utils.unmarshal(skill_ids, Optional[List[str]]),
                 clear_skill_ids=clear_skill_ids,
+                icons=utils.get_pydantic_model(icons, Optional[List[models.McpIcon]]),
+                replace_icons=replace_icons,
+                website_url=website_url,
+                guardrails=utils.get_pydantic_model(
+                    guardrails, Optional[List[models.GuardrailRuleGuardrail]]
+                ),
             ),
         )
 
@@ -1422,11 +1470,6 @@ class McpGateways(BaseSDK):
                             "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": {\n          "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n          "tool_ids": [\n            "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n            "01JQ0KB5P9WF2G7H4J6K8L1NQD"\n          ]\n        }\n      }\n    ]\n  }\'\n',
                         },
                         {
-                            "label": "Core - Disable a gateway",
-                            "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"status\": \"MCP_GATEWAY_STATUS_DISABLED\" }'\n",
-                        },
-                        {
                             "label": "Python - Narrow the tools a gateway exposes",
                             "lang": "python",
                             "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_ids come from McpTool.id. A tool renamed upstream gets a new id\n# on the next sync, which drops it from this allowlist.\nresult = client.mcp_gateways.update(\n    id="01JQ0M8W4T5YB2Q7N1F6K3PZRC",\n    server_links=[\n        {\n            "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n            "alias": "github",\n            "enabled": True,\n            "tool_exposure": {\n                "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n                "tool_ids": [\n                    "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n                    "01JQ0KB5P9WF2G7H4J6K8L1NQD",\n                ],\n            },\n        },\n    ],\n)\n\nprint(result.mcp_gateway.exposed_tools_count)\n',
@@ -1434,7 +1477,7 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Node.js - Narrow the tools a gateway exposes",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolIds come from McpTool.id. A tool renamed upstream gets a new id\n// on the next sync, which drops it from this allowlist.\nconst result = await client.mcpGateways.update({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  serverLinks: [\n    {\n      mcpServerId: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n      alias: 'github',\n      enabled: true,\n      toolExposure: {\n        mode: 'MCP_TOOL_EXPOSURE_MODE_SELECTED',\n        toolIds: [\n          '01JQ0KA2M7VD9E4R6T8Y1U3XSB',\n          '01JQ0KB5P9WF2G7H4J6K8L1NQD',\n        ],\n      },\n    },\n  ],\n});\n\nconsole.log(result.mcpGateway.exposedToolsCount);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolIds come from McpTool.id. A tool renamed upstream gets a new id\n// on the next sync, which drops it from this allowlist.\nconst result = await client.mcpGateways.update({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  updateMcpGatewayRequest: {\n    serverLinks: [\n      {\n        mcpServerId: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n        alias: 'github',\n        enabled: true,\n        toolExposure: {\n          mode: 'MCP_TOOL_EXPOSURE_MODE_SELECTED',\n          toolIds: [\n            '01JQ0KA2M7VD9E4R6T8Y1U3XSB',\n            '01JQ0KB5P9WF2G7H4J6K8L1NQD',\n          ],\n        },\n      },\n    ],\n  },\n});\n\nconsole.log(result.mcpGateway.exposedToolsCount);\n",
                         },
                     ],
                 },
@@ -1473,7 +1516,6 @@ class McpGateways(BaseSDK):
             ]
         ] = None,
         tool_naming: Optional[models.McpToolNaming] = None,
-        status: Optional[models.McpGatewayStatus] = None,
         mode: Optional[models.McpGatewayMode] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         clear_server_links: Optional[bool] = None,
@@ -1485,6 +1527,17 @@ class McpGateways(BaseSDK):
         ] = None,
         skill_ids: Optional[Iterable[str]] = None,
         clear_skill_ids: Optional[bool] = None,
+        icons: Optional[
+            Union[Iterable[models.McpIcon], Iterable[models.McpIconTypedDict]]
+        ] = None,
+        replace_icons: Optional[bool] = None,
+        website_url: Optional[str] = None,
+        guardrails: Optional[
+            Union[
+                Iterable[models.GuardrailRuleGuardrail],
+                Iterable[models.GuardrailRuleGuardrailTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1502,13 +1555,16 @@ class McpGateways(BaseSDK):
         :param description: Free-form note about what this gateway is for.
         :param server_links: Replaces the current links. An empty array is treated as no change; use `clear_server_links` to remove them all.
         :param tool_naming:
-        :param status:
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param clear_server_links: Set true to remove every link; cannot be combined with `server_links`.
         :param plugins: Plugins run on every tool call this gateway serves.
         :param skill_ids: Replaces the served workspace skills. An empty array is treated as no change; use `clear_skill_ids` to remove them all.
         :param clear_skill_ids: Set true to stop serving every workspace skill; cannot be combined with `skill_ids`.
+        :param icons: Replaces the advertised icons when nonempty or when replace_icons is true.
+        :param replace_icons: Set true with an empty icons list to restore default ORQ branding.
+        :param website_url: Empty restores the default ORQ documentation website.
+        :param guardrails: Guardrails run on the arguments and result of every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1537,7 +1593,6 @@ class McpGateways(BaseSDK):
                     server_links, Optional[List[models.McpGatewayServerLink]]
                 ),
                 tool_naming=tool_naming,
-                status=status,
                 mode=mode,
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
                 clear_server_links=clear_server_links,
@@ -1546,6 +1601,12 @@ class McpGateways(BaseSDK):
                 ),
                 skill_ids=utils.unmarshal(skill_ids, Optional[List[str]]),
                 clear_skill_ids=clear_skill_ids,
+                icons=utils.get_pydantic_model(icons, Optional[List[models.McpIcon]]),
+                replace_icons=replace_icons,
+                website_url=website_url,
+                guardrails=utils.get_pydantic_model(
+                    guardrails, Optional[List[models.GuardrailRuleGuardrail]]
+                ),
             ),
         )
 
@@ -1601,11 +1662,6 @@ class McpGateways(BaseSDK):
                             "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": {\n          "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n          "tool_ids": [\n            "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n            "01JQ0KB5P9WF2G7H4J6K8L1NQD"\n          ]\n        }\n      }\n    ]\n  }\'\n',
                         },
                         {
-                            "label": "Core - Disable a gateway",
-                            "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"status\": \"MCP_GATEWAY_STATUS_DISABLED\" }'\n",
-                        },
-                        {
                             "label": "Python - Narrow the tools a gateway exposes",
                             "lang": "python",
                             "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_ids come from McpTool.id. A tool renamed upstream gets a new id\n# on the next sync, which drops it from this allowlist.\nresult = client.mcp_gateways.update(\n    id="01JQ0M8W4T5YB2Q7N1F6K3PZRC",\n    server_links=[\n        {\n            "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n            "alias": "github",\n            "enabled": True,\n            "tool_exposure": {\n                "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n                "tool_ids": [\n                    "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n                    "01JQ0KB5P9WF2G7H4J6K8L1NQD",\n                ],\n            },\n        },\n    ],\n)\n\nprint(result.mcp_gateway.exposed_tools_count)\n',
@@ -1613,7 +1669,7 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Node.js - Narrow the tools a gateway exposes",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolIds come from McpTool.id. A tool renamed upstream gets a new id\n// on the next sync, which drops it from this allowlist.\nconst result = await client.mcpGateways.update({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  serverLinks: [\n    {\n      mcpServerId: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n      alias: 'github',\n      enabled: true,\n      toolExposure: {\n        mode: 'MCP_TOOL_EXPOSURE_MODE_SELECTED',\n        toolIds: [\n          '01JQ0KA2M7VD9E4R6T8Y1U3XSB',\n          '01JQ0KB5P9WF2G7H4J6K8L1NQD',\n        ],\n      },\n    },\n  ],\n});\n\nconsole.log(result.mcpGateway.exposedToolsCount);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolIds come from McpTool.id. A tool renamed upstream gets a new id\n// on the next sync, which drops it from this allowlist.\nconst result = await client.mcpGateways.update({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  updateMcpGatewayRequest: {\n    serverLinks: [\n      {\n        mcpServerId: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n        alias: 'github',\n        enabled: true,\n        toolExposure: {\n          mode: 'MCP_TOOL_EXPOSURE_MODE_SELECTED',\n          toolIds: [\n            '01JQ0KA2M7VD9E4R6T8Y1U3XSB',\n            '01JQ0KB5P9WF2G7H4J6K8L1NQD',\n          ],\n        },\n      },\n    ],\n  },\n});\n\nconsole.log(result.mcpGateway.exposedToolsCount);\n",
                         },
                     ],
                 },

@@ -2,14 +2,20 @@
 
 from __future__ import annotations
 from .apierror import APIError
-from .publiccompactionitem import PublicCompactionItem, PublicCompactionItemTypedDict
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
-from typing import List, Literal, Optional, Union
+from typing import Any, List, Literal, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
@@ -63,13 +69,20 @@ class Input2(BaseModel):
     r"""The type of item."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["content", "id", "role", "type"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -97,7 +110,7 @@ class CompactResponseRequestBodyTypedDict(TypedDict):
     model: NotRequired[str]
     r"""The model to use for compaction in provider/model format (e.g. openai/gpt-4o). Required."""
     previous_response_id: NotRequired[str]
-    r"""The ID of a previous response to continue from."""
+    r"""The ID of a stored response whose conversation is compacted; input is appended after it."""
     prompt_cache_key: NotRequired[str]
     r"""Key for prompt caching across requests."""
 
@@ -113,12 +126,15 @@ class CompactResponseRequestBody(BaseModel):
     r"""The model to use for compaction in provider/model format (e.g. openai/gpt-4o). Required."""
 
     previous_response_id: Optional[str] = None
-    r"""The ID of a previous response to continue from."""
+    r"""The ID of a stored response whose conversation is compacted; input is appended after it."""
 
     prompt_cache_key: Optional[str] = None
     r"""Key for prompt caching across requests."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -129,11 +145,15 @@ class CompactResponseRequestBody(BaseModel):
                 "prompt_cache_key",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -222,8 +242,8 @@ class CompactResponseResponseBodyTypedDict(TypedDict):
     r"""The ID of the compaction response."""
     object: CompactResponseObject
     r"""Always \"response.compaction\"."""
-    output: Nullable[List[PublicCompactionItemTypedDict]]
-    r"""The compacted list of output items."""
+    output: Nullable[List[Any]]
+    r"""The next context window: a compaction item summarizing older items, followed by the most recent items verbatim. Pass it as the input of the next request, without previous_response_id."""
     usage: PublicUsageTypedDict
 
 
@@ -239,18 +259,25 @@ class CompactResponseResponseBody(BaseModel):
     object: CompactResponseObject
     r"""Always \"response.compaction\"."""
 
-    output: Nullable[List[PublicCompactionItem]]
-    r"""The compacted list of output items."""
+    output: Nullable[List[Any]]
+    r"""The next context window: a compaction item summarizing older items, followed by the most recent items verbatim. Pass it as the input of the next request, without previous_response_id."""
 
     usage: PublicUsage
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

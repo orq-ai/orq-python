@@ -4,83 +4,13 @@
 
 ### Available Operations
 
-* [~~remove_evaluation~~](#remove_evaluation) - :warning: **Deprecated**
-* [~~create_evaluation~~](#create_evaluation) - :warning: **Deprecated**
-* [create](#create)
-* [remove](#remove)
+* [create](#create) - Submit feedback
+* [remove](#remove) - Remove feedback
 * [submit](#submit) - Submit feedback
 
-## ~~remove_evaluation~~
-
-> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="post_/v2/feedback/evaluation/remove" method="post" path="/v2/feedback/evaluation/remove" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    orq.feedback.remove_evaluation()
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                     | [models.PostV2FeedbackEvaluationRemoveRequestBody](../../models/postv2feedbackevaluationremoverequestbody.md) | :heavy_check_mark:                                                                                            | The request object to use for the request.                                                                    |
-| `retries`                                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                              | :heavy_minus_sign:                                                                                            | Configuration to override the default retry behavior of the client.                                           |
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## ~~create_evaluation~~
-
-> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="post_/v2/feedback/evaluation" method="post" path="/v2/feedback/evaluation" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    orq.feedback.create_evaluation()
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
-| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `request`                                                                                         | [models.PostV2FeedbackEvaluationRequestBody](../../models/postv2feedbackevaluationrequestbody.md) | :heavy_check_mark:                                                                                | The request object to use for the request.                                                        |
-| `retries`                                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                  | :heavy_minus_sign:                                                                                | Configuration to override the default retry behavior of the client.                               |
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
 ## create
+
+Submit feedback
 
 ### Example Usage
 
@@ -91,7 +21,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.feedback.create()
@@ -122,6 +52,8 @@ with Orq(
 
 ## remove
 
+Remove feedback
+
 ### Example Usage
 
 <!-- UsageSnippet language="python" operationID="post_/v2/feedback/remove" method="post" path="/v2/feedback/remove" -->
@@ -131,7 +63,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.feedback.remove()
@@ -172,7 +104,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.feedback.submit(message="<value>", category="<value>")
@@ -200,4 +132,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

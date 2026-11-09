@@ -4,10 +4,24 @@ from __future__ import annotations
 from .tracecost import TraceCost, TraceCostTypedDict
 from .traceusage import TraceUsage, TraceUsageTypedDict
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
+
+
+class RuleAttributesTypedDict(TypedDict):
+    pass
+
+
+class RuleAttributes(BaseModel):
+    pass
 
 
 class SpanSummaryTypedDict(TypedDict):
@@ -30,12 +44,14 @@ class SpanSummaryTypedDict(TypedDict):
     level: NotRequired[int]
     has_children: NotRequired[bool]
     trace_framework: NotRequired[str]
-    r"""Row badge inputs, so the tree does not need a detail fetch per span:
-    trace_framework is set on the trace root, leading_span_type where the
-    ingest marked one, guardrail_enabled on evaluator spans run as guardrails.
-    """
+    r"""Framework that produced the trace, recorded on the root span."""
     leading_span_type: NotRequired[str]
+    r"""Span type assigned at ingest when the trace has one."""
     guardrail_enabled: NotRequired[bool]
+    r"""Whether the span is an evaluator span running as a guardrail."""
+    finish_reasons: NotRequired[List[str]]
+    r"""Why the span's generation stopped, for example stop, length or content_filter."""
+    rule_attributes: NotRequired[RuleAttributesTypedDict]
 
 
 class SpanSummary(BaseModel):
@@ -76,16 +92,23 @@ class SpanSummary(BaseModel):
     has_children: Optional[bool] = None
 
     trace_framework: Optional[str] = None
-    r"""Row badge inputs, so the tree does not need a detail fetch per span:
-    trace_framework is set on the trace root, leading_span_type where the
-    ingest marked one, guardrail_enabled on evaluator spans run as guardrails.
-    """
+    r"""Framework that produced the trace, recorded on the root span."""
 
     leading_span_type: Optional[str] = None
+    r"""Span type assigned at ingest when the trace has one."""
 
     guardrail_enabled: Optional[bool] = None
+    r"""Whether the span is an evaluator span running as a guardrail."""
+
+    finish_reasons: Optional[List[str]] = None
+    r"""Why the span's generation stopped, for example stop, length or content_filter."""
+
+    rule_attributes: Optional[RuleAttributes] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -110,13 +133,19 @@ class SpanSummary(BaseModel):
                 "trace_framework",
                 "leading_span_type",
                 "guardrail_enabled",
+                "finish_reasons",
+                "rule_attributes",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

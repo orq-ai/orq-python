@@ -453,8 +453,8 @@ class Responses(BaseSDK):
         :param max_output_tokens: Maximum number of tokens in the response output.
         :param max_tool_calls: Maximum number of tool call rounds in the agentic loop.
         :param memory:
-        :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400.
-        :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
+        :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400.
+        :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from the orq.ai platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
         :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response; response_healing, which repairs malformed JSON in non-streaming model output; and trace_scrubbing, which removes selected sensitive fields from exported traces.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
@@ -826,8 +826,8 @@ class Responses(BaseSDK):
         :param max_output_tokens: Maximum number of tokens in the response output.
         :param max_tool_calls: Maximum number of tool call rounds in the agentic loop.
         :param memory:
-        :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400.
-        :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
+        :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400.
+        :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from the orq.ai platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
         :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response; response_healing, which repairs malformed JSON in non-streaming model output; and trace_scrubbing, which removes selected sensitive fields from exported traces.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.

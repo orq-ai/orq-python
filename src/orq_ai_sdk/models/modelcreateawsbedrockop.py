@@ -11,7 +11,18 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from .privatemodelconfiguration import (
+    PrivateModelConfiguration,
+    PrivateModelConfigurationTypedDict,
+)
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
@@ -23,13 +34,18 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
     display_name: str
     model_developer: str
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
     region: str
     assume_role_arn: NotRequired[str]
     assume_role_external_id: NotRequired[str]
     autorouter_id: NotRequired[str]
+    r"""Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools."""
     autorouter_version: NotRequired[str]
+    r"""Version of the Smart Router catalog entry, set with autorouter_id."""
+    benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
+    configuration: NotRequired[PrivateModelConfigurationTypedDict]
     description: NotRequired[str]
     has_reasoning: NotRequired[bool]
     input_cost: NotRequired[float]
@@ -42,6 +58,7 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
     supports_extended_thinking: NotRequired[bool]
     supports_json_mode: NotRequired[bool]
     supports_json_schema: NotRequired[bool]
+    supports_mid_conversation_system: NotRequired[bool]
     supports_strict_tool: NotRequired[bool]
     supports_tool_calling: NotRequired[bool]
     supports_vision: NotRequired[bool]
@@ -56,6 +73,7 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
     model_developer: str
 
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
 
     region: str
 
@@ -64,12 +82,18 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
     assume_role_external_id: Optional[str] = None
 
     autorouter_id: Optional[str] = None
+    r"""Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools."""
 
     autorouter_version: Optional[str] = None
+    r"""Version of the Smart Router catalog entry, set with autorouter_id."""
+
+    benchmark_model: Optional[str] = None
 
     cache_read_cost: Optional[float] = None
 
     cache_write_cost: Optional[float] = None
+
+    configuration: Optional[PrivateModelConfiguration] = None
 
     description: Optional[str] = None
 
@@ -95,6 +119,8 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
 
     supports_json_schema: Optional[bool] = None
 
+    supports_mid_conversation_system: Optional[bool] = None
+
     supports_strict_tool: Optional[bool] = None
 
     supports_tool_calling: Optional[bool] = None
@@ -104,6 +130,9 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
     temperature: Optional[float] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -111,8 +140,10 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
                 "assume_role_external_id",
                 "autorouter_id",
                 "autorouter_version",
+                "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
+                "configuration",
                 "description",
                 "has_reasoning",
                 "input_cost",
@@ -125,17 +156,22 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
                 "supports_extended_thinking",
                 "supports_json_mode",
                 "supports_json_schema",
+                "supports_mid_conversation_system",
                 "supports_strict_tool",
                 "supports_tool_calling",
                 "supports_vision",
                 "temperature",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -232,7 +268,12 @@ class ModelCreateAwsBedrockResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Optional[str] = None
+    legacy_uuid: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
 
     model_developer: Optional[str] = None
 
@@ -241,6 +282,9 @@ class ModelCreateAwsBedrockResponseBody(BaseModel):
     sharing: Optional[ModelSharingConfig] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["legacy_uuid", "model_developer", "model_family", "sharing"]
@@ -255,11 +299,15 @@ class ModelCreateAwsBedrockResponseBody(BaseModel):
                 "pricing_url",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

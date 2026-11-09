@@ -11,7 +11,18 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from .privatemodelconfiguration import (
+    PrivateModelConfiguration,
+    PrivateModelConfigurationTypedDict,
+)
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
@@ -23,11 +34,13 @@ class ModelCreateOpenAILikeRequestBodyTypedDict(TypedDict):
     base_url: str
     display_name: str
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
     model_type: str
     region: str
     benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
+    configuration: NotRequired[PrivateModelConfigurationTypedDict]
     cost_per_image: NotRequired[float]
     description: NotRequired[str]
     has_reasoning: NotRequired[bool]
@@ -49,6 +62,7 @@ class ModelCreateOpenAILikeRequestBody(BaseModel):
     display_name: str
 
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
 
     model_type: str
 
@@ -59,6 +73,8 @@ class ModelCreateOpenAILikeRequestBody(BaseModel):
     cache_read_cost: Optional[float] = None
 
     cache_write_cost: Optional[float] = None
+
+    configuration: Optional[PrivateModelConfiguration] = None
 
     cost_per_image: Optional[float] = None
 
@@ -83,12 +99,16 @@ class ModelCreateOpenAILikeRequestBody(BaseModel):
     temperature: Optional[float] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
                 "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
+                "configuration",
                 "cost_per_image",
                 "description",
                 "has_reasoning",
@@ -102,11 +122,15 @@ class ModelCreateOpenAILikeRequestBody(BaseModel):
                 "temperature",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -217,6 +241,9 @@ class ModelCreateOpenAILikeResponseBody(BaseModel):
     sharing: Optional[ModelSharingConfig] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["legacy_uuid", "model_developer", "model_family", "sharing"]
@@ -231,11 +258,15 @@ class ModelCreateOpenAILikeResponseBody(BaseModel):
                 "pricing_url",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

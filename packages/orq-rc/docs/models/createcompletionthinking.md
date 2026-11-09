@@ -23,3 +23,9 @@ value: models.ThinkingConfigEnabledSchema = /* values here */
 value: models.ThinkingConfigAdaptiveSchema = /* values here */
 ```
 
+### `models.ThinkingConfigBetweenToolsSchema`
+
+```python
+value: models.ThinkingConfigBetweenToolsSchema = /* values here */
+```
+

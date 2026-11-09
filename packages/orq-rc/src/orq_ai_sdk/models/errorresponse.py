@@ -12,7 +12,7 @@ class ErrorResponseData(BaseModel):
     message: str
     r"""Human-readable error message."""
     code: Optional[int] = None
-    r"""gRPC status code, when the service reports one."""
+    r"""Numeric error code, when one is available."""
     details: Optional[List[Any]] = None
     r"""Additional error details, when the service reports any."""
 

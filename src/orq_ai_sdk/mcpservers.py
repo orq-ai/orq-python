@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, Mapping, Optional, Union
+from typing import Any, Dict, Mapping, Optional, Union
 
 
 class McpServers(BaseSDK):
@@ -117,8 +117,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListMcpServersResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -235,8 +239,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListMcpServersResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -258,6 +266,9 @@ class McpServers(BaseSDK):
         ],
         description: Optional[str] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
+        openapi: Optional[
+            Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -274,6 +285,7 @@ class McpServers(BaseSDK):
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param description: Free-form note about what this server is for.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
+        :param openapi: Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -302,6 +314,9 @@ class McpServers(BaseSDK):
                 default_tool_exposure, models.McpToolExposure
             ),
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+            openapi=utils.get_pydantic_model(
+                openapi, Optional[models.McpOpenAPIConfigInput]
+            ),
         )
 
         req = self._build_request(
@@ -369,8 +384,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateMcpServerResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -392,6 +411,9 @@ class McpServers(BaseSDK):
         ],
         description: Optional[str] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
+        openapi: Optional[
+            Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -408,6 +430,7 @@ class McpServers(BaseSDK):
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param description: Free-form note about what this server is for.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
+        :param openapi: Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -436,6 +459,9 @@ class McpServers(BaseSDK):
                 default_tool_exposure, models.McpToolExposure
             ),
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+            openapi=utils.get_pydantic_model(
+                openapi, Optional[models.McpOpenAPIConfigInput]
+            ),
         )
 
         req = self._build_request_async(
@@ -503,8 +529,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateMcpServerResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -612,8 +642,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetMcpServerResponse, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -721,8 +755,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetMcpServerResponse, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -830,8 +868,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteMcpServerResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -939,8 +981,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteMcpServerResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -967,6 +1013,9 @@ class McpServers(BaseSDK):
             Union[models.McpToolExposure, models.McpToolExposureTypedDict]
         ] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
+        openapi: Optional[
+            Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -986,6 +1035,7 @@ class McpServers(BaseSDK):
         :param auth: Credentials the gateway sends upstream; send `type: NONE` explicitly for public servers.
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
+        :param openapi: Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1018,6 +1068,9 @@ class McpServers(BaseSDK):
                     default_tool_exposure, Optional[models.McpToolExposure]
                 ),
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+                openapi=utils.get_pydantic_model(
+                    openapi, Optional[models.McpOpenAPIConfigInput]
+                ),
             ),
         )
 
@@ -1090,8 +1143,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateMcpServerResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1118,6 +1175,9 @@ class McpServers(BaseSDK):
             Union[models.McpToolExposure, models.McpToolExposureTypedDict]
         ] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
+        openapi: Optional[
+            Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1137,6 +1197,7 @@ class McpServers(BaseSDK):
         :param auth: Credentials the gateway sends upstream; send `type: NONE` explicitly for public servers.
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
+        :param openapi: Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1169,6 +1230,9 @@ class McpServers(BaseSDK):
                     default_tool_exposure, Optional[models.McpToolExposure]
                 ),
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+                openapi=utils.get_pydantic_model(
+                    openapi, Optional[models.McpOpenAPIConfigInput]
+                ),
             ),
         )
 
@@ -1241,8 +1305,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateMcpServerResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1372,8 +1440,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.TestMcpServerToolResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1503,8 +1575,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.TestMcpServerToolResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1631,8 +1707,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SyncMcpServerResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1759,8 +1839,12 @@ class McpServers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SyncMcpServerResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

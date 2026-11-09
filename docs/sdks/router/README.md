@@ -19,7 +19,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.router.ocr(model="Golf", document={
@@ -48,6 +48,7 @@ with Orq(
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type              | Status Code             | Content Type            |
+| ----------------------- | ----------------------- | ----------------------- |
+| models.APIErrorResponse | 401                     | application/json        |
+| models.APIDefaultError  | 4XX, 5XX                | \*/\*                   |

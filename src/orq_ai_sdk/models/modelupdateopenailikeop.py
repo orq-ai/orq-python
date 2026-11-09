@@ -11,7 +11,18 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from .privatemodelconfiguration import (
+    PrivateModelConfiguration,
+    PrivateModelConfigurationTypedDict,
+)
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
 from pydantic import model_serializer
@@ -24,8 +35,10 @@ class ModelUpdateOpenAILikeRequestBodyTypedDict(TypedDict):
     model_type: str
     region: str
     base_url: NotRequired[str]
+    benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
+    configuration: NotRequired[PrivateModelConfigurationTypedDict]
     cost_per_image: NotRequired[float]
     description: NotRequired[str]
     has_reasoning: NotRequired[bool]
@@ -49,9 +62,13 @@ class ModelUpdateOpenAILikeRequestBody(BaseModel):
 
     base_url: Optional[str] = None
 
+    benchmark_model: Optional[str] = None
+
     cache_read_cost: Optional[float] = None
 
     cache_write_cost: Optional[float] = None
+
+    configuration: Optional[PrivateModelConfiguration] = None
 
     cost_per_image: Optional[float] = None
 
@@ -78,12 +95,17 @@ class ModelUpdateOpenAILikeRequestBody(BaseModel):
     temperature: Optional[float] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
                 "base_url",
+                "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
+                "configuration",
                 "cost_per_image",
                 "description",
                 "has_reasoning",
@@ -98,11 +120,15 @@ class ModelUpdateOpenAILikeRequestBody(BaseModel):
                 "temperature",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -217,7 +243,12 @@ class ModelUpdateOpenAILikeResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Optional[str] = None
+    legacy_uuid: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
 
     model_developer: Optional[str] = None
 
@@ -226,6 +257,9 @@ class ModelUpdateOpenAILikeResponseBody(BaseModel):
     sharing: Optional[ModelSharingConfig] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["legacy_uuid", "model_developer", "model_family", "sharing"]
@@ -240,11 +274,15 @@ class ModelUpdateOpenAILikeResponseBody(BaseModel):
                 "pricing_url",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

@@ -5,7 +5,6 @@ from typing import Literal
 
 
 BudgetPeriod = Literal[
-    "BUDGET_PERIOD_UNSPECIFIED",
     "BUDGET_PERIOD_DAILY",
     "BUDGET_PERIOD_WEEKLY",
     "BUDGET_PERIOD_MONTHLY",

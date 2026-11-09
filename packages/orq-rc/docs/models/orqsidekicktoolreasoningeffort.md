@@ -13,6 +13,7 @@ value: OrqSidekickToolReasoningEffort = "none"
 ## Values
 
 - `"none"`
+- `"instant"`
 - `"minimal"`
 - `"low"`
 - `"medium"`

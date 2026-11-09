@@ -18,6 +18,7 @@ class Files(BaseSDK):
         ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
         purpose: Optional[str] = None,
+        order: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -25,7 +26,7 @@ class Files(BaseSDK):
     ) -> models.ListFilesResponse:
         r"""List all files
 
-        Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
+        Returns a list of the files that your account has access to, sorted by creation date. Set `order` to `desc` to return the most recently created files first.
 
         :param limit: Page size, 1-200. Unset uses the server default.
         :param starting_after: Cursor for forward pagination. Set to the `file_id` of the last item
@@ -37,6 +38,7 @@ class Files(BaseSDK):
             alias (`retrieval`, `knowledge_datasource`, `batch`, `code_interpreter`)
             or canonical `FILE_PURPOSE_*` name case-insensitively. Omit to list files
             of every purpose.
+        :param order: Sort order by creation. Defaults to ascending (oldest first).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -61,6 +63,7 @@ class Files(BaseSDK):
             ending_before=ending_before,
             project_id=project_id,
             purpose=purpose,
+            order=order,
         )
 
         req = self._build_request(
@@ -148,6 +151,7 @@ class Files(BaseSDK):
         ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
         purpose: Optional[str] = None,
+        order: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -155,7 +159,7 @@ class Files(BaseSDK):
     ) -> models.ListFilesResponse:
         r"""List all files
 
-        Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
+        Returns a list of the files that your account has access to, sorted by creation date. Set `order` to `desc` to return the most recently created files first.
 
         :param limit: Page size, 1-200. Unset uses the server default.
         :param starting_after: Cursor for forward pagination. Set to the `file_id` of the last item
@@ -167,6 +171,7 @@ class Files(BaseSDK):
             alias (`retrieval`, `knowledge_datasource`, `batch`, `code_interpreter`)
             or canonical `FILE_PURPOSE_*` name case-insensitively. Omit to list files
             of every purpose.
+        :param order: Sort order by creation. Defaults to ascending (oldest first).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -191,6 +196,7 @@ class Files(BaseSDK):
             ending_before=ending_before,
             project_id=project_id,
             purpose=purpose,
+            order=order,
         )
 
         req = self._build_request_async(

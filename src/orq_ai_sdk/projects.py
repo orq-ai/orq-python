@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional
+from typing import Any, Iterable, List, Mapping, Optional
 
 
 class Projects(BaseSDK):
@@ -90,6 +90,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List projects",
@@ -106,7 +108,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.projects.list({\n  limit: 25,\n});\n\nfor (const project of page.data) {\n  console.log(project.projectId, project.name);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -114,8 +116,12 @@ class Projects(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListProjectsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -205,6 +211,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List projects",
@@ -221,7 +229,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.projects.list({\n  limit: 25,\n});\n\nfor (const project of page.data) {\n  console.log(project.projectId, project.name);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -229,8 +237,12 @@ class Projects(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListProjectsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -321,6 +333,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create project",
@@ -337,7 +351,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.create({\n  name: 'Customer Success',\n  description: 'Production automations for customer success workflows',\n  teams: ['team_support', 'team_growth'],\n});\n\nconsole.log(result.project.projectId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -345,8 +359,12 @@ class Projects(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateProjectResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -437,6 +455,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create project",
@@ -453,7 +473,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.create({\n  name: 'Customer Success',\n  description: 'Production automations for customer success workflows',\n  teams: ['team_support', 'team_growth'],\n});\n\nconsole.log(result.project.projectId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -461,8 +481,12 @@ class Projects(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateProjectResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -544,6 +568,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve project",
@@ -560,7 +586,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.get({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.project.name);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -568,8 +594,12 @@ class Projects(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetProjectResponse, http_res)
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -651,6 +681,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve project",
@@ -667,7 +699,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.get({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.project.name);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -675,8 +707,12 @@ class Projects(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetProjectResponse, http_res)
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -758,6 +794,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete project",
@@ -774,7 +812,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.projects.delete({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -782,8 +820,12 @@ class Projects(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteProjectResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -865,6 +907,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete project",
@@ -881,7 +925,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.projects.delete({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -889,8 +933,12 @@ class Projects(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteProjectResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -991,6 +1039,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update project",
@@ -1007,7 +1057,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.update({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  name: 'Customer Success Production',\n  description: 'Production support and retention automations',\n  teams: ['team_support'],\n});\n\nconsole.log(result.project.name);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1015,8 +1065,12 @@ class Projects(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateProjectResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1117,6 +1171,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update project",
@@ -1133,7 +1189,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.update({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  name: 'Customer Success Production',\n  description: 'Production support and retention automations',\n  teams: ['team_support'],\n});\n\nconsole.log(result.project.name);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1141,8 +1197,12 @@ class Projects(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateProjectResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

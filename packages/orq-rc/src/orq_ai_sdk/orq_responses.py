@@ -177,6 +177,7 @@ class OrqResponses(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents-responses",
+                    "x-cli-hidden": True,
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -397,6 +398,7 @@ class OrqResponses(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents-responses",
+                    "x-cli-hidden": True,
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -534,7 +536,11 @@ class OrqResponses(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "getResponse"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "getResponse",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -633,7 +639,11 @@ class OrqResponses(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "getResponse"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "getResponse",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

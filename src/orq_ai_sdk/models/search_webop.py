@@ -11,7 +11,10 @@ from orq_ai_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import Dict, List, Literal, Optional
@@ -46,7 +49,7 @@ class SearchWebPluginsTypedDict(TypedDict):
     entity_thresholds: NotRequired[Dict[str, float]]
     r"""Per-entity confidence cutoffs from 0 to 1, applied in addition to threshold. Each key must also appear in entities."""
     language: NotRequired[str]
-    r"""Language used by the PII detector. Defaults to en; supported languages depend on the detector capabilities."""
+    r"""Language used by the PII detector. Omitting the field defaults to auto, which detects the language per request; supported languages depend on the detector capabilities."""
     on_failure: NotRequired[str]
     r"""Behavior when the PII detector fails: block rejects the request (default); passthrough continues with the original text. Workspace and rule requirements can enforce blocking."""
     regions: NotRequired[Nullable[List[str]]]
@@ -68,7 +71,7 @@ class SearchWebPlugins(BaseModel):
     r"""Per-entity confidence cutoffs from 0 to 1, applied in addition to threshold. Each key must also appear in entities."""
 
     language: Optional[str] = None
-    r"""Language used by the PII detector. Defaults to en; supported languages depend on the detector capabilities."""
+    r"""Language used by the PII detector. Omitting the field defaults to auto, which detects the language per request; supported languages depend on the detector capabilities."""
 
     on_failure: Optional[str] = None
     r"""Behavior when the PII detector fails: block rejects the request (default); passthrough continues with the original text. Workspace and rule requirements can enforce blocking."""
@@ -80,6 +83,9 @@ class SearchWebPlugins(BaseModel):
     r"""Minimum detection confidence from 0 to 1. Omit to use the detector's default threshold."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -92,11 +98,15 @@ class SearchWebPlugins(BaseModel):
             ]
         )
         nullable_fields = set(["entities", "regions"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
@@ -161,13 +171,20 @@ class SearchWebRequestBody(BaseModel):
     r"""Optional PII Redaction configuration. At most one plugin is accepted, with id pii_redaction. Workspace and matching rule requirements still apply when this field is omitted."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["identity", "limit", "plugins"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -359,7 +376,7 @@ class SearchWebWebsearchResponse402ResponseBodyData(BaseModel):
 
 @dataclass(unsafe_hash=True)
 class SearchWebWebsearchResponse402ResponseBody(OrqError):
-    r"""Managed search requires a positive ORQ credit balance. Add credits before retrying. BYOK does not require ORQ credits."""
+    r"""Managed search requires a positive platform credit balance. Add credits before retrying. BYOK does not require platform credits."""
 
     data: SearchWebWebsearchResponse402ResponseBodyData = field(hash=False)
 
@@ -462,7 +479,7 @@ class SearchWebMetadataTypedDict(TypedDict):
     query: str
     r"""Query sent to the provider after any required PII redaction."""
     request_id: str
-    r"""ORQ-generated identifier for this search request. Distinct from the trace ID in the response headers."""
+    r"""Platform-generated identifier for this search request. Distinct from the trace ID in the response headers."""
 
 
 class SearchWebMetadata(BaseModel):
@@ -478,7 +495,7 @@ class SearchWebMetadata(BaseModel):
     r"""Query sent to the provider after any required PII redaction."""
 
     request_id: Annotated[str, pydantic.Field(alias="requestId")]
-    r"""ORQ-generated identifier for this search request. Distinct from the trace ID in the response headers."""
+    r"""Platform-generated identifier for this search request. Distinct from the trace ID in the response headers."""
 
 
 class SearchWebResponseBodyTypedDict(TypedDict):

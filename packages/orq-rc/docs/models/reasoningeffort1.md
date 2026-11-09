@@ -13,6 +13,7 @@ value: ReasoningEffort1 = "none"
 ## Values
 
 - `"none"`
+- `"instant"`
 - `"minimal"`
 - `"low"`
 - `"medium"`

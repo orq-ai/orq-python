@@ -27,12 +27,12 @@ if TYPE_CHECKING:
     from orq_ai_sdk.deployments import Deployments
     from orq_ai_sdk.environments import Environments
     from orq_ai_sdk.evals import Evals
+    from orq_ai_sdk.experiments import Experiments
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
     from orq_ai_sdk.filesystems import FileSystems
     from orq_ai_sdk.guardrailrules import GuardrailRules
     from orq_ai_sdk.hub import Hub
-    from orq_ai_sdk.humanreviewsets import HumanReviewSets
     from orq_ai_sdk.identities import Identities
     from orq_ai_sdk.knowledge_sdk import KnowledgeSDK
     from orq_ai_sdk.logs import Logs
@@ -64,7 +64,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.views import Views
     from orq_ai_sdk.webhooks import Webhooks
     from orq_ai_sdk.websearch import Websearch
-    from orq_ai_sdk.wikis import Wikis
     from orq_ai_sdk.workspaces import Workspaces
     from orq_ai_sdk.workspacesecurity import WorkspaceSecurity
     from orq_ai_sdk.workspacesettings_sdk import WorkspaceSettingsSDK
@@ -80,8 +79,6 @@ class Orq(BaseSDK):
     prompts: "Prompts"
     tools: "Tools"
     router: "Router"
-    feedback: "Feedback"
-    human_review_sets: "HumanReviewSets"
     chunking: "Chunking"
     file_systems: "FileSystems"
     knowledge: "KnowledgeSDK"
@@ -90,12 +87,14 @@ class Orq(BaseSDK):
     pii: "Pii"
     api_keys: "APIKeys"
     annotations: "Annotations"
+    feedback: "Feedback"
     logs: "Logs"
     reporting: "Reporting"
     telemetry: "TelemetrySDK"
     traces: "Traces"
     views: "Views"
     datasets: "Datasets"
+    experiments: "Experiments"
     models: "Models"
     policies: "Policies"
     alerts: "Alerts"
@@ -121,7 +120,6 @@ class Orq(BaseSDK):
     smart_routers: "SmartRouters"
     users: "Users"
     webhooks: "Webhooks"
-    wikis: "Wikis"
     workspaces: "Workspaces"
     workspace_security: "WorkspaceSecurity"
     workspace_settings: "WorkspaceSettingsSDK"
@@ -134,8 +132,6 @@ class Orq(BaseSDK):
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
         "router": ("orq_ai_sdk.router", "Router"),
-        "feedback": ("orq_ai_sdk.feedback", "Feedback"),
-        "human_review_sets": ("orq_ai_sdk.humanreviewsets", "HumanReviewSets"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
         "file_systems": ("orq_ai_sdk.filesystems", "FileSystems"),
         "knowledge": ("orq_ai_sdk.knowledge_sdk", "KnowledgeSDK"),
@@ -144,12 +140,14 @@ class Orq(BaseSDK):
         "pii": ("orq_ai_sdk.pii", "Pii"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
+        "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "logs": ("orq_ai_sdk.logs", "Logs"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
         "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
         "traces": ("orq_ai_sdk.traces", "Traces"),
         "views": ("orq_ai_sdk.views", "Views"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
+        "experiments": ("orq_ai_sdk.experiments", "Experiments"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
@@ -178,7 +176,6 @@ class Orq(BaseSDK):
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "users": ("orq_ai_sdk.users", "Users"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
-        "wikis": ("orq_ai_sdk.wikis", "Wikis"),
         "workspaces": ("orq_ai_sdk.workspaces", "Workspaces"),
         "workspace_security": ("orq_ai_sdk.workspacesecurity", "WorkspaceSecurity"),
         "workspace_settings": (

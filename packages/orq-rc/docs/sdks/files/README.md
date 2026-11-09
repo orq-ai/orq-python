@@ -13,7 +13,7 @@
 
 ## list
 
-Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
+Returns a list of the files that your account has access to, sorted by creation date. Set `order` to `desc` to return the most recently created files first.
 
 ### Example Usage
 
@@ -24,7 +24,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.files.list(limit=10)
@@ -43,6 +43,7 @@ with Orq(
 | `ending_before`                                                                                                                                                                                                                                 | *Optional[str]*                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                              | Cursor for backward pagination. Set to the `file_id` of the first item<br/> from the previous page. Mutually exclusive with `starting_after`.                                                                                                   |
 | `project_id`                                                                                                                                                                                                                                    | *Optional[str]*                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                             |
 | `purpose`                                                                                                                                                                                                                                       | *Optional[str]*                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                              | Restrict results to files declared with this purpose. Accepts a purpose<br/> alias (`retrieval`, `knowledge_datasource`, `batch`, `code_interpreter`)<br/> or canonical `FILE_PURPOSE_*` name case-insensitively. Omit to list files<br/> of every purpose. |
+| `order`                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                              | Sort order by creation. Defaults to ascending (oldest first).                                                                                                                                                                                   |
 | `retries`                                                                                                                                                                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                              | Configuration to override the default retry behavior of the client.                                                                                                                                                                             |
 
 ### Response
@@ -69,7 +70,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.files.create(filename="example.file", content="<value>")
@@ -114,7 +115,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.files.get_content(file_id_or_path="<value>")
@@ -155,7 +156,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.files.get(file_id="<id>")
@@ -196,7 +197,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.files.delete(file_id="<id>")
@@ -237,7 +238,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.files.update(file_id="<id>", file_name="example.file")

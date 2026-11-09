@@ -5,7 +5,8 @@ from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
-from typing import Iterable, List, Mapping, Optional, Union
+from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Speech(BaseSDK):
@@ -18,6 +19,7 @@ class Speech(BaseSDK):
         response_format: Optional[models.CreateSpeechResponseFormat] = "mp3",
         speed: Optional[float] = 1.0,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateSpeechFallbacks],
@@ -62,6 +64,7 @@ class Speech(BaseSDK):
         :param response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format.
         :param speed: The speed of the generated audio.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param load_balancer: Load balancer configuration for the request.
@@ -92,6 +95,7 @@ class Speech(BaseSDK):
             response_format=response_format,
             speed=speed,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateSpeechFallbacks]]
             ),
@@ -115,7 +119,7 @@ class Speech(BaseSDK):
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
@@ -154,8 +158,14 @@ class Speech(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res
+            )
+            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -174,6 +184,7 @@ class Speech(BaseSDK):
         response_format: Optional[models.CreateSpeechResponseFormat] = "mp3",
         speed: Optional[float] = 1.0,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateSpeechFallbacks],
@@ -218,6 +229,7 @@ class Speech(BaseSDK):
         :param response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format.
         :param speed: The speed of the generated audio.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param load_balancer: Load balancer configuration for the request.
@@ -248,6 +260,7 @@ class Speech(BaseSDK):
             response_format=response_format,
             speed=speed,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateSpeechFallbacks]]
             ),
@@ -271,7 +284,7 @@ class Speech(BaseSDK):
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
@@ -310,8 +323,14 @@ class Speech(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res
+            )
+            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

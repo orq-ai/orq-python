@@ -92,10 +92,19 @@ class Schedules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListAgentSchedulesResponseBody, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res
+            )
+            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -187,10 +196,19 @@ class Schedules(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListAgentSchedulesResponseBody, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res
+            )
+            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -224,7 +242,7 @@ class Schedules(BaseSDK):
         :param display_name: Human-readable name of the schedule.
         :param expression: 6-field cron expression (sec min hour dom month dow). Seconds and minutes must be 0, day-of-month and month must be '*'. Hour and weekday must each be a single integer or '*'; ranges, lists, steps, and named days are rejected. Accepted shapes: hourly '0 0 * * * *', daily '0 0 9 * * *' (hour 0-23), weekly '0 0 9 * * 1' (weekday 0-6). Minimum firing cadence is 1 hour.
         :param payload:
-        :param type: Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour.
+        :param type_: Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour.
         :param agent_tag: Pin this schedule to a specific agent version. Omit to always use the active version.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -360,7 +378,7 @@ class Schedules(BaseSDK):
         :param display_name: Human-readable name of the schedule.
         :param expression: 6-field cron expression (sec min hour dom month dow). Seconds and minutes must be 0, day-of-month and month must be '*'. Hour and weekday must each be a single integer or '*'; ranges, lists, steps, and named days are rejected. Accepted shapes: hourly '0 0 * * * *', daily '0 0 9 * * *' (hour 0-23), weekly '0 0 9 * * 1' (weekday 0-6). Minimum firing cadence is 1 hour.
         :param payload:
-        :param type: Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour.
+        :param type_: Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour.
         :param agent_tag: Pin this schedule to a specific agent version. Omit to always use the active version.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -917,7 +935,7 @@ class Schedules(BaseSDK):
         :param expression: Update the schedule expression. Same 6-field cron shapes as create; minimum firing cadence is 1 hour.
         :param is_active: Activate or deactivate the schedule. Deactivating stops future executions; activating schedules future executions using the current values.
         :param payload:
-        :param type: Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation.
+        :param type_: Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1061,7 +1079,7 @@ class Schedules(BaseSDK):
         :param expression: Update the schedule expression. Same 6-field cron shapes as create; minimum firing cadence is 1 hour.
         :param is_active: Activate or deactivate the schedule. Deactivating stops future executions; activating schedules future executions using the current values.
         :param payload:
-        :param type: Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation.
+        :param type_: Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

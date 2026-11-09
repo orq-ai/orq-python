@@ -19,7 +19,13 @@ from .projectbudgetscoperestresponse import (
 )
 from .providerbudgetscope import ProviderBudgetScope, ProviderBudgetScopeTypedDict
 from .workspacebudgetscope import WorkspaceBudgetScope, WorkspaceBudgetScopeTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import Optional
@@ -27,7 +33,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class BudgetScopeRestResponseTypedDict(TypedDict):
-    r"""Closed oneof of workspace, project, identity, api_key, provider, or model. Exactly one variant must be set. Variants are ordered by enforcement precedence (most specific to most general)."""
+    r"""Closed oneof of workspace, project, identity, api_key, provider, or model. Exactly one variant must be set."""
 
     workspace: NotRequired[WorkspaceBudgetScopeTypedDict]
     r"""Workspace-wide ceiling. The implicit target is the caller's workspace."""
@@ -42,8 +48,8 @@ class BudgetScopeRestResponseTypedDict(TypedDict):
     associated with an API key.
     """
     provider: NotRequired[ProviderBudgetScopeTypedDict]
-    r"""Per-provider cap. The value is the provider enum string (e.g.
-    \"openai\", \"anthropic\") drawn from ModelIntegrationIdentifier.
+    r"""Per-provider cap. The value is the provider identifier, for example
+    \"openai\" or \"anthropic\".
     """
     model: NotRequired[ModelBudgetScopeRestResponseTypedDict]
     r"""Per-model cap. The value is the FULL model reference as callers send
@@ -53,7 +59,7 @@ class BudgetScopeRestResponseTypedDict(TypedDict):
 
 
 class BudgetScopeRestResponse(BaseModel):
-    r"""Closed oneof of workspace, project, identity, api_key, provider, or model. Exactly one variant must be set. Variants are ordered by enforcement precedence (most specific to most general)."""
+    r"""Closed oneof of workspace, project, identity, api_key, provider, or model. Exactly one variant must be set."""
 
     workspace: Optional[WorkspaceBudgetScope] = None
     r"""Workspace-wide ceiling. The implicit target is the caller's workspace."""
@@ -74,8 +80,8 @@ class BudgetScopeRestResponse(BaseModel):
     """
 
     provider: Optional[ProviderBudgetScope] = None
-    r"""Per-provider cap. The value is the provider enum string (e.g.
-    \"openai\", \"anthropic\") drawn from ModelIntegrationIdentifier.
+    r"""Per-provider cap. The value is the provider identifier, for example
+    \"openai\" or \"anthropic\".
     """
 
     model: Optional[ModelBudgetScopeRestResponse] = None
@@ -85,15 +91,22 @@ class BudgetScopeRestResponse(BaseModel):
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["workspace", "project", "identity", "apiKey", "provider", "model"]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

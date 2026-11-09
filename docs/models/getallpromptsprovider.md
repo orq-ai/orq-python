@@ -40,6 +40,9 @@ value: GetAllPromptsProvider = "openai"
 - `"tensorix"`
 - `"scaleway"`
 - `"hcompany"`
+- `"inception"`
+- `"particle"`
+- `"munito"`
 - `"inceptron"`
 - `"wafer"`
 - `"poolside"`

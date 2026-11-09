@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from .price import Price, PriceTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
@@ -12,14 +18,20 @@ class PricingVariantTypedDict(TypedDict):
     when: str
     audio_input: NotRequired[PriceTypedDict]
     audio_output: NotRequired[PriceTypedDict]
+    audio_session: NotRequired[PriceTypedDict]
     cache_read: NotRequired[PriceTypedDict]
+    cache_write_12h: NotRequired[PriceTypedDict]
     cache_write_1h: NotRequired[PriceTypedDict]
+    cache_write_30m: NotRequired[PriceTypedDict]
     cache_write_5m: NotRequired[PriceTypedDict]
     fetch: NotRequired[PriceTypedDict]
+    image_cache_read: NotRequired[PriceTypedDict]
+    image_input: NotRequired[PriceTypedDict]
     input: NotRequired[PriceTypedDict]
     output: NotRequired[PriceTypedDict]
     reasoning: NotRequired[PriceTypedDict]
     search: NotRequired[PriceTypedDict]
+    text_input: NotRequired[PriceTypedDict]
 
 
 class PricingVariant(BaseModel):
@@ -29,13 +41,23 @@ class PricingVariant(BaseModel):
 
     audio_output: Optional[Price] = None
 
+    audio_session: Optional[Price] = None
+
     cache_read: Optional[Price] = None
 
+    cache_write_12h: Optional[Price] = None
+
     cache_write_1h: Optional[Price] = None
+
+    cache_write_30m: Optional[Price] = None
 
     cache_write_5m: Optional[Price] = None
 
     fetch: Optional[Price] = None
+
+    image_cache_read: Optional[Price] = None
+
+    image_input: Optional[Price] = None
 
     input: Optional[Price] = None
 
@@ -45,27 +67,42 @@ class PricingVariant(BaseModel):
 
     search: Optional[Price] = None
 
+    text_input: Optional[Price] = None
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
                 "audio_input",
                 "audio_output",
+                "audio_session",
                 "cache_read",
+                "cache_write_12h",
                 "cache_write_1h",
+                "cache_write_30m",
                 "cache_write_5m",
                 "fetch",
+                "image_cache_read",
+                "image_input",
                 "input",
                 "output",
                 "reasoning",
                 "search",
+                "text_input",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

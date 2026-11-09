@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Embeddings(BaseSDK):
@@ -20,6 +20,7 @@ class Embeddings(BaseSDK):
         ] = None,
         dimensions: Optional[int] = None,
         encoding_format: Optional[models.EncodingFormat] = None,
+        fallback_on_codes: OptionalNullable[Iterable[int]] = UNSET,
         fallbacks: OptionalNullable[
             Union[
                 Iterable[models.FallbackConfig],
@@ -57,6 +58,7 @@ class Embeddings(BaseSDK):
         :param cache:
         :param dimensions: The number of dimensions the resulting output embeddings should have.
         :param encoding_format: The format to return the embeddings in. Can be either float or base64.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
         :param fallbacks: Array of fallback models to use if primary model fails.
         :param load_balancer:
         :param name: The name to display on the trace. If not specified, the default system name will be used.
@@ -88,6 +90,9 @@ class Embeddings(BaseSDK):
             ),
             dimensions=dimensions,
             encoding_format=encoding_format,
+            fallback_on_codes=utils.unmarshal(
+                fallback_on_codes, OptionalNullable[List[int]]
+            ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),
@@ -156,8 +161,14 @@ class Embeddings(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateEmbeddingResponseBody, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res
+            )
+            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -177,6 +188,7 @@ class Embeddings(BaseSDK):
         ] = None,
         dimensions: Optional[int] = None,
         encoding_format: Optional[models.EncodingFormat] = None,
+        fallback_on_codes: OptionalNullable[Iterable[int]] = UNSET,
         fallbacks: OptionalNullable[
             Union[
                 Iterable[models.FallbackConfig],
@@ -214,6 +226,7 @@ class Embeddings(BaseSDK):
         :param cache:
         :param dimensions: The number of dimensions the resulting output embeddings should have.
         :param encoding_format: The format to return the embeddings in. Can be either float or base64.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
         :param fallbacks: Array of fallback models to use if primary model fails.
         :param load_balancer:
         :param name: The name to display on the trace. If not specified, the default system name will be used.
@@ -245,6 +258,9 @@ class Embeddings(BaseSDK):
             ),
             dimensions=dimensions,
             encoding_format=encoding_format,
+            fallback_on_codes=utils.unmarshal(
+                fallback_on_codes, OptionalNullable[List[int]]
+            ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),
@@ -313,8 +329,14 @@ class Embeddings(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateEmbeddingResponseBody, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res
+            )
+            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

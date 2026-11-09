@@ -8,6 +8,10 @@ from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
 from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
 from .loadbalancerconfig import LoadBalancerConfig, LoadBalancerConfigTypedDict
 from .memoryparam import MemoryParam, MemoryParamTypedDict
+from .openaicontextmanagement import (
+    OpenAIContextManagement,
+    OpenAIContextManagementTypedDict,
+)
 from .openaipromptcacheoptions import (
     OpenAIPromptCacheOptions,
     OpenAIPromptCacheOptionsTypedDict,
@@ -30,6 +34,7 @@ from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
 from .responsethread import ResponseThread, ResponseThreadTypedDict
 from .securityconfig import SecurityConfig, SecurityConfigTypedDict
 from .streamoptions import StreamOptions, StreamOptionsTypedDict
+from .thinkingparam import ThinkingParam, ThinkingParamTypedDict
 from .timeoutconfig import TimeoutConfig, TimeoutConfigTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
@@ -37,7 +42,10 @@ from orq_ai_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from orq_ai_sdk.utils import eventstreaming, get_discriminator
 import pydantic
 from pydantic import Discriminator, Tag, model_serializer
@@ -93,13 +101,20 @@ class CreateRouterResponseCacheControl(BaseModel):
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -109,7 +124,7 @@ class CreateRouterResponseCacheControl(BaseModel):
         return m
 
 
-CreateRouterResponse2ResponsesRequestTTL = Literal[
+CreateRouterResponse2ResponsesRequestRequestBodyInputTTL = Literal[
     "5m",
     "1h",
 ]
@@ -129,7 +144,7 @@ r"""Create a cache control breakpoint at this content block. Accepts only the va
 class CreateRouterResponse2ResponsesRequestCacheControlTypedDict(TypedDict):
     type: CreateRouterResponse2ResponsesRequestRequestBodyInputType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateRouterResponse2ResponsesRequestTTL]
+    ttl: NotRequired[CreateRouterResponse2ResponsesRequestRequestBodyInputTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -143,7 +158,7 @@ class CreateRouterResponse2ResponsesRequestCacheControl(BaseModel):
     type: CreateRouterResponse2ResponsesRequestRequestBodyInputType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[CreateRouterResponse2ResponsesRequestTTL] = "5m"
+    ttl: Optional[CreateRouterResponse2ResponsesRequestRequestBodyInputTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -153,13 +168,67 @@ class CreateRouterResponse2ResponsesRequestCacheControl(BaseModel):
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse2ResponsesMode = Literal["explicit",]
+
+
+CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class CreateRouterResponse2PromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse2ResponsesMode
+    ttl: NotRequired[CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL]
+
+
+class CreateRouterResponse2PromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse2ResponsesMode
+
+    ttl: Optional[CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -189,6 +258,10 @@ class TwoFileTypedDict(TypedDict):
     r"""The name of the file."""
     mime_type: NotRequired[str]
     r"""The MIME type of the file (e.g., application/pdf)."""
+    prompt_cache_breakpoint: NotRequired[
+        CreateRouterResponse2PromptCacheBreakpointTypedDict
+    ]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
 
 class TwoFile(BaseModel):
@@ -213,7 +286,13 @@ class TwoFile(BaseModel):
     mime_type: Optional[str] = None
     r"""The MIME type of the file (e.g., application/pdf)."""
 
+    prompt_cache_breakpoint: Optional[CreateRouterResponse2PromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -223,13 +302,18 @@ class TwoFile(BaseModel):
                 "file_url",
                 "filename",
                 "mime_type",
+                "prompt_cache_breakpoint",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -239,7 +323,7 @@ class TwoFile(BaseModel):
         return m
 
 
-CreateRouterResponse2ResponsesTTL = Literal[
+CreateRouterResponse2ResponsesRequestTTL = Literal[
     "5m",
     "1h",
 ]
@@ -259,7 +343,7 @@ r"""Create a cache control breakpoint at this content block. Accepts only the va
 class CreateRouterResponse2ResponsesCacheControlTypedDict(TypedDict):
     type: CreateRouterResponse2ResponsesRequestType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateRouterResponse2ResponsesTTL]
+    ttl: NotRequired[CreateRouterResponse2ResponsesRequestTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -273,7 +357,7 @@ class CreateRouterResponse2ResponsesCacheControl(BaseModel):
     type: CreateRouterResponse2ResponsesRequestType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[CreateRouterResponse2ResponsesTTL] = "5m"
+    ttl: Optional[CreateRouterResponse2ResponsesRequestTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -283,13 +367,20 @@ class CreateRouterResponse2ResponsesCacheControl(BaseModel):
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -307,6 +398,53 @@ TwoDetail = Literal[
 r"""The detail level for image understanding."""
 
 
+CreateRouterResponse2Mode = Literal["explicit",]
+
+
+CreateRouterResponse2ResponsesRequestRequestBodyTTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class TwoPromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse2Mode
+    ttl: NotRequired[CreateRouterResponse2ResponsesRequestRequestBodyTTL]
+
+
+class TwoPromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse2Mode
+
+    ttl: Optional[CreateRouterResponse2ResponsesRequestRequestBodyTTL] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 CreateRouterResponse2ResponsesRequestRequestBodyType = Literal["input_image",]
 
 
@@ -321,6 +459,8 @@ class TwoImageTypedDict(TypedDict):
     r"""The ID of a previously uploaded file."""
     image_url: NotRequired[str]
     r"""The URL of the image."""
+    prompt_cache_breakpoint: NotRequired[TwoPromptCacheBreakpointTypedDict]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
 
 class TwoImage(BaseModel):
@@ -339,14 +479,32 @@ class TwoImage(BaseModel):
     image_url: Optional[str] = None
     r"""The URL of the image."""
 
+    prompt_cache_breakpoint: Optional[TwoPromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
-        optional_fields = set(["cache_control", "detail", "file_id", "image_url"])
+        optional_fields = set(
+            [
+                "cache_control",
+                "detail",
+                "file_id",
+                "image_url",
+                "prompt_cache_breakpoint",
+            ]
+        )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -400,13 +558,67 @@ class CreateRouterResponse2CacheControl(BaseModel):
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+TwoMode = Literal["explicit",]
+
+
+CreateRouterResponse2ResponsesTTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class PromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: TwoMode
+    ttl: NotRequired[CreateRouterResponse2ResponsesTTL]
+
+
+class PromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: TwoMode
+
+    ttl: Optional[CreateRouterResponse2ResponsesTTL] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -426,6 +638,8 @@ class TwoTextTypedDict(TypedDict):
     r"""The text content."""
     type: CreateRouterResponse2ResponsesType
     cache_control: NotRequired[CreateRouterResponse2CacheControlTypedDict]
+    prompt_cache_breakpoint: NotRequired[PromptCacheBreakpointTypedDict]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
 
 class TwoText(BaseModel):
@@ -438,14 +652,24 @@ class TwoText(BaseModel):
 
     cache_control: Optional[CreateRouterResponse2CacheControl] = None
 
+    prompt_cache_breakpoint: Optional[PromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
-        optional_fields = set(["cache_control"])
+        optional_fields = set(["cache_control", "prompt_cache_breakpoint"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -508,13 +732,20 @@ class InputReasoning(BaseModel):
     effort: Optional[InputEffort] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["effort"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -636,6 +867,9 @@ class CreateRouterResponseInput2(BaseModel):
     r"""The type of item."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -652,11 +886,15 @@ class CreateRouterResponseInput2(BaseModel):
                 "type",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -740,13 +978,20 @@ class FormatJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["description", "strict"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -813,13 +1058,20 @@ class CreateRouterResponseText(BaseModel):
     r"""Controls the verbosity of the model output."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["format", "verbosity"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -889,13 +1141,20 @@ class AllowedTools(BaseModel):
     r"""List of allowed tool names."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["read_only", "tool_names"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -945,15 +1204,22 @@ class ToolsMCPTool(BaseModel):
     r"""The MCP server endpoint URL (inline mode)."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["allowed_tools", "headers", "key", "server_description", "server_url"]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -1004,13 +1270,20 @@ class Network(BaseModel):
     r"""Network mode. Defaults to disabled."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["allowlist", "mode"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -1040,14 +1313,14 @@ CreateRouterResponseToolsResponsesRequestType = Literal[
     "orq:http",
     "orq:function",
 ]
-r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+r"""The platform tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
 
 
 class OrqAiToolTypedDict(TypedDict):
-    r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
+    r"""A platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
     type: CreateRouterResponseToolsResponsesRequestType
-    r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+    r"""The platform tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
     files: NotRequired[List[ToolsFilesTypedDict]]
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
     max_results: NotRequired[int]
@@ -1061,10 +1334,10 @@ class OrqAiToolTypedDict(TypedDict):
 
 
 class OrqAiTool(BaseModel):
-    r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
+    r"""A platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
     type: CreateRouterResponseToolsResponsesRequestType
-    r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+    r"""The platform tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
 
     files: Optional[List[ToolsFiles]] = None
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
@@ -1082,15 +1355,22 @@ class OrqAiTool(BaseModel):
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["files", "max_results", "network", "timezone", "tool_id"]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -1130,13 +1410,20 @@ class Custom(BaseModel):
     r"""A description of what the custom tool does."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["async", "description"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -1190,13 +1477,20 @@ class ToolsCacheControl(BaseModel):
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -1254,6 +1548,9 @@ class ToolsFunction(BaseModel):
     r"""Whether to enforce strict parameter validation."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -1265,11 +1562,15 @@ class ToolsFunction(BaseModel):
                 "strict",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -1331,7 +1632,11 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     cache: NotRequired[CacheConfigTypedDict]
     cache_control: NotRequired[CreateRouterResponseCacheControlTypedDict]
     r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
+    context_management: NotRequired[Nullable[List[OpenAIContextManagementTypedDict]]]
+    r"""Context management entries. One compaction entry summarizes history older than compact_threshold into a single item. See the [Context Compaction](https://docs.orq.ai/ai-gateway/features/context-compaction) guide."""
     conversation: NotRequired[ConversationParamTypedDict]
+    fallback_on_codes: NotRequired[Nullable[List[int]]]
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
     r"""Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format."""
     frequency_penalty: NotRequired[float]
@@ -1339,6 +1644,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     guardrails: NotRequired[List[EvaluatorRefTypedDict]]
     r"""Guardrails to evaluate the request against."""
     identity: NotRequired[ResponseIdentityTypedDict]
+    include: NotRequired[List[str]]
+    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide."""
     input: NotRequired[CreateRouterResponseInputTypedDict]
     r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
     instructions: NotRequired[str]
@@ -1353,9 +1660,9 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""Maximum number of tool call rounds in the agentic loop."""
     memory: NotRequired[MemoryParamTypedDict]
     metadata: NotRequired[Dict[str, str]]
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400."""
     model: NotRequired[str]
-    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform."""
+    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from this platform."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to allow parallel tool calls."""
     plugins: NotRequired[Nullable[List[PublicPluginTypedDict]]]
@@ -1389,6 +1696,7 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text."""
     text: NotRequired[CreateRouterResponseTextTypedDict]
     r"""Configuration for text output."""
+    thinking: NotRequired[ThinkingParamTypedDict]
     thread: NotRequired[ResponseThreadTypedDict]
     timeout: NotRequired[TimeoutConfigTypedDict]
     tool_choice: NotRequired[CreateRouterResponseToolChoiceTypedDict]
@@ -1414,7 +1722,13 @@ class CreateRouterResponseRequestBody(BaseModel):
     cache_control: Optional[CreateRouterResponseCacheControl] = None
     r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
 
+    context_management: OptionalNullable[List[OpenAIContextManagement]] = UNSET
+    r"""Context management entries. One compaction entry summarizes history older than compact_threshold into a single item. See the [Context Compaction](https://docs.orq.ai/ai-gateway/features/context-compaction) guide."""
+
     conversation: Optional[ConversationParam] = None
+
+    fallback_on_codes: OptionalNullable[List[int]] = UNSET
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
 
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
     r"""Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format."""
@@ -1426,6 +1740,9 @@ class CreateRouterResponseRequestBody(BaseModel):
     r"""Guardrails to evaluate the request against."""
 
     identity: Optional[ResponseIdentity] = None
+
+    include: Optional[List[str]] = None
+    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide."""
 
     input: Optional[CreateRouterResponseInput] = None
     r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
@@ -1449,10 +1766,10 @@ class CreateRouterResponseRequestBody(BaseModel):
     memory: Optional[MemoryParam] = None
 
     metadata: Optional[Dict[str, str]] = None
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400."""
 
     model: Optional[str] = None
-    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform."""
+    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from this platform."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to allow parallel tool calls."""
@@ -1506,6 +1823,8 @@ class CreateRouterResponseRequestBody(BaseModel):
     text: Optional[CreateRouterResponseText] = None
     r"""Configuration for text output."""
 
+    thinking: Optional[ThinkingParam] = None
+
     thread: Optional[ResponseThread] = None
 
     timeout: Optional[TimeoutConfig] = None
@@ -1529,17 +1848,23 @@ class CreateRouterResponseRequestBody(BaseModel):
     r"""Template variables for prompt substitution. Plain values fill {{variable}} placeholders in instructions. For secrets, use {\"secret\": true, \"value\": \"sensitive-data\"} — secrets are automatically passed to platform tools (Python, HTTP, MCP) and redacted from traces."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
                 "background",
                 "cache",
                 "cache_control",
+                "context_management",
                 "conversation",
+                "fallback_on_codes",
                 "fallbacks",
                 "frequency_penalty",
                 "guardrails",
                 "identity",
+                "include",
                 "input",
                 "instructions",
                 "integration_id",
@@ -1569,6 +1894,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "temperature",
                 "template_engine",
                 "text",
+                "thinking",
                 "thread",
                 "timeout",
                 "tool_choice",
@@ -1579,12 +1905,18 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "variables",
             ]
         )
-        nullable_fields = set(["fallbacks", "plugins"])
+        nullable_fields = set(
+            ["context_management", "fallback_on_codes", "fallbacks", "plugins"]
+        )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
@@ -1616,13 +1948,20 @@ class CreateRouterResponseResponsesResponseBody(BaseModel):
     r"""A single server-sent event emitted on the response stream. The `type` field discriminates the payload."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["data"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -1668,13 +2007,11 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     frequency_penalty: float
     id: str
     incomplete_details: Nullable[IncompleteDetailsTypedDict]
-    input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
     instructions: Nullable[str]
     max_output_tokens: Nullable[int]
     max_tool_calls: Nullable[int]
     metadata: Dict[str, str]
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>)."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`)."""
     model: str
     object: str
     r"""Always \"response\" """
@@ -1728,9 +2065,6 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     incomplete_details: Nullable[IncompleteDetails]
 
-    input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
-
     instructions: Nullable[str]
 
     max_output_tokens: Nullable[int]
@@ -1738,7 +2072,7 @@ class CreateRouterResponseResponseBody(BaseModel):
     max_tool_calls: Nullable[int]
 
     metadata: Dict[str, str]
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>)."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`)."""
 
     model: str
 
@@ -1803,6 +2137,9 @@ class CreateRouterResponseResponseBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["conversation", "memory", "telemetry", "top_k", "variables"]
@@ -1812,7 +2149,6 @@ class CreateRouterResponseResponseBody(BaseModel):
                 "completed_at",
                 "error",
                 "incomplete_details",
-                "input",
                 "instructions",
                 "max_output_tokens",
                 "max_tool_calls",
@@ -1828,11 +2164,15 @@ class CreateRouterResponseResponseBody(BaseModel):
                 "user",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

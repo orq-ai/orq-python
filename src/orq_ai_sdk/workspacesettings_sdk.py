@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union
+from typing import Any, Mapping, Optional, Union
 
 
 class WorkspaceSettingsSDK(BaseSDK):
@@ -74,17 +74,21 @@ class WorkspaceSettingsSDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Settings"],
-                extensions=None,
+                extensions={"x-cli-group": "workspace-settings", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.GetWorkspaceSettingsResponse, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -158,17 +162,21 @@ class WorkspaceSettingsSDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Settings"],
-                extensions=None,
+                extensions={"x-cli-group": "workspace-settings", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.GetWorkspaceSettingsResponse, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -265,17 +273,24 @@ class WorkspaceSettingsSDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Settings"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-settings",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.UpdateWorkspaceSettingsResponse, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -372,17 +387,24 @@ class WorkspaceSettingsSDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Settings"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-settings",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.UpdateWorkspaceSettingsResponse, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

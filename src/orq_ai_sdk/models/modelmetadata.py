@@ -14,7 +14,10 @@ from orq_ai_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -32,6 +35,8 @@ class ModelMetadataTypedDict(TypedDict):
     context_window: NotRequired[int]
     cost_efficiency_rating: NotRequired[int]
     cost_per_image: NotRequired[float]
+    default_max_output_tokens: NotRequired[int]
+    default_speech_response_format: NotRequired[str]
     deprecation_date: NotRequired[str]
     embedding_dimensions: NotRequired[int]
     extended_context_pricing_mode: NotRequired[str]
@@ -109,6 +114,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_json_mode_response_format: NotRequired[bool]
     supports_json_schema_response_format: NotRequired[bool]
     supports_max_completion_tokens: NotRequired[bool]
+    supports_mid_conversation_system: NotRequired[bool]
     supports_native_classify: NotRequired[bool]
     supports_openai_realtime_api: NotRequired[bool]
     supports_openai_sdk: NotRequired[bool]
@@ -118,6 +124,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_reasoning: NotRequired[bool]
     supports_reasoning_effort_default: NotRequired[bool]
     supports_reasoning_effort_high: NotRequired[bool]
+    supports_reasoning_effort_instant: NotRequired[bool]
     supports_reasoning_effort_low: NotRequired[bool]
     supports_reasoning_effort_max: NotRequired[bool]
     supports_reasoning_effort_medium: NotRequired[bool]
@@ -140,6 +147,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_thinking_level_minimal: NotRequired[bool]
     supports_tool_calling: NotRequired[bool]
     supports_tool_choice: NotRequired[bool]
+    supports_transcription: NotRequired[bool]
     supports_url_context: NotRequired[bool]
     supports_url_response_format: NotRequired[bool]
     supports_video_input: NotRequired[bool]
@@ -173,6 +181,10 @@ class ModelMetadata(BaseModel):
     cost_efficiency_rating: Optional[int] = None
 
     cost_per_image: Optional[float] = None
+
+    default_max_output_tokens: Optional[int] = None
+
+    default_speech_response_format: Optional[str] = None
 
     deprecation_date: Optional[str] = None
 
@@ -328,6 +340,8 @@ class ModelMetadata(BaseModel):
 
     supports_max_completion_tokens: Optional[bool] = None
 
+    supports_mid_conversation_system: Optional[bool] = None
+
     supports_native_classify: Optional[bool] = None
 
     supports_openai_realtime_api: Optional[bool] = None
@@ -345,6 +359,8 @@ class ModelMetadata(BaseModel):
     supports_reasoning_effort_default: Optional[bool] = None
 
     supports_reasoning_effort_high: Optional[bool] = None
+
+    supports_reasoning_effort_instant: Optional[bool] = None
 
     supports_reasoning_effort_low: Optional[bool] = None
 
@@ -390,6 +406,8 @@ class ModelMetadata(BaseModel):
 
     supports_tool_choice: Optional[bool] = None
 
+    supports_transcription: Optional[bool] = None
+
     supports_url_context: Optional[bool] = None
 
     supports_url_response_format: Optional[bool] = None
@@ -409,6 +427,9 @@ class ModelMetadata(BaseModel):
     thinking_enforced: Optional[bool] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -422,6 +443,8 @@ class ModelMetadata(BaseModel):
                 "context_window",
                 "cost_efficiency_rating",
                 "cost_per_image",
+                "default_max_output_tokens",
+                "default_speech_response_format",
                 "deprecation_date",
                 "embedding_dimensions",
                 "extended_context_pricing_mode",
@@ -499,6 +522,7 @@ class ModelMetadata(BaseModel):
                 "supports_json_mode_response_format",
                 "supports_json_schema_response_format",
                 "supports_max_completion_tokens",
+                "supports_mid_conversation_system",
                 "supports_native_classify",
                 "supports_openai_realtime_api",
                 "supports_openai_sdk",
@@ -508,6 +532,7 @@ class ModelMetadata(BaseModel):
                 "supports_reasoning",
                 "supports_reasoning_effort_default",
                 "supports_reasoning_effort_high",
+                "supports_reasoning_effort_instant",
                 "supports_reasoning_effort_low",
                 "supports_reasoning_effort_max",
                 "supports_reasoning_effort_medium",
@@ -530,6 +555,7 @@ class ModelMetadata(BaseModel):
                 "supports_thinking_level_minimal",
                 "supports_tool_calling",
                 "supports_tool_choice",
+                "supports_transcription",
                 "supports_url_context",
                 "supports_url_response_format",
                 "supports_video_input",
@@ -552,11 +578,15 @@ class ModelMetadata(BaseModel):
                 "supported_video_sizes",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

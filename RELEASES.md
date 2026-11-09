@@ -4819,3 +4819,313 @@ Based on:
 - [python v4.16.12] .
 ### Releases
 - [PyPI v4.16.12] https://pypi.org/project/orq-ai-sdk/4.16.12 - .
+
+## 2026-10-20 08:27:14
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.802.0 (2.948.4) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.16.13] .
+### Releases
+- [PyPI v4.16.13] https://pypi.org/project/orq-ai-sdk/4.16.13 - .
+
+## 2026-10-20 10:00:23
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.0 (2.950.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.16.14] .
+### Releases
+- [PyPI v4.16.14] https://pypi.org/project/orq-ai-sdk/4.16.14 - .
+
+## 2026-10-21 18:14:43
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.1 (2.950.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.16.15] .
+### Releases
+- [PyPI v4.16.15] https://pypi.org/project/orq-ai-sdk/4.16.15 - .
+
+## 2026-10-22 11:57:19
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.1 (2.950.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.16.16] .
+### Releases
+- [PyPI v4.16.16] https://pypi.org/project/orq-ai-sdk/4.16.16 - .
+
+## 2026-10-22 20:48:37
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.1 (2.950.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.0] .
+### Releases
+- [PyPI v4.17.0] https://pypi.org/project/orq-ai-sdk/4.17.0 - .
+
+## 2026-10-23 11:32:03
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.1 (2.950.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.16.17] .
+### Releases
+- [PyPI v4.16.17] https://pypi.org/project/orq-ai-sdk/4.16.17 - .
+
+## 2026-10-23 15:17:48
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.1] .
+### Releases
+- [PyPI v4.17.1] https://pypi.org/project/orq-ai-sdk/4.17.1 - .
+
+## 2026-10-23 16:40:34
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.2] .
+### Releases
+- [PyPI v4.17.2] https://pypi.org/project/orq-ai-sdk/4.17.2 - .
+
+## 2026-10-23 18:20:47
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.3] .
+### Releases
+- [PyPI v4.17.3] https://pypi.org/project/orq-ai-sdk/4.17.3 - .
+
+## 2026-10-24 15:05:44
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.4] .
+### Releases
+- [PyPI v4.17.4] https://pypi.org/project/orq-ai-sdk/4.17.4 - .
+
+## 2026-10-24 15:28:57
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.5] .
+### Releases
+- [PyPI v4.17.5] https://pypi.org/project/orq-ai-sdk/4.17.5 - .
+
+## 2026-10-26 09:45:08
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.6] .
+### Releases
+- [PyPI v4.17.6] https://pypi.org/project/orq-ai-sdk/4.17.6 - .
+
+## 2026-10-26 10:18:19
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.7] .
+### Releases
+- [PyPI v4.17.7] https://pypi.org/project/orq-ai-sdk/4.17.7 - .
+
+## 2026-10-26 12:13:55
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.8] .
+### Releases
+- [PyPI v4.17.8] https://pypi.org/project/orq-ai-sdk/4.17.8 - .
+
+## 2026-10-26 12:56:52
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.11] .
+### Releases
+- [PyPI v4.17.11] https://pypi.org/project/orq-ai-sdk/4.17.11 - .
+
+## 2026-10-26 20:38:33
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.13] .
+### Releases
+- [PyPI v4.17.13] https://pypi.org/project/orq-ai-sdk/4.17.13 - .
+
+## 2026-10-27 09:35:14
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.14] .
+### Releases
+- [PyPI v4.17.14] https://pypi.org/project/orq-ai-sdk/4.17.14 - .
+
+## 2026-10-28 13:09:43
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.805.0 (2.954.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.15] .
+### Releases
+- [PyPI v4.17.15] https://pypi.org/project/orq-ai-sdk/4.17.15 - .
+
+## 2026-10-28 14:09:44
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.805.0 (2.954.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.16] .
+### Releases
+- [PyPI v4.17.16] https://pypi.org/project/orq-ai-sdk/4.17.16 - .
+
+## 2026-10-28 21:54:28
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.805.0 (2.954.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.17] .
+### Releases
+- [PyPI v4.17.17] https://pypi.org/project/orq-ai-sdk/4.17.17 - .
+
+## 2026-10-28 22:17:49
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.805.0 (2.954.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.18] .
+### Releases
+- [PyPI v4.17.18] https://pypi.org/project/orq-ai-sdk/4.17.18 - .
+
+## 2026-10-29 14:27:13
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.805.0 (2.954.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.19] .
+### Releases
+- [PyPI v4.17.19] https://pypi.org/project/orq-ai-sdk/4.17.19 - .
+
+## 2026-10-30 14:02:34
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.805.0 (2.954.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.20] .
+### Releases
+- [PyPI v4.17.20] https://pypi.org/project/orq-ai-sdk/4.17.20 - .
+
+## 2026-10-31 14:34:55
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.805.0 (2.954.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.21] .
+### Releases
+- [PyPI v4.17.21] https://pypi.org/project/orq-ai-sdk/4.17.21 - .
+
+## 2026-11-02 08:31:41
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.805.0 (2.954.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.22] .
+### Releases
+- [PyPI v4.17.22] https://pypi.org/project/orq-ai-sdk/4.17.22 - .
+
+## 2026-11-02 14:16:45
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.805.0 (2.954.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.23] .
+### Releases
+- [PyPI v4.17.23] https://pypi.org/project/orq-ai-sdk/4.17.23 - .
+
+## 2026-11-02 22:11:41
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.805.0 (2.954.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.24] .
+### Releases
+- [PyPI v4.17.24] https://pypi.org/project/orq-ai-sdk/4.17.24 - .
+
+## 2026-11-03 21:13:51
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.806.0 (2.956.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.25] .
+### Releases
+- [PyPI v4.17.25] https://pypi.org/project/orq-ai-sdk/4.17.25 - .
+
+## 2026-11-06 12:48:01
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.806.0 (2.956.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.17.26] .
+### Releases
+- [PyPI v4.17.26] https://pypi.org/project/orq-ai-sdk/4.17.26 - .
+
+## 2026-11-08 21:46:32
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.806.0 (2.956.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.18.1] .
+### Releases
+- [PyPI v4.18.1] https://pypi.org/project/orq-ai-sdk/4.18.1 - .
+
+## 2026-11-08 22:43:05
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.806.0 (2.956.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.18.2] .
+### Releases
+- [PyPI v4.18.2] https://pypi.org/project/orq-ai-sdk/4.18.2 - .

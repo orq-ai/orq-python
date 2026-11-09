@@ -1,39 +1,74 @@
-"""Inject W3C traceparent from the active @traced span onto outbound HTTP."""
+"""Propagate the active Orq or OpenTelemetry span onto outbound HTTP."""
 
 from __future__ import annotations
 
-from typing import Any, Callable
+from collections.abc import Callable
+from importlib import import_module
+from typing import Any
 
-from .context import merge_orq_tracestate, propagation_headers
+from .context import get_current_span_context, merge_orq_tracestate, propagation_headers
 
 _INSTALLED = False
+_OTEL_CONTEXT = False
 
 
-def install_http_propagation() -> None:
-    """Patch httpx and requests once so OpenAI/Anthropic pick up traceparent."""
-    global _INSTALLED  # pylint: disable=global-statement
+def install_http_propagation(*, otel_context: bool = False) -> None:
+    """Install request-time propagation for available HTTP client libraries."""
+    global _INSTALLED, _OTEL_CONTEXT  # pylint: disable=global-statement
+    _OTEL_CONTEXT = _OTEL_CONTEXT or otel_context
     if _INSTALLED:
         return
     _INSTALLED = True
-    _patch_httpx()
+    _patch_httpx("httpx")
+    _patch_httpx("httpx2")
     _patch_requests()
+    _patch_aiohttp()
+
+
+def _active_headers() -> tuple[dict[str, str], bool]:
+    if _OTEL_CONTEXT:
+        try:
+            from opentelemetry import trace  # pylint: disable=import-outside-toplevel
+            from opentelemetry.trace.propagation.tracecontext import (  # pylint: disable=import-outside-toplevel
+                TraceContextTextMapPropagator,
+            )
+
+            native = trace.get_current_span().get_span_context()
+            if native.is_valid:
+                orq_span = get_current_span_context()
+                if orq_span is not None and (
+                    orq_span.trace_id == format(native.trace_id, "032x")
+                    and orq_span.span_id == format(native.span_id, "016x")
+                ):
+                    return propagation_headers(), True
+                headers: dict[str, str] = {}
+                TraceContextTextMapPropagator().inject(headers)
+                return headers, False
+        except ImportError:
+            pass
+    return propagation_headers(), True
+
+
+def _header_key(headers: Any, name: str) -> Any:
+    return next((key for key in headers if str(key).lower() == name), None)
 
 
 def _inject(headers: Any) -> None:
     if headers is None:
         return
-    incoming = propagation_headers()
+    incoming, orq_owned = _active_headers()
     if not incoming:
         return
-    if "traceparent" not in headers:
+    parent_key = _header_key(headers, "traceparent")
+    if parent_key is None:
         for key, value in incoming.items():
-            headers[key] = value
+            if _header_key(headers, key) is None:
+                headers[key] = value
         return
-    # Another instrumentor already set traceparent. Only stamp orq=1 when that
-    # parent is the active @traced span — never claim a foreign APM parent.
-    if headers.get("traceparent") != incoming["traceparent"]:
+    if not orq_owned or headers[parent_key] != incoming["traceparent"]:
         return
-    headers["tracestate"] = merge_orq_tracestate(headers.get("tracestate") or "")
+    state_key = _header_key(headers, "tracestate") or "tracestate"
+    headers[state_key] = merge_orq_tracestate(headers.get(state_key) or "")
 
 
 def _patch_method(cls: type, name: str, wrapper_factory: Callable[..., Any]) -> None:
@@ -45,9 +80,9 @@ def _patch_method(cls: type, name: str, wrapper_factory: Callable[..., Any]) -> 
     setattr(cls, name, wrapped)
 
 
-def _patch_httpx() -> None:
+def _patch_httpx(module_name: str) -> None:
     try:
-        import httpx  # pylint: disable=import-outside-toplevel
+        httpx = import_module(module_name)
     except ImportError:
         return
 
@@ -83,3 +118,23 @@ def _patch_requests() -> None:
         return send
 
     _patch_method(requests.Session, "send", wrap_send)
+
+
+def _patch_aiohttp() -> None:
+    try:
+        import aiohttp  # pylint: disable=import-outside-toplevel
+        from multidict import CIMultiDict  # pylint: disable=import-outside-toplevel
+    except ImportError:
+        return
+
+    def wrap_request(original: Callable[..., Any]) -> Callable[..., Any]:
+        async def request(self: Any, *args: Any, **kwargs: Any) -> Any:
+            headers: CIMultiDict[str] = CIMultiDict(self.headers)
+            headers.update(kwargs.get("headers") or {})
+            _inject(headers)
+            kwargs["headers"] = headers
+            return await original(self, *args, **kwargs)
+
+        return request
+
+    _patch_method(aiohttp.ClientSession, "_request", wrap_request)

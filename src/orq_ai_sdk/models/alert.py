@@ -5,6 +5,7 @@ from .alertcondition import AlertCondition, AlertConditionTypedDict
 from .alertdisplay import AlertDisplay, AlertDisplayTypedDict
 from .alertquery import AlertQuery, AlertQueryTypedDict
 from .alertrun import AlertRun, AlertRunTypedDict
+from .alertscope import AlertScope
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
@@ -12,7 +13,10 @@ from orq_ai_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import List, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -46,7 +50,7 @@ class AlertTypedDict(TypedDict):
     description: str
     r"""Short human-readable summary of what the alert watches."""
     project_id: str
-    r"""Project that owns the alert. Immutable after creation."""
+    r"""Project that owns a project-scoped alert. Empty for workspace alerts. Immutable after creation."""
     signal: Signal
     r"""UI signal preset the alert was created from."""
     query: AlertQueryTypedDict
@@ -71,6 +75,7 @@ class AlertTypedDict(TypedDict):
     r"""User ID that created the alert."""
     updated_by_id: str
     r"""User ID that last updated the alert."""
+    scope: AlertScope
     last_triggered_at: NotRequired[Nullable[datetime]]
     r"""Time when the alert last opened a trigger. `null` until the alert first triggers."""
     recent_runs: NotRequired[List[AlertRunTypedDict]]
@@ -94,7 +99,7 @@ class Alert(BaseModel):
     r"""Short human-readable summary of what the alert watches."""
 
     project_id: str
-    r"""Project that owns the alert. Immutable after creation."""
+    r"""Project that owns a project-scoped alert. Empty for workspace alerts. Immutable after creation."""
 
     signal: Signal
     r"""UI signal preset the alert was created from."""
@@ -130,6 +135,8 @@ class Alert(BaseModel):
     updated_by_id: str
     r"""User ID that last updated the alert."""
 
+    scope: AlertScope
+
     last_triggered_at: OptionalNullable[datetime] = UNSET
     r"""Time when the alert last opened a trigger. `null` until the alert first triggers."""
 
@@ -142,14 +149,21 @@ class Alert(BaseModel):
     r"""Display options for the alert activity chart. `null` when none are saved."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["last_triggered_at", "recent_runs", "display"])
         nullable_fields = set(["last_triggered_at", "display"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

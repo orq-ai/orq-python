@@ -4,13 +4,12 @@
 
 ```python
 from orq_ai_sdk.models import ModelFusionPreset
-value: ModelFusionPreset = "MODEL_FUSION_PRESET_UNSPECIFIED"
+value: ModelFusionPreset = "MODEL_FUSION_PRESET_GENERAL"
 ```
 
 
 ## Values
 
-- `"MODEL_FUSION_PRESET_UNSPECIFIED"`
 - `"MODEL_FUSION_PRESET_GENERAL"`
 - `"MODEL_FUSION_PRESET_QUALITY"`
 - `"MODEL_FUSION_PRESET_BUDGET"`

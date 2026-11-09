@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from .piiredaction import PiiRedaction, PiiRedactionTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
@@ -12,10 +18,8 @@ class UpdateWorkspaceSettingsRequestTypedDict(TypedDict):
     r"""UpdateWorkspaceSettingsRequest is a partial update: every field is optional
     and an omitted field is left unchanged.
 
-    There is deliberately no `key` / `slug` field. The workspace slug is
-    immutable through this service (it is embedded in resource URLs and API
-    credentials), mirroring the dashboard's WorkspaceUpdateGuard, which rejects a
-    `key` in the PATCH /workspaces/:key body. Do not add one.
+    The workspace slug is immutable through this service: it is embedded in
+    resource URLs and API credentials.
     """
 
     display_name: NotRequired[str]
@@ -35,10 +39,8 @@ class UpdateWorkspaceSettingsRequest(BaseModel):
     r"""UpdateWorkspaceSettingsRequest is a partial update: every field is optional
     and an omitted field is left unchanged.
 
-    There is deliberately no `key` / `slug` field. The workspace slug is
-    immutable through this service (it is embedded in resource URLs and API
-    credentials), mirroring the dashboard's WorkspaceUpdateGuard, which rejects a
-    `key` in the PATCH /workspaces/:key body. Do not add one.
+    The workspace slug is immutable through this service: it is embedded in
+    resource URLs and API credentials.
     """
 
     display_name: Optional[str] = None
@@ -56,15 +58,22 @@ class UpdateWorkspaceSettingsRequest(BaseModel):
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["display_name", "enforce_enabled_models", "pii_redaction"]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

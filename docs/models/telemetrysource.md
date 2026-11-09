@@ -4,13 +4,12 @@
 
 ```python
 from orq_ai_sdk.models import TelemetrySource
-value: TelemetrySource = "TELEMETRY_SOURCE_UNSPECIFIED"
+value: TelemetrySource = "TELEMETRY_SOURCE_TRACES"
 ```
 
 
 ## Values
 
-- `"TELEMETRY_SOURCE_UNSPECIFIED"`
 - `"TELEMETRY_SOURCE_TRACES"`
 - `"TELEMETRY_SOURCE_METRICS"`
 - `"TELEMETRY_SOURCE_LOGS"`

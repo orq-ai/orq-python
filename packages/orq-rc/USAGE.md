@@ -6,7 +6,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.deployments.invoke(key="<key>", stream=False, identity={
@@ -61,7 +61,7 @@ import os
 async def main():
 
     async with Orq(
-        api_key=os.getenv("ORQ_API_KEY", ""),
+        api_key=os.getenv("ORQ_API_KEY"),
     ) as orq:
 
         res = await orq.deployments.invoke_async(key="<key>", stream=False, identity={

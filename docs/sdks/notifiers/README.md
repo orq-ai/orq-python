@@ -23,7 +23,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.notifiers.list(type_=[
@@ -44,7 +44,7 @@ with Orq(
 | `ending_before`                                                                            | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | Cursor for backward pagination. Set to the `_id` of the first item from the previous page. |
 | `project_id`                                                                               | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | Restrict results to one project. Must be a project the caller is authorized for.           |
 | `search`                                                                                   | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | Optional. Case-insensitive substring match on the notifier name.                           |
-| `type`                                                                                     | List[[models.NotifierType](../../models/notifiertype.md)]                                  | :heavy_minus_sign:                                                                         | Optional. Restrict results to these notifier types.                                        |
+| `type_`                                                                                    | List[[models.NotifierType](../../models/notifiertype.md)]                                  | :heavy_minus_sign:                                                                         | Optional. Restrict results to these notifier types.                                        |
 | `retries`                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                           | :heavy_minus_sign:                                                                         | Configuration to override the default retry behavior of the client.                        |
 
 ### Response
@@ -55,6 +55,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
@@ -70,11 +71,11 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.notifiers.create(request={
-        "type": "NOTIFIER_TYPE_UNSPECIFIED",
+        "type": "NOTIFIER_TYPE_EMAIL",
         "incoming_webhook_url": "https://far-wear.org/",
         "display_name": "Dennis48",
     })
@@ -99,6 +100,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
@@ -114,7 +116,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.notifiers.get(notifier_id="<id>")
@@ -139,6 +141,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -154,7 +157,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.notifiers.delete(notifier_id="<id>")
@@ -179,6 +182,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
@@ -194,7 +198,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.notifiers.update(notifier_id="<id>", type_="NOTIFIER_TYPE_SLACK_WEBHOOK")
@@ -212,7 +216,7 @@ with Orq(
 | `project_id`                                                                                                                                                                                    | *Optional[str]*                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                              | Optional. New containing project. Workspace-scoped callers may set an empty value to make the notifier workspace-wide. Project-scoped API keys remain pinned to the API key's project.          |                                                                                                                                                                                                 |
 | `display_name`                                                                                                                                                                                  | *Optional[str]*                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                              | Optional. New human-readable notifier name.                                                                                                                                                     |                                                                                                                                                                                                 |
 | `metadata`                                                                                                                                                                                      | [Optional[models.UpdateNotifierRequestMetadata]](../../models/updatenotifierrequestmetadata.md)                                                                                                 | :heavy_minus_sign:                                                                                                                                                                              | Optional. Replacement custom JSON metadata.                                                                                                                                                     |                                                                                                                                                                                                 |
-| `type`                                                                                                                                                                                          | [Optional[models.NotifierType]](../../models/notifiertype.md)                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                              | N/A                                                                                                                                                                                             | NOTIFIER_TYPE_SLACK_WEBHOOK                                                                                                                                                                     |
+| `type_`                                                                                                                                                                                         | [Optional[models.NotifierType]](../../models/notifiertype.md)                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                              | N/A                                                                                                                                                                                             | NOTIFIER_TYPE_SLACK_WEBHOOK                                                                                                                                                                     |
 | `emails`                                                                                                                                                                                        | List[*str*]                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                              | Optional replacement email recipients. Required when changing `type` to `NOTIFIER_TYPE_EMAIL`.                                                                                                  |                                                                                                                                                                                                 |
 | `incoming_webhook_url`                                                                                                                                                                          | *Optional[str]*                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                              | Optional replacement Slack incoming webhook URL. Required when changing `type` to `NOTIFIER_TYPE_SLACK_WEBHOOK`.                                                                                |                                                                                                                                                                                                 |
 | `webhook_url`                                                                                                                                                                                   | *Optional[str]*                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                              | Optional replacement generic webhook URL. Required when changing `type` to `NOTIFIER_TYPE_WEBHOOK`.                                                                                             |                                                                                                                                                                                                 |
@@ -227,4 +231,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

@@ -19,7 +19,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.router.audio.translations.create(model="Impala", enable_logging=True, diarize=False, tag_audio_events=True, timestamps_granularity="word", temperature=0.5, retry={

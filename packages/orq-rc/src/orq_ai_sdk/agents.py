@@ -383,7 +383,7 @@ class Agents(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter agents by type
+        :param type_: Filter agents by type
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -481,7 +481,7 @@ class Agents(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter agents by type
+        :param type_: Filter agents by type
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1492,7 +1492,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "invoke"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "invoke",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1652,7 +1656,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "invoke"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "invoke",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1850,7 +1858,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "run"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "run",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2048,7 +2060,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "run"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "run",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2261,7 +2277,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "streamRun"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "streamRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2490,7 +2510,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "streamRun"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "streamRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2669,7 +2693,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "stream"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "stream",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2848,7 +2876,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "stream"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "stream",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

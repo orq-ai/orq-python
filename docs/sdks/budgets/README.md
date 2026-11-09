@@ -24,7 +24,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.budgets.list()
@@ -57,6 +57,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
@@ -72,7 +73,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.budgets.create()
@@ -84,16 +85,16 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                  | Type                                                                                                                                                                                                                                                       | Required                                                                                                                                                                                                                                                   | Description                                                                                                                                                                                                                                                |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `scope`                                                                                                                                                                                                                                                    | [Optional[models.BudgetScope]](../../models/budgetscope.md)                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                         | Structured scope. Mutually exclusive with `match`: provide a scope<br/> for the six canonical kinds (the server derives the matching CEL),<br/> or provide `match` for a dynamic budget. Exactly one of the two<br/> must be set; the handler enforces that invariant. |
-| `match`                                                                                                                                                                                                                                                    | [Optional[models.BudgetMatch]](../../models/budgetmatch.md)                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                         | Raw CEL matching expression for dynamic budgets (e.g.<br/> `metadata.team == "ml" && provider == "openai"`). Validated via<br/> CEL parse at write time. Mutually exclusive with `scope`.                                                                  |
-| `limits`                                                                                                                                                                                                                                                   | [Optional[models.BudgetLimits]](../../models/budgetlimits.md)                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                         | At least one of amount / token_limit / rate_limit.requests_per_minute<br/> must be provided on the budget; the handler enforces that invariant.                                                                                                            |
-| `rate_limit`                                                                                                                                                                                                                                               | [Optional[models.RateLimit]](../../models/ratelimit.md)                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                         | Optional rate limit.                                                                                                                                                                                                                                       |
-| `is_active`                                                                                                                                                                                                                                                | *Optional[bool]*                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                         | Whether the budget should be active immediately. Defaults to true<br/> when omitted (handler enforces).                                                                                                                                                    |
-| `expires_at`                                                                                                                                                                                                                                               | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                         | Optional expiration. When set in combination with is_active=true,<br/> the value MUST be in the future; the handler rejects past values.                                                                                                                   |
-| `alerts`                                                                                                                                                                                                                                                   | List[[models.BudgetAlert](../../models/budgetalert.md)]                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                         | Optional threshold notifications. Ids are assigned by the server, so<br/> `alerts[].id` must be omitted here; supplying one is rejected.                                                                                                                   |
-| `retries`                                                                                                                                                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                         | Configuration to override the default retry behavior of the client.                                                                                                                                                                                        |
+| Parameter                                                                                                                                                                                                             | Type                                                                                                                                                                                                                  | Required                                                                                                                                                                                                              | Description                                                                                                                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `scope`                                                                                                                                                                                                               | [Optional[models.BudgetScope]](../../models/budgetscope.md)                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                    | Structured scope. Mutually exclusive with `match`: provide a scope<br/> for the six canonical kinds (the server derives the matching CEL),<br/> or provide `match` for a dynamic budget. Exactly one of the two<br/> must be set. |
+| `match`                                                                                                                                                                                                               | [Optional[models.BudgetMatch]](../../models/budgetmatch.md)                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                    | Raw CEL matching expression for dynamic budgets (e.g.<br/> `metadata.team == "ml" && provider == "openai"`). Validated via<br/> CEL parse at write time. Mutually exclusive with `scope`.                             |
+| `limits`                                                                                                                                                                                                              | [Optional[models.BudgetLimits]](../../models/budgetlimits.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                    | At least one of amount / token_limit / rate_limit.requests_per_minute<br/> must be provided on the budget.                                                                                                            |
+| `rate_limit`                                                                                                                                                                                                          | [Optional[models.RateLimit]](../../models/ratelimit.md)                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                    | Optional rate limit.                                                                                                                                                                                                  |
+| `is_active`                                                                                                                                                                                                           | *Optional[bool]*                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                    | Whether the budget should be active immediately. Defaults to true<br/> when omitted.                                                                                                                                  |
+| `expires_at`                                                                                                                                                                                                          | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                    | Optional expiration. When set in combination with is_active=true,<br/> the value MUST be in the future; the API rejects a past value.                                                                                 |
+| `alerts`                                                                                                                                                                                                              | List[[models.BudgetAlert](../../models/budgetalert.md)]                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                    | Optional threshold notifications. Ids are assigned by the server, so<br/> `alerts[].id` must be omitted here; supplying one is rejected.                                                                              |
+| `retries`                                                                                                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                                                                                                   |
 
 ### Response
 
@@ -103,6 +104,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
@@ -118,7 +120,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.budgets.get(budget_id="<id>")
@@ -143,6 +145,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 403               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -158,7 +161,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.budgets.delete(budget_id="<id>")
@@ -183,6 +186,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
@@ -198,7 +202,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.budgets.update(budget_id="<id>")
@@ -231,6 +235,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## reset_consumption
@@ -246,7 +251,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.budgets.reset_consumption(budget_id="<id>", reset_budget_consumption_request={})
@@ -272,4 +277,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Budgets(BaseSDK):
@@ -113,15 +113,19 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListBudgetsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -233,15 +237,19 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListBudgetsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -277,17 +285,17 @@ class Budgets(BaseSDK):
         :param scope: Structured scope. Mutually exclusive with `match`: provide a scope
             for the six canonical kinds (the server derives the matching CEL),
             or provide `match` for a dynamic budget. Exactly one of the two
-            must be set; the handler enforces that invariant.
+            must be set.
         :param match: Raw CEL matching expression for dynamic budgets (e.g.
             `metadata.team == \"ml\" && provider == \"openai\"`). Validated via
             CEL parse at write time. Mutually exclusive with `scope`.
         :param limits: At least one of amount / token_limit / rate_limit.requests_per_minute
-            must be provided on the budget; the handler enforces that invariant.
+            must be provided on the budget.
         :param rate_limit: Optional rate limit.
         :param is_active: Whether the budget should be active immediately. Defaults to true
-            when omitted (handler enforces).
+            when omitted.
         :param expires_at: Optional expiration. When set in combination with is_active=true,
-            the value MUST be in the future; the handler rejects past values.
+            the value MUST be in the future; the API rejects a past value.
         :param alerts: Optional threshold notifications. Ids are assigned by the server, so
             `alerts[].id` must be omitted here; supplying one is rejected.
         :param retries: Override the default retry configuration for this method
@@ -357,13 +365,20 @@ class Budgets(BaseSDK):
                 ),
                 tags=["Budgets"],
                 extensions={
+                    "x-cli-group": "budgets",
+                    "x-cli-name": "create",
                     "x-code-samples": [
+                        {
+                            "label": "cURL",
+                            "lang": "curl",
+                            "source": 'curl -X POST \'https://my.orq.ai/v2/budgets\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "scope": { "workspace": {} },\n    "limits": { "period": "BUDGET_PERIOD_MONTHLY", "amount": 1000 }\n  }\'\n',
+                        },
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.budgets.create({ scope: { kind: "workspace" }, limits: { period: "MONTHLY", amount: 1000 } });\n',
-                        }
-                    ]
+                            "source": 'await orq.budgets.create({ scope: { workspace: {} }, limits: { period: "BUDGET_PERIOD_MONTHLY", amount: 1000 } });\n',
+                        },
+                    ],
                 },
             ),
             request=req,
@@ -371,8 +386,12 @@ class Budgets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateBudgetResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -408,17 +427,17 @@ class Budgets(BaseSDK):
         :param scope: Structured scope. Mutually exclusive with `match`: provide a scope
             for the six canonical kinds (the server derives the matching CEL),
             or provide `match` for a dynamic budget. Exactly one of the two
-            must be set; the handler enforces that invariant.
+            must be set.
         :param match: Raw CEL matching expression for dynamic budgets (e.g.
             `metadata.team == \"ml\" && provider == \"openai\"`). Validated via
             CEL parse at write time. Mutually exclusive with `scope`.
         :param limits: At least one of amount / token_limit / rate_limit.requests_per_minute
-            must be provided on the budget; the handler enforces that invariant.
+            must be provided on the budget.
         :param rate_limit: Optional rate limit.
         :param is_active: Whether the budget should be active immediately. Defaults to true
-            when omitted (handler enforces).
+            when omitted.
         :param expires_at: Optional expiration. When set in combination with is_active=true,
-            the value MUST be in the future; the handler rejects past values.
+            the value MUST be in the future; the API rejects a past value.
         :param alerts: Optional threshold notifications. Ids are assigned by the server, so
             `alerts[].id` must be omitted here; supplying one is rejected.
         :param retries: Override the default retry configuration for this method
@@ -488,13 +507,20 @@ class Budgets(BaseSDK):
                 ),
                 tags=["Budgets"],
                 extensions={
+                    "x-cli-group": "budgets",
+                    "x-cli-name": "create",
                     "x-code-samples": [
+                        {
+                            "label": "cURL",
+                            "lang": "curl",
+                            "source": 'curl -X POST \'https://my.orq.ai/v2/budgets\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "scope": { "workspace": {} },\n    "limits": { "period": "BUDGET_PERIOD_MONTHLY", "amount": 1000 }\n  }\'\n',
+                        },
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.budgets.create({ scope: { kind: "workspace" }, limits: { period: "MONTHLY", amount: 1000 } });\n',
-                        }
-                    ]
+                            "source": 'await orq.budgets.create({ scope: { workspace: {} }, limits: { period: "BUDGET_PERIOD_MONTHLY", amount: 1000 } });\n',
+                        },
+                    ],
                 },
             ),
             request=req,
@@ -502,8 +528,12 @@ class Budgets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateBudgetResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -584,15 +614,19 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetBudgetResponse, http_res)
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -673,15 +707,19 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetBudgetResponse, http_res)
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -762,15 +800,19 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteBudgetResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -851,15 +893,19 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteBudgetResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -985,15 +1031,19 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateBudgetResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1119,15 +1169,19 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateBudgetResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1223,17 +1277,21 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "resetConsumption"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ResetBudgetConsumptionResponse, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1329,17 +1387,21 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "resetConsumption"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ResetBudgetConsumptionResponse, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

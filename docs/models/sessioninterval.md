@@ -4,13 +4,12 @@
 
 ```python
 from orq_ai_sdk.models import SessionInterval
-value: SessionInterval = "SESSION_INTERVAL_UNSPECIFIED"
+value: SessionInterval = "SESSION_INTERVAL_ALL_TIME"
 ```
 
 
 ## Values
 
-- `"SESSION_INTERVAL_UNSPECIFIED"`
 - `"SESSION_INTERVAL_ALL_TIME"`
 - `"SESSION_INTERVAL_LAST_30_MINUTES"`
 - `"SESSION_INTERVAL_LAST_1_HOUR"`
