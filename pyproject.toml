@@ -24,6 +24,7 @@ google-adk = [
 [dependency-groups]
 dev = [
     "aiohttp >=3.9.0,<4.0.0",
+    "httpx2 >=2.16.0,<3.0.0; python_version >= '3.11'",
     "mypy ==1.15.0",
     "openai-agents ==0.4.0",
     "openinference-instrumentation-google-adk >=1.1.2,<2.0.0; python_version >= '3.11'",
