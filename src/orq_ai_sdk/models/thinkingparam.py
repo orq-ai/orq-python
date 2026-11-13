@@ -27,6 +27,7 @@ ThinkingParamThinkingLevel = Literal[
     "low",
     "medium",
     "high",
+    "xhigh",
 ]
 r"""The level of thinking to use for the model. Only supported by Google AI."""
 

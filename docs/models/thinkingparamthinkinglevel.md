@@ -16,3 +16,4 @@ value: ThinkingParamThinkingLevel = "minimal"
 - `"low"`
 - `"medium"`
 - `"high"`
+- `"xhigh"`
