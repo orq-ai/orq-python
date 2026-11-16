@@ -10,6 +10,7 @@ from opentelemetry.sdk.trace.export.in_memory_span_exporter import InMemorySpanE
 from opentelemetry.util._once import Once
 
 from orq_ai_sdk.traced.config import Config, set_config
+from orq_ai_sdk.traced.context import current_span
 from orq_ai_sdk.traced.constants import MAX_ATTRIBUTE_VALUE_CHARS, TRUNCATION_MARKER
 from orq_ai_sdk.traced.decorators import traced
 
@@ -130,3 +131,36 @@ def test_capture_flags_disable_io_attributes(exporter):
 
     for key in ("input", "output"):
         assert key not in attrs
+
+
+def test_custom_attributes_are_json(exporter):
+    @traced(attributes={"tenant": "acme", "tags": ["audit", "q4"]})
+    def generate():
+        current_span().log(
+            metrics={"prompt_tokens": 76, "completion_tokens": 425},
+            request={"provider": "anthropic", "model": "claude-haiku-5-5"},
+            metadata={"thing": Opaque()},
+        )
+        return "ok"
+
+    generate()
+    attrs = _only_span(exporter)
+
+    assert attrs["tenant"] == "acme"
+    assert json.loads(attrs["tags"]) == ["audit", "q4"]
+    assert json.loads(attrs["metrics"]) == {"prompt_tokens": 76, "completion_tokens": 425}
+    assert json.loads(attrs["request"]) == {"provider": "anthropic", "model": "claude-haiku-5-5"}
+    assert json.loads(attrs["metadata"]) == {"thing": "<Opaque>"}
+    assert attrs["status"] == "success"
+
+
+def test_oversized_custom_attribute_is_truncated(exporter):
+    @traced(attributes={"blob": "y" * (MAX_ATTRIBUTE_VALUE_CHARS + 10)})
+    def noop():
+        return None
+
+    noop()
+    attrs = _only_span(exporter)
+
+    assert len(attrs["blob"]) == MAX_ATTRIBUTE_VALUE_CHARS
+    assert attrs["blob"].endswith(TRUNCATION_MARKER)

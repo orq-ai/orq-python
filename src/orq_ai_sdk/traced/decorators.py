@@ -82,6 +82,9 @@ def _setup_tracing(
 def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
     """Copy span type, attributes, input and output onto the OTel span.
 
+    Custom attributes (including ``span.log(metrics=..., request=...,
+    metadata=...)``) are JSON as well, strings unchanged.
+
     Input and output are JSON in ``input`` / ``output``, the keys the Orq
     ingest adapter for this decorator parses. Tool spans also get the OTel
     GenAI ``gen_ai.tool.call.arguments`` / ``gen_ai.tool.call.result``.
@@ -90,7 +93,7 @@ def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
     derives those keys itself when the value is message-shaped.
     """
     for key, value in span.attributes.items():
-        otel_span.set_attribute(key, str(value))
+        otel_span.set_attribute(key, to_attribute_text(serialize_value(value)))
     otel_span.set_attribute("type", span.type)
 
     if span.input is not None:
@@ -200,7 +203,8 @@ def traced(
         capped at 64 KiB, non-serializable values via repr) under ``input`` /
         ``output``. Spans with ``type="tool"`` also get the OTel GenAI
         ``gen_ai.tool.call.arguments`` / ``gen_ai.tool.call.result``. The span
-        type goes in ``type``.
+        type goes in ``type``. Custom attributes, including those set via
+        ``current_span().log(...)``, are serialized the same way.
 
     Usage:
         @traced
