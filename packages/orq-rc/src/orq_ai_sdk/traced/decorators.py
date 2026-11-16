@@ -9,7 +9,7 @@ from .client import get_client, OrqClient
 from .config import get_config, Config
 from .span import Span
 from .context import create_span_context, SpanContext, SpanContextManager
-from .utils import serialize_value, validate_span_type
+from .utils import serialize_value, to_attribute_text, validate_span_type
 from .otel_integration import is_otel_available
 
 
@@ -77,6 +77,36 @@ def _setup_tracing(
     return config, span, span_context, otel_span, otel_context_token, client
 
 
+def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
+    """Copy span type, attributes, input and output onto the OTel span.
+
+    Custom attributes (including ``span.log(metrics=..., request=...,
+    metadata=...)``) are JSON as well, strings unchanged.
+
+    Input and output are JSON in ``input`` / ``output``, the keys the Orq
+    ingest adapter for this decorator parses. Tool spans also get the OTel
+    GenAI ``gen_ai.tool.call.arguments`` / ``gen_ai.tool.call.result``.
+    ``gen_ai.input.messages`` / ``gen_ai.output.messages`` are deliberately
+    not set: function arguments are not chat messages, and the backend
+    derives those keys itself when the value is message-shaped.
+    """
+    for key, value in span.attributes.items():
+        otel_span.set_attribute(key, to_attribute_text(serialize_value(value)))
+    otel_span.set_attribute("type", span.type)
+
+    if span.input is not None:
+        input_text = to_attribute_text(span.input)
+        otel_span.set_attribute("input", input_text)
+        if span.type == "tool":
+            otel_span.set_attribute("gen_ai.tool.call.arguments", input_text)
+
+    if span.output is not None:
+        output_text = to_attribute_text(span.output)
+        otel_span.set_attribute("output", output_text)
+        if span.type == "tool":
+            otel_span.set_attribute("gen_ai.tool.call.result", output_text)
+
+
 def _finalize_span_success(span: Span, result: Any, capture_output: bool, otel_span: Any, config: Config) -> None:
     """Handle successful span completion: capture output and update OTel span."""
     if capture_output:
@@ -92,13 +122,7 @@ def _finalize_span_success(span: Span, result: Any, capture_output: bool, otel_s
         try:
             from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel,import-error
 
-            for key, value in span.attributes.items():
-                otel_span.set_attribute(key, str(value))
-            otel_span.set_attribute("type", span.type)
-            if span.input is not None:
-                otel_span.set_attribute("input", str(span.input))
-            if span.output is not None:
-                otel_span.set_attribute("output", str(span.output))
+            _apply_otel_attributes(otel_span, span)
             otel_span.set_status(Status(StatusCode.OK))
         except Exception:
             pass
@@ -113,11 +137,7 @@ def _finalize_span_error(span: Span, error: Exception, otel_span: Any) -> None:
         try:
             from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel,import-error
 
-            for key, value in span.attributes.items():
-                otel_span.set_attribute(key, str(value))
-            otel_span.set_attribute("type", span.type)
-            if span.input is not None:
-                otel_span.set_attribute("input", str(span.input))
+            _apply_otel_attributes(otel_span, span)
             otel_span.set_status(Status(StatusCode.ERROR, str(error)))
             otel_span.record_exception(error)
         except Exception:
@@ -163,8 +183,26 @@ def traced(
 
     Args:
         name: Custom name for the span. Defaults to function name.
-        type: Type of span. Must be one of: "llm", "score", "function", "eval", "task", "tool". Defaults to "function".
+        type: Type of span. Must be one of: "agent", "embedding", "function",
+            "llm", "retrieval", "tool". Defaults to "function". Any other value
+            raises ValueError.
+        capture_input: Record the bound call arguments (minus self/cls) as span input.
+        capture_output: Record the return value as span output.
         attributes: Additional attributes to add to the span.
+
+    Export:
+        If a global OpenTelemetry SDK ``TracerProvider`` is installed
+        (``trace.set_tracer_provider(...)``), each call becomes an OTel span and
+        nests with spans from other instrumentations. Nothing is sent to Orq
+        separately in that case; your exporter ships it. Without a global SDK
+        provider, spans are posted to the Orq API using ``ORQ_API_KEY``.
+
+        On the OTel span, input and output are written as JSON (strings as-is,
+        capped at 64 KiB, non-serializable values via repr) under ``input`` /
+        ``output``. Spans with ``type="tool"`` also get the OTel GenAI
+        ``gen_ai.tool.call.arguments`` / ``gen_ai.tool.call.result``. The span
+        type goes in ``type``. Custom attributes, including those set via
+        ``current_span().log(...)``, are serialized the same way.
 
     Usage:
         @traced

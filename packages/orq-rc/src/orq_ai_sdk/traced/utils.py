@@ -1,11 +1,12 @@
 """Utility functions for Orq decorator SDK."""
 # pylint: disable=no-else-return
 
+import json
 import time
 import random
 from datetime import datetime, timezone
 from typing import Any
-from .constants import VALID_SPAN_TYPES
+from .constants import MAX_ATTRIBUTE_VALUE_CHARS, TRUNCATION_MARKER, VALID_SPAN_TYPES
 
 
 def get_current_time_iso() -> str:
@@ -25,6 +26,20 @@ def serialize_value(value: Any) -> Any:
         return value
     else:
         return str(value)
+
+
+def to_attribute_text(value: Any, max_chars: int = MAX_ATTRIBUTE_VALUE_CHARS) -> str:
+    """Render a value as an OTel string attribute: strings as-is, anything else as JSON.
+
+    Values json cannot encode fall back to repr(). The result is capped at max_chars.
+    """
+    if isinstance(value, str):
+        text = value
+    else:
+        text = json.dumps(value, default=repr, ensure_ascii=False)
+    if len(text) > max_chars:
+        text = text[: max(max_chars - len(TRUNCATION_MARKER), 0)] + TRUNCATION_MARKER
+    return text
 
 
 def generate_ulid() -> str:
