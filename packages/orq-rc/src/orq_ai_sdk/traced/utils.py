@@ -7,7 +7,7 @@ import time
 import random
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional, Set, Union
-from .constants import MAX_ATTRIBUTE_VALUE_CHARS, TRUNCATION_MARKER, VALID_SPAN_TYPES
+from .constants import VALID_SPAN_TYPES
 
 
 def get_current_time_iso() -> str:
@@ -86,19 +86,14 @@ def to_json_safe(value: Any, _stack: Optional[Set[int]] = None, _depth: int = 0)
         stack.discard(id(value))
 
 
-def to_attribute_text(value: Any, max_chars: int = MAX_ATTRIBUTE_VALUE_CHARS) -> str:
+def to_attribute_text(value: Any) -> str:
     """Render a value as an OTel string attribute: strings as-is, anything else as JSON.
 
-    The value goes through to_json_safe first, so this never raises. The result
-    is capped at max_chars.
+    The value goes through to_json_safe first, so this never raises.
     """
     if isinstance(value, str):
-        text = str.__str__(value)
-    else:
-        text = json.dumps(to_json_safe(value), ensure_ascii=False)
-    if len(text) > max_chars:
-        text = text[: max(max_chars - len(TRUNCATION_MARKER), 0)] + TRUNCATION_MARKER
-    return text
+        return str.__str__(value)
+    return json.dumps(to_json_safe(value), ensure_ascii=False)
 
 
 def flatten_attribute(key: str, value: Any) -> Dict[str, Union[str, bool, int, float]]:

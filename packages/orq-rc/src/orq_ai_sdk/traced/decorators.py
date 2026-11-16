@@ -214,7 +214,7 @@ def traced(
         provider, spans are posted to the Orq API using ``ORQ_API_KEY``.
 
         On the OTel span, input and output are written as JSON (strings as-is,
-        capped at 64 KiB, non-serializable values via repr) under ``input`` /
+        non-JSON values via str()) under ``input`` /
         ``output``. Spans with ``type="tool"`` also get the OTel GenAI
         ``gen_ai.tool.call.arguments`` / ``gen_ai.tool.call.result``. The span
         type goes in ``type``. Custom attributes, including those set via

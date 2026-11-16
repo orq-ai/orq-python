@@ -13,7 +13,6 @@ from opentelemetry.util._once import Once
 
 from orq_ai_sdk.traced.config import Config, set_config
 from orq_ai_sdk.traced.context import current_span
-from orq_ai_sdk.traced.constants import MAX_ATTRIBUTE_VALUE_CHARS, TRUNCATION_MARKER
 from orq_ai_sdk.traced.decorators import traced
 from orq_ai_sdk.traced.utils import to_json_safe
 
@@ -99,17 +98,6 @@ def test_unserializable_values_fall_back_to_repr(exporter):
     assert json.loads(attrs["input"]) == {"thing": "<Opaque>"}
 
 
-def test_oversized_output_is_truncated(exporter):
-    @traced
-    def big():
-        return "x" * (MAX_ATTRIBUTE_VALUE_CHARS * 2)
-
-    big()
-    attrs = _only_span(exporter)
-
-    assert len(attrs["output"]) == MAX_ATTRIBUTE_VALUE_CHARS
-    assert attrs["output"].endswith(TRUNCATION_MARKER)
-
 
 def test_error_span_keeps_input_without_output(exporter):
     @traced
@@ -171,17 +159,6 @@ def test_span_log_dicts_become_dotted_keys(exporter):
     assert json.loads(attrs["tags"]) == ["audit", "q4"]
     assert attrs["status"] == "success"
 
-
-def test_oversized_custom_attribute_is_truncated(exporter):
-    @traced(attributes={"blob": "y" * (MAX_ATTRIBUTE_VALUE_CHARS + 10)})
-    def noop():
-        return None
-
-    noop()
-    attrs = _only_span(exporter)
-
-    assert len(attrs["blob"]) == MAX_ATTRIBUTE_VALUE_CHARS
-    assert attrs["blob"].endswith(TRUNCATION_MARKER)
 
 
 class Env(str, enum.Enum):
