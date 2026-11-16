@@ -9,7 +9,7 @@ from .client import get_client, OrqClient
 from .config import get_config, Config
 from .span import Span
 from .context import create_span_context, SpanContext, SpanContextManager
-from .utils import serialize_value, to_attribute_text, validate_span_type
+from .utils import flatten_attribute, serialize_value, to_attribute_text, validate_span_type
 from .otel_integration import is_otel_available
 from .http_propagation import install_http_propagation
 
@@ -83,7 +83,10 @@ def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
     """Copy span type, attributes, input and output onto the OTel span.
 
     Custom attributes (including ``span.log(metrics=..., request=...,
-    metadata=...)``) are JSON as well, strings unchanged.
+    metadata=...)``) are flattened into dotted keys such as
+    ``metrics.prompt_tokens`` and ``request.model``, which is where the Orq
+    ingest reads token usage and model. Numbers and booleans stay native;
+    lists and other values become JSON text.
 
     Input and output are JSON in ``input`` / ``output``, the keys the Orq
     ingest adapter for this decorator parses. Tool spans also get the OTel
@@ -93,7 +96,8 @@ def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
     derives those keys itself when the value is message-shaped.
     """
     for key, value in span.attributes.items():
-        otel_span.set_attribute(key, to_attribute_text(serialize_value(value)))
+        for flat_key, flat_value in flatten_attribute(key, serialize_value(value)).items():
+            otel_span.set_attribute(flat_key, flat_value)
     otel_span.set_attribute("type", span.type)
 
     if span.input is not None:
@@ -204,7 +208,9 @@ def traced(
         ``output``. Spans with ``type="tool"`` also get the OTel GenAI
         ``gen_ai.tool.call.arguments`` / ``gen_ai.tool.call.result``. The span
         type goes in ``type``. Custom attributes, including those set via
-        ``current_span().log(...)``, are serialized the same way.
+        ``current_span().log(metrics=..., request=...)``, are flattened into
+        dotted keys (``metrics.prompt_tokens``, ``request.model``) so Orq
+        picks up token usage and model; lists and objects become JSON text.
 
     Usage:
         @traced

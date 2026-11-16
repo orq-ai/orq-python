@@ -133,24 +133,39 @@ def test_capture_flags_disable_io_attributes(exporter):
         assert key not in attrs
 
 
-def test_custom_attributes_are_json(exporter):
-    @traced(attributes={"tenant": "acme", "tags": ["audit", "q4"]})
+def test_span_log_dicts_become_dotted_keys(exporter):
+    @traced(type="llm", attributes={"tenant": "acme", "tags": ["audit", "q4"]})
     def generate():
         current_span().log(
-            metrics={"prompt_tokens": 76, "completion_tokens": 425},
-            request={"provider": "anthropic", "model": "claude-haiku-5-5"},
-            metadata={"thing": Opaque()},
+            metrics={
+                "prompt_tokens": 76,
+                "completion_tokens": 425,
+                "tokens": 501,
+                "completion_tokens_details": {"reasoning_tokens": 412},
+            },
+            request={"provider": "anthropic", "model": "claude-haiku-5-5", "temperature": 0.2},
+            metadata={"thing": Opaque(), "cached": False, "skipped": None},
         )
         return "ok"
 
     generate()
     attrs = _only_span(exporter)
 
+    # Keys the Orq ingest reads for usage and model (orqtraced.go extractUsage).
+    assert attrs["metrics.prompt_tokens"] == 76
+    assert attrs["metrics.completion_tokens"] == 425
+    assert attrs["metrics.tokens"] == 501
+    assert attrs["metrics.completion_tokens_details.reasoning_tokens"] == 412
+    assert attrs["request.provider"] == "anthropic"
+    assert attrs["request.model"] == "claude-haiku-5-5"
+    assert attrs["request.temperature"] == 0.2
+    assert attrs["metadata.thing"] == "<Opaque>"
+    assert attrs["metadata.cached"] is False
+    assert "metadata.skipped" not in attrs
+    for whole in ("metrics", "request", "metadata"):
+        assert whole not in attrs
     assert attrs["tenant"] == "acme"
     assert json.loads(attrs["tags"]) == ["audit", "q4"]
-    assert json.loads(attrs["metrics"]) == {"prompt_tokens": 76, "completion_tokens": 425}
-    assert json.loads(attrs["request"]) == {"provider": "anthropic", "model": "claude-haiku-5-5"}
-    assert json.loads(attrs["metadata"]) == {"thing": "<Opaque>"}
     assert attrs["status"] == "success"
 
 

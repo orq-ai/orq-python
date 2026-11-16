@@ -5,7 +5,7 @@ import json
 import time
 import random
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Dict, Union
 from .constants import MAX_ATTRIBUTE_VALUE_CHARS, TRUNCATION_MARKER, VALID_SPAN_TYPES
 
 
@@ -40,6 +40,26 @@ def to_attribute_text(value: Any, max_chars: int = MAX_ATTRIBUTE_VALUE_CHARS) ->
     if len(text) > max_chars:
         text = text[: max(max_chars - len(TRUNCATION_MARKER), 0)] + TRUNCATION_MARKER
     return text
+
+
+def flatten_attribute(key: str, value: Any) -> Dict[str, Union[str, bool, int, float]]:
+    """Flatten one span attribute into OTel-ready dotted keys.
+
+    Dicts recurse into ``key.child`` keys, so ``metrics={"prompt_tokens": 76}``
+    becomes ``metrics.prompt_tokens = 76``. Booleans and numbers stay native,
+    strings pass through to_attribute_text, None is dropped, and anything else
+    (lists, objects) becomes JSON text.
+    """
+    if value is None:
+        return {}
+    if isinstance(value, dict):
+        flat: Dict[str, Union[str, bool, int, float]] = {}
+        for child_key, child_value in value.items():
+            flat.update(flatten_attribute(f"{key}.{child_key}", child_value))
+        return flat
+    if isinstance(value, (bool, int, float)):
+        return {key: value}
+    return {key: to_attribute_text(value)}
 
 
 def generate_trace_id() -> str:
