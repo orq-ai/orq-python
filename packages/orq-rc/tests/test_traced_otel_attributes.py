@@ -1,5 +1,6 @@
 """Attributes @traced writes on its OpenTelemetry span when a global SDK provider is set."""
 
+import enum
 import json
 
 import pytest
@@ -7,12 +8,14 @@ from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 from opentelemetry.sdk.trace.export.in_memory_span_exporter import InMemorySpanExporter
+from opentelemetry.trace import StatusCode
 from opentelemetry.util._once import Once
 
 from orq_ai_sdk.traced.config import Config, set_config
 from orq_ai_sdk.traced.context import current_span
 from orq_ai_sdk.traced.constants import MAX_ATTRIBUTE_VALUE_CHARS, TRUNCATION_MARKER
 from orq_ai_sdk.traced.decorators import traced
+from orq_ai_sdk.traced.utils import to_json_safe
 
 
 @pytest.fixture
@@ -179,3 +182,86 @@ def test_oversized_custom_attribute_is_truncated(exporter):
 
     assert len(attrs["blob"]) == MAX_ATTRIBUTE_VALUE_CHARS
     assert attrs["blob"].endswith(TRUNCATION_MARKER)
+
+
+class Env(str, enum.Enum):
+    PROD = "prod"
+
+
+class Node:
+    def __init__(self, name):
+        self.name = name
+        self.parent = None
+
+
+def _cyclic():
+    d = {"a": 1}
+    d["self"] = d
+    return d
+
+
+def _linked():
+    n, m = Node("n"), Node("m")
+    n.parent, m.parent = m, n
+    return n
+
+
+def _only_finished_span(memory):
+    spans = memory.get_finished_spans()
+    assert len(spans) == 1
+    return spans[0]
+
+
+@pytest.mark.parametrize(
+    "log_kwargs, key, expected",
+    [
+        ({"input": _cyclic()}, "input", {"a": 1, "self": "[Circular]"}),
+        ({"output": {(1, 2): "v"}}, "output", {"(1, 2)": "v"}),
+        ({"metadata": {"env": Env.PROD}}, "metadata.env", "prod"),
+        ({"metadata": _cyclic()}, "metadata.self", "[Circular]"),
+        ({"metadata": {"node": _linked()}}, "metadata.node.parent.parent", "[Circular]"),
+    ],
+)
+@pytest.mark.parametrize("raises", [False, True])
+def test_unencodable_values_keep_status_and_attributes(exporter, log_kwargs, key, expected, raises):
+    @traced(type="tool", attributes={"tenant": "acme"}, capture_output=False)
+    def work(user_id):
+        current_span().log(**log_kwargs)
+        if raises:
+            raise RuntimeError("boom")
+        return "ok"
+
+    if raises:
+        with pytest.raises(RuntimeError):
+            work("u-002")
+    else:
+        work("u-002")
+    span = _only_finished_span(exporter)
+    attrs = dict(span.attributes)
+
+    if raises:
+        assert span.status.status_code == StatusCode.ERROR
+        assert [event.name for event in span.events] == ["exception"]
+    else:
+        assert span.status.status_code == StatusCode.OK
+    assert attrs["tenant"] == "acme"
+    assert attrs["type"] == "tool"
+    value = attrs[key]
+    assert (json.loads(value) if key in ("input", "output") else value) == expected
+
+
+def test_to_json_safe_never_raises():
+    class BadStr:
+        __slots__ = ()
+
+        def __str__(self):
+            raise RuntimeError("no")
+
+    deep = current = {}
+    for _ in range(100):
+        current["c"] = {}
+        current = current["c"]
+
+    assert to_json_safe(BadStr()) == "<unrepresentable BadStr>"
+    assert json.dumps(to_json_safe(deep)).count("[MaxDepth]") == 1
+    assert to_json_safe({Env.PROD: {1, 2}, (1, 2): "t", 3: "i"}) == {"prod": [1, 2], "(1, 2)": "t", "3": "i"}

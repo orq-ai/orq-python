@@ -96,7 +96,7 @@ def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
     derives those keys itself when the value is message-shaped.
     """
     for key, value in span.attributes.items():
-        for flat_key, flat_value in flatten_attribute(key, serialize_value(value)).items():
+        for flat_key, flat_value in flatten_attribute(key, value).items():
             otel_span.set_attribute(flat_key, flat_value)
     otel_span.set_attribute("type", span.type)
 
@@ -111,6 +111,15 @@ def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
         otel_span.set_attribute("output", output_text)
         if span.type == "tool":
             otel_span.set_attribute("gen_ai.tool.call.result", output_text)
+
+
+def _write_otel_attributes(otel_span: Any, span: Span, config: Config) -> None:
+    """Apply attributes without letting a failure affect the span's status."""
+    try:
+        _apply_otel_attributes(otel_span, span)
+    except Exception as e:  # pylint: disable=broad-except
+        if config.debug:
+            print(f"Failed to write OTel span attributes: {e}")
 
 
 def _finalize_span_success(span: Span, result: Any, capture_output: bool, otel_span: Any, config: Config) -> None:
@@ -128,10 +137,11 @@ def _finalize_span_success(span: Span, result: Any, capture_output: bool, otel_s
         try:
             from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel,import-error
 
-            _apply_otel_attributes(otel_span, span)
             otel_span.set_status(Status(StatusCode.OK))
-        except Exception:
-            pass
+        except Exception as e:
+            if config.debug:
+                print(f"Failed to set OTel span status: {e}")
+        _write_otel_attributes(otel_span, span, config)
 
 
 def _finalize_span_error(span: Span, error: Exception, otel_span: Any) -> None:
@@ -140,14 +150,16 @@ def _finalize_span_error(span: Span, error: Exception, otel_span: Any) -> None:
     span.set_attribute("error.message", str(error))
 
     if otel_span:
+        config = get_config()
         try:
             from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel,import-error
 
-            _apply_otel_attributes(otel_span, span)
             otel_span.set_status(Status(StatusCode.ERROR, str(error)))
             otel_span.record_exception(error)
-        except Exception:
-            pass
+        except Exception as e:
+            if config.debug:
+                print(f"Failed to set OTel span status: {e}")
+        _write_otel_attributes(otel_span, span, config)
 
 
 def _teardown_tracing(span: Span, otel_span: Any, otel_context_token: Any, client: OrqClient, config: Config) -> None:
