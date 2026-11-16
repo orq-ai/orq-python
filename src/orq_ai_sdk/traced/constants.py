@@ -5,3 +5,7 @@ VALID_SPAN_TYPES = {"agent", "embedding", "function", "llm", "retrieval", "tool"
 # of treating a bare traceparent as foreign APM.
 ORQ_TRACESTATE_KEY = "orq"
 ORQ_TRACESTATE_MEMBER = "orq=1"
+
+# Upper bound for a serialized input/output OTel attribute value, in characters.
+MAX_ATTRIBUTE_VALUE_CHARS = 64 * 1024
+TRUNCATION_MARKER = "...[truncated]"
