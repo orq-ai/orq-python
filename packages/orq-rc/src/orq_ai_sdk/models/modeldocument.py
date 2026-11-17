@@ -50,8 +50,10 @@ class ModelDocumentTypedDict(TypedDict):
     pricing_url: Nullable[str]
     provider: str
     ref_id: str
+    r"""Reference the gateway accepts for this model in requests: provider/model_id, or workspace@provider/model_id for a private model."""
     updated: str
     legacy_uuid: NotRequired[str]
+    r"""Identifier this model had in the legacy model catalog. Deprecated: use id."""
     model_developer: NotRequired[str]
     model_family: NotRequired[str]
     sharing: NotRequired[ModelSharingConfigTypedDict]
@@ -105,6 +107,7 @@ class ModelDocument(BaseModel):
     provider: str
 
     ref_id: Annotated[str, pydantic.Field(alias="refId")]
+    r"""Reference the gateway accepts for this model in requests: provider/model_id, or workspace@provider/model_id for a private model."""
 
     updated: str
 
@@ -114,6 +117,7 @@ class ModelDocument(BaseModel):
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
     ] = None
+    r"""Identifier this model had in the legacy model catalog. Deprecated: use id."""
 
     model_developer: Optional[str] = None
 

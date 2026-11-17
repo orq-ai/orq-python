@@ -16,6 +16,7 @@ from typing_extensions import NotRequired, TypedDict
 class ModelConfigurationResponseTypedDict(TypedDict):
     provider: str
     api_key_env: NotRequired[str]
+    r"""Environment variable the gateway reads the provider API key from when the model stores no key. Platform-managed offerings set it; custom models normally store the key instead."""
     api_version: NotRequired[str]
     auth_mode: NotRequired[str]
     auth_type: NotRequired[str]
@@ -39,6 +40,7 @@ class ModelConfigurationResponse(BaseModel):
     provider: str
 
     api_key_env: Optional[str] = None
+    r"""Environment variable the gateway reads the provider API key from when the model stores no key. Platform-managed offerings set it; custom models normally store the key instead."""
 
     api_version: Optional[str] = None
 
