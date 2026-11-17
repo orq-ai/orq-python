@@ -2595,14 +2595,7 @@ if TYPE_CHECKING:
         CreateRoutingRuleRequestTypedDict,
     )
     from .createrunrequest import CreateRunRequest, CreateRunRequestTypedDict
-    from .createskillrequest import (
-        CreateSkillRequest,
-        CreateSkillRequest1,
-        CreateSkillRequest1TypedDict,
-        CreateSkillRequest2,
-        CreateSkillRequest2TypedDict,
-        CreateSkillRequestTypedDict,
-    )
+    from .createskillrequest import CreateSkillRequest, CreateSkillRequestTypedDict
     from .createskillresponse import CreateSkillResponse, CreateSkillResponseTypedDict
     from .createsmartrouterrequest import (
         CreateSmartRouterRequest,
@@ -12237,10 +12230,6 @@ __all__ = [
     "CreateRunRequest",
     "CreateRunRequestTypedDict",
     "CreateSkillRequest",
-    "CreateSkillRequest1",
-    "CreateSkillRequest1TypedDict",
-    "CreateSkillRequest2",
-    "CreateSkillRequest2TypedDict",
     "CreateSkillRequestTypedDict",
     "CreateSkillResponse",
     "CreateSkillResponseTypedDict",
@@ -21388,10 +21377,6 @@ _dynamic_imports: dict[str, str] = {
     "CreateRunRequest": ".createrunrequest",
     "CreateRunRequestTypedDict": ".createrunrequest",
     "CreateSkillRequest": ".createskillrequest",
-    "CreateSkillRequest1": ".createskillrequest",
-    "CreateSkillRequest1TypedDict": ".createskillrequest",
-    "CreateSkillRequest2": ".createskillrequest",
-    "CreateSkillRequest2TypedDict": ".createskillrequest",
     "CreateSkillRequestTypedDict": ".createskillrequest",
     "CreateSkillResponse": ".createskillresponse",
     "CreateSkillResponseTypedDict": ".createskillresponse",

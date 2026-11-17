@@ -3,10 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Iterable, List, Mapping, Optional, Union, cast
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Skills(BaseSDK):
@@ -16,6 +16,8 @@ class Skills(BaseSDK):
         limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        search: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -31,6 +33,8 @@ class Skills(BaseSDK):
             item from the previous page.
         :param ending_before: Cursor for backward pagination. Set to the `skill_id` of the first
             item from the previous page.
+        :param search: Case-insensitive substring match on display name and description.
+        :param project_id: Restrict results to one project: its own skills plus the workspace-level skills shared with it.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -53,6 +57,8 @@ class Skills(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            search=search,
+            project_id=project_id,
         )
 
         req = self._build_request(
@@ -138,6 +144,8 @@ class Skills(BaseSDK):
         limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        search: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -153,6 +161,8 @@ class Skills(BaseSDK):
             item from the previous page.
         :param ending_before: Cursor for backward pagination. Set to the `skill_id` of the first
             item from the previous page.
+        :param search: Case-insensitive substring match on display name and description.
+        :param project_id: Restrict results to one project: its own skills plus the workspace-level skills shared with it.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -175,6 +185,8 @@ class Skills(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            search=search,
+            project_id=project_id,
         )
 
         req = self._build_request_async(
@@ -257,7 +269,13 @@ class Skills(BaseSDK):
     def create(
         self,
         *,
-        request: Union[models.CreateSkillRequest, models.CreateSkillRequestTypedDict],
+        display_name: str,
+        description: Optional[str] = None,
+        tags: Optional[Iterable[str]] = None,
+        path: Optional[str] = None,
+        project_id: Optional[str] = None,
+        instructions: Optional[str] = None,
+        sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -267,7 +285,13 @@ class Skills(BaseSDK):
 
         Creates a reusable skill in the workspace. Skills store instructions, metadata, and an optional project location so teams can standardize repeatable AI workflows.
 
-        :param request: The request object to send.
+        :param display_name: Workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed.
+        :param description: Short human-readable summary of what the skill is for.
+        :param tags: Free-form labels for organizing the skill.
+        :param path: Project path where the skill should be stored.
+        :param project_id: Project that should contain the skill.
+        :param instructions: Instruction body for the skill. Omit to create metadata first and fill instructions later.
+        :param sharing: Which projects in the workspace may use this skill. A skill created without a project defaults to every project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -286,9 +310,15 @@ class Skills(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.CreateSkillRequest)
-        request = cast(models.CreateSkillRequest, request)
+        request = models.CreateSkillRequest(
+            display_name=display_name,
+            description=description,
+            tags=utils.unmarshal(tags, Optional[List[str]]),
+            path=path,
+            project_id=project_id,
+            instructions=instructions,
+            sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+        )
 
         req = self._build_request(
             method="POST",
@@ -373,7 +403,13 @@ class Skills(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Union[models.CreateSkillRequest, models.CreateSkillRequestTypedDict],
+        display_name: str,
+        description: Optional[str] = None,
+        tags: Optional[Iterable[str]] = None,
+        path: Optional[str] = None,
+        project_id: Optional[str] = None,
+        instructions: Optional[str] = None,
+        sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -383,7 +419,13 @@ class Skills(BaseSDK):
 
         Creates a reusable skill in the workspace. Skills store instructions, metadata, and an optional project location so teams can standardize repeatable AI workflows.
 
-        :param request: The request object to send.
+        :param display_name: Workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed.
+        :param description: Short human-readable summary of what the skill is for.
+        :param tags: Free-form labels for organizing the skill.
+        :param path: Project path where the skill should be stored.
+        :param project_id: Project that should contain the skill.
+        :param instructions: Instruction body for the skill. Omit to create metadata first and fill instructions later.
+        :param sharing: Which projects in the workspace may use this skill. A skill created without a project defaults to every project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -402,9 +444,15 @@ class Skills(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.CreateSkillRequest)
-        request = cast(models.CreateSkillRequest, request)
+        request = models.CreateSkillRequest(
+            display_name=display_name,
+            description=description,
+            tags=utils.unmarshal(tags, Optional[List[str]]),
+            path=path,
+            project_id=project_id,
+            instructions=instructions,
+            sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -492,6 +540,7 @@ class Skills(BaseSDK):
         bundle: str,
         project_id: Optional[str] = None,
         path: Optional[str] = None,
+        sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -508,6 +557,7 @@ class Skills(BaseSDK):
         :param project_id: Project that should contain the skill when creating a new skill.
             Import creates a new skill; a conflicting name returns AlreadyExists.
         :param path: Project path where the new skill should be stored.
+        :param sharing: Which projects in the workspace may use this skill. A skill imported without a project defaults to every project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -530,6 +580,7 @@ class Skills(BaseSDK):
             project_id=project_id,
             path=path,
             bundle=bundle,
+            sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
         )
 
         req = self._build_request(
@@ -606,6 +657,7 @@ class Skills(BaseSDK):
         bundle: str,
         project_id: Optional[str] = None,
         path: Optional[str] = None,
+        sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -622,6 +674,7 @@ class Skills(BaseSDK):
         :param project_id: Project that should contain the skill when creating a new skill.
             Import creates a new skill; a conflicting name returns AlreadyExists.
         :param path: Project path where the new skill should be stored.
+        :param sharing: Which projects in the workspace may use this skill. A skill imported without a project defaults to every project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -644,6 +697,7 @@ class Skills(BaseSDK):
             project_id=project_id,
             path=path,
             bundle=bundle,
+            sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
         )
 
         req = self._build_request_async(
@@ -723,6 +777,7 @@ class Skills(BaseSDK):
         subdirectory: Optional[str] = None,
         project_id: Optional[str] = None,
         path: Optional[str] = None,
+        sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -738,6 +793,7 @@ class Skills(BaseSDK):
         :param subdirectory:
         :param project_id:
         :param path:
+        :param sharing: Which projects in the workspace may use this skill. A skill imported without a project defaults to every project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -763,6 +819,7 @@ class Skills(BaseSDK):
             subdirectory=subdirectory,
             project_id=project_id,
             path=path,
+            sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
         )
 
         req = self._build_request(
@@ -843,6 +900,7 @@ class Skills(BaseSDK):
         subdirectory: Optional[str] = None,
         project_id: Optional[str] = None,
         path: Optional[str] = None,
+        sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -858,6 +916,7 @@ class Skills(BaseSDK):
         :param subdirectory:
         :param project_id:
         :param path:
+        :param sharing: Which projects in the workspace may use this skill. A skill imported without a project defaults to every project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -883,6 +942,7 @@ class Skills(BaseSDK):
             subdirectory=subdirectory,
             project_id=project_id,
             path=path,
+            sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
         )
 
         req = self._build_request_async(
@@ -958,6 +1018,7 @@ class Skills(BaseSDK):
         self,
         *,
         skill_id: str,
+        factory_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -969,6 +1030,7 @@ class Skills(BaseSDK):
 
         :param skill_id: Accepts either the skill's ID (e.g. \"skill_01H...\") or its display
             name. Display names are unique within a workspace.
+        :param factory_id: Resolve the skill as one factory sees it: the skills of its project plus the workspace-level skills shared with it.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -989,6 +1051,7 @@ class Skills(BaseSDK):
 
         request = models.SkillGetRequest(
             skill_id=skill_id,
+            factory_id=factory_id,
         )
 
         req = self._build_request(
@@ -1072,6 +1135,7 @@ class Skills(BaseSDK):
         self,
         *,
         skill_id: str,
+        factory_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1083,6 +1147,7 @@ class Skills(BaseSDK):
 
         :param skill_id: Accepts either the skill's ID (e.g. \"skill_01H...\") or its display
             name. Display names are unique within a workspace.
+        :param factory_id: Resolve the skill as one factory sees it: the skills of its project plus the workspace-level skills shared with it.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1103,6 +1168,7 @@ class Skills(BaseSDK):
 
         request = models.SkillGetRequest(
             skill_id=skill_id,
+            factory_id=factory_id,
         )
 
         req = self._build_request_async(
@@ -1418,6 +1484,7 @@ class Skills(BaseSDK):
         path: Optional[str] = None,
         instructions: Optional[str] = None,
         project_id: Optional[str] = None,
+        sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1434,6 +1501,7 @@ class Skills(BaseSDK):
         :param path: New project path. Omit to keep the current path.
         :param instructions: New instruction body. Omit to keep the current instructions.
         :param project_id: New containing project. Omit to keep the current project.
+        :param sharing: Which projects in the workspace may use this skill.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1461,6 +1529,7 @@ class Skills(BaseSDK):
                 path=path,
                 instructions=instructions,
                 project_id=project_id,
+                sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
             ),
         )
 
@@ -1558,6 +1627,7 @@ class Skills(BaseSDK):
         path: Optional[str] = None,
         instructions: Optional[str] = None,
         project_id: Optional[str] = None,
+        sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1574,6 +1644,7 @@ class Skills(BaseSDK):
         :param path: New project path. Omit to keep the current path.
         :param instructions: New instruction body. Omit to keep the current instructions.
         :param project_id: New containing project. Omit to keep the current project.
+        :param sharing: Which projects in the workspace may use this skill.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1601,6 +1672,7 @@ class Skills(BaseSDK):
                 path=path,
                 instructions=instructions,
                 project_id=project_id,
+                sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
             ),
         )
 

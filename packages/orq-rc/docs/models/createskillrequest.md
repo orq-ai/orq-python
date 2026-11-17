@@ -1,17 +1,14 @@
 # CreateSkillRequest
 
 
-## Supported Types
+## Fields
 
-### `models.CreateSkillRequest1`
-
-```python
-value: models.CreateSkillRequest1 = /* values here */
-```
-
-### `models.CreateSkillRequest2`
-
-```python
-value: models.CreateSkillRequest2 = /* values here */
-```
-
+| Field                                                                                                                                    | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `display_name`                                                                                                                           | *str*                                                                                                                                    | :heavy_check_mark:                                                                                                                       | Workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed. |
+| `description`                                                                                                                            | *Optional[str]*                                                                                                                          | :heavy_minus_sign:                                                                                                                       | Short human-readable summary of what the skill is for.                                                                                   |
+| `tags`                                                                                                                                   | List[*str*]                                                                                                                              | :heavy_minus_sign:                                                                                                                       | Free-form labels for organizing the skill.                                                                                               |
+| `path`                                                                                                                                   | *Optional[str]*                                                                                                                          | :heavy_minus_sign:                                                                                                                       | Project path where the skill should be stored.                                                                                           |
+| `project_id`                                                                                                                             | *Optional[str]*                                                                                                                          | :heavy_minus_sign:                                                                                                                       | Project that should contain the skill.                                                                                                   |
+| `instructions`                                                                                                                           | *Optional[str]*                                                                                                                          | :heavy_minus_sign:                                                                                                                       | Instruction body for the skill. Omit to create metadata first and fill instructions later.                                               |
+| `sharing`                                                                                                                                | [Optional[models.Sharing]](../models/sharing.md)                                                                                         | :heavy_minus_sign:                                                                                                                       | Which projects in the workspace may use this skill. A skill created without a project defaults to every project.                         |
