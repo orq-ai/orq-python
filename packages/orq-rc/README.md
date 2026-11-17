@@ -1261,7 +1261,7 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
-* [`ErrorResponse`](./src/orq_ai_sdk/models/errorresponse.py): Applicable to 293 of 392 methods.*
+* [`ErrorResponse`](./src/orq_ai_sdk/models/errorresponse.py): Applicable to 290 of 392 methods.*
 * [`APIErrorResponse`](./src/orq_ai_sdk/models/apierrorresponse.py): Applicable to 12 of 392 methods.*
 * [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 5 of 392 methods.*
 * [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 392 methods.*

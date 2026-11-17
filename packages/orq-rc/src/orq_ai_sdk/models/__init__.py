@@ -6618,6 +6618,7 @@ if TYPE_CHECKING:
         ModelConfigurationResponseTypedDict,
     )
     from .modelcreateawsbedrockop import (
+        AuthMode,
         ModelCreateAwsBedrockRequestBody,
         ModelCreateAwsBedrockRequestBodyTypedDict,
         ModelCreateAwsBedrockResponseBody,
@@ -10389,6 +10390,7 @@ __all__ = [
     "AuditLogDestinationTypedDict",
     "AuditLogDestinationUpdateRequest",
     "AuditLogDestinationUpdateRequestTypedDict",
+    "AuthMode",
     "AutoRouterConfig",
     "AutoRouterConfigTypedDict",
     "AutoRouterV2Config",
@@ -24981,6 +24983,7 @@ _dynamic_imports: dict[str, str] = {
     "ModelCatalogListRequestTypedDict": ".modelcataloglistop",
     "ModelConfigurationResponse": ".modelconfigurationresponse",
     "ModelConfigurationResponseTypedDict": ".modelconfigurationresponse",
+    "AuthMode": ".modelcreateawsbedrockop",
     "ModelCreateAwsBedrockRequestBody": ".modelcreateawsbedrockop",
     "ModelCreateAwsBedrockRequestBodyTypedDict": ".modelcreateawsbedrockop",
     "ModelCreateAwsBedrockResponseBody": ".modelcreateawsbedrockop",

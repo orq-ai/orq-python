@@ -313,7 +313,7 @@ class Models(BaseSDK):
     def create_aws_bedrock(
         self,
         *,
-        auth_mode: str,
+        auth_mode: models.AuthMode,
         display_name: str,
         model_developer: str,
         model_id: str,
@@ -357,11 +357,11 @@ class Models(BaseSDK):
 
         Registers an AWS Bedrock inference profile as a custom model for the workspace. Credentials are resolved at request time via either the integration reference or pod-identity — nothing is stored with the model.
 
-        :param auth_mode:
+        :param auth_mode: Where the AWS credentials come from. integration reads static AWS access keys from the integration named by integration_id, which is required with it. pod-identity resolves credentials from the AWS default credential chain of the deployment, such as EKS Pod Identity, IAM Roles for Service Accounts or the instance metadata service, and ignores integration_id; set assume_role_arn to assume a role in another account and assume_role_external_id to pass the external ID that role's trust policy requires.
         :param display_name:
-        :param model_developer:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
-        :param region:
+        :param model_developer: Developer of the model behind the inference profile, such as anthropic or amazon.
+        :param model_id: Bedrock inference profile ARN to invoke, for example arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0. When configuration.model_id is supplied, this field is instead the immutable workspace-unique slug and the ARN comes from configuration.model_id.
+        :param region: AWS region that serves the inference profile, such as us-east-1.
         :param assume_role_arn:
         :param assume_role_external_id:
         :param autorouter_id: Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools.
@@ -486,7 +486,12 @@ class Models(BaseSDK):
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "integration",\n  integrationId: "int_...",\n});',
-                        }
+                        },
+                        {
+                            "label": "Node.js: Pod identity",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "pod-identity",\n  assumeRoleArn: "arn:aws:iam::123456789012:role/bedrock-access-role",\n});',
+                        },
                     ],
                 },
             ),
@@ -513,7 +518,7 @@ class Models(BaseSDK):
     async def create_aws_bedrock_async(
         self,
         *,
-        auth_mode: str,
+        auth_mode: models.AuthMode,
         display_name: str,
         model_developer: str,
         model_id: str,
@@ -557,11 +562,11 @@ class Models(BaseSDK):
 
         Registers an AWS Bedrock inference profile as a custom model for the workspace. Credentials are resolved at request time via either the integration reference or pod-identity — nothing is stored with the model.
 
-        :param auth_mode:
+        :param auth_mode: Where the AWS credentials come from. integration reads static AWS access keys from the integration named by integration_id, which is required with it. pod-identity resolves credentials from the AWS default credential chain of the deployment, such as EKS Pod Identity, IAM Roles for Service Accounts or the instance metadata service, and ignores integration_id; set assume_role_arn to assume a role in another account and assume_role_external_id to pass the external ID that role's trust policy requires.
         :param display_name:
-        :param model_developer:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
-        :param region:
+        :param model_developer: Developer of the model behind the inference profile, such as anthropic or amazon.
+        :param model_id: Bedrock inference profile ARN to invoke, for example arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0. When configuration.model_id is supplied, this field is instead the immutable workspace-unique slug and the ARN comes from configuration.model_id.
+        :param region: AWS region that serves the inference profile, such as us-east-1.
         :param assume_role_arn:
         :param assume_role_external_id:
         :param autorouter_id: Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools.
@@ -686,7 +691,12 @@ class Models(BaseSDK):
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "integration",\n  integrationId: "int_...",\n});',
-                        }
+                        },
+                        {
+                            "label": "Node.js: Pod identity",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "pod-identity",\n  assumeRoleArn: "arn:aws:iam::123456789012:role/bedrock-access-role",\n});',
+                        },
                     ],
                 },
             ),

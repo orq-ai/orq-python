@@ -3405,7 +3405,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Core - Set an annotation cell",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/annotations/<annotation_column_id>/cells/<row_id>\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "task_id": "<task_id>", "value": { "type": "range", "value": 4 } }\'\n',
+                            "source": 'curl --request PATCH \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/annotations/<annotation_column_id>/cells/<datapoint_id>\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "task_id": "<task_id>", "value": { "type": "range", "value": 4 } }\'\n',
                         }
                     ],
                 },
@@ -3533,7 +3533,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Core - Set an annotation cell",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/annotations/<annotation_column_id>/cells/<row_id>\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "task_id": "<task_id>", "value": { "type": "range", "value": 4 } }\'\n',
+                            "source": 'curl --request PATCH \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/annotations/<annotation_column_id>/cells/<datapoint_id>\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "task_id": "<task_id>", "value": { "type": "range", "value": 4 } }\'\n',
                         }
                     ],
                 },

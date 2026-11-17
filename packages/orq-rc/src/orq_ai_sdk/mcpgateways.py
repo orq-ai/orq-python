@@ -397,17 +397,17 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Create MCP gateway",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-gateways\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "support-desk",\n    "display_name": "Support Desk",\n    "description": "Tools the support agent is allowed to call.",\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n      }\n    ],\n    "tool_naming": "MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    "mode": "MCP_GATEWAY_MODE_DIRECT"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-gateways\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "support-desk",\n    "display_name": "Support Desk",\n    "description": "Tools the support agent is allowed to call.",\n    "server_links": [\n      {\n        "mcp_server_id": "mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n      }\n    ],\n    "tool_naming": "MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    "mode": "MCP_GATEWAY_MODE_DIRECT"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create MCP gateway",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Each link needs an alias and a tool_exposure; both are required.\nresult = client.mcp_gateways.create(\n    key="support-desk",\n    display_name="Support Desk",\n    description="Tools the support agent is allowed to call.",\n    server_links=[\n        {\n            "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n            "alias": "github",\n            "enabled": True,\n            "tool_exposure": {"mode": "MCP_TOOL_EXPOSURE_MODE_ALL"},\n        },\n    ],\n    tool_naming="MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    mode="MCP_GATEWAY_MODE_DIRECT",\n)\n\nprint(result.mcp_gateway.public_url)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Each link needs an alias and a tool_exposure; both are required.\nresult = client.mcp_gateways.create(\n    key="support-desk",\n    display_name="Support Desk",\n    description="Tools the support agent is allowed to call.",\n    server_links=[\n        {\n            "mcp_server_id": "mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n            "alias": "github",\n            "enabled": True,\n            "tool_exposure": {"mode": "MCP_TOOL_EXPOSURE_MODE_ALL"},\n        },\n    ],\n    tool_naming="MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    mode="MCP_GATEWAY_MODE_DIRECT",\n)\n\nprint(result.mcp_gateway.public_url)\n',
                         },
                         {
                             "label": "Node.js - Create MCP gateway",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Each link needs an alias and a toolExposure; both are required.\nconst result = await client.mcpGateways.create({\n  key: 'support-desk',\n  displayName: 'Support Desk',\n  description: 'Tools the support agent is allowed to call.',\n  serverLinks: [\n    {\n      mcpServerId: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n      alias: 'github',\n      enabled: true,\n      toolExposure: { mode: 'MCP_TOOL_EXPOSURE_MODE_ALL' },\n    },\n  ],\n  toolNaming: 'MCP_TOOL_NAMING_PREFIX_ON_COLLISION',\n  mode: 'MCP_GATEWAY_MODE_DIRECT',\n});\n\nconsole.log(result.mcpGateway.publicUrl);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Each link needs an alias and a toolExposure; both are required.\nconst result = await client.mcpGateways.create({\n  key: 'support-desk',\n  displayName: 'Support Desk',\n  description: 'Tools the support agent is allowed to call.',\n  serverLinks: [\n    {\n      mcpServerId: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n      alias: 'github',\n      enabled: true,\n      toolExposure: { mode: 'MCP_TOOL_EXPOSURE_MODE_ALL' },\n    },\n  ],\n  toolNaming: 'MCP_TOOL_NAMING_PREFIX_ON_COLLISION',\n  mode: 'MCP_GATEWAY_MODE_DIRECT',\n});\n\nconsole.log(result.mcpGateway.publicUrl);\n",
                         },
                     ],
                 },
@@ -420,7 +420,7 @@ class McpGateways(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateMcpGatewayResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["400", "401", "409"], "application/json"):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
@@ -569,17 +569,17 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Create MCP gateway",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-gateways\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "support-desk",\n    "display_name": "Support Desk",\n    "description": "Tools the support agent is allowed to call.",\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n      }\n    ],\n    "tool_naming": "MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    "mode": "MCP_GATEWAY_MODE_DIRECT"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-gateways\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "support-desk",\n    "display_name": "Support Desk",\n    "description": "Tools the support agent is allowed to call.",\n    "server_links": [\n      {\n        "mcp_server_id": "mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n      }\n    ],\n    "tool_naming": "MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    "mode": "MCP_GATEWAY_MODE_DIRECT"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create MCP gateway",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Each link needs an alias and a tool_exposure; both are required.\nresult = client.mcp_gateways.create(\n    key="support-desk",\n    display_name="Support Desk",\n    description="Tools the support agent is allowed to call.",\n    server_links=[\n        {\n            "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n            "alias": "github",\n            "enabled": True,\n            "tool_exposure": {"mode": "MCP_TOOL_EXPOSURE_MODE_ALL"},\n        },\n    ],\n    tool_naming="MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    mode="MCP_GATEWAY_MODE_DIRECT",\n)\n\nprint(result.mcp_gateway.public_url)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Each link needs an alias and a tool_exposure; both are required.\nresult = client.mcp_gateways.create(\n    key="support-desk",\n    display_name="Support Desk",\n    description="Tools the support agent is allowed to call.",\n    server_links=[\n        {\n            "mcp_server_id": "mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n            "alias": "github",\n            "enabled": True,\n            "tool_exposure": {"mode": "MCP_TOOL_EXPOSURE_MODE_ALL"},\n        },\n    ],\n    tool_naming="MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    mode="MCP_GATEWAY_MODE_DIRECT",\n)\n\nprint(result.mcp_gateway.public_url)\n',
                         },
                         {
                             "label": "Node.js - Create MCP gateway",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Each link needs an alias and a toolExposure; both are required.\nconst result = await client.mcpGateways.create({\n  key: 'support-desk',\n  displayName: 'Support Desk',\n  description: 'Tools the support agent is allowed to call.',\n  serverLinks: [\n    {\n      mcpServerId: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n      alias: 'github',\n      enabled: true,\n      toolExposure: { mode: 'MCP_TOOL_EXPOSURE_MODE_ALL' },\n    },\n  ],\n  toolNaming: 'MCP_TOOL_NAMING_PREFIX_ON_COLLISION',\n  mode: 'MCP_GATEWAY_MODE_DIRECT',\n});\n\nconsole.log(result.mcpGateway.publicUrl);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Each link needs an alias and a toolExposure; both are required.\nconst result = await client.mcpGateways.create({\n  key: 'support-desk',\n  displayName: 'Support Desk',\n  description: 'Tools the support agent is allowed to call.',\n  serverLinks: [\n    {\n      mcpServerId: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n      alias: 'github',\n      enabled: true,\n      toolExposure: { mode: 'MCP_TOOL_EXPOSURE_MODE_ALL' },\n    },\n  ],\n  toolNaming: 'MCP_TOOL_NAMING_PREFIX_ON_COLLISION',\n  mode: 'MCP_GATEWAY_MODE_DIRECT',\n});\n\nconsole.log(result.mcpGateway.publicUrl);\n",
                         },
                     ],
                 },
@@ -592,7 +592,7 @@ class McpGateways(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateMcpGatewayResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["400", "401", "409"], "application/json"):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
@@ -694,22 +694,22 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - List the tools a gateway exposes",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=100'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=100'\n",
                         },
                         {
                             "label": "Core - List the tools contributed by one server",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'mcp_server_id=01JQ0K5R8N2ZC7X4M9T3V6HWBD'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'mcp_server_id=mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD'\n",
                         },
                         {
                             "label": "Python - List the tools a gateway exposes",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.mcp_gateways.list_tools(\n    gateway_id="01JQ0M8W4T5YB2Q7N1F6K3PZRC",\n    limit=100,\n)\n\n# exposed_name is what MCP clients call; upstream_tool_name is the original.\nfor tool in page.data:\n    print(tool.exposed_name, "->", tool.upstream_tool_name)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.mcp_gateways.list_tools(\n    gateway_id="mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC",\n    limit=100,\n)\n\n# exposed_name is what MCP clients call; upstream_tool_name is the original.\nfor tool in page.data:\n    print(tool.exposed_name, "->", tool.upstream_tool_name)\n',
                         },
                         {
                             "label": "Node.js - List the tools a gateway exposes",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.mcpGateways.listTools({\n  gatewayId: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  limit: 100,\n});\n\n// exposedName is what MCP clients call; upstreamToolName is the original.\nfor (const tool of page.data) {\n  console.log(tool.exposedName, '->', tool.upstreamToolName);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.mcpGateways.listTools({\n  gatewayId: 'mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  limit: 100,\n});\n\n// exposedName is what MCP clients call; upstreamToolName is the original.\nfor (const tool of page.data) {\n  console.log(tool.exposedName, '->', tool.upstreamToolName);\n}\n",
                         },
                     ],
                 },
@@ -824,22 +824,22 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - List the tools a gateway exposes",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=100'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=100'\n",
                         },
                         {
                             "label": "Core - List the tools contributed by one server",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'mcp_server_id=01JQ0K5R8N2ZC7X4M9T3V6HWBD'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'mcp_server_id=mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD'\n",
                         },
                         {
                             "label": "Python - List the tools a gateway exposes",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.mcp_gateways.list_tools(\n    gateway_id="01JQ0M8W4T5YB2Q7N1F6K3PZRC",\n    limit=100,\n)\n\n# exposed_name is what MCP clients call; upstream_tool_name is the original.\nfor tool in page.data:\n    print(tool.exposed_name, "->", tool.upstream_tool_name)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.mcp_gateways.list_tools(\n    gateway_id="mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC",\n    limit=100,\n)\n\n# exposed_name is what MCP clients call; upstream_tool_name is the original.\nfor tool in page.data:\n    print(tool.exposed_name, "->", tool.upstream_tool_name)\n',
                         },
                         {
                             "label": "Node.js - List the tools a gateway exposes",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.mcpGateways.listTools({\n  gatewayId: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  limit: 100,\n});\n\n// exposedName is what MCP clients call; upstreamToolName is the original.\nfor (const tool of page.data) {\n  console.log(tool.exposedName, '->', tool.upstreamToolName);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.mcpGateways.listTools({\n  gatewayId: 'mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  limit: 100,\n});\n\n// exposedName is what MCP clients call; upstreamToolName is the original.\nfor (const tool of page.data) {\n  console.log(tool.exposedName, '->', tool.upstreamToolName);\n}\n",
                         },
                     ],
                 },
@@ -942,17 +942,17 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Retrieve an MCP gateway",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve an MCP gateway",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_gateways.retrieve(id="01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n\n# public_url is the endpoint MCP clients connect to.\nprint(result.mcp_gateway.public_url)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_gateways.retrieve(id="mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n\n# public_url is the endpoint MCP clients connect to.\nprint(result.mcp_gateway.public_url)\n',
                         },
                         {
                             "label": "Node.js - Retrieve an MCP gateway",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpGateways.retrieve({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n});\n\n// publicUrl is the endpoint MCP clients connect to.\nconsole.log(result.mcpGateway.publicUrl);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpGateways.retrieve({\n  id: 'mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n});\n\n// publicUrl is the endpoint MCP clients connect to.\nconsole.log(result.mcpGateway.publicUrl);\n",
                         },
                     ],
                 },
@@ -1055,17 +1055,17 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Retrieve an MCP gateway",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve an MCP gateway",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_gateways.retrieve(id="01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n\n# public_url is the endpoint MCP clients connect to.\nprint(result.mcp_gateway.public_url)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_gateways.retrieve(id="mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n\n# public_url is the endpoint MCP clients connect to.\nprint(result.mcp_gateway.public_url)\n',
                         },
                         {
                             "label": "Node.js - Retrieve an MCP gateway",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpGateways.retrieve({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n});\n\n// publicUrl is the endpoint MCP clients connect to.\nconsole.log(result.mcpGateway.publicUrl);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpGateways.retrieve({\n  id: 'mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n});\n\n// publicUrl is the endpoint MCP clients connect to.\nconsole.log(result.mcpGateway.publicUrl);\n",
                         },
                     ],
                 },
@@ -1168,17 +1168,17 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Delete an MCP gateway",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/mcp-gateways/mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete an MCP gateway",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Connected MCP clients start receiving "gateway not found".\nclient.mcp_gateways.delete(id="01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Connected MCP clients start receiving "gateway not found".\nclient.mcp_gateways.delete(id="mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n',
                         },
                         {
                             "label": "Node.js - Delete an MCP gateway",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Connected MCP clients start receiving \"gateway not found\".\nawait client.mcpGateways.delete({ id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC' });\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Connected MCP clients start receiving \"gateway not found\".\nawait client.mcpGateways.delete({ id: 'mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC' });\n",
                         },
                     ],
                 },
@@ -1281,17 +1281,17 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Delete an MCP gateway",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/mcp-gateways/mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete an MCP gateway",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Connected MCP clients start receiving "gateway not found".\nclient.mcp_gateways.delete(id="01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Connected MCP clients start receiving "gateway not found".\nclient.mcp_gateways.delete(id="mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC")\n',
                         },
                         {
                             "label": "Node.js - Delete an MCP gateway",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Connected MCP clients start receiving \"gateway not found\".\nawait client.mcpGateways.delete({ id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC' });\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Connected MCP clients start receiving \"gateway not found\".\nawait client.mcpGateways.delete({ id: 'mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC' });\n",
                         },
                     ],
                 },
@@ -1476,17 +1476,17 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Narrow the tools a gateway exposes",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": {\n          "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n          "tool_ids": [\n            "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n            "01JQ0KB5P9WF2G7H4J6K8L1NQD"\n          ]\n        }\n      }\n    ]\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-gateways/mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "server_links": [\n      {\n        "mcp_server_id": "mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": {\n          "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n          "tool_ids": [\n            "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n            "01JQ0KB5P9WF2G7H4J6K8L1NQD"\n          ]\n        }\n      }\n    ]\n  }\'\n',
                         },
                         {
                             "label": "Python - Narrow the tools a gateway exposes",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_ids come from McpTool.id. A tool renamed upstream gets a new id\n# on the next sync, which drops it from this allowlist.\nresult = client.mcp_gateways.update(\n    id="01JQ0M8W4T5YB2Q7N1F6K3PZRC",\n    server_links=[\n        {\n            "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n            "alias": "github",\n            "enabled": True,\n            "tool_exposure": {\n                "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n                "tool_ids": [\n                    "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n                    "01JQ0KB5P9WF2G7H4J6K8L1NQD",\n                ],\n            },\n        },\n    ],\n)\n\nprint(result.mcp_gateway.exposed_tools_count)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_ids come from McpTool.id. A tool renamed upstream gets a new id\n# on the next sync, which drops it from this allowlist.\nresult = client.mcp_gateways.update(\n    id="mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC",\n    server_links=[\n        {\n            "mcp_server_id": "mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n            "alias": "github",\n            "enabled": True,\n            "tool_exposure": {\n                "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n                "tool_ids": [\n                    "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n                    "01JQ0KB5P9WF2G7H4J6K8L1NQD",\n                ],\n            },\n        },\n    ],\n)\n\nprint(result.mcp_gateway.exposed_tools_count)\n',
                         },
                         {
                             "label": "Node.js - Narrow the tools a gateway exposes",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolIds come from McpTool.id. A tool renamed upstream gets a new id\n// on the next sync, which drops it from this allowlist.\nconst result = await client.mcpGateways.update({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  updateMcpGatewayRequest: {\n    serverLinks: [\n      {\n        mcpServerId: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n        alias: 'github',\n        enabled: true,\n        toolExposure: {\n          mode: 'MCP_TOOL_EXPOSURE_MODE_SELECTED',\n          toolIds: [\n            '01JQ0KA2M7VD9E4R6T8Y1U3XSB',\n            '01JQ0KB5P9WF2G7H4J6K8L1NQD',\n          ],\n        },\n      },\n    ],\n  },\n});\n\nconsole.log(result.mcpGateway.exposedToolsCount);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolIds come from McpTool.id. A tool renamed upstream gets a new id\n// on the next sync, which drops it from this allowlist.\nconst result = await client.mcpGateways.update({\n  id: 'mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  updateMcpGatewayRequest: {\n    serverLinks: [\n      {\n        mcpServerId: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n        alias: 'github',\n        enabled: true,\n        toolExposure: {\n          mode: 'MCP_TOOL_EXPOSURE_MODE_SELECTED',\n          toolIds: [\n            '01JQ0KA2M7VD9E4R6T8Y1U3XSB',\n            '01JQ0KB5P9WF2G7H4J6K8L1NQD',\n          ],\n        },\n      },\n    ],\n  },\n});\n\nconsole.log(result.mcpGateway.exposedToolsCount);\n",
                         },
                     ],
                 },
@@ -1499,7 +1499,9 @@ class McpGateways(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateMcpGatewayResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "404", "409"], "application/json"
+        ):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
@@ -1671,17 +1673,17 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Narrow the tools a gateway exposes",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": {\n          "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n          "tool_ids": [\n            "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n            "01JQ0KB5P9WF2G7H4J6K8L1NQD"\n          ]\n        }\n      }\n    ]\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-gateways/mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "server_links": [\n      {\n        "mcp_server_id": "mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": {\n          "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n          "tool_ids": [\n            "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n            "01JQ0KB5P9WF2G7H4J6K8L1NQD"\n          ]\n        }\n      }\n    ]\n  }\'\n',
                         },
                         {
                             "label": "Python - Narrow the tools a gateway exposes",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_ids come from McpTool.id. A tool renamed upstream gets a new id\n# on the next sync, which drops it from this allowlist.\nresult = client.mcp_gateways.update(\n    id="01JQ0M8W4T5YB2Q7N1F6K3PZRC",\n    server_links=[\n        {\n            "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n            "alias": "github",\n            "enabled": True,\n            "tool_exposure": {\n                "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n                "tool_ids": [\n                    "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n                    "01JQ0KB5P9WF2G7H4J6K8L1NQD",\n                ],\n            },\n        },\n    ],\n)\n\nprint(result.mcp_gateway.exposed_tools_count)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_ids come from McpTool.id. A tool renamed upstream gets a new id\n# on the next sync, which drops it from this allowlist.\nresult = client.mcp_gateways.update(\n    id="mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC",\n    server_links=[\n        {\n            "mcp_server_id": "mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n            "alias": "github",\n            "enabled": True,\n            "tool_exposure": {\n                "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n                "tool_ids": [\n                    "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n                    "01JQ0KB5P9WF2G7H4J6K8L1NQD",\n                ],\n            },\n        },\n    ],\n)\n\nprint(result.mcp_gateway.exposed_tools_count)\n',
                         },
                         {
                             "label": "Node.js - Narrow the tools a gateway exposes",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolIds come from McpTool.id. A tool renamed upstream gets a new id\n// on the next sync, which drops it from this allowlist.\nconst result = await client.mcpGateways.update({\n  id: '01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  updateMcpGatewayRequest: {\n    serverLinks: [\n      {\n        mcpServerId: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n        alias: 'github',\n        enabled: true,\n        toolExposure: {\n          mode: 'MCP_TOOL_EXPOSURE_MODE_SELECTED',\n          toolIds: [\n            '01JQ0KA2M7VD9E4R6T8Y1U3XSB',\n            '01JQ0KB5P9WF2G7H4J6K8L1NQD',\n          ],\n        },\n      },\n    ],\n  },\n});\n\nconsole.log(result.mcpGateway.exposedToolsCount);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolIds come from McpTool.id. A tool renamed upstream gets a new id\n// on the next sync, which drops it from this allowlist.\nconst result = await client.mcpGateways.update({\n  id: 'mcp_gateway_01JQ0M8W4T5YB2Q7N1F6K3PZRC',\n  updateMcpGatewayRequest: {\n    serverLinks: [\n      {\n        mcpServerId: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n        alias: 'github',\n        enabled: true,\n        toolExposure: {\n          mode: 'MCP_TOOL_EXPOSURE_MODE_SELECTED',\n          toolIds: [\n            '01JQ0KA2M7VD9E4R6T8Y1U3XSB',\n            '01JQ0KB5P9WF2G7H4J6K8L1NQD',\n          ],\n        },\n      },\n    ],\n  },\n});\n\nconsole.log(result.mcpGateway.exposedToolsCount);\n",
                         },
                     ],
                 },
@@ -1694,7 +1696,9 @@ class McpGateways(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateMcpGatewayResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "404", "409"], "application/json"
+        ):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):

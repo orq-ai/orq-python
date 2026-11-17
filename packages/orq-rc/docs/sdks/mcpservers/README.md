@@ -240,7 +240,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
+| models.ErrorResponse   | 400, 401, 404, 409     | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## test_tool
@@ -289,7 +289,7 @@ with Orq(
 
 ## sync
 
-Syncs the upstream catalogs and returns discovery outcomes. Resource catalogs and capabilities discovered with user-specific credentials or discovery variables are returned only to the caller.
+Syncs the upstream catalogs and returns discovery outcomes. Resource catalogs and capabilities discovered with user-specific credentials or discovery variables are returned only to the caller. A discovery failure that comes from the upstream server, such as a refused connection or rejected credentials, does not fail the request: the call answers 200 with sync_state.status SYNC_STATUS_FAILED and the reason in sync_state.errors, and the server's tools stay out of every gateway until a sync succeeds.
 
 ### Example Usage
 
@@ -326,5 +326,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
+| models.ErrorResponse   | 400, 401, 404, 409     | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

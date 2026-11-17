@@ -25,17 +25,27 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
+AuthMode = Literal[
+    "integration",
+    "pod-identity",
+]
+r"""Where the AWS credentials come from. integration reads static AWS access keys from the integration named by integration_id, which is required with it. pod-identity resolves credentials from the AWS default credential chain of the deployment, such as EKS Pod Identity, IAM Roles for Service Accounts or the instance metadata service, and ignores integration_id; set assume_role_arn to assume a role in another account and assume_role_external_id to pass the external ID that role's trust policy requires."""
+
+
 class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
-    auth_mode: str
+    auth_mode: AuthMode
+    r"""Where the AWS credentials come from. integration reads static AWS access keys from the integration named by integration_id, which is required with it. pod-identity resolves credentials from the AWS default credential chain of the deployment, such as EKS Pod Identity, IAM Roles for Service Accounts or the instance metadata service, and ignores integration_id; set assume_role_arn to assume a role in another account and assume_role_external_id to pass the external ID that role's trust policy requires."""
     display_name: str
     model_developer: str
+    r"""Developer of the model behind the inference profile, such as anthropic or amazon."""
     model_id: str
-    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
+    r"""Bedrock inference profile ARN to invoke, for example arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0. When configuration.model_id is supplied, this field is instead the immutable workspace-unique slug and the ARN comes from configuration.model_id."""
     region: str
+    r"""AWS region that serves the inference profile, such as us-east-1."""
     assume_role_arn: NotRequired[str]
     assume_role_external_id: NotRequired[str]
     autorouter_id: NotRequired[str]
@@ -66,16 +76,19 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
 
 
 class ModelCreateAwsBedrockRequestBody(BaseModel):
-    auth_mode: str
+    auth_mode: AuthMode
+    r"""Where the AWS credentials come from. integration reads static AWS access keys from the integration named by integration_id, which is required with it. pod-identity resolves credentials from the AWS default credential chain of the deployment, such as EKS Pod Identity, IAM Roles for Service Accounts or the instance metadata service, and ignores integration_id; set assume_role_arn to assume a role in another account and assume_role_external_id to pass the external ID that role's trust policy requires."""
 
     display_name: str
 
     model_developer: str
+    r"""Developer of the model behind the inference profile, such as anthropic or amazon."""
 
     model_id: str
-    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
+    r"""Bedrock inference profile ARN to invoke, for example arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0. When configuration.model_id is supplied, this field is instead the immutable workspace-unique slug and the ARN comes from configuration.model_id."""
 
     region: str
+    r"""AWS region that serves the inference profile, such as us-east-1."""
 
     assume_role_arn: Optional[str] = None
 
