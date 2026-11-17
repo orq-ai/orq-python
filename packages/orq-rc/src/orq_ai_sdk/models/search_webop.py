@@ -376,7 +376,7 @@ class SearchWebWebsearchResponse402ResponseBodyData(BaseModel):
 
 @dataclass(unsafe_hash=True)
 class SearchWebWebsearchResponse402ResponseBody(OrqError):
-    r"""Managed search requires a positive ORQ credit balance. Add credits before retrying. BYOK does not require ORQ credits."""
+    r"""Managed search requires a positive platform credit balance. Add credits before retrying. BYOK does not require platform credits."""
 
     data: SearchWebWebsearchResponse402ResponseBodyData = field(hash=False)
 
@@ -479,7 +479,7 @@ class SearchWebMetadataTypedDict(TypedDict):
     query: str
     r"""Query sent to the provider after any required PII redaction."""
     request_id: str
-    r"""ORQ-generated identifier for this search request. Distinct from the trace ID in the response headers."""
+    r"""Platform-generated identifier for this search request. Distinct from the trace ID in the response headers."""
 
 
 class SearchWebMetadata(BaseModel):
@@ -495,7 +495,7 @@ class SearchWebMetadata(BaseModel):
     r"""Query sent to the provider after any required PII redaction."""
 
     request_id: Annotated[str, pydantic.Field(alias="requestId")]
-    r"""ORQ-generated identifier for this search request. Distinct from the trace ID in the response headers."""
+    r"""Platform-generated identifier for this search request. Distinct from the trace ID in the response headers."""
 
 
 class SearchWebResponseBodyTypedDict(TypedDict):

@@ -6,8 +6,12 @@ from typing_extensions import TypedDict
 
 
 class OpenResponseTaskConfigTypedDict(TypedDict):
-    pass
+    r"""A task column whose cells are filled outside orq.ai, such as by an
+    evaluatorq upload. It is never executed.
+    """
 
 
 class OpenResponseTaskConfig(BaseModel):
-    pass
+    r"""A task column whose cells are filled outside orq.ai, such as by an
+    evaluatorq upload. It is never executed.
+    """

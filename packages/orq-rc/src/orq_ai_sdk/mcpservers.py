@@ -17,6 +17,7 @@ class McpServers(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -30,6 +31,7 @@ class McpServers(BaseSDK):
         :param starting_after: Cursor for the page after the given item id. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for the page before the given item id. Mutually exclusive with `starting_after`.
         :param search: Case-insensitive match against the server key and display name.
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -53,6 +55,7 @@ class McpServers(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             search=search,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request(
@@ -139,6 +142,7 @@ class McpServers(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -152,6 +156,7 @@ class McpServers(BaseSDK):
         :param starting_after: Cursor for the page after the given item id. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for the page before the given item id. Mutually exclusive with `starting_after`.
         :param search: Case-insensitive match against the server key and display name.
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -175,6 +180,7 @@ class McpServers(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             search=search,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request_async(
@@ -1602,7 +1608,7 @@ class McpServers(BaseSDK):
     ) -> models.SyncMcpServerResponse:
         r"""Sync an MCP server
 
-        Connects to an upstream MCP server, discovers tools, and persists the tool list and sync state on the server record.
+        Syncs the upstream catalogs and returns discovery outcomes. Resource catalogs and capabilities discovered with user-specific credentials or discovery variables are returned only to the caller.
 
         :param id: Unique identifier of the MCP server.
         :param discovery_variables: Values for the server's `template_variables`; treated as sensitive and not persisted.
@@ -1734,7 +1740,7 @@ class McpServers(BaseSDK):
     ) -> models.SyncMcpServerResponse:
         r"""Sync an MCP server
 
-        Connects to an upstream MCP server, discovers tools, and persists the tool list and sync state on the server record.
+        Syncs the upstream catalogs and returns discovery outcomes. Resource catalogs and capabilities discovered with user-specific credentials or discovery variables are returned only to the caller.
 
         :param id: Unique identifier of the MCP server.
         :param discovery_variables: Values for the server's `template_variables`; treated as sensitive and not persisted.

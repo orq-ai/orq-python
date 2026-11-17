@@ -23,6 +23,8 @@ class McpGatewayListRequestTypedDict(TypedDict):
     r"""Cursor for the page before the given item id. Mutually exclusive with `starting_after`."""
     search: NotRequired[str]
     r"""Case-insensitive match against the gateway key and display name."""
+    all_accessible_projects: NotRequired[bool]
+    r"""Spans every project the caller belongs to instead of the active one."""
 
 
 class McpGatewayListRequest(BaseModel):
@@ -50,12 +52,26 @@ class McpGatewayListRequest(BaseModel):
     ] = None
     r"""Case-insensitive match against the gateway key and display name."""
 
+    all_accessible_projects: Annotated[
+        Optional[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Spans every project the caller belongs to instead of the active one."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["limit", "starting_after", "ending_before", "search"])
+        optional_fields = set(
+            [
+                "limit",
+                "starting_after",
+                "ending_before",
+                "search",
+                "all_accessible_projects",
+            ]
+        )
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

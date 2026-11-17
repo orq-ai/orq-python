@@ -372,6 +372,14 @@ with Orq(
 * [rotate_secret](docs/sdks/auditlogdestinations/README.md#rotate_secret) - Rotate the signing secret
 * [test](docs/sdks/auditlogdestinations/README.md#test) - Send a test event
 
+### [Batches](docs/sdks/batches/README.md)
+
+* [list](docs/sdks/batches/README.md#list) - List batches
+* [create](docs/sdks/batches/README.md#create) - Create batch
+* [retrieve](docs/sdks/batches/README.md#retrieve) - Retrieve batch
+* [cancel](docs/sdks/batches/README.md#cancel) - Cancel batch
+* [download_results](docs/sdks/batches/README.md#download_results) - Download batch results
+
 ### [Budgets](docs/sdks/budgets/README.md)
 
 * [list](docs/sdks/budgets/README.md#list) - List budgets
@@ -440,28 +448,25 @@ with Orq(
 * [get_run](docs/sdks/experiments/README.md#get_run) - Get a run
 * [delete_run](docs/sdks/experiments/README.md#delete_run) - Delete a run
 * [update_run](docs/sdks/experiments/README.md#update_run) - Update a run
+* [list_annotations](docs/sdks/experiments/README.md#list_annotations) - List annotation columns
+* [create_annotation](docs/sdks/experiments/README.md#create_annotation) - Add an annotation column
+* [delete_annotation](docs/sdks/experiments/README.md#delete_annotation) - Remove an annotation column
+* [update_annotation](docs/sdks/experiments/README.md#update_annotation) - Update annotation column metadata
+* [patch_annotation_cell](docs/sdks/experiments/README.md#patch_annotation_cell) - Set an annotation cell
 * [cancel_run](docs/sdks/experiments/README.md#cancel_run) - Cancel a run
 * [update_run_column_layout](docs/sdks/experiments/README.md#update_run_column_layout) - Update column layout
 * [list_evals](docs/sdks/experiments/README.md#list_evals) - List eval columns
 * [create_eval](docs/sdks/experiments/README.md#create_eval) - Add an eval column
 * [delete_eval](docs/sdks/experiments/README.md#delete_eval) - Remove an eval column
-* [patch_eval_cell](docs/sdks/experiments/README.md#patch_eval_cell) - Correct an eval cell
 * [execute_run](docs/sdks/experiments/README.md#execute_run) - Execute a run
 * [get_run_metrics](docs/sdks/experiments/README.md#get_run_metrics) - Get run metrics
 * [query_run](docs/sdks/experiments/README.md#query_run) - Query run cells
-* [list_reviews](docs/sdks/experiments/README.md#list_reviews) - List human review columns
-* [create_review](docs/sdks/experiments/README.md#create_review) - Add a human review column
-* [delete_review](docs/sdks/experiments/README.md#delete_review) - Remove a human review column
-* [update_review](docs/sdks/experiments/README.md#update_review) - Update review column metadata
-* [patch_review_cell](docs/sdks/experiments/README.md#patch_review_cell) - Set a human review cell
 * [delete_rows](docs/sdks/experiments/README.md#delete_rows) - Delete rows
-* [update_run_cell](docs/sdks/experiments/README.md#update_run_cell) - Update a cell
 * [duplicate_row](docs/sdks/experiments/README.md#duplicate_row) - Duplicate a row
 * [list_tasks](docs/sdks/experiments/README.md#list_tasks) - List task columns
 * [create_task](docs/sdks/experiments/README.md#create_task) - Add a task column
 * [delete_task](docs/sdks/experiments/README.md#delete_task) - Delete a task column
 * [update_task](docs/sdks/experiments/README.md#update_task) - Update a task column
-* [patch_task_cell](docs/sdks/experiments/README.md#patch_task_cell) - Ingest a task cell
 * [export_run](docs/sdks/experiments/README.md#export_run) - Export a run
 
 ### [Feedback](docs/sdks/feedback/README.md)
@@ -657,14 +662,6 @@ with Orq(
 * [redact](docs/sdks/pii/README.md#redact) - Redact PII
 * [restore](docs/sdks/pii/README.md#restore) - Restore redacted text
 
-### [Policies](docs/sdks/policies/README.md)
-
-* [list](docs/sdks/policies/README.md#list) - List policies
-* [create](docs/sdks/policies/README.md#create) - Create policy
-* [delete](docs/sdks/policies/README.md#delete) - Delete policy
-* [retrieve](docs/sdks/policies/README.md#retrieve) - Get policy
-* [update](docs/sdks/policies/README.md#update) - Update policy
-
 ### [Projects](docs/sdks/projects/README.md)
 
 * [list](docs/sdks/projects/README.md#list) - List all projects
@@ -781,9 +778,20 @@ with Orq(
 
 * [list](docs/sdks/skills/README.md#list) - List all skills
 * [create](docs/sdks/skills/README.md#create) - Create a new skill
+* [import_bundle](docs/sdks/skills/README.md#import_bundle) - Import a skill bundle
+* [import_from_repository](docs/sdks/skills/README.md#import_from_repository) - Import a skill from a repository
 * [get](docs/sdks/skills/README.md#get) - Retrieve a skill
 * [delete](docs/sdks/skills/README.md#delete) - Delete a skill
 * [update](docs/sdks/skills/README.md#update) - Update a skill
+* [replace_bundle](docs/sdks/skills/README.md#replace_bundle) - Replace a skill bundle
+* [put_file](docs/sdks/skills/README.md#put_file) - Add or replace a skill file
+* [rename_file](docs/sdks/skills/README.md#rename_file) - Rename a skill file
+* [save_files](docs/sdks/skills/README.md#save_files) - Save skill files atomically
+* [list_versions](docs/sdks/skills/README.md#list_versions) - List skill versions
+* [export_bundle](docs/sdks/skills/README.md#export_bundle) - Export a skill bundle
+* [restore_version](docs/sdks/skills/README.md#restore_version) - Restore a skill version
+* [delete_file](docs/sdks/skills/README.md#delete_file) - Delete a skill file
+* [get_file_content](docs/sdks/skills/README.md#get_file_content) - Get a presigned URL for a skill file
 
 ### [SmartRouters](docs/sdks/smartrouters/README.md)
 
@@ -798,6 +806,14 @@ with Orq(
 * [list_capabilities](docs/sdks/telemetrysdk/README.md#list_capabilities) - List telemetry capabilities
 * [list_facet_values](docs/sdks/telemetrysdk/README.md#list_facet_values) - List telemetry facet values
 * [query](docs/sdks/telemetrysdk/README.md#query) - Query telemetry
+
+### [TelemetryDestinations](docs/sdks/telemetrydestinations/README.md)
+
+* [list](docs/sdks/telemetrydestinations/README.md#list) - List OpenTelemetry destinations
+* [create](docs/sdks/telemetrydestinations/README.md#create) - Create an OpenTelemetry destination
+* [get](docs/sdks/telemetrydestinations/README.md#get) - Retrieve an OpenTelemetry destination
+* [update](docs/sdks/telemetrydestinations/README.md#update) - Update an OpenTelemetry destination
+* [delete](docs/sdks/telemetrydestinations/README.md#delete) - Delete an OpenTelemetry destination
 
 ### [Tools](docs/sdks/tools/README.md)
 
@@ -1234,7 +1250,7 @@ with Orq(
 **Primary error:**
 * [`OrqError`](./src/orq_ai_sdk/models/orqerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (71)</summary>
+<details><summary>Less common errors (91)</summary>
 
 <br />
 
@@ -1245,72 +1261,92 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
-* [`ErrorResponse`](./src/orq_ai_sdk/models/errorresponse.py): Applicable to 281 of 379 methods.*
-* [`APIErrorResponse`](./src/orq_ai_sdk/models/apierrorresponse.py): Applicable to 12 of 379 methods.*
-* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 5 of 379 methods.*
-* [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 379 methods.*
-* [`CompactResponseResponsesResponseBody`](./src/orq_ai_sdk/models/compactresponseresponsesresponsebody.py): Model is required or request is invalid. Status code `400`. Applicable to 1 of 379 methods.*
-* [`CreateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponsebody.py): Invalid schedule type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 379 methods.*
-* [`UpdateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponsebody.py): Invalid type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 379 methods.*
-* [`TriggerAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponsebody.py): Schedule is inactive. Status code `400`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponsebody.py): Invalid request, unusable workspace integration, or a blocking guardrail. Check the request fields and workspace integration settings. Status code `400`. Applicable to 1 of 379 methods.*
-* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `400`. Applicable to 1 of 379 methods.*
-* [`CreateClassifyRouterClassifyResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponsebody.py): Malformed JSON, missing or unsupported model, or invalid retry, timeout, or fallback fields. Status code `400`. Applicable to 1 of 379 methods.*
-* [`CreateDecisionsRouterDecisionsResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponsebody.py): Malformed JSON, missing or unsupported model, or invalid retry, timeout, or fallback fields. Status code `400`. Applicable to 1 of 379 methods.*
-* [`CompactResponseResponsesResponseResponseBody`](./src/orq_ai_sdk/models/compactresponseresponsesresponseresponsebody.py): Unauthorized. Status code `401`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponseResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponseresponsebody.py): Missing or invalid API key. Send a valid API key in the Authorization header. Status code `401`. Applicable to 1 of 379 methods.*
-* [`CreateClassifyRouterClassifyResponseResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponseresponsebody.py): Missing, invalid, expired or revoked API key. Status code `401`. Applicable to 1 of 379 methods.*
-* [`CreateDecisionsRouterDecisionsResponseResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponseresponsebody.py): Missing, invalid, expired or revoked API key. Status code `401`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponse402ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse402responsebody.py): Managed search requires a positive ORQ credit balance. Add credits before retrying. BYOK does not require ORQ credits. Status code `402`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponse403ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse403responsebody.py): The API key lacks websearch.execute permission. Status code `403`. Applicable to 1 of 379 methods.*
-* [`CreateClassifyRouterClassifyResponse403ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse403responsebody.py): The API key lacks classify permission, or the workspace or project cannot access the model. Status code `403`. Applicable to 1 of 379 methods.*
-* [`CreateDecisionsRouterDecisionsResponse403ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse403responsebody.py): The API key lacks classify permission, or the workspace or project cannot access the model. Status code `403`. Applicable to 1 of 379 methods.*
-* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 379 methods.*
-* [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 379 methods.*
-* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 379 methods.*
-* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`DeletePromptResponseBody`](./src/orq_ai_sdk/models/deletepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 379 methods.*
-* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 379 methods.*
-* [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 379 methods.*
-* [`GetEvalEvalsResponseBody`](./src/orq_ai_sdk/models/getevalevalsresponsebody.py): No evaluator with this id exists in the authenticated workspace, or the request carries no workspace. Status code `404`. Applicable to 1 of 379 methods.*
-* [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 379 methods.*
-* [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 379 methods.*
-* [`PostV2FeedbackFeedbackResponseResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponseresponsebody.py): Workspace, trace, or feedback property was not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`PostV2FeedbackRemoveFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackremovefeedbackresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 379 methods.*
-* [`RetrieveResponseResponsesResponseBody`](./src/orq_ai_sdk/models/retrieveresponseresponsesresponsebody.py): Response not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`CreateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponseresponsebody.py): Agent (or agent version, when agent_tag is set) not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`DeleteAgentScheduleResponseBody`](./src/orq_ai_sdk/models/deleteagentscheduleresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 379 methods.*
-* [`RetrieveAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/retrieveagentscheduleschedulesresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 379 methods.*
-* [`UpdateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponseresponsebody.py): Schedule or agent version not found. Status code `404`. Applicable to 1 of 379 methods.*
-* [`TriggerAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponseresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 379 methods.*
-* [`CreateClassifyRouterClassifyResponse408ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse408responsebody.py): The final model call exceeded its timeout after available retries and fallbacks were exhausted. Status code `408`. Applicable to 1 of 379 methods.*
-* [`CreateDecisionsRouterDecisionsResponse408ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse408responsebody.py): The final model call exceeded its timeout after available retries and fallbacks were exhausted. Status code `408`. Applicable to 1 of 379 methods.*
-* [`DeleteEvalEvalsResponseBody`](./src/orq_ai_sdk/models/deleteevalevalsresponsebody.py): The evaluator is still referenced as an evaluator or guardrail by one or more deployments. Status code `409`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponse415ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse415responsebody.py): Unsupported or missing Content-Type. Send application/json; an optional charset parameter is accepted. Status code `415`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponse422ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse422responsebody.py): A configured guardrail evaluator could not complete its evaluation. Status code `422`. Applicable to 1 of 379 methods.*
-* [`CreateClassifyRouterClassifyResponse422ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse422responsebody.py): The state or a question violates the classification contract. Status code `422`. Applicable to 1 of 379 methods.*
-* [`CreateDecisionsRouterDecisionsResponse422ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse422responsebody.py): The state or a question violates the classification contract. Status code `422`. Applicable to 1 of 379 methods.*
-* [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 379 methods.*
-* [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponse429ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse429responsebody.py): A workspace or provider rate limit, or a matching budget, was reached. Wait before retrying or raise the budget. Status code `429`. Applicable to 1 of 379 methods.*
-* [`CreateClassifyRouterClassifyResponse429ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse429responsebody.py): A plan rate limit, budget or provider rate limit was exceeded. Status code `429`. Applicable to 1 of 379 methods.*
-* [`CreateDecisionsRouterDecisionsResponse429ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse429responsebody.py): A plan rate limit, budget or provider rate limit was exceeded. Status code `429`. Applicable to 1 of 379 methods.*
-* [`KnowledgeAPIError`](./src/orq_ai_sdk/models/knowledgeapierror.py): An error has occured. Status code `500`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponse500ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse500responsebody.py): Unexpected gateway error. Include the trace ID, if available, when reporting the failure. Status code `500`. Applicable to 1 of 379 methods.*
-* [`CreateClassifyRouterClassifyResponse500ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse500responsebody.py): An internal model-resolution error occurred. Status code `500`. Applicable to 1 of 379 methods.*
-* [`CreateDecisionsRouterDecisionsResponse500ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse500responsebody.py): An internal model-resolution error occurred. Status code `500`. Applicable to 1 of 379 methods.*
-* [`CompactResponseResponsesResponse502ResponseBody`](./src/orq_ai_sdk/models/compactresponseresponsesresponse502responsebody.py): Failed to compact conversation. Status code `502`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponse502ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse502responsebody.py): The search provider, PII detector, or guardrail service failed. Invalid upstream credentials can also produce this response. Status code `502`. Applicable to 1 of 379 methods.*
-* [`CreateClassifyRouterClassifyResponse502ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse502responsebody.py): The upstream provider failed or returned an invalid classification response. Status code `502`. Applicable to 1 of 379 methods.*
-* [`CreateDecisionsRouterDecisionsResponse502ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse502responsebody.py): The upstream provider failed or returned an invalid classification response. Status code `502`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponse503ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse503responsebody.py): The gateway could not load workspace integrations. Retry when the credential store is available. Status code `503`. Applicable to 1 of 379 methods.*
-* [`SearchWebWebsearchResponse504ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse504responsebody.py): The provider request timed out or was cancelled. Status code `504`. Applicable to 1 of 379 methods.*
+* [`ErrorResponse`](./src/orq_ai_sdk/models/errorresponse.py): Applicable to 293 of 392 methods.*
+* [`APIErrorResponse`](./src/orq_ai_sdk/models/apierrorresponse.py): Applicable to 12 of 392 methods.*
+* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 5 of 392 methods.*
+* [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 392 methods.*
+* [`CompactResponseResponsesResponseBody`](./src/orq_ai_sdk/models/compactresponseresponsesresponsebody.py): Model is required or request is invalid. Status code `400`. Applicable to 1 of 392 methods.*
+* [`CreateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponsebody.py): Invalid schedule type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 392 methods.*
+* [`UpdateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponsebody.py): Invalid type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 392 methods.*
+* [`TriggerAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponsebody.py): Schedule is inactive. Status code `400`. Applicable to 1 of 392 methods.*
+* [`ListBatchesBatchesResponseBody`](./src/orq_ai_sdk/models/listbatchesbatchesresponsebody.py): Invalid limit, conflicting cursors, or an unknown status or endpoint filter. Status code `400`. Applicable to 1 of 392 methods.*
+* [`CreateBatchBatchesResponseBody`](./src/orq_ai_sdk/models/createbatchbatchesresponsebody.py): Invalid body, unsupported endpoint, completion window other than 24h, or an input file that is missing the batch purpose. Status code `400`. Applicable to 1 of 392 methods.*
+* [`RetrieveBatchBatchesResponseBody`](./src/orq_ai_sdk/models/retrievebatchbatchesresponsebody.py): The batch id is missing from the path. Status code `400`. Applicable to 1 of 392 methods.*
+* [`CancelBatchBatchesResponseBody`](./src/orq_ai_sdk/models/cancelbatchbatchesresponsebody.py): The batch id is missing from the path. Status code `400`. Applicable to 1 of 392 methods.*
+* [`DownloadBatchResultsResponseBody`](./src/orq_ai_sdk/models/downloadbatchresultsresponsebody.py): The batch id is missing, or `file` is neither output nor errors. Status code `400`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponsebody.py): Invalid request, unusable workspace integration, or a blocking guardrail. Check the request fields and workspace integration settings. Status code `400`. Applicable to 1 of 392 methods.*
+* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `400`. Applicable to 1 of 392 methods.*
+* [`CreateClassifyRouterClassifyResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponsebody.py): Malformed JSON, missing or unsupported model, or invalid retry, timeout, or fallback fields. Status code `400`. Applicable to 1 of 392 methods.*
+* [`CreateDecisionsRouterDecisionsResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponsebody.py): Malformed JSON, missing or unsupported model, or invalid retry, timeout, or fallback fields. Status code `400`. Applicable to 1 of 392 methods.*
+* [`CompactResponseResponsesResponseResponseBody`](./src/orq_ai_sdk/models/compactresponseresponsesresponseresponsebody.py): Unauthorized. Status code `401`. Applicable to 1 of 392 methods.*
+* [`ListBatchesBatchesResponseResponseBody`](./src/orq_ai_sdk/models/listbatchesbatchesresponseresponsebody.py): Missing, invalid, expired or revoked API key. Status code `401`. Applicable to 1 of 392 methods.*
+* [`CreateBatchBatchesResponseResponseBody`](./src/orq_ai_sdk/models/createbatchbatchesresponseresponsebody.py): Missing, invalid, expired or revoked API key. Status code `401`. Applicable to 1 of 392 methods.*
+* [`RetrieveBatchBatchesResponseResponseBody`](./src/orq_ai_sdk/models/retrievebatchbatchesresponseresponsebody.py): Missing, invalid, expired or revoked API key. Status code `401`. Applicable to 1 of 392 methods.*
+* [`CancelBatchBatchesResponseResponseBody`](./src/orq_ai_sdk/models/cancelbatchbatchesresponseresponsebody.py): Missing, invalid, expired or revoked API key. Status code `401`. Applicable to 1 of 392 methods.*
+* [`DownloadBatchResultsBatchesResponseBody`](./src/orq_ai_sdk/models/downloadbatchresultsbatchesresponsebody.py): Missing, invalid, expired or revoked API key. Status code `401`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponseResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponseresponsebody.py): Missing or invalid API key. Send a valid API key in the Authorization header. Status code `401`. Applicable to 1 of 392 methods.*
+* [`CreateClassifyRouterClassifyResponseResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponseresponsebody.py): Missing, invalid, expired or revoked API key. Status code `401`. Applicable to 1 of 392 methods.*
+* [`CreateDecisionsRouterDecisionsResponseResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponseresponsebody.py): Missing, invalid, expired or revoked API key. Status code `401`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponse402ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse402responsebody.py): Managed search requires a positive platform credit balance. Add credits before retrying. BYOK does not require platform credits. Status code `402`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponse403ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse403responsebody.py): The API key lacks websearch.execute permission. Status code `403`. Applicable to 1 of 392 methods.*
+* [`CreateClassifyRouterClassifyResponse403ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse403responsebody.py): The API key lacks classify permission, or the workspace or project cannot access the model. Status code `403`. Applicable to 1 of 392 methods.*
+* [`CreateDecisionsRouterDecisionsResponse403ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse403responsebody.py): The API key lacks classify permission, or the workspace or project cannot access the model. Status code `403`. Applicable to 1 of 392 methods.*
+* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 392 methods.*
+* [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 392 methods.*
+* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 392 methods.*
+* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`DeletePromptResponseBody`](./src/orq_ai_sdk/models/deletepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 392 methods.*
+* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 392 methods.*
+* [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 392 methods.*
+* [`GetEvalEvalsResponseBody`](./src/orq_ai_sdk/models/getevalevalsresponsebody.py): No evaluator with this id exists in the authenticated workspace, or the request carries no workspace. Status code `404`. Applicable to 1 of 392 methods.*
+* [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 392 methods.*
+* [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 392 methods.*
+* [`PostV2FeedbackFeedbackResponseResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponseresponsebody.py): Workspace, trace, or feedback property was not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`PostV2FeedbackRemoveFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackremovefeedbackresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 392 methods.*
+* [`RetrieveResponseResponsesResponseBody`](./src/orq_ai_sdk/models/retrieveresponseresponsesresponsebody.py): Response not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`CreateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponseresponsebody.py): Agent (or agent version, when agent_tag is set) not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`DeleteAgentScheduleResponseBody`](./src/orq_ai_sdk/models/deleteagentscheduleresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 392 methods.*
+* [`RetrieveAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/retrieveagentscheduleschedulesresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 392 methods.*
+* [`UpdateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponseresponsebody.py): Schedule or agent version not found. Status code `404`. Applicable to 1 of 392 methods.*
+* [`TriggerAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponseresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 392 methods.*
+* [`CreateBatchBatchesResponse404ResponseBody`](./src/orq_ai_sdk/models/createbatchbatchesresponse404responsebody.py): The input file does not exist in the caller's projects. Status code `404`. Applicable to 1 of 392 methods.*
+* [`RetrieveBatchBatchesResponse404ResponseBody`](./src/orq_ai_sdk/models/retrievebatchbatchesresponse404responsebody.py): No batch with this id is visible to the API key's projects. Status code `404`. Applicable to 1 of 392 methods.*
+* [`CancelBatchBatchesResponse404ResponseBody`](./src/orq_ai_sdk/models/cancelbatchbatchesresponse404responsebody.py): No batch with this id is visible to the API key's projects. Status code `404`. Applicable to 1 of 392 methods.*
+* [`DownloadBatchResultsBatchesResponseResponseBody`](./src/orq_ai_sdk/models/downloadbatchresultsbatchesresponseresponsebody.py): No batch with this id is visible to the API key's projects. Status code `404`. Applicable to 1 of 392 methods.*
+* [`CreateClassifyRouterClassifyResponse408ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse408responsebody.py): The final model call exceeded its timeout after available retries and fallbacks were exhausted. Status code `408`. Applicable to 1 of 392 methods.*
+* [`CreateDecisionsRouterDecisionsResponse408ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse408responsebody.py): The final model call exceeded its timeout after available retries and fallbacks were exhausted. Status code `408`. Applicable to 1 of 392 methods.*
+* [`DeleteEvalEvalsResponseBody`](./src/orq_ai_sdk/models/deleteevalevalsresponsebody.py): The evaluator is still referenced as an evaluator or guardrail by one or more deployments. Status code `409`. Applicable to 1 of 392 methods.*
+* [`DownloadBatchResultsBatchesResponse409ResponseBody`](./src/orq_ai_sdk/models/downloadbatchresultsbatchesresponse409responsebody.py): The batch has not reached a terminal status yet (`invalid_request`), or it has no result file (`output_unavailable` for a missing error or output file). Status code `409`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponse415ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse415responsebody.py): Unsupported or missing Content-Type. Send application/json; an optional charset parameter is accepted. Status code `415`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponse422ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse422responsebody.py): A configured guardrail evaluator could not complete its evaluation. Status code `422`. Applicable to 1 of 392 methods.*
+* [`CreateClassifyRouterClassifyResponse422ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse422responsebody.py): The state or a question violates the classification contract. Status code `422`. Applicable to 1 of 392 methods.*
+* [`CreateDecisionsRouterDecisionsResponse422ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse422responsebody.py): The state or a question violates the classification contract. Status code `422`. Applicable to 1 of 392 methods.*
+* [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 392 methods.*
+* [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponse429ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse429responsebody.py): A workspace or provider rate limit, or a matching budget, was reached. Wait before retrying or raise the budget. Status code `429`. Applicable to 1 of 392 methods.*
+* [`CreateClassifyRouterClassifyResponse429ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse429responsebody.py): A plan rate limit, budget or provider rate limit was exceeded. Status code `429`. Applicable to 1 of 392 methods.*
+* [`CreateDecisionsRouterDecisionsResponse429ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse429responsebody.py): A plan rate limit, budget or provider rate limit was exceeded. Status code `429`. Applicable to 1 of 392 methods.*
+* [`KnowledgeAPIError`](./src/orq_ai_sdk/models/knowledgeapierror.py): An error has occured. Status code `500`. Applicable to 1 of 392 methods.*
+* [`ListBatchesBatchesResponse500ResponseBody`](./src/orq_ai_sdk/models/listbatchesbatchesresponse500responsebody.py): An internal error occurred. Status code `500`. Applicable to 1 of 392 methods.*
+* [`CreateBatchBatchesResponse500ResponseBody`](./src/orq_ai_sdk/models/createbatchbatchesresponse500responsebody.py): An internal error occurred. Status code `500`. Applicable to 1 of 392 methods.*
+* [`RetrieveBatchBatchesResponse500ResponseBody`](./src/orq_ai_sdk/models/retrievebatchbatchesresponse500responsebody.py): An internal error occurred. Status code `500`. Applicable to 1 of 392 methods.*
+* [`CancelBatchBatchesResponse500ResponseBody`](./src/orq_ai_sdk/models/cancelbatchbatchesresponse500responsebody.py): An internal error occurred. Status code `500`. Applicable to 1 of 392 methods.*
+* [`DownloadBatchResultsBatchesResponse500ResponseBody`](./src/orq_ai_sdk/models/downloadbatchresultsbatchesresponse500responsebody.py): An internal error occurred. Status code `500`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponse500ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse500responsebody.py): Unexpected gateway error. Include the trace ID, if available, when reporting the failure. Status code `500`. Applicable to 1 of 392 methods.*
+* [`CreateClassifyRouterClassifyResponse500ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse500responsebody.py): An internal model-resolution error occurred. Status code `500`. Applicable to 1 of 392 methods.*
+* [`CreateDecisionsRouterDecisionsResponse500ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse500responsebody.py): An internal model-resolution error occurred. Status code `500`. Applicable to 1 of 392 methods.*
+* [`CompactResponseResponsesResponse502ResponseBody`](./src/orq_ai_sdk/models/compactresponseresponsesresponse502responsebody.py): Failed to compact conversation. Status code `502`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponse502ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse502responsebody.py): The search provider, PII detector, or guardrail service failed. Invalid upstream credentials can also produce this response. Status code `502`. Applicable to 1 of 392 methods.*
+* [`CreateClassifyRouterClassifyResponse502ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse502responsebody.py): The upstream provider failed or returned an invalid classification response. Status code `502`. Applicable to 1 of 392 methods.*
+* [`CreateDecisionsRouterDecisionsResponse502ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse502responsebody.py): The upstream provider failed or returned an invalid classification response. Status code `502`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponse503ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse503responsebody.py): The gateway could not load workspace integrations. Retry when the credential store is available. Status code `503`. Applicable to 1 of 392 methods.*
+* [`SearchWebWebsearchResponse504ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse504responsebody.py): The provider request timed out or was cancelled. Status code `504`. Applicable to 1 of 392 methods.*
 * [`ResponseValidationError`](./src/orq_ai_sdk/models/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
@@ -1514,7 +1550,7 @@ logging.basicConfig(level=logging.DEBUG)
 s = Orq(debug_logger=logging.getLogger("orq_ai_sdk"))
 ```
 
-You can also enable a default debug logger by setting an environment variable `ORQ_DEBUG` to true.
+You can also enable a default debug logger by setting an environment variable `ORQ_DEBUG` to `true`, `1`, `yes` or `on` (case-insensitive). Any other value leaves it off.
 <!-- End Debugging [debug] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->

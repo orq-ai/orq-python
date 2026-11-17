@@ -16,13 +16,21 @@ from typing_extensions import NotRequired, TypedDict
 
 class UpdateRunRequestTypedDict(TypedDict):
     key: NotRequired[str]
+    r"""New run name. Must not be empty."""
     settings: NotRequired[RunSettingsTypedDict]
+    r"""Settings to change. `concurrency`, `timeout` and `max_turns` change only
+    when set. `hidden_column_ids` is replaced, and cleared when omitted.
+    """
 
 
 class UpdateRunRequest(BaseModel):
     key: Optional[str] = None
+    r"""New run name. Must not be empty."""
 
     settings: Optional[RunSettings] = None
+    r"""Settings to change. `concurrency`, `timeout` and `max_turns` change only
+    when set. `hidden_column_ids` is replaced, and cleared when omitted.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

@@ -42,6 +42,7 @@ PublicResponseResourceStatus = Literal[
     "completed",
     "failed",
     "incomplete",
+    "cancelled",
 ]
 
 
@@ -60,7 +61,7 @@ class PublicResponseResourceTypedDict(TypedDict):
     id: str
     incomplete_details: Nullable[IncompleteDetailsTypedDict]
     input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
+    r"""Always null. Retained for compatibility with older SDKs; input content is not returned."""
     instructions: Nullable[str]
     max_output_tokens: Nullable[int]
     max_tool_calls: Nullable[int]
@@ -118,7 +119,7 @@ class PublicResponseResource(BaseModel):
     incomplete_details: Nullable[IncompleteDetails]
 
     input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
+    r"""Always null. Retained for compatibility with older SDKs; input content is not returned."""
 
     instructions: Nullable[str]
 

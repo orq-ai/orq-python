@@ -1,0 +1,12 @@
+# ExperimentAnnotationCellPatchRequest
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `experiment_id`                                                              | *str*                                                                        | :heavy_check_mark:                                                           | ID of the experiment.                                                        |
+| `run_id`                                                                     | *str*                                                                        | :heavy_check_mark:                                                           | ID of the run.                                                               |
+| `annotation_column_id`                                                       | *str*                                                                        | :heavy_check_mark:                                                           | ID of the annotation column.                                                 |
+| `datapoint_id`                                                               | *str*                                                                        | :heavy_check_mark:                                                           | ID of the row.                                                               |
+| `patch_annotation_cell_request`                                              | [models.PatchAnnotationCellRequest](../models/patchannotationcellrequest.md) | :heavy_check_mark:                                                           | N/A                                                                          |

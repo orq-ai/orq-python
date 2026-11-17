@@ -3,9 +3,9 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `limit`            | *Optional[int]*    | :heavy_minus_sign: | N/A                |
-| `starting_after`   | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `ending_before`    | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `project_id`       | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `limit`                                                                                               | *Optional[int]*                                                                                       | :heavy_minus_sign:                                                                                    | Page size, 1 to 200. Defaults to 25.                                                                  |
+| `starting_after`                                                                                      | *Optional[str]*                                                                                       | :heavy_minus_sign:                                                                                    | Cursor for forward pagination. Set to the `experiment_id` of the last item<br/> from the previous page. |
+| `ending_before`                                                                                       | *Optional[str]*                                                                                       | :heavy_minus_sign:                                                                                    | Cursor for backward pagination. Set to the `experiment_id` of the first<br/> item from the previous page. |
+| `project_id`                                                                                          | *Optional[str]*                                                                                       | :heavy_minus_sign:                                                                                    | Restrict results to one project. Omit to list every project the caller<br/> can access.               |

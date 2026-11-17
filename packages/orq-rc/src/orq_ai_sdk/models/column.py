@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 from .agenttaskconfig import AgentTaskConfig, AgentTaskConfigTypedDict
+from .annotationcolumnconfig import (
+    AnnotationColumnConfig,
+    AnnotationColumnConfigTypedDict,
+)
 from .datasetcolumnconfig import DatasetColumnConfig, DatasetColumnConfigTypedDict
 from .evalcolumnconfig import EvalColumnConfig, EvalColumnConfigTypedDict
-from .harnesstaskconfig import HarnessTaskConfig, HarnessTaskConfigTypedDict
 from .joboutputcolumnconfig import JobOutputColumnConfig, JobOutputColumnConfigTypedDict
 from .metriccolumnconfig import MetricColumnConfig, MetricColumnConfigTypedDict
 from .openresponsetaskconfig import (
@@ -12,7 +15,6 @@ from .openresponsetaskconfig import (
     OpenResponseTaskConfigTypedDict,
 )
 from .prompttaskconfig import PromptTaskConfig, PromptTaskConfigTypedDict
-from .reviewcolumnconfig import ReviewColumnConfig, ReviewColumnConfigTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     UNSET_SENTINEL,
@@ -26,55 +28,106 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ColumnTypedDict(TypedDict):
+    r"""A column of a run. Exactly one of the config fields is set, matching the
+    column type.
+    """
+
     column_id: NotRequired[str]
+    r"""Column ID. Dataset, prompt, evaluator and annotation columns keep their ID in
+    new runs; agent columns get a new one.
+    """
     key: NotRequired[str]
+    r"""Column key, derived from the display name: lowercased, with spaces
+    replaced by underscores.
+    """
     display_name: NotRequired[str]
+    r"""Column name."""
     position: NotRequired[int]
+    r"""0-based position in the run, after the columns are grouped as dataset,
+    task, job output, metric, evaluator and annotation columns.
+    """
     active: NotRequired[bool]
+    r"""Whether the column is shown in the AI Studio grid. False for hidden
+    columns, such as the token metric columns.
+    """
     prompt: NotRequired[PromptTaskConfigTypedDict]
+    r"""Set on prompt task columns."""
     agent: NotRequired[AgentTaskConfigTypedDict]
-    harness: NotRequired[HarnessTaskConfigTypedDict]
+    r"""Set on agent task columns."""
     openresponse: NotRequired[OpenResponseTaskConfigTypedDict]
+    r"""Set on task columns whose cells are filled outside orq.ai."""
     evaluator: NotRequired[EvalColumnConfigTypedDict]
-    review: NotRequired[ReviewColumnConfigTypedDict]
+    r"""Set on evaluator columns."""
+    annotation: NotRequired[AnnotationColumnConfigTypedDict]
+    r"""Set on annotation columns."""
     dataset: NotRequired[DatasetColumnConfigTypedDict]
+    r"""Set on the dataset columns: inputs, messages and expected output."""
     metric: NotRequired[MetricColumnConfigTypedDict]
+    r"""Set on metric columns: cost, latency and token counts."""
     job_output: NotRequired[JobOutputColumnConfigTypedDict]
-    r"""Output of one evaluatorq job; the column holds the text each job produced."""
+    r"""Set on evaluatorq job output columns."""
     width: NotRequired[int]
+    r"""Column width in the AI Studio grid. Task columns default to 280;
+    evaluator, annotation and metric columns to 200. 0 when unset.
+    """
 
 
 class Column(BaseModel):
+    r"""A column of a run. Exactly one of the config fields is set, matching the
+    column type.
+    """
+
     column_id: Optional[str] = None
+    r"""Column ID. Dataset, prompt, evaluator and annotation columns keep their ID in
+    new runs; agent columns get a new one.
+    """
 
     key: Optional[str] = None
+    r"""Column key, derived from the display name: lowercased, with spaces
+    replaced by underscores.
+    """
 
     display_name: Optional[str] = None
+    r"""Column name."""
 
     position: Optional[int] = None
+    r"""0-based position in the run, after the columns are grouped as dataset,
+    task, job output, metric, evaluator and annotation columns.
+    """
 
     active: Optional[bool] = None
+    r"""Whether the column is shown in the AI Studio grid. False for hidden
+    columns, such as the token metric columns.
+    """
 
     prompt: Optional[PromptTaskConfig] = None
+    r"""Set on prompt task columns."""
 
     agent: Optional[AgentTaskConfig] = None
-
-    harness: Optional[HarnessTaskConfig] = None
+    r"""Set on agent task columns."""
 
     openresponse: Optional[OpenResponseTaskConfig] = None
+    r"""Set on task columns whose cells are filled outside orq.ai."""
 
     evaluator: Optional[EvalColumnConfig] = None
+    r"""Set on evaluator columns."""
 
-    review: Optional[ReviewColumnConfig] = None
+    annotation: Optional[AnnotationColumnConfig] = None
+    r"""Set on annotation columns."""
 
     dataset: Optional[DatasetColumnConfig] = None
+    r"""Set on the dataset columns: inputs, messages and expected output."""
 
     metric: Optional[MetricColumnConfig] = None
+    r"""Set on metric columns: cost, latency and token counts."""
 
     job_output: Optional[JobOutputColumnConfig] = None
-    r"""Output of one evaluatorq job; the column holds the text each job produced."""
+    r"""Set on evaluatorq job output columns."""
 
     width: Optional[int] = None
+    r"""Column width in the AI Studio grid. Task columns default to 280;
+    evaluator, annotation and metric columns to 200. 0 when unset.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -90,10 +143,9 @@ class Column(BaseModel):
                 "active",
                 "prompt",
                 "agent",
-                "harness",
                 "openresponse",
                 "evaluator",
-                "review",
+                "annotation",
                 "dataset",
                 "metric",
                 "job_output",

@@ -21,28 +21,35 @@ QueryParamFormat = Literal[
     "json",
     "jsonl",
 ]
+r"""File format: `json` (an array of records), `jsonl` (one record per line) or `csv`. Each record is one row and task column."""
 
 
 class ExperimentRunExportRequestTypedDict(TypedDict):
     experiment_id: str
+    r"""ID of the experiment."""
     run_id: str
+    r"""ID of the run."""
     format_: NotRequired[QueryParamFormat]
+    r"""File format: `json` (an array of records), `jsonl` (one record per line) or `csv`. Each record is one row and task column."""
 
 
 class ExperimentRunExportRequest(BaseModel):
     experiment_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the experiment."""
 
     run_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the run."""
 
     format_: Annotated[
         Optional[QueryParamFormat],
         pydantic.Field(alias="format"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = "json"
+    r"""File format: `json` (an array of records), `jsonl` (one record per line) or `csv`. Each record is one row and task column."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

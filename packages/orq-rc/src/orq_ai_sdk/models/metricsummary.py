@@ -24,22 +24,36 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class MetricSummaryTypedDict(TypedDict):
+    r"""Summary of one metric. Exactly one of `number`, `boolean` and `categorical`
+    is set, depending on the metric's output type.
+    """
+
     number: NotRequired[NumberMetricSummaryTypedDict]
+    r"""Set for numeric metrics."""
     boolean: NotRequired[BooleanMetricSummaryTypedDict]
+    r"""Set for pass or fail evaluators."""
     categorical: NotRequired[CategoricalMetricSummaryTypedDict]
+    r"""Set for evaluators that return labels."""
     baseline: NotRequired[Nullable[MetricBaselineTypedDict]]
-    r"""Null unless a baseline run was requested."""
+    r"""Comparison with the baseline run. Null unless `baseline_run_id` was given, and for categorical metrics or a baseline without values."""
 
 
 class MetricSummary(BaseModel):
+    r"""Summary of one metric. Exactly one of `number`, `boolean` and `categorical`
+    is set, depending on the metric's output type.
+    """
+
     number: Optional[NumberMetricSummary] = None
+    r"""Set for numeric metrics."""
 
     boolean: Optional[BooleanMetricSummary] = None
+    r"""Set for pass or fail evaluators."""
 
     categorical: Optional[CategoricalMetricSummary] = None
+    r"""Set for evaluators that return labels."""
 
     baseline: OptionalNullable[MetricBaseline] = UNSET
-    r"""Null unless a baseline run was requested."""
+    r"""Comparison with the baseline run. Null unless `baseline_run_id` was given, and for categorical metrics or a baseline without values."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

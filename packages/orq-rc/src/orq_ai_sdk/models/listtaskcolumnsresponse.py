@@ -16,10 +16,12 @@ from typing_extensions import NotRequired, TypedDict
 
 class ListTaskColumnsResponseTypedDict(TypedDict):
     data: NotRequired[List[ColumnTypedDict]]
+    r"""Task columns of the run, in column order."""
 
 
 class ListTaskColumnsResponse(BaseModel):
     data: Optional[List[Column]] = None
+    r"""Task columns of the run, in column order."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

@@ -17,12 +17,14 @@ class JobOutputColumnConfigTypedDict(TypedDict):
     r"""Output of one evaluatorq job; the column holds the text each job produced."""
 
     job_name: NotRequired[str]
+    r"""Name of the evaluatorq job."""
 
 
 class JobOutputColumnConfig(BaseModel):
     r"""Output of one evaluatorq job; the column holds the text each job produced."""
 
     job_name: Optional[str] = None
+    r"""Name of the evaluatorq job."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

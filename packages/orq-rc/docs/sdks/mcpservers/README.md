@@ -43,6 +43,7 @@ with Orq(
 | `starting_after`                                                                        | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Cursor for the page after the given item id. Mutually exclusive with `ending_before`.   |
 | `ending_before`                                                                         | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Cursor for the page before the given item id. Mutually exclusive with `starting_after`. |
 | `search`                                                                                | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Case-insensitive match against the server key and display name.                         |
+| `all_accessible_projects`                                                               | *Optional[bool]*                                                                        | :heavy_minus_sign:                                                                      | Spans every project the caller belongs to instead of the active one.                    |
 | `retries`                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                        | :heavy_minus_sign:                                                                      | Configuration to override the default retry behavior of the client.                     |
 
 ### Response
@@ -288,7 +289,7 @@ with Orq(
 
 ## sync
 
-Connects to an upstream MCP server, discovers tools, and persists the tool list and sync state on the server record.
+Syncs the upstream catalogs and returns discovery outcomes. Resource catalogs and capabilities discovered with user-specific credentials or discovery variables are returned only to the caller.
 
 ### Example Usage
 

@@ -1,0 +1,11 @@
+# EncryptedContent
+
+An encrypted content part of an agent_message item.
+
+
+## Fields
+
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `encrypted_content`                                                                                                    | *str*                                                                                                                  | :heavy_check_mark:                                                                                                     | The encrypted content.                                                                                                 |
+| `type`                                                                                                                 | [models.CompactResponse3ResponsesRequestRequestBodyType](../models/compactresponse3responsesrequestrequestbodytype.md) | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |

@@ -48,6 +48,20 @@ class ArtificialIntelligence(BaseModel):
     """
 
 
+class ReasoningEffortsTypedDict(TypedDict):
+    r"""Artificial Analysis intelligence index per reasoning effort, keyed by
+    effort name. Each value has `intelligence_index`, plus `index_version`
+    and `index_is_estimated` when known. Absent when there is no effort ladder.
+    """
+
+
+class ReasoningEfforts(BaseModel):
+    r"""Artificial Analysis intelligence index per reasoning effort, keyed by
+    effort name. Each value has `intelligence_index`, plus `index_version`
+    and `index_is_estimated` when known. Absent when there is no effort ladder.
+    """
+
+
 class ModelTypedDict(TypedDict):
     id: str
     r"""Catalog identifier, `<provider>/<model>` (for example `openai/gpt-4o`)."""
@@ -101,6 +115,26 @@ class ModelTypedDict(TypedDict):
     artificial_intelligence: NotRequired[ArtificialIntelligenceTypedDict]
     r"""Artificial Analysis benchmark scores keyed by evaluation name. Absent
     when unavailable for this offering.
+    """
+    default_effort: NotRequired[str]
+    r"""Reasoning effort that the `artificial_intelligence` scores are measured
+    at. Absent when the model has no default effort.
+    """
+    reasoning_efforts: NotRequired[ReasoningEffortsTypedDict]
+    r"""Artificial Analysis intelligence index per reasoning effort, keyed by
+    effort name. Each value has `intelligence_index`, plus `index_version`
+    and `index_is_estimated` when known. Absent when there is no effort ladder.
+    """
+    blended_price: NotRequired[float]
+    r"""Blended price in USD per 1M tokens, weighting input to output 3:1. It uses
+    base pricing only, so service tiers and conditional prices are ignored.
+    Absent when the model has no Artificial Analysis data.
+    """
+    default_effort_scored: NotRequired[bool]
+    r"""False when `artificial_intelligence` is not the `default_effort` score:
+    the default effort has no scored rung, so the score of the model's
+    Artificial Analysis slug is used instead. Absent when the model has no
+    default effort.
     """
 
 
@@ -176,13 +210,46 @@ class Model(BaseModel):
     when unavailable for this offering.
     """
 
+    default_effort: Optional[str] = None
+    r"""Reasoning effort that the `artificial_intelligence` scores are measured
+    at. Absent when the model has no default effort.
+    """
+
+    reasoning_efforts: Optional[ReasoningEfforts] = None
+    r"""Artificial Analysis intelligence index per reasoning effort, keyed by
+    effort name. Each value has `intelligence_index`, plus `index_version`
+    and `index_is_estimated` when known. Absent when there is no effort ladder.
+    """
+
+    blended_price: Optional[float] = None
+    r"""Blended price in USD per 1M tokens, weighting input to output 3:1. It uses
+    base pricing only, so service tiers and conditional prices are ignored.
+    Absent when the model has no Artificial Analysis data.
+    """
+
+    default_effort_scored: Optional[bool] = None
+    r"""False when `artificial_intelligence` is not the `default_effort` score:
+    the default effort has no scored rung, so the score of the model's
+    Artificial Analysis slug is used instead. Absent when the model has no
+    default effort.
+    """
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
         optional_fields = set(
-            ["deprecation", "pricing", "context_window", "artificial_intelligence"]
+            [
+                "deprecation",
+                "pricing",
+                "context_window",
+                "artificial_intelligence",
+                "default_effort",
+                "reasoning_efforts",
+                "blended_price",
+                "default_effort_scored",
+            ]
         )
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()

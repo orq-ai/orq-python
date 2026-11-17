@@ -23,69 +23,116 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class RunTypedDict(TypedDict):
+    r"""A run: one pass of the experiment's columns over a copy of its dataset rows."""
+
     run_id: NotRequired[str]
+    r"""Run ID (ULID)."""
     experiment_id: NotRequired[str]
+    r"""Experiment the run belongs to."""
     key: NotRequired[str]
+    r"""Run name. `Run 1` for the first run; `Run ` plus the last four characters
+    of the run ID when a run is created without a key.
+    """
     status: NotRequired[RunStatus]
     dataset_id: NotRequired[str]
-    dataset_version_id: NotRequired[str]
+    r"""Dataset the rows were copied from, taken from the experiment when the run
+    was created. Empty for evaluatorq uploads.
+    """
     row_count: NotRequired[int]
+    r"""Number of rows in the run."""
     cell_status_counts: NotRequired[CellStatusCountsTypedDict]
+    r"""Number of cells in each status."""
     columns: NotRequired[List[ColumnTypedDict]]
+    r"""Columns of the run, hidden ones included with `active` false. Get, create
+    and update order them as dataset, task, job output, metric, evaluator and
+    annotation columns.
+    """
     settings: NotRequired[Nullable[RunSettingsTypedDict]]
     r"""Null on runs created without settings, such as evaluatorq uploads."""
     started_at: NotRequired[Nullable[datetime]]
-    r"""Null until the run is executed."""
+    r"""Time the latest execution started. Null until the run is executed."""
     completed_at: NotRequired[Nullable[datetime]]
+    r"""Time the run completed or was canceled. Null until then, and kept when the
+    run is executed again.
+    """
     created_at: NotRequired[datetime]
+    r"""Creation time."""
     updated_at: NotRequired[datetime]
+    r"""Time of the last change to the run."""
     metrics: NotRequired[Dict[str, float]]
-    r"""Averages per task column and metric, keyed \"{task_column_id}_{metric_id}\" 
-    (\"{run_id}_{metric_id}\" for run-level metrics). Only set when requested.
+    r"""Average evaluator results per task column, keyed
+    `{task_column_id}_{evaluator_id}` (the run ID replaces the task column ID
+    for run-level values). Only returned by List runs with `include_metrics`;
+    categorical evaluators are left out.
     """
     stats: NotRequired[RunStatsTypedDict]
+    r"""Execution totals of the run."""
     created_by_id: NotRequired[str]
+    r"""ID of the user or API key that created the run."""
 
 
 class Run(BaseModel):
+    r"""A run: one pass of the experiment's columns over a copy of its dataset rows."""
+
     run_id: Optional[str] = None
+    r"""Run ID (ULID)."""
 
     experiment_id: Optional[str] = None
+    r"""Experiment the run belongs to."""
 
     key: Optional[str] = None
+    r"""Run name. `Run 1` for the first run; `Run ` plus the last four characters
+    of the run ID when a run is created without a key.
+    """
 
     status: Optional[RunStatus] = None
 
     dataset_id: Optional[str] = None
-
-    dataset_version_id: Optional[str] = None
+    r"""Dataset the rows were copied from, taken from the experiment when the run
+    was created. Empty for evaluatorq uploads.
+    """
 
     row_count: Optional[int] = None
+    r"""Number of rows in the run."""
 
     cell_status_counts: Optional[CellStatusCounts] = None
+    r"""Number of cells in each status."""
 
     columns: Optional[List[Column]] = None
+    r"""Columns of the run, hidden ones included with `active` false. Get, create
+    and update order them as dataset, task, job output, metric, evaluator and
+    annotation columns.
+    """
 
     settings: OptionalNullable[RunSettings] = UNSET
     r"""Null on runs created without settings, such as evaluatorq uploads."""
 
     started_at: OptionalNullable[datetime] = UNSET
-    r"""Null until the run is executed."""
+    r"""Time the latest execution started. Null until the run is executed."""
 
     completed_at: OptionalNullable[datetime] = UNSET
+    r"""Time the run completed or was canceled. Null until then, and kept when the
+    run is executed again.
+    """
 
     created_at: Optional[datetime] = None
+    r"""Creation time."""
 
     updated_at: Optional[datetime] = None
+    r"""Time of the last change to the run."""
 
     metrics: Optional[Dict[str, float]] = None
-    r"""Averages per task column and metric, keyed \"{task_column_id}_{metric_id}\" 
-    (\"{run_id}_{metric_id}\" for run-level metrics). Only set when requested.
+    r"""Average evaluator results per task column, keyed
+    `{task_column_id}_{evaluator_id}` (the run ID replaces the task column ID
+    for run-level values). Only returned by List runs with `include_metrics`;
+    categorical evaluators are left out.
     """
 
     stats: Optional[RunStats] = None
+    r"""Execution totals of the run."""
 
     created_by_id: Optional[str] = None
+    r"""ID of the user or API key that created the run."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -99,7 +146,6 @@ class Run(BaseModel):
                 "key",
                 "status",
                 "dataset_id",
-                "dataset_version_id",
                 "row_count",
                 "cell_status_counts",
                 "columns",

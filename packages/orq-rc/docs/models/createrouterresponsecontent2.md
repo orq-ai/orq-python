@@ -5,21 +5,21 @@ A content part within a message.
 
 ## Supported Types
 
-### `models.TwoText`
+### `models.CreateRouterResponse2Text`
 
 ```python
-value: models.TwoText = /* values here */
+value: models.CreateRouterResponse2Text = /* values here */
 ```
 
-### `models.TwoImage`
+### `models.CreateRouterResponse2Image`
 
 ```python
-value: models.TwoImage = /* values here */
+value: models.CreateRouterResponse2Image = /* values here */
 ```
 
-### `models.TwoFile`
+### `models.CreateRouterResponse2File`
 
 ```python
-value: models.TwoFile = /* values here */
+value: models.CreateRouterResponse2File = /* values here */
 ```
 

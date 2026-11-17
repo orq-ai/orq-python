@@ -14,17 +14,33 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class LlmConstraintsTypedDict(TypedDict):
+    r"""Limits for prompt and agent cells, saved into the run's settings."""
+
     max_turns: NotRequired[int]
+    r"""Maximum number of model calls in a cell's agent loop."""
     timeout: NotRequired[str]
+    r"""Wall-clock limit for each cell, as a duration string such as `90s`. Must
+    not be shorter than the timeout of any agent used by the run's agent
+    columns.
+    """
     concurrency: NotRequired[int]
+    r"""Maximum number of cells executing at the same time, 1 to 100."""
 
 
 class LlmConstraints(BaseModel):
+    r"""Limits for prompt and agent cells, saved into the run's settings."""
+
     max_turns: Optional[int] = None
+    r"""Maximum number of model calls in a cell's agent loop."""
 
     timeout: Optional[str] = None
+    r"""Wall-clock limit for each cell, as a duration string such as `90s`. Must
+    not be shorter than the timeout of any agent used by the run's agent
+    columns.
+    """
 
     concurrency: Optional[int] = None
+    r"""Maximum number of cells executing at the same time, 1 to 100."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

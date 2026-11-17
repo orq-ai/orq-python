@@ -15,19 +15,31 @@ from typing_extensions import NotRequired, TypedDict
 
 class UpdateExperimentRequestTypedDict(TypedDict):
     display_name: NotRequired[str]
+    r"""New experiment name, 1 to 255 characters."""
     selected_run_id: NotRequired[str]
+    r"""Run to show by default. Must be a run of this experiment."""
     row_height_level: NotRequired[int]
+    r"""Row height in the AI Studio grid: 1 (compact), 2 or 3 (tallest)."""
     project_id: NotRequired[str]
+    r"""Moves the experiment to another project the caller can access. The
+    dataset stays where it is, so new runs need a dataset in the new project.
+    """
 
 
 class UpdateExperimentRequest(BaseModel):
     display_name: Optional[str] = None
+    r"""New experiment name, 1 to 255 characters."""
 
     selected_run_id: Optional[str] = None
+    r"""Run to show by default. Must be a run of this experiment."""
 
     row_height_level: Optional[int] = None
+    r"""Row height in the AI Studio grid: 1 (compact), 2 or 3 (tallest)."""
 
     project_id: Optional[str] = None
+    r"""Moves the experiment to another project the caller can access. The
+    dataset stays where it is, so new runs need a dataset in the new project.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

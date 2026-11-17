@@ -38,3 +38,4 @@ value: CreateRouterResponseInputType = "message"
 - `"mcp_approval_request"`
 - `"mcp_approval_response"`
 - `"configuration_update"`
+- `"agent_message"`

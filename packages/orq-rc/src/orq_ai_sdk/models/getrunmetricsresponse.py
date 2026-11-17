@@ -16,12 +16,18 @@ from typing_extensions import NotRequired, TypedDict
 
 class GetRunMetricsResponseTypedDict(TypedDict):
     metrics: NotRequired[Dict[str, MetricSummaryTypedDict]]
-    r"""Keyed \"{task_column_id}_{metric_id}\" like Run.metrics."""
+    r"""Metrics keyed `{task_column_id}_{evaluator_id}` for evaluators and
+    `{task_column_id}_orq_{metric}` for usage metrics such as `orq_cost` and
+    `orq_latency`. Empty when the run has no data.
+    """
 
 
 class GetRunMetricsResponse(BaseModel):
     metrics: Optional[Dict[str, MetricSummary]] = None
-    r"""Keyed \"{task_column_id}_{metric_id}\" like Run.metrics."""
+    r"""Metrics keyed `{task_column_id}_{evaluator_id}` for evaluators and
+    `{task_column_id}_orq_{metric}` for usage metrics such as `orq_cost` and
+    `orq_latency`. Empty when the run has no data.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

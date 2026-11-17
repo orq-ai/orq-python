@@ -1,11 +1,13 @@
 # ExecuteTarget
 
+Selects rows and columns for Execute a run.
+
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `row_id`           | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `column_id`        | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `column_key`       | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `repeat_index`     | *Optional[int]*    | :heavy_minus_sign: | N/A                |
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `row_id`                                                                                            | *Optional[str]*                                                                                     | :heavy_minus_sign:                                                                                  | Row to execute.                                                                                     |
+| `column_id`                                                                                         | *Optional[str]*                                                                                     | :heavy_minus_sign:                                                                                  | Column to execute, by column ID.                                                                    |
+| `column_key`                                                                                        | *Optional[str]*                                                                                     | :heavy_minus_sign:                                                                                  | Column to execute, matched against column ID, key and display name. Every<br/> matching column is used. |
+| `source_column_id`                                                                                  | *Optional[str]*                                                                                     | :heavy_minus_sign:                                                                                  | Limits an evaluator column target to the cells grading this task column.                            |

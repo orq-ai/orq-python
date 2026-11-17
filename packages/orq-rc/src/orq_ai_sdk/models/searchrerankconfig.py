@@ -19,7 +19,7 @@ class SearchRerankConfigTypedDict(TypedDict):
     threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
     top_k: NotRequired[int]
-    r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
+    r"""The number of top results to return after reranking, 1 to 100. Without a `rerank_config` in the request, the knowledge base setting applies (5 by default); with one, omitting `top_k` here falls back to 10."""
 
 
 class SearchRerankConfig(BaseModel):
@@ -29,8 +29,8 @@ class SearchRerankConfig(BaseModel):
     threshold: Optional[float] = 0.0
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
-    top_k: Optional[int] = 10
-    r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
+    top_k: Optional[int] = None
+    r"""The number of top results to return after reranking, 1 to 100. Without a `rerank_config` in the request, the knowledge base setting applies (5 by default); with one, omitting `top_k` here falls back to 10."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

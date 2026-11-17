@@ -486,6 +486,474 @@ class Skills(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    def import_bundle(
+        self,
+        *,
+        bundle: str,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ImportSkillBundleResponse:
+        r"""Import a skill bundle
+
+        Uploads a zip archive containing a SKILL.md file and optional supporting files. Creates a new file-bearing skill. An existing display name returns AlreadyExists. Operating-system archive metadata is ignored: `__MACOSX` entries, AppleDouble sidecars (`._*`), and per-directory metadata such as `.DS_Store`, `Thumbs.db`, and `desktop.ini` are dropped and do not count toward the per-skill file limit.
+
+        :param bundle: Zip archive containing SKILL.md at the root and optional supporting
+            files. In JSON requests the bytes are base64 encoded.
+            Operating-system archive metadata (`__MACOSX`, `._*` AppleDouble
+            sidecars, `.DS_Store`, `Thumbs.db`, `desktop.ini`) is ignored.
+        :param project_id: Project that should contain the skill when creating a new skill.
+            Import creates a new skill; a conflicting name returns AlreadyExists.
+        :param path: Project path where the new skill should be stored.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ImportSkillBundleRequest(
+            project_id=project_id,
+            path=path,
+            bundle=bundle,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/skills/import",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ImportSkillBundleRequest
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillImportBundle",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - ImportBundle",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\nimport { readFile } from 'node:fs/promises';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.importBundle({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  bundle: (await readFile('skill.zip')).toString('base64'),\n});\nconsole.log(result);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ImportSkillBundleResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def import_bundle_async(
+        self,
+        *,
+        bundle: str,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ImportSkillBundleResponse:
+        r"""Import a skill bundle
+
+        Uploads a zip archive containing a SKILL.md file and optional supporting files. Creates a new file-bearing skill. An existing display name returns AlreadyExists. Operating-system archive metadata is ignored: `__MACOSX` entries, AppleDouble sidecars (`._*`), and per-directory metadata such as `.DS_Store`, `Thumbs.db`, and `desktop.ini` are dropped and do not count toward the per-skill file limit.
+
+        :param bundle: Zip archive containing SKILL.md at the root and optional supporting
+            files. In JSON requests the bytes are base64 encoded.
+            Operating-system archive metadata (`__MACOSX`, `._*` AppleDouble
+            sidecars, `.DS_Store`, `Thumbs.db`, `desktop.ini`) is ignored.
+        :param project_id: Project that should contain the skill when creating a new skill.
+            Import creates a new skill; a conflicting name returns AlreadyExists.
+        :param path: Project path where the new skill should be stored.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ImportSkillBundleRequest(
+            project_id=project_id,
+            path=path,
+            bundle=bundle,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/skills/import",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ImportSkillBundleRequest
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillImportBundle",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - ImportBundle",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\nimport { readFile } from 'node:fs/promises';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.importBundle({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  bundle: (await readFile('skill.zip')).toString('base64'),\n});\nconsole.log(result);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ImportSkillBundleResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def import_from_repository(
+        self,
+        *,
+        connection_id: Optional[str] = None,
+        repository_url: Optional[str] = None,
+        ref: Optional[str] = None,
+        subdirectory: Optional[str] = None,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ImportSkillFromRepositoryResponse:
+        r"""Import a skill from a repository
+
+        Creates an editable skill snapshot from a repository directory using a workspace source control connection. The source commit is retained; subsequent repository changes are not synchronized.
+
+        :param connection_id:
+        :param repository_url:
+        :param ref:
+        :param subdirectory:
+        :param project_id:
+        :param path:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ImportSkillFromRepositoryRequest(
+            connection_id=connection_id,
+            repository_url=repository_url,
+            ref=ref,
+            subdirectory=subdirectory,
+            project_id=project_id,
+            path=path,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/skills/import/repository",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ImportSkillFromRepositoryRequest
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillImportFromRepository",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "lang": "TypeScript",
+                            "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.skills.importFromRepository({ connectionId: 'connection-id', repositoryUrl: 'https://github.com/example/skills', ref: 'main', subdirectory: 'skills/review', projectId: 'project-id' });\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ImportSkillFromRepositoryResponse, http_res
+            )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def import_from_repository_async(
+        self,
+        *,
+        connection_id: Optional[str] = None,
+        repository_url: Optional[str] = None,
+        ref: Optional[str] = None,
+        subdirectory: Optional[str] = None,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ImportSkillFromRepositoryResponse:
+        r"""Import a skill from a repository
+
+        Creates an editable skill snapshot from a repository directory using a workspace source control connection. The source commit is retained; subsequent repository changes are not synchronized.
+
+        :param connection_id:
+        :param repository_url:
+        :param ref:
+        :param subdirectory:
+        :param project_id:
+        :param path:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ImportSkillFromRepositoryRequest(
+            connection_id=connection_id,
+            repository_url=repository_url,
+            ref=ref,
+            subdirectory=subdirectory,
+            project_id=project_id,
+            path=path,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/skills/import/repository",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ImportSkillFromRepositoryRequest
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillImportFromRepository",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "lang": "TypeScript",
+                            "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.skills.importFromRepository({ connectionId: 'connection-id', repositoryUrl: 'https://github.com/example/skills', ref: 'main', subdirectory: 'skills/review', projectId: 'project-id' });\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ImportSkillFromRepositoryResponse, http_res
+            )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
     def get(
         self,
         *,
@@ -1208,6 +1676,2014 @@ class Skills(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateSkillResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def replace_bundle(
+        self,
+        *,
+        skill_id: str,
+        bundle: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ReplaceSkillBundleResponse:
+        r"""Replace a skill bundle
+
+        :param skill_id:
+        :param bundle:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillReplaceBundleRequest(
+            skill_id=skill_id,
+            replace_skill_bundle_request=models.ReplaceSkillBundleRequest(
+                bundle=bundle,
+            ),
+        )
+
+        req = self._build_request(
+            method="PUT",
+            path="/v2/skills/{skill_id}/bundle",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.replace_skill_bundle_request,
+                False,
+                False,
+                "json",
+                models.ReplaceSkillBundleRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillReplaceBundle",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - ReplaceBundle",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\nimport { readFile } from 'node:fs/promises';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.replaceBundle({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  bundle: (await readFile('skill.zip')).toString('base64'),\n});\nconsole.log(result);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ReplaceSkillBundleResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def replace_bundle_async(
+        self,
+        *,
+        skill_id: str,
+        bundle: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ReplaceSkillBundleResponse:
+        r"""Replace a skill bundle
+
+        :param skill_id:
+        :param bundle:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillReplaceBundleRequest(
+            skill_id=skill_id,
+            replace_skill_bundle_request=models.ReplaceSkillBundleRequest(
+                bundle=bundle,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PUT",
+            path="/v2/skills/{skill_id}/bundle",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.replace_skill_bundle_request,
+                False,
+                False,
+                "json",
+                models.ReplaceSkillBundleRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillReplaceBundle",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - ReplaceBundle",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\nimport { readFile } from 'node:fs/promises';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.replaceBundle({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  bundle: (await readFile('skill.zip')).toString('base64'),\n});\nconsole.log(result);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ReplaceSkillBundleResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def put_file(
+        self,
+        *,
+        skill_id: str,
+        path: str,
+        content: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PutSkillFileResponse:
+        r"""Add or replace a skill file
+
+        Uploads a single file to a skill's bundle. If the path already exists the file is replaced; otherwise it is added to the manifest.
+
+        :param skill_id: Skill ID or display name to update.
+        :param path: Relative path within the skill bundle, including subdirectory
+            components (e.g. \"scripts/extract.py\").
+        :param content: Raw file content. The MIME type is derived from the path extension.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillPutFileRequest(
+            skill_id=skill_id,
+            put_skill_file_request=models.PutSkillFileRequest(
+                path=path,
+                content=content,
+            ),
+        )
+
+        req = self._build_request(
+            method="PUT",
+            path="/v2/skills/{skill_id}/files",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.put_skill_file_request,
+                False,
+                False,
+                "json",
+                models.PutSkillFileRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillPutFile",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Put a skill file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.putFile({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  path: 'references/guide.md',\n  content: Buffer.from('# Reference\\n').toString('base64'),\n});\nconsole.log(result.skill.files);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PutSkillFileResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def put_file_async(
+        self,
+        *,
+        skill_id: str,
+        path: str,
+        content: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PutSkillFileResponse:
+        r"""Add or replace a skill file
+
+        Uploads a single file to a skill's bundle. If the path already exists the file is replaced; otherwise it is added to the manifest.
+
+        :param skill_id: Skill ID or display name to update.
+        :param path: Relative path within the skill bundle, including subdirectory
+            components (e.g. \"scripts/extract.py\").
+        :param content: Raw file content. The MIME type is derived from the path extension.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillPutFileRequest(
+            skill_id=skill_id,
+            put_skill_file_request=models.PutSkillFileRequest(
+                path=path,
+                content=content,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PUT",
+            path="/v2/skills/{skill_id}/files",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.put_skill_file_request,
+                False,
+                False,
+                "json",
+                models.PutSkillFileRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillPutFile",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Put a skill file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.putFile({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  path: 'references/guide.md',\n  content: Buffer.from('# Reference\\n').toString('base64'),\n});\nconsole.log(result.skill.files);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PutSkillFileResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def rename_file(
+        self,
+        *,
+        skill_id: str,
+        old_path: str,
+        new_path: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.RenameSkillFileResponse:
+        r"""Rename a skill file
+
+        Changes a file's path within a skill's bundle. The file content is unchanged. SKILL.md cannot be renamed.
+
+        :param skill_id: Skill ID or display name to update.
+        :param old_path: Current relative path of the file within the skill bundle.
+        :param new_path: New relative path for the file within the skill bundle, including any
+            subdirectory components (e.g. \"scripts/extract.py\").
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillRenameFileRequest(
+            skill_id=skill_id,
+            rename_skill_file_request=models.RenameSkillFileRequest(
+                old_path=old_path,
+                new_path=new_path,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/skills/{skill_id}/files/rename",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.rename_skill_file_request,
+                False,
+                False,
+                "json",
+                models.RenameSkillFileRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillRenameFile",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Rename a skill file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.skills.renameFile({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  oldPath: 'references/guide.md',\n  newPath: 'references/overview.md',\n});\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.RenameSkillFileResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def rename_file_async(
+        self,
+        *,
+        skill_id: str,
+        old_path: str,
+        new_path: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.RenameSkillFileResponse:
+        r"""Rename a skill file
+
+        Changes a file's path within a skill's bundle. The file content is unchanged. SKILL.md cannot be renamed.
+
+        :param skill_id: Skill ID or display name to update.
+        :param old_path: Current relative path of the file within the skill bundle.
+        :param new_path: New relative path for the file within the skill bundle, including any
+            subdirectory components (e.g. \"scripts/extract.py\").
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillRenameFileRequest(
+            skill_id=skill_id,
+            rename_skill_file_request=models.RenameSkillFileRequest(
+                old_path=old_path,
+                new_path=new_path,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/skills/{skill_id}/files/rename",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.rename_skill_file_request,
+                False,
+                False,
+                "json",
+                models.RenameSkillFileRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillRenameFile",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Rename a skill file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.skills.renameFile({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  oldPath: 'references/guide.md',\n  newPath: 'references/overview.md',\n});\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.RenameSkillFileResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def save_files(
+        self,
+        *,
+        skill_id: str,
+        files: Optional[
+            Union[
+                Iterable[models.SkillFileWrite],
+                Iterable[models.SkillFileWriteTypedDict],
+            ]
+        ] = None,
+        display_name: Optional[str] = None,
+        description: Optional[str] = None,
+        instructions: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.SaveSkillFilesResponse:
+        r"""Save skill files atomically
+
+        Saves file drafts and optional skill metadata as one version.
+
+        :param skill_id:
+        :param files:
+        :param display_name:
+        :param description:
+        :param instructions:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillSaveFilesRequest(
+            skill_id=skill_id,
+            save_skill_files_request=models.SaveSkillFilesRequest(
+                files=utils.get_pydantic_model(
+                    files, Optional[List[models.SkillFileWrite]]
+                ),
+                display_name=display_name,
+                description=description,
+                instructions=instructions,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/skills/{skill_id}/files:save",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.save_skill_files_request,
+                False,
+                False,
+                "json",
+                models.SaveSkillFilesRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillSaveFiles",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Save skill files",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\nimport { readFile } from 'node:fs/promises';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.skills.saveFiles({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  files: [{ path: 'SKILL.md', content: (await readFile('SKILL.md')).toString('base64') }],\n});\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.SaveSkillFilesResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def save_files_async(
+        self,
+        *,
+        skill_id: str,
+        files: Optional[
+            Union[
+                Iterable[models.SkillFileWrite],
+                Iterable[models.SkillFileWriteTypedDict],
+            ]
+        ] = None,
+        display_name: Optional[str] = None,
+        description: Optional[str] = None,
+        instructions: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.SaveSkillFilesResponse:
+        r"""Save skill files atomically
+
+        Saves file drafts and optional skill metadata as one version.
+
+        :param skill_id:
+        :param files:
+        :param display_name:
+        :param description:
+        :param instructions:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillSaveFilesRequest(
+            skill_id=skill_id,
+            save_skill_files_request=models.SaveSkillFilesRequest(
+                files=utils.get_pydantic_model(
+                    files, Optional[List[models.SkillFileWrite]]
+                ),
+                display_name=display_name,
+                description=description,
+                instructions=instructions,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/skills/{skill_id}/files:save",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.save_skill_files_request,
+                False,
+                False,
+                "json",
+                models.SaveSkillFilesRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillSaveFiles",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Save skill files",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\nimport { readFile } from 'node:fs/promises';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.skills.saveFiles({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  files: [{ path: 'SKILL.md', content: (await readFile('SKILL.md')).toString('base64') }],\n});\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.SaveSkillFilesResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def list_versions(
+        self,
+        *,
+        skill_id: str,
+        limit: Optional[int] = None,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ListSkillVersionsResponse:
+        r"""List skill versions
+
+        :param skill_id:
+        :param limit:
+        :param starting_after:
+        :param ending_before:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillListVersionsRequest(
+            skill_id=skill_id,
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/skills/{skill_id}/versions",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillListVersions",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - ListVersions",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.listVersions({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  limit: 25,\n});\nconsole.log(result);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ListSkillVersionsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def list_versions_async(
+        self,
+        *,
+        skill_id: str,
+        limit: Optional[int] = None,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ListSkillVersionsResponse:
+        r"""List skill versions
+
+        :param skill_id:
+        :param limit:
+        :param starting_after:
+        :param ending_before:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillListVersionsRequest(
+            skill_id=skill_id,
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/skills/{skill_id}/versions",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillListVersions",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - ListVersions",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.listVersions({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  limit: 25,\n});\nconsole.log(result);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ListSkillVersionsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def export_bundle(
+        self,
+        *,
+        skill_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ExportSkillBundleResponse:
+        r"""Export a skill bundle
+
+        Downloads the skill as a zip archive containing the SKILL.md file and all files in the manifest. Basic Skills receive a synthesized SKILL.md.
+
+        :param skill_id: Skill ID or display name to export.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillExportBundleRequest(
+            skill_id=skill_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/skills/{skill_id}:export",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillExportBundle",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - ExportBundle",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.exportBundle({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\nconsole.log(result);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ExportSkillBundleResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def export_bundle_async(
+        self,
+        *,
+        skill_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ExportSkillBundleResponse:
+        r"""Export a skill bundle
+
+        Downloads the skill as a zip archive containing the SKILL.md file and all files in the manifest. Basic Skills receive a synthesized SKILL.md.
+
+        :param skill_id: Skill ID or display name to export.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillExportBundleRequest(
+            skill_id=skill_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/skills/{skill_id}:export",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillExportBundle",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - ExportBundle",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.exportBundle({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\nconsole.log(result);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ExportSkillBundleResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def restore_version(
+        self,
+        *,
+        skill_id: str,
+        version_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.RestoreSkillVersionResponse:
+        r"""Restore a skill version
+
+        Restores a skill to a previous version recorded in the activity log. The restored state becomes a new version.
+
+        :param skill_id: Skill ID or display name to restore.
+        :param version_id: Version ID (activity ID) to restore to.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillRestoreVersionRequest(
+            skill_id=skill_id,
+            restore_skill_version_request=models.RestoreSkillVersionRequest(
+                version_id=version_id,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/skills/{skill_id}:restore",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.restore_skill_version_request,
+                False,
+                False,
+                "json",
+                models.RestoreSkillVersionRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillRestoreVersion",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - RestoreVersion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.restoreVersion({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  versionId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\nconsole.log(result);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.RestoreSkillVersionResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def restore_version_async(
+        self,
+        *,
+        skill_id: str,
+        version_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.RestoreSkillVersionResponse:
+        r"""Restore a skill version
+
+        Restores a skill to a previous version recorded in the activity log. The restored state becomes a new version.
+
+        :param skill_id: Skill ID or display name to restore.
+        :param version_id: Version ID (activity ID) to restore to.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillRestoreVersionRequest(
+            skill_id=skill_id,
+            restore_skill_version_request=models.RestoreSkillVersionRequest(
+                version_id=version_id,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/skills/{skill_id}:restore",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.restore_skill_version_request,
+                False,
+                False,
+                "json",
+                models.RestoreSkillVersionRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillRestoreVersion",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - RestoreVersion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.restoreVersion({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  versionId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\nconsole.log(result);\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.RestoreSkillVersionResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def delete_file(
+        self,
+        *,
+        skill_id: str,
+        path: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.DeleteSkillFileResponse:
+        r"""Delete a skill file
+
+        Removes a file from a skill's bundle by its relative path. SKILL.md cannot be deleted.
+
+        :param skill_id: Skill ID or display name to update.
+        :param path: Relative path of the file to delete within the skill bundle (for example `references/guide.md`).
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillDeleteFileRequest(
+            skill_id=skill_id,
+            path=path,
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/v2/skills/{skill_id}/files/{path}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillDeleteFile",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Delete a skill file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.skills.deleteFile({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  path: 'references/guide.md',\n});\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.DeleteSkillFileResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def delete_file_async(
+        self,
+        *,
+        skill_id: str,
+        path: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.DeleteSkillFileResponse:
+        r"""Delete a skill file
+
+        Removes a file from a skill's bundle by its relative path. SKILL.md cannot be deleted.
+
+        :param skill_id: Skill ID or display name to update.
+        :param path: Relative path of the file to delete within the skill bundle (for example `references/guide.md`).
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillDeleteFileRequest(
+            skill_id=skill_id,
+            path=path,
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/v2/skills/{skill_id}/files/{path}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillDeleteFile",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Delete a skill file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.skills.deleteFile({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  path: 'references/guide.md',\n});\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.DeleteSkillFileResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def get_file_content(
+        self,
+        *,
+        skill_id: str,
+        path: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetSkillFileContentResponse:
+        r"""Get a presigned URL for a skill file
+
+        Returns a time-limited presigned URL that can be used to download the raw content of a file in the skill bundle.
+
+        :param skill_id: Skill ID or display name.
+        :param path: Relative path of the file within the skill bundle (for example `references/guide.md`).
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillGetFileContentRequest(
+            skill_id=skill_id,
+            path=path,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/skills/{skill_id}/files/{path}:presign",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillGetFileContent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Download a skill file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.getFileContent({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  path: 'references/guide.md',\n});\nconst response = await fetch(result.downloadUrl);\nconsole.log(await response.text());\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.GetSkillFileContentResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def get_file_content_async(
+        self,
+        *,
+        skill_id: str,
+        path: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetSkillFileContentResponse:
+        r"""Get a presigned URL for a skill file
+
+        Returns a time-limited presigned URL that can be used to download the raw content of a file in the skill bundle.
+
+        :param skill_id: Skill ID or display name.
+        :param path: Relative path of the file within the skill bundle (for example `references/guide.md`).
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.SkillGetFileContentRequest(
+            skill_id=skill_id,
+            path=path,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/skills/{skill_id}/files/{path}:presign",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="SkillGetFileContent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Download a skill file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.skills.getFileContent({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  path: 'references/guide.md',\n});\nconst response = await fetch(result.downloadUrl);\nconsole.log(await response.text());\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.GetSkillFileContentResponse, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)

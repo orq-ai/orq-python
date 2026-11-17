@@ -916,7 +916,7 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
 
 
 class StreamRunAgentModelConfigurationRetryTypedDict(TypedDict):
-    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
     count: NotRequired[float]
     r"""Number of retry attempts (1-5)"""
@@ -925,7 +925,7 @@ class StreamRunAgentModelConfigurationRetryTypedDict(TypedDict):
 
 
 class StreamRunAgentModelConfigurationRetry(BaseModel):
-    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
     count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
@@ -968,7 +968,7 @@ class StreamRunAgentModelConfiguration2TypedDict(TypedDict):
     parameters: NotRequired[StreamRunAgentModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-2, randomness; the selected model may impose a lower maximum), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
     retry: NotRequired[StreamRunAgentModelConfigurationRetryTypedDict]
-    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
 
 class StreamRunAgentModelConfiguration2(BaseModel):
@@ -984,7 +984,7 @@ class StreamRunAgentModelConfiguration2(BaseModel):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-2, randomness; the selected model may impose a lower maximum), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
     retry: Optional[StreamRunAgentModelConfigurationRetry] = None
-    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -2341,7 +2341,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01M6R843FGD19A2YMT8Y12QRP5"
+    id: Optional[str] = "01M7KYXNQHQ2H0PEP25Q2W75A6"
 
     description: Optional[str] = None
 

@@ -1,0 +1,12 @@
+# CreateBatchRequestBody
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `completion_window`                                                              | [models.CompletionWindow](../models/completionwindow.md)                         | :heavy_check_mark:                                                               | Time window the batch runs in. Only 24h is supported.                            |
+| `endpoint`                                                                       | [models.Endpoint](../models/endpoint.md)                                         | :heavy_check_mark:                                                               | Endpoint each line is sent to. The batch model must support it.                  |
+| `input_file_id`                                                                  | *str*                                                                            | :heavy_check_mark:                                                               | ID of an uploaded JSONL file whose purpose is batch.                             |
+| `metadata`                                                                       | Dict[str, *str*]                                                                 | :heavy_minus_sign:                                                               | Up to 16 key/value pairs, keys up to 64 characters and values up to 512.         |
+| `output_expires_after`                                                           | [Optional[models.PublicBatchExpiresAfter]](../models/publicbatchexpiresafter.md) | :heavy_minus_sign:                                                               | N/A                                                                              |
