@@ -1959,7 +1959,7 @@ class ListDeploymentVersionsKnowledgeBases(BaseModel):
     configuration: KnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01M7MD36ANCES6KQ56Y1VAE77E"
+    id: Optional[str] = "01M7MJ8QBM2RKH54F09H4RZE5M"
     r"""The unique identifier of the playground knowledge base"""
 
     @model_serializer(mode="wrap")
