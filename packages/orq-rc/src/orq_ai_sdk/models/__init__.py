@@ -10040,8 +10040,6 @@ if TYPE_CHECKING:
         WebScraperToolInputTypedDict,
     )
     from .workspace import (
-        Features,
-        FeaturesTypedDict,
         Workspace,
         WorkspaceMetadata,
         WorkspaceMetadataTypedDict,
@@ -10055,6 +10053,7 @@ if TYPE_CHECKING:
         WorkspaceCapabilities,
         WorkspaceCapabilitiesTypedDict,
     )
+    from .workspacefeatures import WorkspaceFeatures, WorkspaceFeaturesTypedDict
     from .workspacegetop import WorkspaceGetRequest, WorkspaceGetRequestTypedDict
     from .workspacelistop import WorkspaceListRequest, WorkspaceListRequestTypedDict
     from .workspaceorganization import (
@@ -13578,8 +13577,6 @@ __all__ = [
     "FastChunker",
     "FastChunkerStrategy",
     "FastChunkerStrategyTypedDict",
-    "Features",
-    "FeaturesTypedDict",
     "FieldInfo",
     "FieldInfoTypedDict",
     "FieldT",
@@ -19065,6 +19062,8 @@ __all__ = [
     "WorkspaceBudgetScopeTypedDict",
     "WorkspaceCapabilities",
     "WorkspaceCapabilitiesTypedDict",
+    "WorkspaceFeatures",
+    "WorkspaceFeaturesTypedDict",
     "WorkspaceGetRequest",
     "WorkspaceGetRequestTypedDict",
     "WorkspaceListRequest",
@@ -28042,8 +28041,6 @@ _dynamic_imports: dict[str, str] = {
     "WebScraperToolInput": ".webscrapertoolinput",
     "WebScraperToolInputType": ".webscrapertoolinput",
     "WebScraperToolInputTypedDict": ".webscrapertoolinput",
-    "Features": ".workspace",
-    "FeaturesTypedDict": ".workspace",
     "Workspace": ".workspace",
     "WorkspaceMetadata": ".workspace",
     "WorkspaceMetadataTypedDict": ".workspace",
@@ -28052,6 +28049,8 @@ _dynamic_imports: dict[str, str] = {
     "WorkspaceBudgetScopeTypedDict": ".workspacebudgetscope",
     "WorkspaceCapabilities": ".workspacecapabilities",
     "WorkspaceCapabilitiesTypedDict": ".workspacecapabilities",
+    "WorkspaceFeatures": ".workspacefeatures",
+    "WorkspaceFeaturesTypedDict": ".workspacefeatures",
     "WorkspaceGetRequest": ".workspacegetop",
     "WorkspaceGetRequestTypedDict": ".workspacegetop",
     "WorkspaceListRequest": ".workspacelistop",
