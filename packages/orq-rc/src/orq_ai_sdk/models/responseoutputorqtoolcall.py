@@ -10,18 +10,47 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import ConfigDict, model_serializer
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
+ResponseOutputOrqToolCallType = Literal[
+    "orq:advisor",
+    "orq:call_sub_agent",
+    "orq:code_interpreter",
+    "orq:current_date",
+    "orq:datetime",
+    "orq:delete_memory_document",
+    "orq:fusion",
+    "orq:google_search",
+    "orq:image_generation",
+    "orq:query_knowledge_base",
+    "orq:query_memory_store",
+    "orq:read_skill",
+    "orq:retrieve_agents",
+    "orq:retrieve_knowledge_bases",
+    "orq:retrieve_memory_stores",
+    "orq:search_models",
+    "orq:shell",
+    "orq:sidekick",
+    "orq:subagent",
+    "orq:tool_search",
+    "orq:web_fetch",
+    "orq:web_scraper",
+    "orq:web_search",
+    "orq:write_memory_store",
+]
+r"""The item type: `orq:` followed by the tool name."""
+
+
 class ResponseOutputOrqToolCallTypedDict(TypedDict):
-    r"""A call to a tool that Orq hosts and ran for you, with its result. The `type` is `orq:` followed by the tool name, for example `orq:current_date`."""
+    r"""A call to an Orq built-in or server tool that Orq ran for you, with its result. The `type` is `orq:` followed by the tool name, for example `orq:current_date`. Calls to tools you defined yourself arrive as an open object."""
 
     call_id: str
     r"""The ID that links a tool call to its output."""
     name: str
     r"""The name of the tool that ran."""
-    type: str
+    type: ResponseOutputOrqToolCallType
     r"""The item type: `orq:` followed by the tool name."""
     arguments: NotRequired[str]
     r"""The call arguments as a JSON-encoded string."""
@@ -36,7 +65,7 @@ class ResponseOutputOrqToolCallTypedDict(TypedDict):
 
 
 class ResponseOutputOrqToolCall(BaseModel):
-    r"""A call to a tool that Orq hosts and ran for you, with its result. The `type` is `orq:` followed by the tool name, for example `orq:current_date`."""
+    r"""A call to an Orq built-in or server tool that Orq ran for you, with its result. The `type` is `orq:` followed by the tool name, for example `orq:current_date`. Calls to tools you defined yourself arrive as an open object."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -49,7 +78,7 @@ class ResponseOutputOrqToolCall(BaseModel):
     name: str
     r"""The name of the tool that ran."""
 
-    type: str
+    type: ResponseOutputOrqToolCallType
     r"""The item type: `orq:` followed by the tool name."""
 
     arguments: Optional[str] = None

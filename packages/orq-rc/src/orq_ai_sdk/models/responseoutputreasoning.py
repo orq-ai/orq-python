@@ -10,15 +10,15 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import ConfigDict, model_serializer
-from typing import Any, Dict, List, Literal, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import Any, Dict, List, Literal, Optional, Union
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 ResponseOutputReasoningContentType = Literal["reasoning_text",]
 r"""The part type."""
 
 
-class ResponseOutputReasoningContentTypedDict(TypedDict):
+class ReasoningTextTypedDict(TypedDict):
     r"""A piece of reasoning text."""
 
     text: str
@@ -27,7 +27,7 @@ class ResponseOutputReasoningContentTypedDict(TypedDict):
     r"""The part type."""
 
 
-class ResponseOutputReasoningContent(BaseModel):
+class ReasoningText(BaseModel):
     r"""A piece of reasoning text."""
 
     model_config = ConfigDict(
@@ -50,20 +50,31 @@ class ResponseOutputReasoningContent(BaseModel):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
-ResponseOutputReasoningSummaryType = Literal["summary_text",]
+ResponseOutputReasoningContentTypedDict = TypeAliasType(
+    "ResponseOutputReasoningContentTypedDict",
+    Union[ReasoningTextTypedDict, Dict[str, Any]],
+)
+
+
+ResponseOutputReasoningContent = TypeAliasType(
+    "ResponseOutputReasoningContent", Union[ReasoningText, Dict[str, Any]]
+)
+
+
+SummaryType = Literal["summary_text",]
 r"""The part type."""
 
 
-class ResponseOutputReasoningSummaryTypedDict(TypedDict):
+class SummaryTextTypedDict(TypedDict):
     r"""A piece of the reasoning summary."""
 
     text: str
     r"""The text."""
-    type: ResponseOutputReasoningSummaryType
+    type: SummaryType
     r"""The part type."""
 
 
-class ResponseOutputReasoningSummary(BaseModel):
+class SummaryText(BaseModel):
     r"""A piece of the reasoning summary."""
 
     model_config = ConfigDict(
@@ -74,7 +85,7 @@ class ResponseOutputReasoningSummary(BaseModel):
     text: str
     r"""The text."""
 
-    type: ResponseOutputReasoningSummaryType
+    type: SummaryType
     r"""The part type."""
 
     @property
@@ -84,6 +95,17 @@ class ResponseOutputReasoningSummary(BaseModel):
     @additional_properties.setter
     def additional_properties(self, value):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
+ResponseOutputReasoningSummaryTypedDict = TypeAliasType(
+    "ResponseOutputReasoningSummaryTypedDict",
+    Union[SummaryTextTypedDict, Dict[str, Any]],
+)
+
+
+ResponseOutputReasoningSummary = TypeAliasType(
+    "ResponseOutputReasoningSummary", Union[SummaryText, Dict[str, Any]]
+)
 
 
 ResponseOutputReasoningType = Literal["reasoning",]
