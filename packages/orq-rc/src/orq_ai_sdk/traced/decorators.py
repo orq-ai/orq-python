@@ -11,6 +11,7 @@ from .span import Span
 from .context import create_span_context, SpanContext, SpanContextManager
 from .utils import flatten_attribute, serialize_value, to_attribute_text, validate_span_type
 from .otel_integration import is_otel_available
+from .semconv import error_type, genai_aliases
 
 
 F = TypeVar('F', bound=Callable[..., Any])
@@ -78,25 +79,14 @@ def _setup_tracing(
 
 
 def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
-    """Copy span type, attributes, input and output onto the OTel span.
-
-    Custom attributes (including ``span.log(metrics=..., request=...,
-    metadata=...)``) are flattened into dotted keys such as
-    ``metrics.prompt_tokens`` and ``request.model``, which is where the Orq
-    ingest reads token usage and model. Numbers and booleans stay native;
-    lists and other values become JSON text.
-
-    Input and output are JSON in ``input`` / ``output``, the keys the Orq
-    ingest adapter for this decorator parses. Tool spans also get the OTel
-    GenAI ``gen_ai.tool.call.arguments`` / ``gen_ai.tool.call.result``.
-    ``gen_ai.input.messages`` / ``gen_ai.output.messages`` are deliberately
-    not set: function arguments are not chat messages, and the backend
-    derives those keys itself when the value is message-shaped.
-    """
+    """Write type, flattened attributes and JSON input/output, plus their GenAI semconv names."""
+    attributes: Dict[str, Any] = {}
     for key, value in span.attributes.items():
-        for flat_key, flat_value in flatten_attribute(key, value).items():
-            otel_span.set_attribute(flat_key, flat_value)
-    otel_span.set_attribute("type", span.type)
+        attributes.update(flatten_attribute(key, value))
+    attributes["type"] = span.type
+    attributes.update(genai_aliases(attributes, span.type, span.name))
+    for key, value in attributes.items():
+        otel_span.set_attribute(key, value)
 
     if span.input is not None:
         input_text = to_attribute_text(span.input)
@@ -154,6 +144,7 @@ def _finalize_span_error(span: Span, error: Exception, otel_span: Any) -> None:
 
             otel_span.set_status(Status(StatusCode.ERROR, str(error)))
             otel_span.record_exception(error)
+            otel_span.set_attribute("error.type", error_type(error))
         except Exception as e:
             if config.debug:
                 print(f"Failed to set OTel span status: {e}")
@@ -214,13 +205,15 @@ def traced(
         provider, spans are posted to the Orq API using ``ORQ_API_KEY``.
 
         On the OTel span, input and output are written as JSON (strings as-is,
-        non-JSON values via str()) under ``input`` /
-        ``output``. Spans with ``type="tool"`` also get the OTel GenAI
-        ``gen_ai.tool.call.arguments`` / ``gen_ai.tool.call.result``. The span
-        type goes in ``type``. Custom attributes, including those set via
+        non-JSON values via str()) under ``input`` / ``output``, and the span
+        type under ``type``. Custom attributes, including those set via
         ``current_span().log(metrics=..., request=...)``, are flattened into
-        dotted keys (``metrics.prompt_tokens``, ``request.model``) so Orq
-        picks up token usage and model; lists and objects become JSON text.
+        dotted keys (``metrics.prompt_tokens``, ``request.model``); lists
+        become JSON text. Those are the keys Orq reads. The same values are
+        also written under their OTel GenAI semconv names
+        (``gen_ai.operation.name``, ``gen_ai.request.model``,
+        ``gen_ai.usage.input_tokens``, ``gen_ai.tool.call.arguments``, ...),
+        see ``semconv.py``.
 
     Usage:
         @traced

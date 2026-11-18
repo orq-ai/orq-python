@@ -242,3 +242,117 @@ def test_to_json_safe_never_raises():
     assert to_json_safe(BadStr()) == "<unrepresentable BadStr>"
     assert json.dumps(to_json_safe(deep)).count("[MaxDepth]") == 1
     assert to_json_safe({Env.PROD: {1, 2}, (1, 2): "t", 3: "i"}) == {"prod": [1, 2], "(1, 2)": "t", "3": "i"}
+
+
+@pytest.mark.parametrize(
+    "span_type, operation",
+    [("agent", "invoke_agent"), ("llm", "chat"), ("tool", "execute_tool"),
+     ("retrieval", "retrieval"), ("embedding", "embeddings"), ("function", None)],
+)
+def test_span_type_maps_to_genai_operation_name(exporter, span_type, operation):
+    @traced(name="step", type=span_type)
+    def step():
+        return "ok"
+
+    step()
+    attrs = _only_span(exporter)
+
+    assert attrs["type"] == span_type
+    assert attrs.get("gen_ai.operation.name") == operation
+
+
+def test_agent_and_tool_spans_carry_semconv_names(exporter):
+    @traced(name="lookup", type="tool")
+    def lookup(user_id):
+        return {"user_id": user_id}
+
+    @traced(name="planner", type="agent")
+    def planner():
+        return lookup("u-002")
+
+    planner()
+    by_name = {s.name: dict(s.attributes) for s in exporter.get_finished_spans()}
+
+    assert by_name["planner"]["gen_ai.agent.name"] == "planner"
+    assert "gen_ai.tool.name" not in by_name["planner"]
+    assert by_name["lookup"]["gen_ai.tool.name"] == "lookup"
+    assert by_name["lookup"]["gen_ai.tool.type"] == "function"
+    assert json.loads(by_name["lookup"]["gen_ai.tool.call.arguments"]) == {"user_id": "u-002"}
+
+
+def test_span_log_usage_and_request_get_semconv_names(exporter):
+    @traced(type="llm")
+    def generate():
+        current_span().log(
+            metrics={
+                "prompt_tokens": 76,
+                "completion_tokens": 425,
+                "tokens": 501,
+                "prompt_tokens_details": {"cached_tokens": 12},
+                "completion_tokens_details": {"reasoning_tokens": 412},
+            },
+            request={"provider": "anthropic", "model": "claude-haiku-5-5", "max_tokens": 2000,
+                     "temperature": 0.2, "seed": "not-an-int"},
+        )
+        return "ok"
+
+    generate()
+    attrs = _only_span(exporter)
+
+    assert attrs["gen_ai.usage.input_tokens"] == 76
+    assert attrs["gen_ai.usage.output_tokens"] == 425
+    assert attrs["gen_ai.usage.cache_read.input_tokens"] == 12
+    assert attrs["gen_ai.usage.reasoning.output_tokens"] == 412
+    assert attrs["gen_ai.provider.name"] == "anthropic"
+    assert attrs["gen_ai.request.model"] == "claude-haiku-5-5"
+    assert attrs["gen_ai.request.max_tokens"] == 2000
+    assert attrs["gen_ai.request.temperature"] == 0.2
+    # Orq keys stay; semconv types seed as int, so a string seed is not copied.
+    assert attrs["metrics.prompt_tokens"] == 76
+    assert attrs["request.seed"] == "not-an-int"
+    assert "gen_ai.request.seed" not in attrs
+
+
+def test_semconv_attributes_are_copied_to_orq_keys(exporter):
+    @traced(type="llm", attributes={
+        "gen_ai.usage.input_tokens": 10,
+        "gen_ai.usage.output_tokens": 20,
+        "gen_ai.provider.name": "openai",
+        "gen_ai.request.model": "gpt-5",
+        "request.model": "gpt-5-mini",
+        "gen_ai.operation.name": "text_completion",
+    })
+    def generate():
+        return "ok"
+
+    generate()
+    attrs = _only_span(exporter)
+
+    assert attrs["metrics.prompt_tokens"] == 10
+    assert attrs["metrics.completion_tokens"] == 20
+    assert attrs["request.provider"] == "openai"
+    # Both names already set: neither is overwritten.
+    assert attrs["request.model"] == "gpt-5-mini"
+    assert attrs["gen_ai.request.model"] == "gpt-5"
+    assert attrs["gen_ai.operation.name"] == "text_completion"
+
+
+class QuotaExceeded(Exception):
+    pass
+
+
+@pytest.mark.parametrize("error, expected", [
+    (RuntimeError("boom"), "RuntimeError"),
+    (QuotaExceeded("over"), f"{__name__}.QuotaExceeded"),
+])
+def test_error_span_sets_error_type(exporter, error, expected):
+    @traced(type="tool")
+    def failing():
+        raise error
+
+    with pytest.raises(type(error)):
+        failing()
+    attrs = _only_span(exporter)
+
+    assert attrs["error.type"] == expected
+    assert attrs["error.message"] == str(error)
