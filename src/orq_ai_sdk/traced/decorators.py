@@ -11,7 +11,7 @@ from .span import Span
 from .context import create_span_context, SpanContext, SpanContextManager
 from .utils import flatten_attribute, serialize_value, to_attribute_text, validate_span_type
 from .otel_integration import is_otel_available
-from .semconv import error_type, genai_aliases
+from .semconv import error_type, to_genai
 from .http_propagation import install_http_propagation
 
 
@@ -81,13 +81,12 @@ def _setup_tracing(
 
 
 def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
-    """Write type, flattened attributes and JSON input/output, plus their GenAI semconv names."""
+    """Write type, flattened attributes (semconv names) and JSON input/output."""
     attributes: Dict[str, Any] = {}
     for key, value in span.attributes.items():
         attributes.update(flatten_attribute(key, value))
     attributes["type"] = span.type
-    attributes.update(genai_aliases(attributes, span.type, span.name))
-    for key, value in attributes.items():
+    for key, value in to_genai(attributes, span.type, span.name).items():
         otel_span.set_attribute(key, value)
 
     if span.input is not None:
@@ -210,12 +209,11 @@ def traced(
         non-JSON values via str()) under ``input`` / ``output``, and the span
         type under ``type``. Custom attributes, including those set via
         ``current_span().log(metrics=..., request=...)``, are flattened into
-        dotted keys (``metrics.prompt_tokens``, ``request.model``); lists
-        become JSON text. Those are the keys Orq reads. The same values are
-        also written under their OTel GenAI semconv names
-        (``gen_ai.operation.name``, ``gen_ai.request.model``,
-        ``gen_ai.usage.input_tokens``, ``gen_ai.tool.call.arguments``, ...),
-        see ``semconv.py``.
+        dotted keys; lists become JSON text. Usage and request keys use their
+        OTel GenAI semconv names (``metrics.prompt_tokens`` ->
+        ``gen_ai.usage.input_tokens``, ``request.model`` ->
+        ``gen_ai.request.model``), and spans get ``gen_ai.operation.name``.
+        See ``semconv.py``.
 
     Usage:
         @traced

@@ -142,14 +142,13 @@ def test_span_log_dicts_become_dotted_keys(exporter):
     generate()
     attrs = _only_span(exporter)
 
-    # Keys the Orq ingest reads for usage and model (orqtraced.go extractUsage).
-    assert attrs["metrics.prompt_tokens"] == 76
-    assert attrs["metrics.completion_tokens"] == 425
+    assert attrs["gen_ai.usage.input_tokens"] == 76
+    assert attrs["gen_ai.usage.output_tokens"] == 425
     assert attrs["metrics.tokens"] == 501
-    assert attrs["metrics.completion_tokens_details.reasoning_tokens"] == 412
-    assert attrs["request.provider"] == "anthropic"
-    assert attrs["request.model"] == "claude-haiku-5-5"
-    assert attrs["request.temperature"] == 0.2
+    assert attrs["gen_ai.usage.reasoning.output_tokens"] == 412
+    assert attrs["gen_ai.provider.name"] == "anthropic"
+    assert attrs["gen_ai.request.model"] == "claude-haiku-5-5"
+    assert attrs["gen_ai.request.temperature"] == 0.2
     assert attrs["metadata.thing"] == "<Opaque>"
     assert attrs["metadata.cached"] is False
     assert "metadata.skipped" not in attrs
@@ -307,17 +306,22 @@ def test_span_log_usage_and_request_get_semconv_names(exporter):
     assert attrs["gen_ai.request.model"] == "claude-haiku-5-5"
     assert attrs["gen_ai.request.max_tokens"] == 2000
     assert attrs["gen_ai.request.temperature"] == 0.2
-    # Orq keys stay; semconv types seed as int, so a string seed is not copied.
-    assert attrs["metrics.prompt_tokens"] == 76
+    # Orq bills cached/reasoning tokens from the *_tokens_details keys.
+    assert attrs["gen_ai.usage.prompt_tokens_details.cached_tokens"] == 12
+    assert attrs["gen_ai.usage.completion_tokens_details.reasoning_tokens"] == 412
+    # Renamed keys are not also written under their span.log() name.
+    for old in ("metrics.prompt_tokens", "metrics.completion_tokens", "request.model",
+                "metrics.prompt_tokens_details.cached_tokens"):
+        assert old not in attrs
+    # Semconv types seed as int, so a string seed keeps its own key.
     assert attrs["request.seed"] == "not-an-int"
     assert "gen_ai.request.seed" not in attrs
 
 
-def test_semconv_attributes_are_copied_to_orq_keys(exporter):
+def test_explicit_semconv_attributes_are_kept(exporter):
     @traced(type="llm", attributes={
         "gen_ai.usage.input_tokens": 10,
-        "gen_ai.usage.output_tokens": 20,
-        "gen_ai.provider.name": "openai",
+        "gen_ai.usage.cache_read.input_tokens": 4,
         "gen_ai.request.model": "gpt-5",
         "request.model": "gpt-5-mini",
         "gen_ai.operation.name": "text_completion",
@@ -328,9 +332,9 @@ def test_semconv_attributes_are_copied_to_orq_keys(exporter):
     generate()
     attrs = _only_span(exporter)
 
-    assert attrs["metrics.prompt_tokens"] == 10
-    assert attrs["metrics.completion_tokens"] == 20
-    assert attrs["request.provider"] == "openai"
+    assert attrs["gen_ai.usage.input_tokens"] == 10
+    assert "metrics.prompt_tokens" not in attrs
+    assert attrs["gen_ai.usage.prompt_tokens_details.cached_tokens"] == 4
     # Both names already set: neither is overwritten.
     assert attrs["request.model"] == "gpt-5-mini"
     assert attrs["gen_ai.request.model"] == "gpt-5"
