@@ -275,6 +275,12 @@ class McpServers(BaseSDK):
         openapi: Optional[
             Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
         ] = None,
+        health_check: Optional[
+            Union[
+                models.McpHealthCheckConfigInput,
+                models.McpHealthCheckConfigInputTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -292,6 +298,7 @@ class McpServers(BaseSDK):
         :param description: Free-form note about what this server is for.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
         :param openapi: Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`.
+        :param health_check:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -322,6 +329,9 @@ class McpServers(BaseSDK):
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
             openapi=utils.get_pydantic_model(
                 openapi, Optional[models.McpOpenAPIConfigInput]
+            ),
+            health_check=utils.get_pydantic_model(
+                health_check, Optional[models.McpHealthCheckConfigInput]
             ),
         )
 
@@ -420,6 +430,12 @@ class McpServers(BaseSDK):
         openapi: Optional[
             Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
         ] = None,
+        health_check: Optional[
+            Union[
+                models.McpHealthCheckConfigInput,
+                models.McpHealthCheckConfigInputTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -437,6 +453,7 @@ class McpServers(BaseSDK):
         :param description: Free-form note about what this server is for.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
         :param openapi: Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`.
+        :param health_check:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -467,6 +484,9 @@ class McpServers(BaseSDK):
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
             openapi=utils.get_pydantic_model(
                 openapi, Optional[models.McpOpenAPIConfigInput]
+            ),
+            health_check=utils.get_pydantic_model(
+                health_check, Optional[models.McpHealthCheckConfigInput]
             ),
         )
 
@@ -1022,6 +1042,12 @@ class McpServers(BaseSDK):
         openapi: Optional[
             Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
         ] = None,
+        health_check: Optional[
+            Union[
+                models.McpHealthCheckConfigInput,
+                models.McpHealthCheckConfigInputTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1042,6 +1068,7 @@ class McpServers(BaseSDK):
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
         :param openapi: Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again.
+        :param health_check: Replaces the stored health check configuration; fields left unset take their defaults.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1076,6 +1103,9 @@ class McpServers(BaseSDK):
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
                 openapi=utils.get_pydantic_model(
                     openapi, Optional[models.McpOpenAPIConfigInput]
+                ),
+                health_check=utils.get_pydantic_model(
+                    health_check, Optional[models.McpHealthCheckConfigInput]
                 ),
             ),
         )
@@ -1186,6 +1216,12 @@ class McpServers(BaseSDK):
         openapi: Optional[
             Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
         ] = None,
+        health_check: Optional[
+            Union[
+                models.McpHealthCheckConfigInput,
+                models.McpHealthCheckConfigInputTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1206,6 +1242,7 @@ class McpServers(BaseSDK):
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
         :param openapi: Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again.
+        :param health_check: Replaces the stored health check configuration; fields left unset take their defaults.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1240,6 +1277,9 @@ class McpServers(BaseSDK):
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
                 openapi=utils.get_pydantic_model(
                     openapi, Optional[models.McpOpenAPIConfigInput]
+                ),
+                health_check=utils.get_pydantic_model(
+                    health_check, Optional[models.McpHealthCheckConfigInput]
                 ),
             ),
         )

@@ -1,19 +1,23 @@
 # Content
 
-The contents of the system message.
-
 
 ## Supported Types
 
-### `str`
+### `models.OutputText`
 
 ```python
-value: str = /* values here */
+value: models.OutputText = /* values here */
 ```
 
-### `List[models.TextContentPartSchema]`
+### `models.Refusal`
 
 ```python
-value: List[models.TextContentPartSchema] = /* values here */
+value: models.Refusal = /* values here */
+```
+
+### `Dict[str, Any]`
+
+```python
+value: Dict[str, Any] = /* values here */
 ```
 

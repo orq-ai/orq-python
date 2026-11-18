@@ -11,6 +11,7 @@ from .openaipromptcacheoptions import (
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .responseerror import ResponseError, ResponseErrorTypedDict
+from .responseoutputitem import ResponseOutputItem, ResponseOutputItemTypedDict
 from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
@@ -70,7 +71,7 @@ class PublicResponseResourceTypedDict(TypedDict):
     model: str
     object: str
     r"""Always \"response\" """
-    output: Nullable[List[Any]]
+    output: Nullable[List[ResponseOutputItemTypedDict]]
     r"""Array of output items (messages, function calls, reasoning, etc.)"""
     parallel_tool_calls: bool
     presence_penalty: float
@@ -135,7 +136,7 @@ class PublicResponseResource(BaseModel):
     object: str
     r"""Always \"response\" """
 
-    output: Nullable[List[Any]]
+    output: Nullable[List[ResponseOutputItem]]
     r"""Array of output items (messages, function calls, reasoning, etc.)"""
 
     parallel_tool_calls: bool

@@ -3,6 +3,10 @@
 from __future__ import annotations
 from .mcpauthconfig import McpAuthConfig, McpAuthConfigTypedDict
 from .mcpconnection import McpConnection, McpConnectionTypedDict
+from .mcphealthcheckconfig_input import (
+    McpHealthCheckConfigInput,
+    McpHealthCheckConfigInputTypedDict,
+)
 from .mcpopenapiconfig_input import (
     McpOpenAPIConfigInput,
     McpOpenAPIConfigInputTypedDict,
@@ -41,6 +45,8 @@ class UpdateMcpServerRequestTypedDict(TypedDict):
     r"""Which projects in the workspace may use this server. Defaults to every project."""
     openapi: NotRequired[McpOpenAPIConfigInputTypedDict]
     r"""Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again."""
+    health_check: NotRequired[McpHealthCheckConfigInputTypedDict]
+    r"""Replaces the stored health check configuration; fields left unset take their defaults."""
 
 
 class UpdateMcpServerRequest(BaseModel):
@@ -71,6 +77,9 @@ class UpdateMcpServerRequest(BaseModel):
     openapi: Optional[McpOpenAPIConfigInput] = None
     r"""Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again."""
 
+    health_check: Optional[McpHealthCheckConfigInput] = None
+    r"""Replaces the stored health check configuration; fields left unset take their defaults."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
@@ -86,6 +95,7 @@ class UpdateMcpServerRequest(BaseModel):
                 "default_tool_exposure",
                 "sharing",
                 "openapi",
+                "health_check",
             ]
         )
         exclude_none = current_exclude_none()

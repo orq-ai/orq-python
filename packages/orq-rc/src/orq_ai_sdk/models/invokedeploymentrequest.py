@@ -729,13 +729,17 @@ InvokeDeploymentRequestPrefixMessages1Role = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
-ContentTypedDict = TypeAliasType(
-    "ContentTypedDict", Union[str, List[TextContentPartSchemaTypedDict]]
+InvokeDeploymentRequestPrefixMessages1ContentTypedDict = TypeAliasType(
+    "InvokeDeploymentRequestPrefixMessages1ContentTypedDict",
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the system message."""
 
 
-Content = TypeAliasType("Content", Union[str, List[TextContentPartSchema]])
+InvokeDeploymentRequestPrefixMessages1Content = TypeAliasType(
+    "InvokeDeploymentRequestPrefixMessages1Content",
+    Union[str, List[TextContentPartSchema]],
+)
 r"""The contents of the system message."""
 
 
@@ -744,7 +748,7 @@ class SystemMessageTypedDict(TypedDict):
 
     role: InvokeDeploymentRequestPrefixMessages1Role
     r"""The role of the messages author, in this case `system`."""
-    content: ContentTypedDict
+    content: InvokeDeploymentRequestPrefixMessages1ContentTypedDict
     r"""The contents of the system message."""
     name: NotRequired[str]
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
@@ -756,7 +760,7 @@ class SystemMessage(BaseModel):
     role: InvokeDeploymentRequestPrefixMessages1Role
     r"""The role of the messages author, in this case `system`."""
 
-    content: Content
+    content: InvokeDeploymentRequestPrefixMessages1Content
     r"""The contents of the system message."""
 
     name: Optional[str] = None

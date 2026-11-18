@@ -4,11 +4,13 @@ from __future__ import annotations
 from .mcpauthconfig_output import McpAuthConfigOutput, McpAuthConfigOutputTypedDict
 from .mcpconnection import McpConnection, McpConnectionTypedDict
 from .mcpdiscoverystatus import McpDiscoveryStatus
+from .mcphealthcheckconfig import McpHealthCheckConfig, McpHealthCheckConfigTypedDict
 from .mcpicon import McpIcon, McpIconTypedDict
 from .mcpopenapiconfig import McpOpenAPIConfig, McpOpenAPIConfigTypedDict
 from .mcppromptcatalog import McpPromptCatalog, McpPromptCatalogTypedDict
 from .mcpresource import McpResource, McpResourceTypedDict
 from .mcpresourcetemplate import McpResourceTemplate, McpResourceTemplateTypedDict
+from .mcpserverhealth import McpServerHealth, McpServerHealthTypedDict
 from .mcpskill import McpSkill, McpSkillTypedDict
 from .mcpsyncstate import McpSyncState, McpSyncStateTypedDict
 from .mcptool import McpTool, McpToolTypedDict
@@ -161,6 +163,8 @@ class McpServerTypedDict(TypedDict):
     resource_catalog: NotRequired[ResourceCatalogTypedDict]
     r"""Get returns the shared catalog. Sync returns the caller's catalog for user-specific credentials or discovery variables. List omits this field."""
     prompt_catalog: NotRequired[McpPromptCatalogTypedDict]
+    health: NotRequired[McpServerHealthTypedDict]
+    health_check: NotRequired[McpHealthCheckConfigTypedDict]
 
 
 class McpServer(BaseModel):
@@ -223,6 +227,10 @@ class McpServer(BaseModel):
 
     prompt_catalog: Optional[McpPromptCatalog] = None
 
+    health: Optional[McpServerHealth] = None
+
+    health_check: Optional[McpHealthCheckConfig] = None
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
@@ -250,6 +258,8 @@ class McpServer(BaseModel):
                 "capabilities",
                 "resource_catalog",
                 "prompt_catalog",
+                "health",
+                "health_check",
             ]
         )
         exclude_none = current_exclude_none()

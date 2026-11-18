@@ -28,6 +28,7 @@ from .responseexecutionlimits import (
     ResponseExecutionLimitsTypedDict,
 )
 from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
+from .responseoutputitem import ResponseOutputItem, ResponseOutputItemTypedDict
 from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDict
 from .responsestreamevent import ResponseStreamEvent, ResponseStreamEventTypedDict
 from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
@@ -2455,7 +2456,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     model: str
     object: str
     r"""Always \"response\" """
-    output: Nullable[List[Any]]
+    output: Nullable[List[ResponseOutputItemTypedDict]]
     r"""Array of output items (messages, function calls, reasoning, etc.)"""
     parallel_tool_calls: bool
     presence_penalty: float
@@ -2522,7 +2523,7 @@ class CreateRouterResponseResponseBody(BaseModel):
     object: str
     r"""Always \"response\" """
 
-    output: Nullable[List[Any]]
+    output: Nullable[List[ResponseOutputItem]]
     r"""Array of output items (messages, function calls, reasoning, etc.)"""
 
     parallel_tool_calls: bool
