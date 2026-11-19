@@ -1,0 +1,20 @@
+name: traced sync
+
+on:
+  pull_request:
+    paths:
+      - 'src/orq_ai_sdk/traced/**'
+      - 'packages/orq-rc/src/orq_ai_sdk/traced/**'
+      - '.github/workflows/traced-sync.yml'
+  push:
+    branches:
+      - main
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # The prerelease package carries a hand-written copy of traced/; both must ship the same code.
+      # Fix drift with: rsync -a --delete src/orq_ai_sdk/traced/ packages/orq-rc/src/orq_ai_sdk/traced/
+      - run: diff -r src/orq_ai_sdk/traced packages/orq-rc/src/orq_ai_sdk/traced

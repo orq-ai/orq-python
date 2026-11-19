@@ -35,6 +35,8 @@ class OrqClient:
         
         if self.config.enabled:
             self._start_flush_thread()
+            from .http_propagation import install_http_propagation  # pylint: disable=import-outside-toplevel
+            install_http_propagation()
             # Register cleanup on exit
             atexit.register(self.shutdown)
     

@@ -27,6 +27,22 @@ def serialize_value(value: Any) -> Any:
         return str(value)
 
 
+def generate_trace_id() -> str:
+    """Return a 32-char hex W3C/OTel trace id."""
+    trace_id = format(random.getrandbits(128), "032x")
+    while trace_id == "0" * 32:
+        trace_id = format(random.getrandbits(128), "032x")
+    return trace_id
+
+
+def generate_span_id() -> str:
+    """Return a 16-char hex W3C/OTel span id."""
+    span_id = format(random.getrandbits(64), "016x")
+    while span_id == "0000000000000000":
+        span_id = format(random.getrandbits(64), "016x")
+    return span_id
+
+
 def generate_ulid() -> str:
     """Generate a ULID (Universally Unique Lexicographically Sortable Identifier)."""
     # ULID is composed of:
