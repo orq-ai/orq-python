@@ -4,7 +4,8 @@ import time
 from typing import Any, Dict, List, Optional, Union, TypedDict
 from dataclasses import dataclass, field
 
-from .utils import serialize_value, validate_span_type, get_current_time_iso
+from .semconv import to_genai
+from .utils import flatten_attribute, serialize_value, to_attribute_text, validate_span_type, get_current_time_iso
 
 
 class CompletionTokensDetails(TypedDict, total=False):
@@ -130,9 +131,27 @@ class Span:
         if metadata is not None:
             self.set_attribute("metadata", metadata)
     
+    def export_attributes(self) -> Dict[str, Union[str, bool, int, float]]:
+        """Attributes as Orq ingest reads them, on the OTel and the HTTP path alike.
+
+        Flattened to dotted keys, with semconv names (see semconv.to_genai). A
+        tool span also carries its input/output as gen_ai.tool.call.*.
+        """
+        flat: Dict[str, Any] = {}
+        for key, value in self.attributes.items():
+            flat.update(flatten_attribute(key, value))
+        flat["type"] = self.type
+        exported = to_genai(flat, self.type, self.name)
+        if self.type == "tool":
+            if self.input is not None:
+                exported["gen_ai.tool.call.arguments"] = to_attribute_text(self.input)
+            if self.output is not None:
+                exported["gen_ai.tool.call.result"] = to_attribute_text(self.output)
+        return exported
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert span to dictionary for API submission."""
-        span_dict = {
+        span_dict: Dict[str, Any] = {
             "context": {
                 "trace_id": self.trace_id,
                 "span_id": self.span_id,
@@ -141,7 +160,7 @@ class Span:
             "type": self.type,
             "start_time": self.start_time,
             "end_time": self.end_time or str(int(time.time() * 1000)),
-            "attributes": serialize_value(self.attributes),
+            "attributes": self.export_attributes(),
             "events": [
                 {
                     "name": event.name,

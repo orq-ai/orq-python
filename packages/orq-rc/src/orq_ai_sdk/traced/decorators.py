@@ -9,9 +9,9 @@ from .client import get_client, OrqClient
 from .config import get_config, Config
 from .span import Span
 from .context import create_span_context, SpanContext, SpanContextManager
-from .utils import flatten_attribute, serialize_value, to_attribute_text, validate_span_type
+from .utils import serialize_value, to_attribute_text, validate_span_type
 from .otel_integration import is_otel_available
-from .semconv import error_type, to_genai
+from .semconv import error_type
 
 
 F = TypeVar('F', bound=Callable[..., Any])
@@ -79,25 +79,13 @@ def _setup_tracing(
 
 
 def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
-    """Write type, flattened attributes (semconv names) and JSON input/output."""
-    attributes: Dict[str, Any] = {}
-    for key, value in span.attributes.items():
-        attributes.update(flatten_attribute(key, value))
-    attributes["type"] = span.type
-    for key, value in to_genai(attributes, span.type, span.name).items():
+    """Write the span's exported attributes and its JSON input/output."""
+    for key, value in span.export_attributes().items():
         otel_span.set_attribute(key, value)
-
     if span.input is not None:
-        input_text = to_attribute_text(span.input)
-        otel_span.set_attribute("input", input_text)
-        if span.type == "tool":
-            otel_span.set_attribute("gen_ai.tool.call.arguments", input_text)
-
+        otel_span.set_attribute("input", to_attribute_text(span.input))
     if span.output is not None:
-        output_text = to_attribute_text(span.output)
-        otel_span.set_attribute("output", output_text)
-        if span.type == "tool":
-            otel_span.set_attribute("gen_ai.tool.call.result", output_text)
+        otel_span.set_attribute("output", to_attribute_text(span.output))
 
 
 def _write_otel_attributes(otel_span: Any, span: Span, config: Config) -> None:
@@ -135,6 +123,7 @@ def _finalize_span_error(span: Span, error: Exception, otel_span: Any, config: C
     """Handle failed span: record error attributes and update OTel span."""
     span.set_attribute("status", "error")
     span.set_attribute("error.message", str(error))
+    span.set_attribute("error.type", error_type(error))
 
     if otel_span:
         try:
@@ -142,7 +131,6 @@ def _finalize_span_error(span: Span, error: Exception, otel_span: Any, config: C
 
             otel_span.set_status(Status(StatusCode.ERROR, str(error)))
             otel_span.record_exception(error)
-            otel_span.set_attribute("error.type", error_type(error))
         except Exception as e:
             if config.debug:
                 print(f"Failed to set OTel span status: {e}")

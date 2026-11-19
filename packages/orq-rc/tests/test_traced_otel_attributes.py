@@ -2,6 +2,7 @@
 
 import enum
 import json
+from unittest.mock import MagicMock
 
 import pytest
 from opentelemetry import trace
@@ -385,7 +386,8 @@ def test_non_otel_span_dict_never_raises():
     finally:
         set_config(Config(enabled=False))
 
-    assert payload["attributes"]["loop"] == {"a": 1, "self": "[Circular]"}
+    assert payload["attributes"]["loop.a"] == 1
+    assert payload["attributes"]["loop.self"] == "[Circular]"
     json.dumps(payload["input"], allow_nan=False)
 
 
@@ -415,3 +417,58 @@ def test_wrongly_typed_usage_keeps_its_span_log_key(exporter):
     assert attrs["metrics.prompt_tokens"] == "76"
     assert "gen_ai.usage.input_tokens" not in attrs
     assert attrs["gen_ai.usage.output_tokens"] == 425
+
+
+def _workload():
+    """An agent calling an llm, a tool and a failing function."""
+
+    @traced(type="llm", name="generate")
+    def generate():
+        current_span().log(
+            metrics={"prompt_tokens": 76, "completion_tokens": 425, "prompt_tokens_details": {"cached_tokens": 64}},
+            request={"provider": "openai", "model": "gpt-4o", "temperature": 0.2},
+            metadata={"tags": ["a", "b"]},
+        )
+        return "ok"
+
+    @traced(type="tool", name="lookup")
+    def lookup(city):
+        return {"city": city}
+
+    @traced(name="fails")
+    def fails():
+        raise ValueError("boom")
+
+    @traced(type="agent", name="planner")
+    def planner():
+        generate()
+        lookup("Amsterdam")
+        try:
+            fails()
+        except ValueError:
+            pass
+
+    planner()
+
+
+def test_http_path_sends_the_same_attributes_as_otel(exporter, monkeypatch):
+    _workload()
+    otel = {
+        span.name: {k: v for k, v in span.attributes.items() if k not in ("input", "output")}
+        for span in exporter.get_finished_spans()
+    }
+
+    monkeypatch.setattr(trace, "_TRACER_PROVIDER", None)
+    monkeypatch.setattr(trace, "_TRACER_PROVIDER_SET_ONCE", Once())
+    submitted = []
+    client = MagicMock()
+    client.submit_span.side_effect = submitted.append
+    monkeypatch.setattr("orq_ai_sdk.traced.decorators.get_client", lambda: client)
+    _workload()
+    http = {span.name: span.to_dict()["attributes"] for span in submitted}
+
+    assert http == otel
+    assert http["generate"]["gen_ai.usage.input_tokens"] == 76
+    assert http["generate"]["gen_ai.usage.prompt_tokens_details.cached_tokens"] == 64
+    assert "metrics.prompt_tokens" not in http["generate"]
+    assert http["fails"]["error.type"] == "ValueError"
