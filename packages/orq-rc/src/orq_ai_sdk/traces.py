@@ -449,6 +449,7 @@ class Traces(BaseSDK):
         to: Optional[datetime] = None,
         limit: Optional[int] = None,
         filter_operator: Optional[str] = None,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -463,6 +464,7 @@ class Traces(BaseSDK):
         :param to:
         :param limit:
         :param filter_operator:
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -487,6 +489,7 @@ class Traces(BaseSDK):
             to=to,
             limit=limit,
             filter_operator=filter_operator,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request(
@@ -556,6 +559,7 @@ class Traces(BaseSDK):
         to: Optional[datetime] = None,
         limit: Optional[int] = None,
         filter_operator: Optional[str] = None,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -570,6 +574,7 @@ class Traces(BaseSDK):
         :param to:
         :param limit:
         :param filter_operator:
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -594,6 +599,7 @@ class Traces(BaseSDK):
             to=to,
             limit=limit,
             filter_operator=filter_operator,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request_async(
@@ -658,6 +664,7 @@ class Traces(BaseSDK):
     def list_fields(
         self,
         *,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -667,6 +674,7 @@ class Traces(BaseSDK):
 
         List currently supported static trace fields.
 
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -684,12 +692,17 @@ class Traces(BaseSDK):
             base_url = server_url
         else:
             base_url = self._get_url(base_url, url_variables)
+
+        request = models.TracesListFieldsRequest(
+            all_accessible_projects=all_accessible_projects,
+        )
+
         req = self._build_request(
             method="GET",
             path="/v3/traces/fields",
             base_url=base_url,
             url_variables=url_variables,
-            request=None,
+            request=request,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
@@ -744,6 +757,7 @@ class Traces(BaseSDK):
     async def list_fields_async(
         self,
         *,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -753,6 +767,7 @@ class Traces(BaseSDK):
 
         List currently supported static trace fields.
 
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -770,12 +785,17 @@ class Traces(BaseSDK):
             base_url = server_url
         else:
             base_url = self._get_url(base_url, url_variables)
+
+        request = models.TracesListFieldsRequest(
+            all_accessible_projects=all_accessible_projects,
+        )
+
         req = self._build_request_async(
             method="GET",
             path="/v3/traces/fields",
             base_url=base_url,
             url_variables=url_variables,
-            request=None,
+            request=request,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
@@ -1330,7 +1350,18 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "search"},
+                extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-list-fields": [
+                        "trace_id",
+                        "name",
+                        "status",
+                        "models",
+                        "usage.total_tokens",
+                        "cost.total",
+                    ],
+                    "x-cli-name": "search",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1453,7 +1484,18 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "search"},
+                extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-list-fields": [
+                        "trace_id",
+                        "name",
+                        "status",
+                        "models",
+                        "usage.total_tokens",
+                        "cost.total",
+                    ],
+                    "x-cli-name": "search",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1479,6 +1521,7 @@ class Traces(BaseSDK):
         self,
         *,
         trace_id: str,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1489,6 +1532,7 @@ class Traces(BaseSDK):
         Retrieve one trace summary by trace id.
 
         :param trace_id:
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1509,6 +1553,7 @@ class Traces(BaseSDK):
 
         request = models.TracesGetRequest(
             trace_id=trace_id,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request(
@@ -1572,6 +1617,7 @@ class Traces(BaseSDK):
         self,
         *,
         trace_id: str,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1582,6 +1628,7 @@ class Traces(BaseSDK):
         Retrieve one trace summary by trace id.
 
         :param trace_id:
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1602,6 +1649,7 @@ class Traces(BaseSDK):
 
         request = models.TracesGetRequest(
             trace_id=trace_id,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request_async(
@@ -1883,6 +1931,7 @@ class Traces(BaseSDK):
         trace_id: str,
         limit: Optional[int] = None,
         page_token: Optional[str] = None,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1895,6 +1944,7 @@ class Traces(BaseSDK):
         :param trace_id:
         :param limit:
         :param page_token:
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1917,6 +1967,7 @@ class Traces(BaseSDK):
             trace_id=trace_id,
             limit=limit,
             page_token=page_token,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request(
@@ -1954,7 +2005,19 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listSpans"},
+                extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-list-fields": [
+                        "span_id",
+                        "name",
+                        "type",
+                        "status",
+                        "model",
+                        "usage.total_tokens",
+                        "duration_ms",
+                    ],
+                    "x-cli-name": "listSpans",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1982,6 +2045,7 @@ class Traces(BaseSDK):
         trace_id: str,
         limit: Optional[int] = None,
         page_token: Optional[str] = None,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1994,6 +2058,7 @@ class Traces(BaseSDK):
         :param trace_id:
         :param limit:
         :param page_token:
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2016,6 +2081,7 @@ class Traces(BaseSDK):
             trace_id=trace_id,
             limit=limit,
             page_token=page_token,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request_async(
@@ -2053,7 +2119,19 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listSpans"},
+                extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-list-fields": [
+                        "span_id",
+                        "name",
+                        "type",
+                        "status",
+                        "model",
+                        "usage.total_tokens",
+                        "duration_ms",
+                    ],
+                    "x-cli-name": "listSpans",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2080,6 +2158,7 @@ class Traces(BaseSDK):
         *,
         trace_id: str,
         span_id: str,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2091,6 +2170,7 @@ class Traces(BaseSDK):
 
         :param trace_id: Optional: queue items predating trace_id capture only have the span.
         :param span_id:
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2112,6 +2192,7 @@ class Traces(BaseSDK):
         request = models.TracesGetSpanRequest(
             trace_id=trace_id,
             span_id=span_id,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request(
@@ -2176,6 +2257,7 @@ class Traces(BaseSDK):
         *,
         trace_id: str,
         span_id: str,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2187,6 +2269,7 @@ class Traces(BaseSDK):
 
         :param trace_id: Optional: queue items predating trace_id capture only have the span.
         :param span_id:
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2208,6 +2291,7 @@ class Traces(BaseSDK):
         request = models.TracesGetSpanRequest(
             trace_id=trace_id,
             span_id=span_id,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request_async(

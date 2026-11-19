@@ -444,7 +444,17 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-list-fields": [
+                        "key",
+                        "model.id",
+                        "settings.tools[].display_name",
+                        "team_of_agents[].key",
+                        "updated",
+                    ],
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -542,7 +552,17 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-list-fields": [
+                        "key",
+                        "model.id",
+                        "settings.tools[].display_name",
+                        "team_of_agents[].key",
+                        "updated",
+                    ],
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -12,6 +12,7 @@ from .openaipromptcacheoptions import (
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .responseerror import ResponseError, ResponseErrorTypedDict
+from .responseoutputitem import ResponseOutputItem, ResponseOutputItemTypedDict
 from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
 from dataclasses import dataclass, field
 import httpx
@@ -81,6 +82,7 @@ RetrieveResponseStatus = Literal[
     "completed",
     "failed",
     "incomplete",
+    "cancelled",
 ]
 
 
@@ -101,7 +103,7 @@ class RetrieveResponseResponseBodyTypedDict(TypedDict):
     id: str
     incomplete_details: Nullable[IncompleteDetailsTypedDict]
     input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
+    r"""Always null. Retained for compatibility with older SDKs; input content is not returned."""
     instructions: Nullable[str]
     max_output_tokens: Nullable[int]
     max_tool_calls: Nullable[int]
@@ -110,7 +112,7 @@ class RetrieveResponseResponseBodyTypedDict(TypedDict):
     model: str
     object: str
     r"""Always \"response\" """
-    output: Nullable[List[Any]]
+    output: Nullable[List[ResponseOutputItemTypedDict]]
     r"""Array of output items (messages, function calls, reasoning, etc.)"""
     parallel_tool_calls: bool
     presence_penalty: float
@@ -161,7 +163,7 @@ class RetrieveResponseResponseBody(BaseModel):
     incomplete_details: Nullable[IncompleteDetails]
 
     input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
+    r"""Always null. Retained for compatibility with older SDKs; input content is not returned."""
 
     instructions: Nullable[str]
 
@@ -177,7 +179,7 @@ class RetrieveResponseResponseBody(BaseModel):
     object: str
     r"""Always \"response\" """
 
-    output: Nullable[List[Any]]
+    output: Nullable[List[ResponseOutputItem]]
     r"""Array of output items (messages, function calls, reasoning, etc.)"""
 
     parallel_tool_calls: bool

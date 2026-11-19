@@ -16,46 +16,89 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ExperimentTypedDict(TypedDict):
+    r"""An experiment: a dataset evaluated by one or more runs."""
+
     experiment_id: NotRequired[str]
+    r"""Experiment ID (ULID)."""
     display_name: NotRequired[str]
+    r"""Experiment name."""
     project_id: NotRequired[str]
+    r"""Project that owns the experiment."""
     dataset_id: NotRequired[str]
-    dataset_version_id: NotRequired[str]
+    r"""Dataset whose datapoints become the rows of each new run. Empty when the
+    experiment was created without a dataset.
+    """
     selected_run_id: NotRequired[str]
+    r"""Run shown by default in the AI Studio, and the run whose columns Create a
+    run copies. Create a run selects the new run; deleting the selected run
+    selects the newest remaining one.
+    """
     created_at: NotRequired[datetime]
+    r"""Creation time."""
     updated_at: NotRequired[datetime]
+    r"""Time of the last update to the experiment."""
     source: NotRequired[str]
-    r"""Origin of the experiment: \"manual\" or \"evaluatorq\"."""
+    r"""Origin of the experiment: `evaluatorq` for results uploaded by the
+    evaluatorq framework; empty or `manual` otherwise.
+    """
     row_height_level: NotRequired[int]
+    r"""Row height in the AI Studio grid: 1 (compact), 2 or 3 (tallest). Set to 1
+    on create.
+    """
     unique_evaluators: NotRequired[List[UniqueEvaluatorTypedDict]]
+    r"""Evaluators used by the experiment's evaluator columns, one entry per
+    evaluator.
+    """
     created_by_id: NotRequired[str]
+    r"""ID of the user or API key that created the experiment."""
 
 
 class Experiment(BaseModel):
+    r"""An experiment: a dataset evaluated by one or more runs."""
+
     experiment_id: Optional[str] = None
+    r"""Experiment ID (ULID)."""
 
     display_name: Optional[str] = None
+    r"""Experiment name."""
 
     project_id: Optional[str] = None
+    r"""Project that owns the experiment."""
 
     dataset_id: Optional[str] = None
-
-    dataset_version_id: Optional[str] = None
+    r"""Dataset whose datapoints become the rows of each new run. Empty when the
+    experiment was created without a dataset.
+    """
 
     selected_run_id: Optional[str] = None
+    r"""Run shown by default in the AI Studio, and the run whose columns Create a
+    run copies. Create a run selects the new run; deleting the selected run
+    selects the newest remaining one.
+    """
 
     created_at: Optional[datetime] = None
+    r"""Creation time."""
 
     updated_at: Optional[datetime] = None
+    r"""Time of the last update to the experiment."""
 
     source: Optional[str] = None
-    r"""Origin of the experiment: \"manual\" or \"evaluatorq\"."""
+    r"""Origin of the experiment: `evaluatorq` for results uploaded by the
+    evaluatorq framework; empty or `manual` otherwise.
+    """
 
     row_height_level: Optional[int] = None
+    r"""Row height in the AI Studio grid: 1 (compact), 2 or 3 (tallest). Set to 1
+    on create.
+    """
 
     unique_evaluators: Optional[List[UniqueEvaluator]] = None
+    r"""Evaluators used by the experiment's evaluator columns, one entry per
+    evaluator.
+    """
 
     created_by_id: Optional[str] = None
+    r"""ID of the user or API key that created the experiment."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -68,7 +111,6 @@ class Experiment(BaseModel):
                 "display_name",
                 "project_id",
                 "dataset_id",
-                "dataset_version_id",
                 "selected_run_id",
                 "created_at",
                 "updated_at",

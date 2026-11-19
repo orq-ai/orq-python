@@ -1,0 +1,15 @@
+# McpServerHealth
+
+
+## Fields
+
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `status`                                                               | [Optional[models.McpHealthStatus]](../models/mcphealthstatus.md)       | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `coverage`                                                             | [Optional[models.McpHealthCoverage]](../models/mcphealthcoverage.md)   | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `last_checked_at`                                                      | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `last_healthy_at`                                                      | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `latency_ms`                                                           | *Optional[int]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `consecutive_failures`                                                 | *Optional[int]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `error_message`                                                        | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `recent_checks`                                                        | List[[models.McpHealthCheckResult](../models/mcphealthcheckresult.md)] | :heavy_minus_sign:                                                     | Oldest first.                                                          |

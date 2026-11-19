@@ -15,3 +15,4 @@ value: PublicResponseResourceStatus = "queued"
 - `"completed"`
 - `"failed"`
 - `"incomplete"`
+- `"cancelled"`

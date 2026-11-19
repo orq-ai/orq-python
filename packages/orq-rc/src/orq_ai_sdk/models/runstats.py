@@ -14,29 +14,34 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class RunStatsTypedDict(TypedDict):
+    r"""Execution totals of a run. Not reset when the run is executed again."""
+
     total_cost: NotRequired[float]
-    total_runs: NotRequired[int]
+    r"""Total cost in USD of the successful prompt and agent cell executions."""
     total_errors: NotRequired[int]
+    r"""Number of failed prompt and agent cell executions."""
     total_done: NotRequired[int]
+    r"""Number of successful prompt and agent cell executions."""
 
 
 class RunStats(BaseModel):
-    total_cost: Optional[float] = None
+    r"""Execution totals of a run. Not reset when the run is executed again."""
 
-    total_runs: Optional[int] = None
+    total_cost: Optional[float] = None
+    r"""Total cost in USD of the successful prompt and agent cell executions."""
 
     total_errors: Optional[int] = None
+    r"""Number of failed prompt and agent cell executions."""
 
     total_done: Optional[int] = None
+    r"""Number of successful prompt and agent cell executions."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["total_cost", "total_runs", "total_errors", "total_done"]
-        )
+        optional_fields = set(["total_cost", "total_errors", "total_done"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

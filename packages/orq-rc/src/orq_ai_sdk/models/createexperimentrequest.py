@@ -15,30 +15,43 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class CreateExperimentRequestTypedDict(TypedDict):
-    display_name: NotRequired[str]
+    display_name: str
+    r"""Experiment name, 1 to 255 characters."""
     project_id: NotRequired[str]
-    r"""Project the experiment is created in; defaults to the API key's project when omitted."""
+    r"""Project the experiment is created in. Defaults to the caller's project:
+    the API key's project, or the project open in the AI Studio. Required for
+    API keys that span several projects.
+    """
     dataset_id: NotRequired[str]
-    dataset_version_id: NotRequired[str]
+    r"""Dataset whose datapoints become the rows of the first run, at most 1000.
+    Must be in the experiment's project. Omit to start with an empty run.
+    """
     source_run: NotRequired[RunRefTypedDict]
-    r"""Copies the task, evaluator and review columns of an existing run into the
-    new experiment's first run (fork).
+    r"""Run to fork. Its task, metric, evaluator and annotation columns are copied
+    into the new experiment's first run; rows still come from `dataset_id`.
+    Must be in the same project as the new experiment.
     """
 
 
 class CreateExperimentRequest(BaseModel):
-    display_name: Optional[str] = None
+    display_name: str
+    r"""Experiment name, 1 to 255 characters."""
 
     project_id: Optional[str] = None
-    r"""Project the experiment is created in; defaults to the API key's project when omitted."""
+    r"""Project the experiment is created in. Defaults to the caller's project:
+    the API key's project, or the project open in the AI Studio. Required for
+    API keys that span several projects.
+    """
 
     dataset_id: Optional[str] = None
-
-    dataset_version_id: Optional[str] = None
+    r"""Dataset whose datapoints become the rows of the first run, at most 1000.
+    Must be in the experiment's project. Omit to start with an empty run.
+    """
 
     source_run: Optional[RunRef] = None
-    r"""Copies the task, evaluator and review columns of an existing run into the
-    new experiment's first run (fork).
+    r"""Run to fork. Its task, metric, evaluator and annotation columns are copied
+    into the new experiment's first run; rows still come from `dataset_id`.
+    Must be in the same project as the new experiment.
     """
 
     @model_serializer(mode="wrap")
@@ -46,15 +59,7 @@ class CreateExperimentRequest(BaseModel):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "display_name",
-                "project_id",
-                "dataset_id",
-                "dataset_version_id",
-                "source_run",
-            ]
-        )
+        optional_fields = set(["project_id", "dataset_id", "source_run"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

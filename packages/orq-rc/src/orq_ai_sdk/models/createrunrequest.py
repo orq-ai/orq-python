@@ -16,13 +16,17 @@ from typing_extensions import NotRequired, TypedDict
 
 class CreateRunRequestTypedDict(TypedDict):
     key: NotRequired[str]
+    r"""Run name. Defaults to `Run ` plus the last four characters of the run ID."""
     settings: NotRequired[RunSettingsTypedDict]
+    r"""Execution settings. Concurrency defaults to 10."""
 
 
 class CreateRunRequest(BaseModel):
     key: Optional[str] = None
+    r"""Run name. Defaults to `Run ` plus the last four characters of the run ID."""
 
     settings: Optional[RunSettings] = None
+    r"""Execution settings. Concurrency defaults to 10."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

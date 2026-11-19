@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from queue import Queue
 from threading import Thread
@@ -19,6 +20,10 @@ from opentelemetry.sdk.trace.export.in_memory_span_exporter import InMemorySpanE
 
 from orq_ai_sdk.integrations.google_adk import instrument_google_adk
 from orq_ai_sdk.traced.context import SpanContext, SpanContextManager
+
+pytestmark = pytest.mark.skipif(
+    sys.version_info < (3, 11), reason="Google ADK integration requires Python 3.11+"
+)
 
 
 @pytest.fixture(scope="module")

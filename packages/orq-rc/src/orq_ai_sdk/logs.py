@@ -1417,7 +1417,17 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions={"x-cli-group": "logs", "x-cli-name": "search"},
+                extensions={
+                    "x-cli-group": "logs",
+                    "x-cli-list-fields": [
+                        "timestamp",
+                        "severity_text",
+                        "service_name",
+                        "trace_id",
+                        "body",
+                    ],
+                    "x-cli-name": "search",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1541,7 +1551,17 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions={"x-cli-group": "logs", "x-cli-name": "search"},
+                extensions={
+                    "x-cli-group": "logs",
+                    "x-cli-list-fields": [
+                        "timestamp",
+                        "severity_text",
+                        "service_name",
+                        "trace_id",
+                        "body",
+                    ],
+                    "x-cli-name": "search",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2086,7 +2106,17 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions={"x-cli-group": "logs", "x-cli-name": "listTrace"},
+                extensions={
+                    "x-cli-group": "logs",
+                    "x-cli-list-fields": [
+                        "timestamp",
+                        "severity_text",
+                        "service_name",
+                        "span_id",
+                        "body",
+                    ],
+                    "x-cli-name": "listTrace",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2185,7 +2215,17 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions={"x-cli-group": "logs", "x-cli-name": "listTrace"},
+                extensions={
+                    "x-cli-group": "logs",
+                    "x-cli-list-fields": [
+                        "timestamp",
+                        "severity_text",
+                        "service_name",
+                        "span_id",
+                        "body",
+                    ],
+                    "x-cli-name": "listTrace",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

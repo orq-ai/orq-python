@@ -17,6 +17,7 @@ class McpServers(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -30,6 +31,7 @@ class McpServers(BaseSDK):
         :param starting_after: Cursor for the page after the given item id. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for the page before the given item id. Mutually exclusive with `starting_after`.
         :param search: Case-insensitive match against the server key and display name.
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -53,6 +55,7 @@ class McpServers(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             search=search,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request(
@@ -139,6 +142,7 @@ class McpServers(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
+        all_accessible_projects: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -152,6 +156,7 @@ class McpServers(BaseSDK):
         :param starting_after: Cursor for the page after the given item id. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for the page before the given item id. Mutually exclusive with `starting_after`.
         :param search: Case-insensitive match against the server key and display name.
+        :param all_accessible_projects: Spans every project the caller belongs to instead of the active one.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -175,6 +180,7 @@ class McpServers(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             search=search,
+            all_accessible_projects=all_accessible_projects,
         )
 
         req = self._build_request_async(
@@ -269,6 +275,12 @@ class McpServers(BaseSDK):
         openapi: Optional[
             Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
         ] = None,
+        health_check: Optional[
+            Union[
+                models.McpHealthCheckConfigInput,
+                models.McpHealthCheckConfigInputTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -286,6 +298,7 @@ class McpServers(BaseSDK):
         :param description: Free-form note about what this server is for.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
         :param openapi: Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`.
+        :param health_check:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -316,6 +329,9 @@ class McpServers(BaseSDK):
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
             openapi=utils.get_pydantic_model(
                 openapi, Optional[models.McpOpenAPIConfigInput]
+            ),
+            health_check=utils.get_pydantic_model(
+                health_check, Optional[models.McpHealthCheckConfigInput]
             ),
         )
 
@@ -414,6 +430,12 @@ class McpServers(BaseSDK):
         openapi: Optional[
             Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
         ] = None,
+        health_check: Optional[
+            Union[
+                models.McpHealthCheckConfigInput,
+                models.McpHealthCheckConfigInputTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -431,6 +453,7 @@ class McpServers(BaseSDK):
         :param description: Free-form note about what this server is for.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
         :param openapi: Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`.
+        :param health_check:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -461,6 +484,9 @@ class McpServers(BaseSDK):
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
             openapi=utils.get_pydantic_model(
                 openapi, Optional[models.McpOpenAPIConfigInput]
+            ),
+            health_check=utils.get_pydantic_model(
+                health_check, Optional[models.McpHealthCheckConfigInput]
             ),
         )
 
@@ -622,17 +648,17 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Retrieve an MCP server",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve an MCP server",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_servers.retrieve(id="01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n\nfor tool in result.mcp_server.tools:\n    print(tool.name, tool.status)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_servers.retrieve(id="mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n\nfor tool in result.mcp_server.tools:\n    print(tool.name, tool.status)\n',
                         },
                         {
                             "label": "Node.js - Retrieve an MCP server",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpServers.retrieve({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n});\n\nfor (const tool of result.mcpServer.tools) {\n  console.log(tool.name, tool.status);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpServers.retrieve({\n  id: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n});\n\nfor (const tool of result.mcpServer.tools) {\n  console.log(tool.name, tool.status);\n}\n",
                         },
                     ],
                 },
@@ -735,17 +761,17 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Retrieve an MCP server",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve an MCP server",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_servers.retrieve(id="01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n\nfor tool in result.mcp_server.tools:\n    print(tool.name, tool.status)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_servers.retrieve(id="mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n\nfor tool in result.mcp_server.tools:\n    print(tool.name, tool.status)\n',
                         },
                         {
                             "label": "Node.js - Retrieve an MCP server",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpServers.retrieve({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n});\n\nfor (const tool of result.mcpServer.tools) {\n  console.log(tool.name, tool.status);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpServers.retrieve({\n  id: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n});\n\nfor (const tool of result.mcpServer.tools) {\n  console.log(tool.name, tool.status);\n}\n",
                         },
                     ],
                 },
@@ -848,17 +874,17 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Delete an MCP server",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete an MCP server",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Fails while any gateway still links this server.\nclient.mcp_servers.delete(id="01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Fails while any gateway still links this server.\nclient.mcp_servers.delete(id="mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n',
                         },
                         {
                             "label": "Node.js - Delete an MCP server",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Fails while any gateway still links this server.\nawait client.mcpServers.delete({ id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD' });\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Fails while any gateway still links this server.\nawait client.mcpServers.delete({ id: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD' });\n",
                         },
                     ],
                 },
@@ -961,17 +987,17 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Delete an MCP server",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete an MCP server",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Fails while any gateway still links this server.\nclient.mcp_servers.delete(id="01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# Fails while any gateway still links this server.\nclient.mcp_servers.delete(id="mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n',
                         },
                         {
                             "label": "Node.js - Delete an MCP server",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Fails while any gateway still links this server.\nawait client.mcpServers.delete({ id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD' });\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// Fails while any gateway still links this server.\nawait client.mcpServers.delete({ id: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD' });\n",
                         },
                     ],
                 },
@@ -1016,6 +1042,12 @@ class McpServers(BaseSDK):
         openapi: Optional[
             Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
         ] = None,
+        health_check: Optional[
+            Union[
+                models.McpHealthCheckConfigInput,
+                models.McpHealthCheckConfigInputTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1036,6 +1068,7 @@ class McpServers(BaseSDK):
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
         :param openapi: Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again.
+        :param health_check: Replaces the stored health check configuration; fields left unset take their defaults.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1070,6 +1103,9 @@ class McpServers(BaseSDK):
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
                 openapi=utils.get_pydantic_model(
                     openapi, Optional[models.McpOpenAPIConfigInput]
+                ),
+                health_check=utils.get_pydantic_model(
+                    health_check, Optional[models.McpHealthCheckConfigInput]
                 ),
             ),
         )
@@ -1123,17 +1159,17 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Update an MCP server",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GitHub (read only)",\n    "default_tool_exposure": {\n      "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n      "read_only": true\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GitHub (read only)",\n    "default_tool_exposure": {\n      "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n      "read_only": true\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Update an MCP server",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# The key is immutable; sending a different one is rejected.\nresult = client.mcp_servers.update(\n    id="01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    display_name="GitHub (read only)",\n    default_tool_exposure={\n        "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n        "read_only": True,\n    },\n)\n\nprint(result.mcp_server.display_name)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# The key is immutable; sending a different one is rejected.\nresult = client.mcp_servers.update(\n    id="mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    display_name="GitHub (read only)",\n    default_tool_exposure={\n        "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n        "read_only": True,\n    },\n)\n\nprint(result.mcp_server.display_name)\n',
                         },
                         {
                             "label": "Node.js - Update an MCP server",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// The key is immutable; sending a different one is rejected.\nconst result = await client.mcpServers.update({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  displayName: 'GitHub (read only)',\n  defaultToolExposure: {\n    mode: 'MCP_TOOL_EXPOSURE_MODE_ALL',\n    readOnly: true,\n  },\n});\n\nconsole.log(result.mcpServer.displayName);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// The key is immutable; sending a different one is rejected.\nconst result = await client.mcpServers.update({\n  id: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  displayName: 'GitHub (read only)',\n  defaultToolExposure: {\n    mode: 'MCP_TOOL_EXPOSURE_MODE_ALL',\n    readOnly: true,\n  },\n});\n\nconsole.log(result.mcpServer.displayName);\n",
                         },
                     ],
                 },
@@ -1146,7 +1182,9 @@ class McpServers(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateMcpServerResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "404", "409"], "application/json"
+        ):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
@@ -1178,6 +1216,12 @@ class McpServers(BaseSDK):
         openapi: Optional[
             Union[models.McpOpenAPIConfigInput, models.McpOpenAPIConfigInputTypedDict]
         ] = None,
+        health_check: Optional[
+            Union[
+                models.McpHealthCheckConfigInput,
+                models.McpHealthCheckConfigInputTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1198,6 +1242,7 @@ class McpServers(BaseSDK):
         :param default_tool_exposure: Fallback exposure used by any gateway link that does not set its own.
         :param sharing: Which projects in the workspace may use this server. Defaults to every project.
         :param openapi: Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again.
+        :param health_check: Replaces the stored health check configuration; fields left unset take their defaults.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1232,6 +1277,9 @@ class McpServers(BaseSDK):
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
                 openapi=utils.get_pydantic_model(
                     openapi, Optional[models.McpOpenAPIConfigInput]
+                ),
+                health_check=utils.get_pydantic_model(
+                    health_check, Optional[models.McpHealthCheckConfigInput]
                 ),
             ),
         )
@@ -1285,17 +1333,17 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Update an MCP server",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GitHub (read only)",\n    "default_tool_exposure": {\n      "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n      "read_only": true\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GitHub (read only)",\n    "default_tool_exposure": {\n      "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n      "read_only": true\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Update an MCP server",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# The key is immutable; sending a different one is rejected.\nresult = client.mcp_servers.update(\n    id="01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    display_name="GitHub (read only)",\n    default_tool_exposure={\n        "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n        "read_only": True,\n    },\n)\n\nprint(result.mcp_server.display_name)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# The key is immutable; sending a different one is rejected.\nresult = client.mcp_servers.update(\n    id="mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    display_name="GitHub (read only)",\n    default_tool_exposure={\n        "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n        "read_only": True,\n    },\n)\n\nprint(result.mcp_server.display_name)\n',
                         },
                         {
                             "label": "Node.js - Update an MCP server",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// The key is immutable; sending a different one is rejected.\nconst result = await client.mcpServers.update({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  displayName: 'GitHub (read only)',\n  defaultToolExposure: {\n    mode: 'MCP_TOOL_EXPOSURE_MODE_ALL',\n    readOnly: true,\n  },\n});\n\nconsole.log(result.mcpServer.displayName);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// The key is immutable; sending a different one is rejected.\nconst result = await client.mcpServers.update({\n  id: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  displayName: 'GitHub (read only)',\n  defaultToolExposure: {\n    mode: 'MCP_TOOL_EXPOSURE_MODE_ALL',\n    readOnly: true,\n  },\n});\n\nconsole.log(result.mcpServer.displayName);\n",
                         },
                     ],
                 },
@@ -1308,7 +1356,9 @@ class McpServers(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateMcpServerResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "404", "409"], "application/json"
+        ):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
@@ -1420,17 +1470,17 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Test a single tool",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orq-cli is:open label:bug" }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orq-cli is:open label:bug" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Test a single tool",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_name is the upstream name, not a gateway\'s namespaced exposed_name.\nresult = client.mcp_servers.test_tool(\n    id="01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    tool_name="search_issues",\n    arguments={"query": "repo:orq-ai/orq-cli is:open label:bug"},\n)\n\nprint(result.result.ok, result.result.latency_ms)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_name is the upstream name, not a gateway\'s namespaced exposed_name.\nresult = client.mcp_servers.test_tool(\n    id="mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    tool_name="search_issues",\n    arguments={"query": "repo:orq-ai/orq-cli is:open label:bug"},\n)\n\nprint(result.result.ok, result.result.latency_ms)\n',
                         },
                         {
                             "label": "Node.js - Test a single tool",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolName is the upstream name, not a gateway's namespaced exposedName.\nconst { result } = await client.mcpServers.testTool({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  toolName: 'search_issues',\n  arguments: { query: 'repo:orq-ai/orq-cli is:open label:bug' },\n});\n\nconsole.log(result.ok, result.latencyMs);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolName is the upstream name, not a gateway's namespaced exposedName.\nconst { result } = await client.mcpServers.testTool({\n  id: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  toolName: 'search_issues',\n  arguments: { query: 'repo:orq-ai/orq-cli is:open label:bug' },\n});\n\nconsole.log(result.ok, result.latencyMs);\n",
                         },
                     ],
                 },
@@ -1555,17 +1605,17 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Test a single tool",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orq-cli is:open label:bug" }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orq-cli is:open label:bug" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Test a single tool",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_name is the upstream name, not a gateway\'s namespaced exposed_name.\nresult = client.mcp_servers.test_tool(\n    id="01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    tool_name="search_issues",\n    arguments={"query": "repo:orq-ai/orq-cli is:open label:bug"},\n)\n\nprint(result.result.ok, result.result.latency_ms)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_name is the upstream name, not a gateway\'s namespaced exposed_name.\nresult = client.mcp_servers.test_tool(\n    id="mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    tool_name="search_issues",\n    arguments={"query": "repo:orq-ai/orq-cli is:open label:bug"},\n)\n\nprint(result.result.ok, result.result.latency_ms)\n',
                         },
                         {
                             "label": "Node.js - Test a single tool",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolName is the upstream name, not a gateway's namespaced exposedName.\nconst { result } = await client.mcpServers.testTool({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  toolName: 'search_issues',\n  arguments: { query: 'repo:orq-ai/orq-cli is:open label:bug' },\n});\n\nconsole.log(result.ok, result.latencyMs);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolName is the upstream name, not a gateway's namespaced exposedName.\nconst { result } = await client.mcpServers.testTool({\n  id: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  toolName: 'search_issues',\n  arguments: { query: 'repo:orq-ai/orq-cli is:open label:bug' },\n});\n\nconsole.log(result.ok, result.latencyMs);\n",
                         },
                     ],
                 },
@@ -1602,7 +1652,7 @@ class McpServers(BaseSDK):
     ) -> models.SyncMcpServerResponse:
         r"""Sync an MCP server
 
-        Connects to an upstream MCP server, discovers tools, and persists the tool list and sync state on the server record.
+        Syncs the upstream catalogs and returns discovery outcomes. Resource catalogs and capabilities discovered with user-specific credentials or discovery variables are returned only to the caller. A discovery failure that comes from the upstream server, such as a refused connection or rejected credentials, does not fail the request: the call answers 200 with sync_state.status SYNC_STATUS_FAILED and the reason in sync_state.errors, and the server's tools stay out of every gateway until a sync succeeds.
 
         :param id: Unique identifier of the MCP server.
         :param discovery_variables: Values for the server's `template_variables`; treated as sensitive and not persisted.
@@ -1682,22 +1732,22 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Sync the tool catalog",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
+                            "source": "curl --request POST \\\n  --url 'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
                         },
                         {
                             "label": "Core - Sync a server that uses template variables",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "discovery_variables": { "github_token": "ghp_example_token" }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "discovery_variables": { "github_token": "ghp_example_token" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Sync the tool catalog",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_servers.sync(id="01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n\nstate = result.mcp_server.sync_state\n# A sync that discovers nothing still reports SYNCED with tools_total 0.\nprint(state.status, state.tools_added, state.tools_removed)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_servers.sync(id="mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n\nstate = result.mcp_server.sync_state\n# A sync that discovers nothing still reports SYNCED with tools_total 0.\nprint(state.status, state.tools_added, state.tools_removed)\n',
                         },
                         {
                             "label": "Node.js - Sync the tool catalog",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpServers.sync({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n});\n\nconst state = result.mcpServer.syncState;\n// A sync that discovers nothing still reports SYNCED with toolsTotal 0.\nconsole.log(state.status, state.toolsAdded, state.toolsRemoved);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpServers.sync({\n  id: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n});\n\nconst state = result.mcpServer.syncState;\n// A sync that discovers nothing still reports SYNCED with toolsTotal 0.\nconsole.log(state.status, state.toolsAdded, state.toolsRemoved);\n",
                         },
                     ],
                 },
@@ -1710,7 +1760,9 @@ class McpServers(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SyncMcpServerResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "404", "409"], "application/json"
+        ):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
@@ -1734,7 +1786,7 @@ class McpServers(BaseSDK):
     ) -> models.SyncMcpServerResponse:
         r"""Sync an MCP server
 
-        Connects to an upstream MCP server, discovers tools, and persists the tool list and sync state on the server record.
+        Syncs the upstream catalogs and returns discovery outcomes. Resource catalogs and capabilities discovered with user-specific credentials or discovery variables are returned only to the caller. A discovery failure that comes from the upstream server, such as a refused connection or rejected credentials, does not fail the request: the call answers 200 with sync_state.status SYNC_STATUS_FAILED and the reason in sync_state.errors, and the server's tools stay out of every gateway until a sync succeeds.
 
         :param id: Unique identifier of the MCP server.
         :param discovery_variables: Values for the server's `template_variables`; treated as sensitive and not persisted.
@@ -1814,22 +1866,22 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Sync the tool catalog",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
+                            "source": "curl --request POST \\\n  --url 'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
                         },
                         {
                             "label": "Core - Sync a server that uses template variables",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "discovery_variables": { "github_token": "ghp_example_token" }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-servers/mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "discovery_variables": { "github_token": "ghp_example_token" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Sync the tool catalog",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_servers.sync(id="01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n\nstate = result.mcp_server.sync_state\n# A sync that discovers nothing still reports SYNCED with tools_total 0.\nprint(state.status, state.tools_added, state.tools_removed)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.mcp_servers.sync(id="mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD")\n\nstate = result.mcp_server.sync_state\n# A sync that discovers nothing still reports SYNCED with tools_total 0.\nprint(state.status, state.tools_added, state.tools_removed)\n',
                         },
                         {
                             "label": "Node.js - Sync the tool catalog",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpServers.sync({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n});\n\nconst state = result.mcpServer.syncState;\n// A sync that discovers nothing still reports SYNCED with toolsTotal 0.\nconsole.log(state.status, state.toolsAdded, state.toolsRemoved);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.mcpServers.sync({\n  id: 'mcp_server_01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n});\n\nconst state = result.mcpServer.syncState;\n// A sync that discovers nothing still reports SYNCED with toolsTotal 0.\nconsole.log(state.status, state.toolsAdded, state.toolsRemoved);\n",
                         },
                     ],
                 },
@@ -1842,7 +1894,9 @@ class McpServers(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SyncMcpServerResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(
+            http_res, ["400", "401", "404", "409"], "application/json"
+        ):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):

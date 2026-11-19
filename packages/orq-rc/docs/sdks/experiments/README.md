@@ -14,28 +14,25 @@
 * [get_run](#get_run) - Get a run
 * [delete_run](#delete_run) - Delete a run
 * [update_run](#update_run) - Update a run
+* [list_annotations](#list_annotations) - List annotation columns
+* [create_annotation](#create_annotation) - Add an annotation column
+* [delete_annotation](#delete_annotation) - Remove an annotation column
+* [update_annotation](#update_annotation) - Update annotation column metadata
+* [patch_annotation_cell](#patch_annotation_cell) - Set an annotation cell
 * [cancel_run](#cancel_run) - Cancel a run
 * [update_run_column_layout](#update_run_column_layout) - Update column layout
 * [list_evals](#list_evals) - List eval columns
 * [create_eval](#create_eval) - Add an eval column
 * [delete_eval](#delete_eval) - Remove an eval column
-* [patch_eval_cell](#patch_eval_cell) - Correct an eval cell
 * [execute_run](#execute_run) - Execute a run
 * [get_run_metrics](#get_run_metrics) - Get run metrics
 * [query_run](#query_run) - Query run cells
-* [list_reviews](#list_reviews) - List human review columns
-* [create_review](#create_review) - Add a human review column
-* [delete_review](#delete_review) - Remove a human review column
-* [update_review](#update_review) - Update review column metadata
-* [patch_review_cell](#patch_review_cell) - Set a human review cell
 * [delete_rows](#delete_rows) - Delete rows
-* [update_run_cell](#update_run_cell) - Update a cell
 * [duplicate_row](#duplicate_row) - Duplicate a row
 * [list_tasks](#list_tasks) - List task columns
 * [create_task](#create_task) - Add a task column
 * [delete_task](#delete_task) - Delete a task column
 * [update_task](#update_task) - Update a task column
-* [patch_task_cell](#patch_task_cell) - Ingest a task cell
 * [export_run](#export_run) - Export a run
 
 ## list
@@ -63,13 +60,13 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `limit`                                                                                               | *Optional[int]*                                                                                       | :heavy_minus_sign:                                                                                    | Page size, 1 to 200. Defaults to 25.                                                                  |
+| `starting_after`                                                                                      | *Optional[str]*                                                                                       | :heavy_minus_sign:                                                                                    | Cursor for forward pagination. Set to the `experiment_id` of the last item<br/> from the previous page. |
+| `ending_before`                                                                                       | *Optional[str]*                                                                                       | :heavy_minus_sign:                                                                                    | Cursor for backward pagination. Set to the `experiment_id` of the first<br/> item from the previous page. |
+| `project_id`                                                                                          | *Optional[str]*                                                                                       | :heavy_minus_sign:                                                                                    | Restrict results to one project. Omit to list every project the caller<br/> can access.               |
+| `retries`                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                      | :heavy_minus_sign:                                                                                    | Configuration to override the default retry behavior of the client.                                   |
 
 ### Response
 
@@ -84,7 +81,7 @@ with Orq(
 
 ## create
 
-Creates an experiment. project_id defaults to the API key's project and is required for keys that span several projects. When dataset_id is set, a draft run is created with rows from that dataset.
+Creates an experiment and its first run, a draft named Run 1. When dataset_id is set, the run gets one row per datapoint, up to 1000. project_id defaults to the caller's project and is required for API keys that span several projects.
 
 ### Example Usage
 
@@ -98,7 +95,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
-    res = orq.experiments.create()
+    res = orq.experiments.create(display_name="Dorothea_Quigley28")
 
     # Handle response
     print(res)
@@ -107,14 +104,13 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `display_name`                                                                                                | *Optional[str]*                                                                                               | :heavy_minus_sign:                                                                                            | N/A                                                                                                           |
-| `project_id`                                                                                                  | *Optional[str]*                                                                                               | :heavy_minus_sign:                                                                                            | Project the experiment is created in; defaults to the API key's project when omitted.                         |
-| `dataset_id`                                                                                                  | *Optional[str]*                                                                                               | :heavy_minus_sign:                                                                                            | N/A                                                                                                           |
-| `dataset_version_id`                                                                                          | *Optional[str]*                                                                                               | :heavy_minus_sign:                                                                                            | N/A                                                                                                           |
-| `source_run`                                                                                                  | [Optional[models.RunRef]](../../models/runref.md)                                                             | :heavy_minus_sign:                                                                                            | Copies the task, evaluator and review columns of an existing run into the<br/> new experiment's first run (fork). |
-| `retries`                                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                              | :heavy_minus_sign:                                                                                            | Configuration to override the default retry behavior of the client.                                           |
+| Parameter                                                                                                                                                                                               | Type                                                                                                                                                                                                    | Required                                                                                                                                                                                                | Description                                                                                                                                                                                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `display_name`                                                                                                                                                                                          | *str*                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                      | Experiment name, 1 to 255 characters.                                                                                                                                                                   |
+| `project_id`                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                      | Project the experiment is created in. Defaults to the caller's project:<br/> the API key's project, or the project open in the AI Studio. Required for<br/> API keys that span several projects.        |
+| `dataset_id`                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                      | Dataset whose datapoints become the rows of the first run, at most 1000.<br/> Must be in the experiment's project. Omit to start with an empty run.                                                     |
+| `source_run`                                                                                                                                                                                            | [Optional[models.RunRef]](../../models/runref.md)                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                      | Run to fork. Its task, metric, evaluator and annotation columns are copied<br/> into the new experiment's first run; rows still come from `dataset_id`.<br/> Must be in the same project as the new experiment. |
+| `retries`                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                     |
 
 ### Response
 
@@ -154,7 +150,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -170,7 +166,7 @@ with Orq(
 
 ## delete
 
-Deletes an experiment and its runs.
+Deletes an experiment with all its runs, rows and cells.
 
 ### Example Usage
 
@@ -194,7 +190,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
@@ -229,14 +225,14 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `selected_run_id`                                                   | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `row_height_level`                                                  | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                                                                     | Type                                                                                                                                          | Required                                                                                                                                      | Description                                                                                                                                   |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `experiment_id`                                                                                                                               | *str*                                                                                                                                         | :heavy_check_mark:                                                                                                                            | ID of the experiment.                                                                                                                         |
+| `display_name`                                                                                                                                | *Optional[str]*                                                                                                                               | :heavy_minus_sign:                                                                                                                            | New experiment name, 1 to 255 characters.                                                                                                     |
+| `selected_run_id`                                                                                                                             | *Optional[str]*                                                                                                                               | :heavy_minus_sign:                                                                                                                            | Run to show by default. Must be a run of this experiment.                                                                                     |
+| `row_height_level`                                                                                                                            | *Optional[int]*                                                                                                                               | :heavy_minus_sign:                                                                                                                            | Row height in the AI Studio grid: 1 (compact), 2 or 3 (tallest).                                                                              |
+| `project_id`                                                                                                                                  | *Optional[str]*                                                                                                                               | :heavy_minus_sign:                                                                                                                            | Moves the experiment to another project the caller can access. The<br/> dataset stays where it is, so new runs need a dataset in the new project. |
+| `retries`                                                                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                              | :heavy_minus_sign:                                                                                                                            | Configuration to override the default retry behavior of the client.                                                                           |
 
 ### Response
 
@@ -274,14 +270,14 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `include_metrics`                                                   | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                      | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `experiment_id`                                                                                | *str*                                                                                          | :heavy_check_mark:                                                                             | ID of the experiment.                                                                          |
+| `limit`                                                                                        | *Optional[int]*                                                                                | :heavy_minus_sign:                                                                             | Page size, 1 to 200. Defaults to 25.                                                           |
+| `starting_after`                                                                               | *Optional[str]*                                                                                | :heavy_minus_sign:                                                                             | Cursor for forward pagination. Set to the `run_id` of the last item from<br/> the previous page. |
+| `ending_before`                                                                                | *Optional[str]*                                                                                | :heavy_minus_sign:                                                                             | Cursor for backward pagination. Set to the `run_id` of the first item from<br/> the previous page. |
+| `include_metrics`                                                                              | *Optional[bool]*                                                                               | :heavy_minus_sign:                                                                             | Include each run's average evaluator results in `metrics`.                                     |
+| `retries`                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                               | :heavy_minus_sign:                                                                             | Configuration to override the default retry behavior of the client.                            |
 
 ### Response
 
@@ -296,7 +292,7 @@ with Orq(
 
 ## create_run
 
-Creates a new run, copying columns from the selected run when present. A rerun is a new run.
+Creates a new run, copying columns from the selected run when present. A new run starts with empty output cells; executing cells on an existing run does not create one.
 
 ### Example Usage
 
@@ -319,12 +315,12 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `key`                                                               | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `settings`                                                          | [Optional[models.RunSettings]](../../models/runsettings.md)         | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `experiment_id`                                                           | *str*                                                                     | :heavy_check_mark:                                                        | ID of the experiment.                                                     |
+| `key`                                                                     | *Optional[str]*                                                           | :heavy_minus_sign:                                                        | Run name. Defaults to `Run ` plus the last four characters of the run ID. |
+| `settings`                                                                | [Optional[models.RunSettings]](../../models/runsettings.md)               | :heavy_minus_sign:                                                        | Execution settings. Concurrency defaults to 10.                           |
+| `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
 
 ### Response
 
@@ -364,8 +360,8 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -381,7 +377,7 @@ with Orq(
 
 ## delete_run
 
-Deletes a run and its cell data. Distinct from cancel, which keeps completed cells.
+Deletes a run and its cell data. The last run of an experiment cannot be deleted. Distinct from cancel, which keeps completed cells.
 
 ### Example Usage
 
@@ -405,8 +401,8 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
@@ -441,17 +437,237 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `key`                                                               | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `settings`                                                          | [Optional[models.RunSettings]](../../models/runsettings.md)         | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                                                                      | Type                                                                                                                                           | Required                                                                                                                                       | Description                                                                                                                                    |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `experiment_id`                                                                                                                                | *str*                                                                                                                                          | :heavy_check_mark:                                                                                                                             | ID of the experiment.                                                                                                                          |
+| `run_id`                                                                                                                                       | *str*                                                                                                                                          | :heavy_check_mark:                                                                                                                             | ID of the run.                                                                                                                                 |
+| `key`                                                                                                                                          | *Optional[str]*                                                                                                                                | :heavy_minus_sign:                                                                                                                             | New run name. Must not be empty.                                                                                                               |
+| `settings`                                                                                                                                     | [Optional[models.RunSettings]](../../models/runsettings.md)                                                                                    | :heavy_minus_sign:                                                                                                                             | Settings to change. `concurrency`, `timeout` and `max_turns` change only<br/> when set. `hidden_column_ids` is replaced, and cleared when omitted. |
+| `retries`                                                                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                               | :heavy_minus_sign:                                                                                                                             | Configuration to override the default retry behavior of the client.                                                                            |
 
 ### Response
 
 **[models.Run](../../models/run.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## list_annotations
+
+Lists the annotation columns of a run.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ExperimentAnnotationList" method="get" path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY"),
+) as orq:
+
+    res = orq.experiments.list_annotations(experiment_id="<id>", run_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ListAnnotationColumnsResponse](../../models/listannotationcolumnsresponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## create_annotation
+
+Adds an annotation column. Each row gets one annotation cell per task column.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ExperimentAnnotationCreate" method="post" path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY"),
+) as orq:
+
+    res = orq.experiments.create_annotation(experiment_id="<id>", run_id="<id>", annotation_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                      | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `experiment_id`                                                                                                                | *str*                                                                                                                          | :heavy_check_mark:                                                                                                             | ID of the experiment.                                                                                                          |
+| `run_id`                                                                                                                       | *str*                                                                                                                          | :heavy_check_mark:                                                                                                             | ID of the run.                                                                                                                 |
+| `annotation_id`                                                                                                                | *str*                                                                                                                          | :heavy_check_mark:                                                                                                             | ID of the annotation definition. Each row gets one annotation cell per task<br/> column.                                       |
+| `display_name`                                                                                                                 | *Optional[str]*                                                                                                                | :heavy_minus_sign:                                                                                                             | Column name. Defaults to `annotation_id`.                                                                                      |
+| `annotation_type`                                                                                                              | *Optional[str]*                                                                                                                | :heavy_minus_sign:                                                                                                             | Value type the annotation accepts: `range`, `single_select`, `multi_select`, `text` or `correction`. Empty accepts<br/> any value. |
+| `position`                                                                                                                     | *Optional[int]*                                                                                                                | :heavy_minus_sign:                                                                                                             | 0-based position among the run's columns. Defaults to the end.                                                                 |
+| `retries`                                                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                               | :heavy_minus_sign:                                                                                                             | Configuration to override the default retry behavior of the client.                                                            |
+
+### Response
+
+**[models.Column](../../models/column.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## delete_annotation
+
+Removes an annotation column and all its cells.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ExperimentAnnotationDelete" method="delete" path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations/{annotation_column_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY"),
+) as orq:
+
+    orq.experiments.delete_annotation(experiment_id="<id>", run_id="<id>", annotation_column_id="<id>")
+
+    # Use the SDK ...
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
+| `annotation_column_id`                                              | *str*                                                               | :heavy_check_mark:                                                  | ID of the annotation column.                                        |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## update_annotation
+
+Updates display fields on the column. The human-eval definition is updated at source.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ExperimentAnnotationUpdate" method="patch" path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations/{annotation_column_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY"),
+) as orq:
+
+    res = orq.experiments.update_annotation(experiment_id="<id>", run_id="<id>", annotation_column_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
+| `annotation_column_id`                                              | *str*                                                               | :heavy_check_mark:                                                  | ID of the annotation column.                                        |
+| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | New column name. Must not be empty.                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.Column](../../models/column.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## patch_annotation_cell
+
+Writes the annotation value of one row for one task column. An annotation column holds one cell per task column, so task_id selects which response is being annotated. The task output of that row must be completed. The value must match the annotation type, and a running cell cannot be changed.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ExperimentAnnotationCellPatch" method="patch" path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations/{annotation_column_id}/cells/{datapoint_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY"),
+) as orq:
+
+    res = orq.experiments.patch_annotation_cell(experiment_id="<id>", run_id="<id>", annotation_column_id="<id>", datapoint_id="<id>", value={
+        "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
+    }, task_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                             | Required                                                                                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `experiment_id`                                                                                                                                                                                                                                                                  | *str*                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                               | ID of the experiment.                                                                                                                                                                                                                                                            |
+| `run_id`                                                                                                                                                                                                                                                                         | *str*                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                               | ID of the run.                                                                                                                                                                                                                                                                   |
+| `annotation_column_id`                                                                                                                                                                                                                                                           | *str*                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                               | ID of the annotation column.                                                                                                                                                                                                                                                     |
+| `datapoint_id`                                                                                                                                                                                                                                                                   | *str*                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                               | ID of the row.                                                                                                                                                                                                                                                                   |
+| `value`                                                                                                                                                                                                                                                                          | Dict[str, *Any*]                                                                                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                               | Annotation value. type is required: range uses {type: range, value: number}; single- and multi-select use {type: categorical, value: string} or {type: categorical, values: [{value: string, sentiment: string}]}; text and correction use {type: free_form_text, text: string}. |
+| `task_id`                                                                                                                                                                                                                                                                        | *str*                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                               | ID of the task column whose response is being annotated. An annotation column<br/> holds one cell per task column.                                                                                                                                                               |
+| `retries`                                                                                                                                                                                                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                               | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                              |
+
+### Response
+
+**[models.Cell](../../models/cell.md)**
 
 ### Errors
 
@@ -485,12 +701,12 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `row_ids`                                                           | List[*str*]                                                         | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                                         | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `experiment_id`                                                                                                   | *str*                                                                                                             | :heavy_check_mark:                                                                                                | ID of the experiment.                                                                                             |
+| `run_id`                                                                                                          | *str*                                                                                                             | :heavy_check_mark:                                                                                                | ID of the run.                                                                                                    |
+| `row_ids`                                                                                                         | List[*str*]                                                                                                       | :heavy_minus_sign:                                                                                                | Rows whose queued and running cells are canceled. Empty cancels every row.<br/> The run moves to canceled either way. |
+| `retries`                                                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                  | :heavy_minus_sign:                                                                                                | Configuration to override the default retry behavior of the client.                                               |
 
 ### Response
 
@@ -519,7 +735,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
-    res = orq.experiments.update_run_column_layout(experiment_id="<id>", run_id="<id>")
+    res = orq.experiments.update_run_column_layout(experiment_id="<id>", run_id="<id>", columns=[])
 
     # Handle response
     print(res)
@@ -530,9 +746,9 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `columns`                                                           | List[[models.ColumnLayout](../../models/columnlayout.md)]           | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
+| `columns`                                                           | List[[models.ColumnLayout](../../models/columnlayout.md)]           | :heavy_check_mark:                                                  | Layout changes, at least one. Columns not listed keep their layout. |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -548,7 +764,7 @@ with Orq(
 
 ## list_evals
 
-List eval columns
+Lists the evaluator columns of a run.
 
 ### Example Usage
 
@@ -573,8 +789,8 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -590,7 +806,7 @@ with Orq(
 
 ## create_eval
 
-Links an existing evaluator. Config is updated at the evaluator source, not here.
+Links an existing evaluator. Each row gets one evaluator cell per task column. Config is updated at the evaluator source, not here.
 
 ### Example Usage
 
@@ -604,7 +820,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
-    res = orq.experiments.create_eval(experiment_id="<id>", run_id="<id>")
+    res = orq.experiments.create_eval(experiment_id="<id>", run_id="<id>", evaluator_id="<id>")
 
     # Handle response
     print(res)
@@ -613,13 +829,13 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `evaluator_id`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `position`                                                          | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `experiment_id`                                                                | *str*                                                                          | :heavy_check_mark:                                                             | ID of the experiment.                                                          |
+| `run_id`                                                                       | *str*                                                                          | :heavy_check_mark:                                                             | ID of the run.                                                                 |
+| `evaluator_id`                                                                 | *str*                                                                          | :heavy_check_mark:                                                             | ID of the evaluator to add. Each row gets one evaluator cell per task<br/> column. |
+| `position`                                                                     | *Optional[int]*                                                                | :heavy_minus_sign:                                                             | 0-based position among the run's columns. Defaults to the end.                 |
+| `retries`                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)               | :heavy_minus_sign:                                                             | Configuration to override the default retry behavior of the client.            |
 
 ### Response
 
@@ -634,7 +850,7 @@ with Orq(
 
 ## delete_eval
 
-Remove an eval column
+Removes an evaluator column and all its cells.
 
 ### Example Usage
 
@@ -658,55 +874,10 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `eval_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
+| `eval_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | ID of the evaluator column.                                         |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## patch_eval_cell
-
-Human override of an automated evaluator verdict on one datapoint.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ExperimentEvalCellPatch" method="patch" path="/v3/experiments/{experiment_id}/runs/{run_id}/evaluators/{eval_id}/cells/{datapoint_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY"),
-) as orq:
-
-    res = orq.experiments.patch_eval_cell(experiment_id="<id>", run_id="<id>", eval_id="<id>", datapoint_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `eval_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `datapoint_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `value`                                                             | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.Cell](../../models/cell.md)**
 
 ### Errors
 
@@ -717,7 +888,7 @@ with Orq(
 
 ## execute_run
 
-Executes cells at the requested scope. FULL, PARTIAL, ROW and COLUMN queue the matching cells (a task column also queues its linked evaluator, metric and review cells) and start the orchestrator, which also re-runs failed cells of every row it picks up. A run that is already queued or running rejects new execution until it finishes or is cancelled. CELL re-runs one task or evaluator cell in place. Re-executing a terminal run does not require creating a new run.
+Executes cells at the requested scope. FULL, PARTIAL, ROW and COLUMN queue the matching cells (a task column also queues its linked evaluator and metric cells) and start the orchestrator, which also re-runs failed cells of every row it picks up. A run that is already queued or running rejects new execution until it finishes or is cancelled. CELL re-runs one task or evaluator cell in place. Re-executing a terminal run does not require creating a new run.
 
 ### Example Usage
 
@@ -731,7 +902,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
-    res = orq.experiments.execute_run(experiment_id="<id>", run_id="<id>")
+    res = orq.experiments.execute_run(experiment_id="<id>", run_id="<id>", scope="EXECUTE_SCOPE_COLUMN")
 
     # Handle response
     print(res)
@@ -742,12 +913,11 @@ with Orq(
 
 | Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `experiment_id`                                                           | *str*                                                                     | :heavy_check_mark:                                                        | N/A                                                                       |
-| `run_id`                                                                  | *str*                                                                     | :heavy_check_mark:                                                        | N/A                                                                       |
-| `scope`                                                                   | [Optional[models.ExecuteScope]](../../models/executescope.md)             | :heavy_minus_sign:                                                        | N/A                                                                       |
-| `targets`                                                                 | List[[models.ExecuteTarget](../../models/executetarget.md)]               | :heavy_minus_sign:                                                        | N/A                                                                       |
-| `constraints`                                                             | [Optional[models.ExecuteConstraints]](../../models/executeconstraints.md) | :heavy_minus_sign:                                                        | N/A                                                                       |
-| `repeat_count`                                                            | *Optional[int]*                                                           | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `experiment_id`                                                           | *str*                                                                     | :heavy_check_mark:                                                        | ID of the experiment.                                                     |
+| `run_id`                                                                  | *str*                                                                     | :heavy_check_mark:                                                        | ID of the run.                                                            |
+| `scope`                                                                   | [models.ExecuteScope](../../models/executescope.md)                       | :heavy_check_mark:                                                        | N/A                                                                       |
+| `targets`                                                                 | List[[models.ExecuteTarget](../../models/executetarget.md)]               | :heavy_minus_sign:                                                        | Rows and columns to execute. Required for row, column and cell scope.     |
+| `constraints`                                                             | [Optional[models.ExecuteConstraints]](../../models/executeconstraints.md) | :heavy_minus_sign:                                                        | Limits for this execution, saved into the run's settings.                 |
 | `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
 
 ### Response
@@ -786,12 +956,12 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `baseline_run_id`                                                   | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `experiment_id`                                                                           | *str*                                                                                     | :heavy_check_mark:                                                                        | ID of the experiment.                                                                     |
+| `run_id`                                                                                  | *str*                                                                                     | :heavy_check_mark:                                                                        | ID of the run.                                                                            |
+| `baseline_run_id`                                                                         | *Optional[str]*                                                                           | :heavy_minus_sign:                                                                        | Run of the same experiment to compare against. A run without values<br/> returns no baseline. |
+| `retries`                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                          | :heavy_minus_sign:                                                                        | Configuration to override the default retry behavior of the client.                       |
 
 ### Response
 
@@ -806,7 +976,7 @@ with Orq(
 
 ## query_run
 
-Returns selected cells by row and column name. POST because selections can exceed URL limits.
+Returns the rows of a run with their cells, filtered by row and column. POST because selections can exceed URL limits.
 
 ### Example Usage
 
@@ -829,238 +999,22 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
-| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `experiment_id`                                                                                      | *str*                                                                                                | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `run_id`                                                                                             | *str*                                                                                                | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `rows`                                                                                               | List[*str*]                                                                                          | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `columns`                                                                                            | List[*str*]                                                                                          | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `repeat_index`                                                                                       | *Optional[int]*                                                                                      | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `limit`                                                                                              | *Optional[int]*                                                                                      | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `starting_after`                                                                                     | *Optional[str]*                                                                                      | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `updated_after`                                                                                      | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                 | :heavy_minus_sign:                                                                                   | Incremental refresh: returns running rows plus completed or failed rows<br/> updated after this instant. |
-| `partial_rows`                                                                                       | *Optional[bool]*                                                                                     | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `exclude_static_cells`                                                                               | *Optional[bool]*                                                                                     | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `retries`                                                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                     | :heavy_minus_sign:                                                                                   | Configuration to override the default retry behavior of the client.                                  |
+| Parameter                                                                                                                                                                    | Type                                                                                                                                                                         | Required                                                                                                                                                                     | Description                                                                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `experiment_id`                                                                                                                                                              | *str*                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                           | ID of the experiment.                                                                                                                                                        |
+| `run_id`                                                                                                                                                                     | *str*                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                           | ID of the run.                                                                                                                                                               |
+| `rows`                                                                                                                                                                       | List[*str*]                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                           | Row IDs to return. Unknown IDs are ignored. Omit for every row.                                                                                                              |
+| `columns`                                                                                                                                                                    | List[*str*]                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                           | Columns to return, matched against column ID, key and display name. Every<br/> matching column is used, and an entry that matches nothing is rejected.<br/> Omit for every column. |
+| `limit`                                                                                                                                                                      | *Optional[int]*                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                           | Page size, 1 to 1000. Defaults to 25.                                                                                                                                        |
+| `starting_after`                                                                                                                                                             | *Optional[str]*                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                           | Cursor for forward pagination. Set to the `row_id` of the last row from<br/> the previous page.                                                                              |
+| `updated_after`                                                                                                                                                              | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                         | :heavy_minus_sign:                                                                                                                                                           | Incremental refresh: return only rows updated after this instant. Pass the<br/> previous response's `server_timestamp`. With `partial_rows`, running rows<br/> are returned as well. |
+| `partial_rows`                                                                                                                                                               | *Optional[bool]*                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                           | Return only running, completed and failed rows.                                                                                                                              |
+| `exclude_static_cells`                                                                                                                                                       | *Optional[bool]*                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                           | Leave out data cells: inputs, messages, expected output and job output.                                                                                                      |
+| `retries`                                                                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                             | :heavy_minus_sign:                                                                                                                                                           | Configuration to override the default retry behavior of the client.                                                                                                          |
 
 ### Response
 
 **[models.QueryRunResponse](../../models/queryrunresponse.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## list_reviews
-
-List human review columns
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ExperimentReviewList" method="get" path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY"),
-) as orq:
-
-    res = orq.experiments.list_reviews(experiment_id="<id>", run_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.ListReviewColumnsResponse](../../models/listreviewcolumnsresponse.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## create_review
-
-Add a human review column
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ExperimentReviewCreate" method="post" path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY"),
-) as orq:
-
-    res = orq.experiments.create_review(experiment_id="<id>", run_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `human_eval_id`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `human_eval_type`                                                   | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `position`                                                          | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.Column](../../models/column.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## delete_review
-
-Remove a human review column
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ExperimentReviewDelete" method="delete" path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews/{review_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY"),
-) as orq:
-
-    orq.experiments.delete_review(experiment_id="<id>", run_id="<id>", review_id="<id>")
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `review_id`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## update_review
-
-Updates display fields on the column. The human-eval definition is updated at source.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ExperimentReviewUpdate" method="patch" path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews/{review_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY"),
-) as orq:
-
-    res = orq.experiments.update_review(experiment_id="<id>", run_id="<id>", review_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `review_id`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.Column](../../models/column.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## patch_review_cell
-
-Set a human review cell
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ExperimentReviewCellPatch" method="patch" path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews/{review_id}/cells/{datapoint_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY"),
-) as orq:
-
-    res = orq.experiments.patch_review_cell(experiment_id="<id>", run_id="<id>", review_id="<id>", datapoint_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                                                                          | Type                                                                                                                                                                                                                                                                               | Required                                                                                                                                                                                                                                                                           | Description                                                                                                                                                                                                                                                                        |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `experiment_id`                                                                                                                                                                                                                                                                    | *str*                                                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
-| `run_id`                                                                                                                                                                                                                                                                           | *str*                                                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
-| `review_id`                                                                                                                                                                                                                                                                        | *str*                                                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
-| `datapoint_id`                                                                                                                                                                                                                                                                     | *str*                                                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
-| `value`                                                                                                                                                                                                                                                                            | Dict[str, *Any*]                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Human review value. type is required: range uses {type: range, value: number}; single- and multi-select use {type: categorical, value: string} or {type: categorical, values: [{value: string, sentiment: string}]}; text and correction use {type: free_form_text, text: string}. |
-| `retries`                                                                                                                                                                                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                |
-
-### Response
-
-**[models.Cell](../../models/cell.md)**
 
 ### Errors
 
@@ -1085,7 +1039,11 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
-    orq.experiments.delete_rows(experiment_id="<id>", run_id="<id>")
+    orq.experiments.delete_rows(experiment_id="<id>", run_id="<id>", row_ids=[
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+    ])
 
     # Use the SDK ...
 
@@ -1093,57 +1051,12 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `row_ids`                                                           | List[*str*]                                                         | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## update_run_cell
-
-Writes a cell value by cell id, including dataset and review cells. An empty value clears the cell. Running cells cannot be changed.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ExperimentRunCellUpdate" method="patch" path="/v3/experiments/{experiment_id}/runs/{run_id}/rows/{row_id}/cells/{cell_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY"),
-) as orq:
-
-    res = orq.experiments.update_run_cell(experiment_id="<id>", run_id="<id>", row_id="<id>", cell_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `row_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `cell_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `value`                                                             | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.Cell](../../models/cell.md)**
+| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `experiment_id`                                                                    | *str*                                                                              | :heavy_check_mark:                                                                 | ID of the experiment.                                                              |
+| `run_id`                                                                           | *str*                                                                              | :heavy_check_mark:                                                                 | ID of the run.                                                                     |
+| `row_ids`                                                                          | List[*str*]                                                                        | :heavy_check_mark:                                                                 | Rows to delete, at least one. Unknown IDs are ignored as long as one row<br/> matches. |
+| `retries`                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                   | :heavy_minus_sign:                                                                 | Configuration to override the default retry behavior of the client.                |
 
 ### Errors
 
@@ -1154,7 +1067,7 @@ with Orq(
 
 ## duplicate_row
 
-Copies a row's dataset cells into a new row placed after the source. Task, evaluator, metric and review cells start empty.
+Copies a row into a new row at the end of the run. Dataset and annotation cells keep their values; response, agent response, open response, evaluator and metric cells start empty.
 
 ### Example Usage
 
@@ -1179,9 +1092,9 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `row_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
+| `row_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the row to copy.                                              |
 | `duplicate_row_request`                                             | [models.DuplicateRowRequest](../../models/duplicaterowrequest.md)   | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
@@ -1198,7 +1111,7 @@ with Orq(
 
 ## list_tasks
 
-List task columns
+Lists the task columns of a run: prompt, agent and openresponse columns.
 
 ### Example Usage
 
@@ -1223,8 +1136,8 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -1240,7 +1153,7 @@ with Orq(
 
 ## create_task
 
-Attaches a prompt, orq agent, or (reserved) harness config as a task column. Input mapping is required.
+Adds a task column with one source: a prompt, an agent, or an openresponse column filled outside orq.ai. Every existing row gets a cell for it, and the first task column also adds cost and latency metric columns.
 
 ### Example Usage
 
@@ -1254,7 +1167,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
-    res = orq.experiments.create_task(experiment_id="<id>", run_id="<id>")
+    res = orq.experiments.create_task(experiment_id="<id>", run_id="<id>", display_name="Mohammed.Hickle")
 
     # Handle response
     print(res)
@@ -1265,14 +1178,13 @@ with Orq(
 
 | Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
 | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `experiment_id`                                                                   | *str*                                                                             | :heavy_check_mark:                                                                | N/A                                                                               |
-| `run_id`                                                                          | *str*                                                                             | :heavy_check_mark:                                                                | N/A                                                                               |
-| `display_name`                                                                    | *Optional[str]*                                                                   | :heavy_minus_sign:                                                                | N/A                                                                               |
-| `prompt`                                                                          | [Optional[models.PromptTaskConfig]](../../models/prompttaskconfig.md)             | :heavy_minus_sign:                                                                | N/A                                                                               |
-| `agent`                                                                           | [Optional[models.AgentTaskConfig]](../../models/agenttaskconfig.md)               | :heavy_minus_sign:                                                                | N/A                                                                               |
-| `harness`                                                                         | [Optional[models.HarnessTaskConfig]](../../models/harnesstaskconfig.md)           | :heavy_minus_sign:                                                                | N/A                                                                               |
-| `openresponse`                                                                    | [Optional[models.OpenResponseTaskConfig]](../../models/openresponsetaskconfig.md) | :heavy_minus_sign:                                                                | N/A                                                                               |
-| `position`                                                                        | *Optional[int]*                                                                   | :heavy_minus_sign:                                                                | N/A                                                                               |
+| `experiment_id`                                                                   | *str*                                                                             | :heavy_check_mark:                                                                | ID of the experiment.                                                             |
+| `run_id`                                                                          | *str*                                                                             | :heavy_check_mark:                                                                | ID of the run.                                                                    |
+| `display_name`                                                                    | *str*                                                                             | :heavy_check_mark:                                                                | Column name.                                                                      |
+| `prompt`                                                                          | [Optional[models.PromptTaskConfig]](../../models/prompttaskconfig.md)             | :heavy_minus_sign:                                                                | Runs a prompt. Set exactly one of `prompt`, `agent` or `openresponse`.            |
+| `agent`                                                                           | [Optional[models.AgentTaskConfig]](../../models/agenttaskconfig.md)               | :heavy_minus_sign:                                                                | Runs an agent.                                                                    |
+| `openresponse`                                                                    | [Optional[models.OpenResponseTaskConfig]](../../models/openresponsetaskconfig.md) | :heavy_minus_sign:                                                                | Creates a column whose cells are filled outside orq.ai.                           |
+| `position`                                                                        | *Optional[int]*                                                                   | :heavy_minus_sign:                                                                | 0-based position among the run's columns. Defaults to the end.                    |
 | `retries`                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                  | :heavy_minus_sign:                                                                | Configuration to override the default retry behavior of the client.               |
 
 ### Response
@@ -1288,7 +1200,7 @@ with Orq(
 
 ## delete_task
 
-Delete a task column
+Deletes a task column with its cells and the evaluator, metric and annotation cells linked to it. Deleting the last task column also removes the metric columns.
 
 ### Example Usage
 
@@ -1312,9 +1224,9 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | ID of the experiment.                                               |
+| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | ID of the run.                                                      |
+| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | ID of the task column.                                              |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
@@ -1326,7 +1238,7 @@ with Orq(
 
 ## update_task
 
-Updates an unlinked task column in place.
+Renames a task column or replaces its source. Existing cells are not changed.
 
 ### Example Usage
 
@@ -1349,16 +1261,15 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `experiment_id`                                                         | *str*                                                                   | :heavy_check_mark:                                                      | N/A                                                                     |
-| `run_id`                                                                | *str*                                                                   | :heavy_check_mark:                                                      | N/A                                                                     |
-| `task_id`                                                               | *str*                                                                   | :heavy_check_mark:                                                      | N/A                                                                     |
-| `display_name`                                                          | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | N/A                                                                     |
-| `prompt`                                                                | [Optional[models.PromptTaskConfig]](../../models/prompttaskconfig.md)   | :heavy_minus_sign:                                                      | N/A                                                                     |
-| `agent`                                                                 | [Optional[models.AgentTaskConfig]](../../models/agenttaskconfig.md)     | :heavy_minus_sign:                                                      | N/A                                                                     |
-| `harness`                                                               | [Optional[models.HarnessTaskConfig]](../../models/harnesstaskconfig.md) | :heavy_minus_sign:                                                      | N/A                                                                     |
-| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+| Parameter                                                                                                                                               | Type                                                                                                                                                    | Required                                                                                                                                                | Description                                                                                                                                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `experiment_id`                                                                                                                                         | *str*                                                                                                                                                   | :heavy_check_mark:                                                                                                                                      | ID of the experiment.                                                                                                                                   |
+| `run_id`                                                                                                                                                | *str*                                                                                                                                                   | :heavy_check_mark:                                                                                                                                      | ID of the run.                                                                                                                                          |
+| `task_id`                                                                                                                                               | *str*                                                                                                                                                   | :heavy_check_mark:                                                                                                                                      | ID of the task column.                                                                                                                                  |
+| `display_name`                                                                                                                                          | *Optional[str]*                                                                                                                                         | :heavy_minus_sign:                                                                                                                                      | New column name. Must not be empty.                                                                                                                     |
+| `prompt`                                                                                                                                                | [Optional[models.PromptTaskConfig]](../../models/prompttaskconfig.md)                                                                                   | :heavy_minus_sign:                                                                                                                                      | Replaces the column's source with this prompt. A new source replaces the<br/> whole config and can change the column type; existing cells are not<br/> changed. |
+| `agent`                                                                                                                                                 | [Optional[models.AgentTaskConfig]](../../models/agenttaskconfig.md)                                                                                     | :heavy_minus_sign:                                                                                                                                      | Replaces the column's source with this agent.                                                                                                           |
+| `retries`                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                        | :heavy_minus_sign:                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                     |
 
 ### Response
 
@@ -1371,56 +1282,9 @@ with Orq(
 | models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
-## patch_task_cell
-
-Writes a cell result, including externally executed or harness cells.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ExperimentTaskCellPatch" method="patch" path="/v3/experiments/{experiment_id}/runs/{run_id}/tasks/{task_id}/cells/{datapoint_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY"),
-) as orq:
-
-    res = orq.experiments.patch_task_cell(experiment_id="<id>", run_id="<id>", task_id="<id>", datapoint_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `experiment_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `run_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `datapoint_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `repeat_index`                                                      | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `value`                                                             | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `artifacts`                                                         | [Optional[models.ArtifactRefs]](../../models/artifactrefs.md)       | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.Cell](../../models/cell.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
 ## export_run
 
-Downloads the run as a file, including human review and evaluator corrections made after an earlier export.
+Downloads the run as a file, including annotations and evaluator corrections made after an earlier export.
 
 ### Example Usage
 
@@ -1443,12 +1307,12 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `experiment_id`                                                       | *str*                                                                 | :heavy_check_mark:                                                    | N/A                                                                   |
-| `run_id`                                                              | *str*                                                                 | :heavy_check_mark:                                                    | N/A                                                                   |
-| `format_`                                                             | [Optional[models.QueryParamFormat]](../../models/queryparamformat.md) | :heavy_minus_sign:                                                    | N/A                                                                   |
-| `retries`                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)      | :heavy_minus_sign:                                                    | Configuration to override the default retry behavior of the client.   |
+| Parameter                                                                                                                  | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `experiment_id`                                                                                                            | *str*                                                                                                                      | :heavy_check_mark:                                                                                                         | ID of the experiment.                                                                                                      |
+| `run_id`                                                                                                                   | *str*                                                                                                                      | :heavy_check_mark:                                                                                                         | ID of the run.                                                                                                             |
+| `format_`                                                                                                                  | [Optional[models.QueryParamFormat]](../../models/queryparamformat.md)                                                      | :heavy_minus_sign:                                                                                                         | File format: `json` (an array of records), `jsonl` (one record per line) or `csv`. Each record is one row and task column. |
+| `retries`                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                           | :heavy_minus_sign:                                                                                                         | Configuration to override the default retry behavior of the client.                                                        |
 
 ### Response
 

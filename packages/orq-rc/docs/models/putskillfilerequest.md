@@ -1,0 +1,9 @@
+# PutSkillFileRequest
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `path`                                                                                                 | *str*                                                                                                  | :heavy_check_mark:                                                                                     | Relative path within the skill bundle, including subdirectory<br/> components (e.g. "scripts/extract.py"). |
+| `content`                                                                                              | *str*                                                                                                  | :heavy_check_mark:                                                                                     | Raw file content. The MIME type is derived from the path extension.                                    |

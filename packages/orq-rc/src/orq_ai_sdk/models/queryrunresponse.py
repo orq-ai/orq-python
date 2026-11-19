@@ -17,18 +17,26 @@ from typing_extensions import NotRequired, TypedDict
 
 class QueryRunResponseTypedDict(TypedDict):
     rows: NotRequired[List[QueryRowTypedDict]]
+    r"""Page of rows, in creation order."""
     has_more: NotRequired[bool]
+    r"""Whether more rows follow this page."""
     server_timestamp: NotRequired[datetime]
-    r"""Cursor for the next incremental query (server clock minus a skew buffer)."""
+    r"""Value to pass as `updated_after` in the next incremental query: the
+    server clock minus 3 seconds.
+    """
 
 
 class QueryRunResponse(BaseModel):
     rows: Optional[List[QueryRow]] = None
+    r"""Page of rows, in creation order."""
 
     has_more: Optional[bool] = None
+    r"""Whether more rows follow this page."""
 
     server_timestamp: Optional[datetime] = None
-    r"""Cursor for the next incremental query (server clock minus a skew buffer)."""
+    r"""Value to pass as `updated_after` in the next incremental query: the
+    server clock minus 3 seconds.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

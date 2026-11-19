@@ -15,10 +15,16 @@ from typing_extensions import NotRequired, TypedDict
 
 class CancelExperimentRunRequestTypedDict(TypedDict):
     row_ids: NotRequired[List[str]]
+    r"""Rows whose queued and running cells are canceled. Empty cancels every row.
+    The run moves to canceled either way.
+    """
 
 
 class CancelExperimentRunRequest(BaseModel):
     row_ids: Optional[List[str]] = None
+    r"""Rows whose queued and running cells are canceled. Empty cancels every row.
+    The run moves to canceled either way.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from .agenttaskconfig import AgentTaskConfig, AgentTaskConfigTypedDict
-from .harnesstaskconfig import HarnessTaskConfig, HarnessTaskConfigTypedDict
 from .prompttaskconfig import PromptTaskConfig, PromptTaskConfigTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
@@ -18,26 +17,35 @@ from typing_extensions import NotRequired, TypedDict
 
 class UpdateTaskColumnRequestTypedDict(TypedDict):
     display_name: NotRequired[str]
+    r"""New column name. Must not be empty."""
     prompt: NotRequired[PromptTaskConfigTypedDict]
+    r"""Replaces the column's source with this prompt. A new source replaces the
+    whole config and can change the column type; existing cells are not
+    changed.
+    """
     agent: NotRequired[AgentTaskConfigTypedDict]
-    harness: NotRequired[HarnessTaskConfigTypedDict]
+    r"""Replaces the column's source with this agent."""
 
 
 class UpdateTaskColumnRequest(BaseModel):
     display_name: Optional[str] = None
+    r"""New column name. Must not be empty."""
 
     prompt: Optional[PromptTaskConfig] = None
+    r"""Replaces the column's source with this prompt. A new source replaces the
+    whole config and can change the column type; existing cells are not
+    changed.
+    """
 
     agent: Optional[AgentTaskConfig] = None
-
-    harness: Optional[HarnessTaskConfig] = None
+    r"""Replaces the column's source with this agent."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["display_name", "prompt", "agent", "harness"])
+        optional_fields = set(["display_name", "prompt", "agent"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

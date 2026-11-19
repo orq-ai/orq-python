@@ -9,7 +9,9 @@ from typing_extensions import Annotated, TypedDict
 
 class ExperimentRunUpdateRequestTypedDict(TypedDict):
     experiment_id: str
+    r"""ID of the experiment."""
     run_id: str
+    r"""ID of the run."""
     update_run_request: UpdateRunRequestTypedDict
 
 
@@ -17,10 +19,12 @@ class ExperimentRunUpdateRequest(BaseModel):
     experiment_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the experiment."""
 
     run_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the run."""
 
     update_run_request: Annotated[
         UpdateRunRequest,

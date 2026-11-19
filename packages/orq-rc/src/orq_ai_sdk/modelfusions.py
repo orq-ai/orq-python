@@ -96,7 +96,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "list",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List Model Fusions",
+                            "lang": "curl",
+                            "source": "curl --get 'https://my.orq.ai/v3/model-fusions' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
+                        },
+                        {
+                            "label": "Node.js - List Model Fusions",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.modelFusions.list({ limit: 25 });\n\nfor (const fusion of page.data) {\n  console.log(fusion.key, fusion.modelRef);\n}\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -204,7 +219,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "list",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List Model Fusions",
+                            "lang": "curl",
+                            "source": "curl --get 'https://my.orq.ai/v3/model-fusions' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
+                        },
+                        {
+                            "label": "Node.js - List Model Fusions",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.modelFusions.list({ limit: 25 });\n\nfor (const fusion of page.data) {\n  console.log(fusion.key, fusion.modelRef);\n}\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -324,7 +354,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "create",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create a Model Fusion",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v3/model-fusions\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "support-fusion",\n    "panel_models": ["anthropic/claude-opus-5", "openai/gpt-5.4-mini"],\n    "judge_model": "openai/gpt-5.4",\n    "synthesis_mode": "MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL",\n    "preset": "MODEL_FUSION_PRESET_GENERAL"\n  }\'\n',
+                        },
+                        {
+                            "label": "Node.js - Create a Model Fusion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.modelFusions.create({\n  key: 'support-fusion',\n  panelModels: ['anthropic/claude-opus-5', 'openai/gpt-5.4-mini'],\n  judgeModel: 'openai/gpt-5.4',\n  synthesisMode: 'MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL',\n  preset: 'MODEL_FUSION_PRESET_GENERAL',\n});\n\nconsole.log(result.modelFusion.modelRef);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -444,7 +489,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "create",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create a Model Fusion",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v3/model-fusions\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "support-fusion",\n    "panel_models": ["anthropic/claude-opus-5", "openai/gpt-5.4-mini"],\n    "judge_model": "openai/gpt-5.4",\n    "synthesis_mode": "MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL",\n    "preset": "MODEL_FUSION_PRESET_GENERAL"\n  }\'\n',
+                        },
+                        {
+                            "label": "Node.js - Create a Model Fusion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.modelFusions.create({\n  key: 'support-fusion',\n  panelModels: ['anthropic/claude-opus-5', 'openai/gpt-5.4-mini'],\n  judgeModel: 'openai/gpt-5.4',\n  synthesisMode: 'MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL',\n  preset: 'MODEL_FUSION_PRESET_GENERAL',\n});\n\nconsole.log(result.modelFusion.modelRef);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -537,7 +597,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "get"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "get",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve a Model Fusion",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v3/model-fusions/019d-model-fusion-id' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                        },
+                        {
+                            "label": "Node.js - Retrieve a Model Fusion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.modelFusions.get({\n  modelFusionId: '019d-model-fusion-id',\n});\n\nconsole.log(result.modelFusion.key);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -630,7 +705,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "get"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "get",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve a Model Fusion",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v3/model-fusions/019d-model-fusion-id' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                        },
+                        {
+                            "label": "Node.js - Retrieve a Model Fusion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.modelFusions.get({\n  modelFusionId: '019d-model-fusion-id',\n});\n\nconsole.log(result.modelFusion.key);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -756,7 +846,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "update",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Replace a Model Fusion",
+                            "lang": "curl",
+                            "source": 'curl --request PUT \\\n  --url \'https://my.orq.ai/v3/model-fusions/019d-model-fusion-id\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "panel_models": ["anthropic/claude-opus-5", "openai/gpt-5.4-mini"],\n    "judge_model": "openai/gpt-5.4",\n    "synthesis_mode": "MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL",\n    "preset": "MODEL_FUSION_PRESET_QUALITY",\n    "web_tools": true,\n    "max_tool_calls": 5,\n    "feed_raw_to_synth": true\n  }\'\n',
+                        },
+                        {
+                            "label": "Node.js - Replace a Model Fusion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.modelFusions.update({\n  modelFusionId: '019d-model-fusion-id',\n  updateModelFusionRequest: {\n    panelModels: ['anthropic/claude-opus-5', 'openai/gpt-5.4-mini'],\n    judgeModel: 'openai/gpt-5.4',\n    synthesisMode: 'MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL',\n    preset: 'MODEL_FUSION_PRESET_QUALITY',\n    webTools: true,\n    maxToolCalls: 5,\n    feedRawToSynth: true,\n  },\n});\n\nconsole.log(result.modelFusion.preset);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -882,7 +987,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "update",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Replace a Model Fusion",
+                            "lang": "curl",
+                            "source": 'curl --request PUT \\\n  --url \'https://my.orq.ai/v3/model-fusions/019d-model-fusion-id\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "panel_models": ["anthropic/claude-opus-5", "openai/gpt-5.4-mini"],\n    "judge_model": "openai/gpt-5.4",\n    "synthesis_mode": "MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL",\n    "preset": "MODEL_FUSION_PRESET_QUALITY",\n    "web_tools": true,\n    "max_tool_calls": 5,\n    "feed_raw_to_synth": true\n  }\'\n',
+                        },
+                        {
+                            "label": "Node.js - Replace a Model Fusion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.modelFusions.update({\n  modelFusionId: '019d-model-fusion-id',\n  updateModelFusionRequest: {\n    panelModels: ['anthropic/claude-opus-5', 'openai/gpt-5.4-mini'],\n    judgeModel: 'openai/gpt-5.4',\n    synthesisMode: 'MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL',\n    preset: 'MODEL_FUSION_PRESET_QUALITY',\n    webTools: true,\n    maxToolCalls: 5,\n    feedRawToSynth: true,\n  },\n});\n\nconsole.log(result.modelFusion.preset);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -975,7 +1095,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "delete",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete a Model Fusion",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v3/model-fusions/019d-model-fusion-id' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                        },
+                        {
+                            "label": "Node.js - Delete a Model Fusion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.modelFusions.delete({\n  modelFusionId: '019d-model-fusion-id',\n});\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1068,7 +1203,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "delete",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete a Model Fusion",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v3/model-fusions/019d-model-fusion-id' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                        },
+                        {
+                            "label": "Node.js - Delete a Model Fusion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.modelFusions.delete({\n  modelFusionId: '019d-model-fusion-id',\n});\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1173,7 +1323,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "setEnabled"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "setEnabled",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Enable or disable a Model Fusion",
+                            "lang": "curl",
+                            "source": "curl --request POST \\\n  --url 'https://my.orq.ai/v3/model-fusions/019d-model-fusion-id/enabled' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
+                        },
+                        {
+                            "label": "Node.js - Enable or disable a Model Fusion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.modelFusions.setEnabled({\n  modelFusionId: '019d-model-fusion-id',\n  setModelFusionEnabledRequest: { enabled: false },\n});\n\nconsole.log(result.modelFusion.enabled);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1280,7 +1445,22 @@ class ModelFusions(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Model Fusions"],
-                extensions={"x-cli-group": "model-fusions", "x-cli-name": "setEnabled"},
+                extensions={
+                    "x-cli-group": "model-fusions",
+                    "x-cli-name": "setEnabled",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Enable or disable a Model Fusion",
+                            "lang": "curl",
+                            "source": "curl --request POST \\\n  --url 'https://my.orq.ai/v3/model-fusions/019d-model-fusion-id/enabled' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
+                        },
+                        {
+                            "label": "Node.js - Enable or disable a Model Fusion",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.modelFusions.setEnabled({\n  modelFusionId: '019d-model-fusion-id',\n  setModelFusionEnabledRequest: { enabled: false },\n});\n\nconsole.log(result.modelFusion.enabled);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

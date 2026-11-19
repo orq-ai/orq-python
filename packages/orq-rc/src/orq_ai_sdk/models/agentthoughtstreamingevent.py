@@ -519,7 +519,7 @@ class AgentThoughtStreamingEventTopLogprobs(BaseModel):
         return m
 
 
-class RefusalTypedDict(TypedDict):
+class AgentThoughtStreamingEventRefusalTypedDict(TypedDict):
     token: str
     r"""The token."""
     logprob: float
@@ -530,7 +530,7 @@ class RefusalTypedDict(TypedDict):
     r"""List of the most likely tokens and their log probability, at this token position."""
 
 
-class Refusal(BaseModel):
+class AgentThoughtStreamingEventRefusal(BaseModel):
     token: str
     r"""The token."""
 
@@ -570,7 +570,7 @@ class LogprobsTypedDict(TypedDict):
 
     content: Nullable[List[AgentThoughtStreamingEventContentTypedDict]]
     r"""A list of message content tokens with log probability information."""
-    refusal: Nullable[List[RefusalTypedDict]]
+    refusal: Nullable[List[AgentThoughtStreamingEventRefusalTypedDict]]
     r"""A list of message refusal tokens with log probability information."""
 
 
@@ -580,7 +580,7 @@ class Logprobs(BaseModel):
     content: Nullable[List[AgentThoughtStreamingEventContent]]
     r"""A list of message content tokens with log probability information."""
 
-    refusal: Nullable[List[Refusal]]
+    refusal: Nullable[List[AgentThoughtStreamingEventRefusal]]
     r"""A list of message refusal tokens with log probability information."""
 
     @model_serializer(mode="wrap")
@@ -948,7 +948,7 @@ try:
 except NameError:
     pass
 try:
-    Refusal.model_rebuild()
+    AgentThoughtStreamingEventRefusal.model_rebuild()
 except NameError:
     pass
 try:

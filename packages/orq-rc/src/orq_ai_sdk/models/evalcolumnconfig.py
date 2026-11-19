@@ -14,20 +14,36 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class EvalColumnConfigTypedDict(TypedDict):
+    r"""Configuration of an evaluator column. Name and types are read from the
+    evaluator.
+    """
+
     evaluator_id: NotRequired[str]
+    r"""ID of the evaluator."""
     evaluator_name: NotRequired[str]
+    r"""Evaluator display name."""
     evaluator_type: NotRequired[str]
+    r"""Evaluator type, such as `llm_eval` or `python_eval`."""
     evaluator_output_type: NotRequired[str]
+    r"""Type of value the evaluator returns, such as `number`."""
 
 
 class EvalColumnConfig(BaseModel):
+    r"""Configuration of an evaluator column. Name and types are read from the
+    evaluator.
+    """
+
     evaluator_id: Optional[str] = None
+    r"""ID of the evaluator."""
 
     evaluator_name: Optional[str] = None
+    r"""Evaluator display name."""
 
     evaluator_type: Optional[str] = None
+    r"""Evaluator type, such as `llm_eval` or `python_eval`."""
 
     evaluator_output_type: Optional[str] = None
+    r"""Type of value the evaluator returns, such as `number`."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

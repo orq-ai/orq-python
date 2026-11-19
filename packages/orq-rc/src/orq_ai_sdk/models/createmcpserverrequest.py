@@ -3,6 +3,10 @@
 from __future__ import annotations
 from .mcpauthconfig import McpAuthConfig, McpAuthConfigTypedDict
 from .mcpconnection import McpConnection, McpConnectionTypedDict
+from .mcphealthcheckconfig_input import (
+    McpHealthCheckConfigInput,
+    McpHealthCheckConfigInputTypedDict,
+)
 from .mcpopenapiconfig_input import (
     McpOpenAPIConfigInput,
     McpOpenAPIConfigInputTypedDict,
@@ -38,6 +42,7 @@ class CreateMcpServerRequestTypedDict(TypedDict):
     r"""Which projects in the workspace may use this server. Defaults to every project."""
     openapi: NotRequired[McpOpenAPIConfigInputTypedDict]
     r"""Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`."""
+    health_check: NotRequired[McpHealthCheckConfigInputTypedDict]
 
 
 class CreateMcpServerRequest(BaseModel):
@@ -65,12 +70,14 @@ class CreateMcpServerRequest(BaseModel):
     openapi: Optional[McpOpenAPIConfigInput] = None
     r"""Required when `connection.type` is `MCP_CONNECTION_TYPE_OPENAPI`; set `document` or `document_url`."""
 
+    health_check: Optional[McpHealthCheckConfigInput] = None
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["description", "sharing", "openapi"])
+        optional_fields = set(["description", "sharing", "openapi", "health_check"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

@@ -28,6 +28,7 @@ from .responseexecutionlimits import (
     ResponseExecutionLimitsTypedDict,
 )
 from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
+from .responseoutputitem import ResponseOutputItem, ResponseOutputItemTypedDict
 from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDict
 from .responsestreamevent import ResponseStreamEvent, ResponseStreamEventTypedDict
 from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
@@ -124,6 +125,412 @@ class CreateRouterResponseCacheControl(BaseModel):
         return m
 
 
+CreateRouterResponse3ResponsesRequestRequestBodyInputType = Literal[
+    "encrypted_content",
+]
+
+
+class ThreeEncryptedContentTypedDict(TypedDict):
+    r"""An encrypted content part of an agent_message item."""
+
+    encrypted_content: str
+    r"""The encrypted content."""
+    type: CreateRouterResponse3ResponsesRequestRequestBodyInputType
+
+
+class ThreeEncryptedContent(BaseModel):
+    r"""An encrypted content part of an agent_message item."""
+
+    encrypted_content: str
+    r"""The encrypted content."""
+
+    type: CreateRouterResponse3ResponsesRequestRequestBodyInputType
+
+
+CreateRouterResponse3ResponsesRequestTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CreateRouterResponse3ResponsesRequestType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class CreateRouterResponse3ResponsesCacheControlTypedDict(TypedDict):
+    type: CreateRouterResponse3ResponsesRequestType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CreateRouterResponse3ResponsesRequestTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CreateRouterResponse3ResponsesCacheControl(BaseModel):
+    type: CreateRouterResponse3ResponsesRequestType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CreateRouterResponse3ResponsesRequestTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse3Detail = Literal[
+    "auto",
+    "low",
+    "high",
+]
+r"""The detail level for image understanding."""
+
+
+CreateRouterResponse3ResponsesMode = Literal["explicit",]
+
+
+CreateRouterResponse3ResponsesRequestRequestBodyTTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class CreateRouterResponse3ResponsesPromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse3ResponsesMode
+    ttl: NotRequired[CreateRouterResponse3ResponsesRequestRequestBodyTTL]
+
+
+class CreateRouterResponse3ResponsesPromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse3ResponsesMode
+
+    ttl: Optional[CreateRouterResponse3ResponsesRequestRequestBodyTTL] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse3ResponsesRequestRequestBodyType = Literal["input_image",]
+
+
+class CreateRouterResponse3ImageTypedDict(TypedDict):
+    r"""An image content part."""
+
+    type: CreateRouterResponse3ResponsesRequestRequestBodyType
+    cache_control: NotRequired[CreateRouterResponse3ResponsesCacheControlTypedDict]
+    detail: NotRequired[CreateRouterResponse3Detail]
+    r"""The detail level for image understanding."""
+    file_id: NotRequired[str]
+    r"""The ID of a previously uploaded file."""
+    image_url: NotRequired[str]
+    r"""The URL of the image."""
+    prompt_cache_breakpoint: NotRequired[
+        CreateRouterResponse3ResponsesPromptCacheBreakpointTypedDict
+    ]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+
+class CreateRouterResponse3Image(BaseModel):
+    r"""An image content part."""
+
+    type: CreateRouterResponse3ResponsesRequestRequestBodyType
+
+    cache_control: Optional[CreateRouterResponse3ResponsesCacheControl] = None
+
+    detail: Optional[CreateRouterResponse3Detail] = None
+    r"""The detail level for image understanding."""
+
+    file_id: Optional[str] = None
+    r"""The ID of a previously uploaded file."""
+
+    image_url: Optional[str] = None
+    r"""The URL of the image."""
+
+    prompt_cache_breakpoint: Optional[
+        CreateRouterResponse3ResponsesPromptCacheBreakpoint
+    ] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "cache_control",
+                "detail",
+                "file_id",
+                "image_url",
+                "prompt_cache_breakpoint",
+            ]
+        )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse3TTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CreateRouterResponse3Type = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class CreateRouterResponse3CacheControlTypedDict(TypedDict):
+    type: CreateRouterResponse3Type
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CreateRouterResponse3TTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CreateRouterResponse3CacheControl(BaseModel):
+    type: CreateRouterResponse3Type
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CreateRouterResponse3TTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse3Mode = Literal["explicit",]
+
+
+CreateRouterResponse3ResponsesTTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class CreateRouterResponse3PromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse3Mode
+    ttl: NotRequired[CreateRouterResponse3ResponsesTTL]
+
+
+class CreateRouterResponse3PromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse3Mode
+
+    ttl: Optional[CreateRouterResponse3ResponsesTTL] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse3ResponsesType = Literal["input_text",]
+
+
+class CreateRouterResponse3TextTypedDict(TypedDict):
+    r"""A text content part."""
+
+    text: str
+    r"""The text content."""
+    type: CreateRouterResponse3ResponsesType
+    cache_control: NotRequired[CreateRouterResponse3CacheControlTypedDict]
+    prompt_cache_breakpoint: NotRequired[
+        CreateRouterResponse3PromptCacheBreakpointTypedDict
+    ]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+
+class CreateRouterResponse3Text(BaseModel):
+    r"""A text content part."""
+
+    text: str
+    r"""The text content."""
+
+    type: CreateRouterResponse3ResponsesType
+
+    cache_control: Optional[CreateRouterResponse3CacheControl] = None
+
+    prompt_cache_breakpoint: Optional[CreateRouterResponse3PromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["cache_control", "prompt_cache_breakpoint"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponseContent3TypedDict = TypeAliasType(
+    "CreateRouterResponseContent3TypedDict",
+    Union[
+        ThreeEncryptedContentTypedDict,
+        CreateRouterResponse3TextTypedDict,
+        CreateRouterResponse3ImageTypedDict,
+    ],
+)
+r"""A content part within an agent_message item."""
+
+
+CreateRouterResponseContent3 = Annotated[
+    Union[
+        Annotated[CreateRouterResponse3Text, Tag("input_text")],
+        Annotated[CreateRouterResponse3Image, Tag("input_image")],
+        Annotated[ThreeEncryptedContent, Tag("encrypted_content")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+r"""A content part within an agent_message item."""
+
+
 CreateRouterResponse2ResponsesRequestRequestBodyInputTTL = Literal[
     "5m",
     "1h",
@@ -191,7 +598,7 @@ class CreateRouterResponse2ResponsesRequestCacheControl(BaseModel):
         return m
 
 
-CreateRouterResponse2ResponsesMode = Literal["explicit",]
+CreateRouterResponse2ResponsesRequestMode = Literal["explicit",]
 
 
 CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL = Literal[
@@ -200,17 +607,17 @@ CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL = Literal[
 ]
 
 
-class CreateRouterResponse2PromptCacheBreakpointTypedDict(TypedDict):
+class CreateRouterResponse2ResponsesRequestPromptCacheBreakpointTypedDict(TypedDict):
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
-    mode: CreateRouterResponse2ResponsesMode
+    mode: CreateRouterResponse2ResponsesRequestMode
     ttl: NotRequired[CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL]
 
 
-class CreateRouterResponse2PromptCacheBreakpoint(BaseModel):
+class CreateRouterResponse2ResponsesRequestPromptCacheBreakpoint(BaseModel):
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
-    mode: CreateRouterResponse2ResponsesMode
+    mode: CreateRouterResponse2ResponsesRequestMode
 
     ttl: Optional[CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL] = None
 
@@ -241,7 +648,7 @@ class CreateRouterResponse2PromptCacheBreakpoint(BaseModel):
 CreateRouterResponse2ResponsesRequestRequestBodyInput2Type = Literal["input_file",]
 
 
-class TwoFileTypedDict(TypedDict):
+class CreateRouterResponse2FileTypedDict(TypedDict):
     r"""A file content part. Provide file_id, file_data (base64), or file_url."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyInput2Type
@@ -259,12 +666,12 @@ class TwoFileTypedDict(TypedDict):
     mime_type: NotRequired[str]
     r"""The MIME type of the file (e.g., application/pdf)."""
     prompt_cache_breakpoint: NotRequired[
-        CreateRouterResponse2PromptCacheBreakpointTypedDict
+        CreateRouterResponse2ResponsesRequestPromptCacheBreakpointTypedDict
     ]
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
 
-class TwoFile(BaseModel):
+class CreateRouterResponse2File(BaseModel):
     r"""A file content part. Provide file_id, file_data (base64), or file_url."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyInput2Type
@@ -286,7 +693,9 @@ class TwoFile(BaseModel):
     mime_type: Optional[str] = None
     r"""The MIME type of the file (e.g., application/pdf)."""
 
-    prompt_cache_breakpoint: Optional[CreateRouterResponse2PromptCacheBreakpoint] = None
+    prompt_cache_breakpoint: Optional[
+        CreateRouterResponse2ResponsesRequestPromptCacheBreakpoint
+    ] = None
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
     @model_serializer(mode="wrap")
@@ -390,7 +799,7 @@ class CreateRouterResponse2ResponsesCacheControl(BaseModel):
         return m
 
 
-TwoDetail = Literal[
+CreateRouterResponse2Detail = Literal[
     "auto",
     "low",
     "high",
@@ -398,7 +807,7 @@ TwoDetail = Literal[
 r"""The detail level for image understanding."""
 
 
-CreateRouterResponse2Mode = Literal["explicit",]
+CreateRouterResponse2ResponsesMode = Literal["explicit",]
 
 
 CreateRouterResponse2ResponsesRequestRequestBodyTTL = Literal[
@@ -407,17 +816,17 @@ CreateRouterResponse2ResponsesRequestRequestBodyTTL = Literal[
 ]
 
 
-class TwoPromptCacheBreakpointTypedDict(TypedDict):
+class CreateRouterResponse2ResponsesPromptCacheBreakpointTypedDict(TypedDict):
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
-    mode: CreateRouterResponse2Mode
+    mode: CreateRouterResponse2ResponsesMode
     ttl: NotRequired[CreateRouterResponse2ResponsesRequestRequestBodyTTL]
 
 
-class TwoPromptCacheBreakpoint(BaseModel):
+class CreateRouterResponse2ResponsesPromptCacheBreakpoint(BaseModel):
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
-    mode: CreateRouterResponse2Mode
+    mode: CreateRouterResponse2ResponsesMode
 
     ttl: Optional[CreateRouterResponse2ResponsesRequestRequestBodyTTL] = None
 
@@ -448,29 +857,31 @@ class TwoPromptCacheBreakpoint(BaseModel):
 CreateRouterResponse2ResponsesRequestRequestBodyType = Literal["input_image",]
 
 
-class TwoImageTypedDict(TypedDict):
+class CreateRouterResponse2ImageTypedDict(TypedDict):
     r"""An image content part."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyType
     cache_control: NotRequired[CreateRouterResponse2ResponsesCacheControlTypedDict]
-    detail: NotRequired[TwoDetail]
+    detail: NotRequired[CreateRouterResponse2Detail]
     r"""The detail level for image understanding."""
     file_id: NotRequired[str]
     r"""The ID of a previously uploaded file."""
     image_url: NotRequired[str]
     r"""The URL of the image."""
-    prompt_cache_breakpoint: NotRequired[TwoPromptCacheBreakpointTypedDict]
+    prompt_cache_breakpoint: NotRequired[
+        CreateRouterResponse2ResponsesPromptCacheBreakpointTypedDict
+    ]
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
 
-class TwoImage(BaseModel):
+class CreateRouterResponse2Image(BaseModel):
     r"""An image content part."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyType
 
     cache_control: Optional[CreateRouterResponse2ResponsesCacheControl] = None
 
-    detail: Optional[TwoDetail] = None
+    detail: Optional[CreateRouterResponse2Detail] = None
     r"""The detail level for image understanding."""
 
     file_id: Optional[str] = None
@@ -479,7 +890,9 @@ class TwoImage(BaseModel):
     image_url: Optional[str] = None
     r"""The URL of the image."""
 
-    prompt_cache_breakpoint: Optional[TwoPromptCacheBreakpoint] = None
+    prompt_cache_breakpoint: Optional[
+        CreateRouterResponse2ResponsesPromptCacheBreakpoint
+    ] = None
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
     @model_serializer(mode="wrap")
@@ -581,7 +994,7 @@ class CreateRouterResponse2CacheControl(BaseModel):
         return m
 
 
-TwoMode = Literal["explicit",]
+CreateRouterResponse2Mode = Literal["explicit",]
 
 
 CreateRouterResponse2ResponsesTTL = Literal[
@@ -590,17 +1003,17 @@ CreateRouterResponse2ResponsesTTL = Literal[
 ]
 
 
-class PromptCacheBreakpointTypedDict(TypedDict):
+class CreateRouterResponse2PromptCacheBreakpointTypedDict(TypedDict):
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
-    mode: TwoMode
+    mode: CreateRouterResponse2Mode
     ttl: NotRequired[CreateRouterResponse2ResponsesTTL]
 
 
-class PromptCacheBreakpoint(BaseModel):
+class CreateRouterResponse2PromptCacheBreakpoint(BaseModel):
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
-    mode: TwoMode
+    mode: CreateRouterResponse2Mode
 
     ttl: Optional[CreateRouterResponse2ResponsesTTL] = None
 
@@ -631,18 +1044,20 @@ class PromptCacheBreakpoint(BaseModel):
 CreateRouterResponse2ResponsesType = Literal["input_text",]
 
 
-class TwoTextTypedDict(TypedDict):
+class CreateRouterResponse2TextTypedDict(TypedDict):
     r"""A text content part."""
 
     text: str
     r"""The text content."""
     type: CreateRouterResponse2ResponsesType
     cache_control: NotRequired[CreateRouterResponse2CacheControlTypedDict]
-    prompt_cache_breakpoint: NotRequired[PromptCacheBreakpointTypedDict]
+    prompt_cache_breakpoint: NotRequired[
+        CreateRouterResponse2PromptCacheBreakpointTypedDict
+    ]
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
 
-class TwoText(BaseModel):
+class CreateRouterResponse2Text(BaseModel):
     r"""A text content part."""
 
     text: str
@@ -652,7 +1067,7 @@ class TwoText(BaseModel):
 
     cache_control: Optional[CreateRouterResponse2CacheControl] = None
 
-    prompt_cache_breakpoint: Optional[PromptCacheBreakpoint] = None
+    prompt_cache_breakpoint: Optional[CreateRouterResponse2PromptCacheBreakpoint] = None
     r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
     @model_serializer(mode="wrap")
@@ -681,30 +1096,40 @@ class TwoText(BaseModel):
 
 CreateRouterResponseContent2TypedDict = TypeAliasType(
     "CreateRouterResponseContent2TypedDict",
-    Union[TwoTextTypedDict, TwoImageTypedDict, TwoFileTypedDict],
+    Union[
+        CreateRouterResponse2TextTypedDict,
+        CreateRouterResponse2ImageTypedDict,
+        CreateRouterResponse2FileTypedDict,
+    ],
 )
 r"""A content part within a message."""
 
 
 CreateRouterResponseContent2 = Annotated[
     Union[
-        Annotated[TwoText, Tag("input_text")],
-        Annotated[TwoImage, Tag("input_image")],
-        Annotated[TwoFile, Tag("input_file")],
+        Annotated[CreateRouterResponse2Text, Tag("input_text")],
+        Annotated[CreateRouterResponse2Image, Tag("input_image")],
+        Annotated[CreateRouterResponse2File, Tag("input_file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
 r"""A content part within a message."""
 
 
-InputContentTypedDict = TypeAliasType(
-    "InputContentTypedDict", Union[str, List[CreateRouterResponseContent2TypedDict]]
+CreateRouterResponseInputContentTypedDict = TypeAliasType(
+    "CreateRouterResponseInputContentTypedDict",
+    Union[
+        str,
+        List[CreateRouterResponseContent2TypedDict],
+        List[CreateRouterResponseContent3TypedDict],
+    ],
 )
 r"""The content of the item: a string or an array of content parts."""
 
 
-InputContent = TypeAliasType(
-    "InputContent", Union[str, List[CreateRouterResponseContent2]]
+CreateRouterResponseInputContent = TypeAliasType(
+    "CreateRouterResponseInputContent",
+    Union[str, List[CreateRouterResponseContent2], List[CreateRouterResponseContent3]],
 )
 r"""The content of the item: a string or an array of content parts."""
 
@@ -799,6 +1224,7 @@ CreateRouterResponseInputType = Literal[
     "mcp_approval_request",
     "mcp_approval_response",
     "configuration_update",
+    "agent_message",
 ]
 r"""The type of item."""
 
@@ -810,9 +1236,11 @@ class CreateRouterResponseInput2TypedDict(TypedDict):
     r"""The function arguments as a JSON string (for function_call items)."""
     async_: NotRequired[bool]
     r"""Whether a function or custom tool call runs asynchronously."""
+    author: NotRequired[str]
+    r"""The path of the agent that sent the message (for agent_message items)."""
     call_id: NotRequired[str]
     r"""The function call identifier (for function_call and function_call_output items)."""
-    content: NotRequired[InputContentTypedDict]
+    content: NotRequired[CreateRouterResponseInputContentTypedDict]
     r"""The content of the item: a string or an array of content parts."""
     id: NotRequired[str]
     r"""The ID of the item. For item_reference items, this identifies the referenced item."""
@@ -822,6 +1250,8 @@ class CreateRouterResponseInput2TypedDict(TypedDict):
     r"""The output of the function call (for function_call_output type)."""
     reasoning: NotRequired[InputReasoningTypedDict]
     r"""Reasoning settings applied by a configuration_update item."""
+    recipient: NotRequired[str]
+    r"""The path of the agent the message is addressed to (for agent_message items)."""
     role: NotRequired[CreateRouterResponseInputRole]
     r"""The role of the message sender (for message items)."""
     status: NotRequired[InputStatus]
@@ -839,10 +1269,13 @@ class CreateRouterResponseInput2(BaseModel):
     async_: Annotated[Optional[bool], pydantic.Field(alias="async")] = None
     r"""Whether a function or custom tool call runs asynchronously."""
 
+    author: Optional[str] = None
+    r"""The path of the agent that sent the message (for agent_message items)."""
+
     call_id: Optional[str] = None
     r"""The function call identifier (for function_call and function_call_output items)."""
 
-    content: Optional[InputContent] = None
+    content: Optional[CreateRouterResponseInputContent] = None
     r"""The content of the item: a string or an array of content parts."""
 
     id: Optional[str] = None
@@ -856,6 +1289,9 @@ class CreateRouterResponseInput2(BaseModel):
 
     reasoning: Optional[InputReasoning] = None
     r"""Reasoning settings applied by a configuration_update item."""
+
+    recipient: Optional[str] = None
+    r"""The path of the agent the message is addressed to (for agent_message items)."""
 
     role: Optional[CreateRouterResponseInputRole] = None
     r"""The role of the message sender (for message items)."""
@@ -875,12 +1311,14 @@ class CreateRouterResponseInput2(BaseModel):
             [
                 "arguments",
                 "async",
+                "author",
                 "call_id",
                 "content",
                 "id",
                 "name",
                 "output",
                 "reasoning",
+                "recipient",
                 "role",
                 "status",
                 "type",
@@ -1313,14 +1751,14 @@ CreateRouterResponseToolsResponsesRequestType = Literal[
     "orq:http",
     "orq:function",
 ]
-r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+r"""The platform tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
 
 
 class OrqAiToolTypedDict(TypedDict):
-    r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
+    r"""A platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
     type: CreateRouterResponseToolsResponsesRequestType
-    r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+    r"""The platform tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
     files: NotRequired[List[ToolsFilesTypedDict]]
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
     max_results: NotRequired[int]
@@ -1334,10 +1772,10 @@ class OrqAiToolTypedDict(TypedDict):
 
 
 class OrqAiTool(BaseModel):
-    r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
+    r"""A platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
     type: CreateRouterResponseToolsResponsesRequestType
-    r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+    r"""The platform tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
 
     files: Optional[List[ToolsFiles]] = None
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
@@ -1645,7 +2083,7 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""Guardrails to evaluate the request against."""
     identity: NotRequired[ResponseIdentityTypedDict]
     include: NotRequired[List[str]]
-    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide for the supported values."""
+    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide."""
     input: NotRequired[CreateRouterResponseInputTypedDict]
     r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
     instructions: NotRequired[str]
@@ -1662,7 +2100,7 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, str]]
     r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400."""
     model: NotRequired[str]
-    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from the orq.ai platform."""
+    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from this platform."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to allow parallel tool calls."""
     plugins: NotRequired[Nullable[List[PublicPluginTypedDict]]]
@@ -1742,7 +2180,7 @@ class CreateRouterResponseRequestBody(BaseModel):
     identity: Optional[ResponseIdentity] = None
 
     include: Optional[List[str]] = None
-    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide for the supported values."""
+    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide."""
 
     input: Optional[CreateRouterResponseInput] = None
     r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
@@ -1769,7 +2207,7 @@ class CreateRouterResponseRequestBody(BaseModel):
     r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400."""
 
     model: Optional[str] = None
-    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from the orq.ai platform."""
+    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from this platform."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to allow parallel tool calls."""
@@ -1988,6 +2426,7 @@ CreateRouterResponseStatus = Literal[
     "completed",
     "failed",
     "incomplete",
+    "cancelled",
 ]
 
 
@@ -2008,7 +2447,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     id: str
     incomplete_details: Nullable[IncompleteDetailsTypedDict]
     input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
+    r"""Always null. Retained for compatibility with older SDKs; input content is not returned."""
     instructions: Nullable[str]
     max_output_tokens: Nullable[int]
     max_tool_calls: Nullable[int]
@@ -2017,7 +2456,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     model: str
     object: str
     r"""Always \"response\" """
-    output: Nullable[List[Any]]
+    output: Nullable[List[ResponseOutputItemTypedDict]]
     r"""Array of output items (messages, function calls, reasoning, etc.)"""
     parallel_tool_calls: bool
     presence_penalty: float
@@ -2068,7 +2507,7 @@ class CreateRouterResponseResponseBody(BaseModel):
     incomplete_details: Nullable[IncompleteDetails]
 
     input: Nullable[List[Any]]
-    r"""Array of input items (messages, function call outputs, etc.)"""
+    r"""Always null. Retained for compatibility with older SDKs; input content is not returned."""
 
     instructions: Nullable[str]
 
@@ -2084,7 +2523,7 @@ class CreateRouterResponseResponseBody(BaseModel):
     object: str
     r"""Always \"response\" """
 
-    output: Nullable[List[Any]]
+    output: Nullable[List[ResponseOutputItem]]
     r"""Array of output items (messages, function calls, reasoning, etc.)"""
 
     parallel_tool_calls: bool

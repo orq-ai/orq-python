@@ -14,14 +14,22 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class CategoricalMetricSummaryTypedDict(TypedDict):
+    r"""Statistics of a metric that returns labels."""
+
     labels: NotRequired[Dict[str, int]]
+    r"""Number of rows per label."""
     count: NotRequired[int]
+    r"""Number of rows with a label."""
 
 
 class CategoricalMetricSummary(BaseModel):
+    r"""Statistics of a metric that returns labels."""
+
     labels: Optional[Dict[str, int]] = None
+    r"""Number of rows per label."""
 
     count: Optional[int] = None
+    r"""Number of rows with a label."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

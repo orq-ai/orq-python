@@ -19,7 +19,8 @@ class BudgetUsageTypedDict(TypedDict):
     the consumed side of the matching limit dimension: `amount` is the
     accumulated cost in USD (vs limits.amount), `tokens` is the accumulated
     token count (vs limits.token_limit), and `requests` is the count in the
-    rolling 60-second window (vs rate_limit.requests_per_minute). All three
+    fixed 60-second window that starts with the first request (vs
+    rate_limit.requests_per_minute). All three
     are explicit-presence so the triple is always emitted in full, zeros
     included — a never-spent budget serializes {amount:0, tokens:0,
     requests:0} rather than dropping its zero dimensions.
@@ -37,7 +38,8 @@ class BudgetUsage(BaseModel):
     the consumed side of the matching limit dimension: `amount` is the
     accumulated cost in USD (vs limits.amount), `tokens` is the accumulated
     token count (vs limits.token_limit), and `requests` is the count in the
-    rolling 60-second window (vs rate_limit.requests_per_minute). All three
+    fixed 60-second window that starts with the first request (vs
+    rate_limit.requests_per_minute). All three
     are explicit-presence so the triple is always emitted in full, zeros
     included — a never-spent budget serializes {amount:0, tokens:0,
     requests:0} rather than dropping its zero dimensions.

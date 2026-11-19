@@ -14,42 +14,29 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ArtifactRefsTypedDict(TypedDict):
+    r"""References read from the cell's value."""
+
     trace_id: NotRequired[str]
+    r"""Trace of the execution that produced the value."""
     response_id: NotRequired[str]
-    session_id: NotRequired[str]
-    session_run_id: NotRequired[str]
-    pull_request_url: NotRequired[str]
-    patch_object_key: NotRequired[str]
+    r"""Response produced by a prompt or agent cell."""
 
 
 class ArtifactRefs(BaseModel):
+    r"""References read from the cell's value."""
+
     trace_id: Optional[str] = None
+    r"""Trace of the execution that produced the value."""
 
     response_id: Optional[str] = None
-
-    session_id: Optional[str] = None
-
-    session_run_id: Optional[str] = None
-
-    pull_request_url: Optional[str] = None
-
-    patch_object_key: Optional[str] = None
+    r"""Response produced by a prompt or agent cell."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "trace_id",
-                "response_id",
-                "session_id",
-                "session_run_id",
-                "pull_request_url",
-                "patch_object_key",
-            ]
-        )
+        optional_fields = set(["trace_id", "response_id"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

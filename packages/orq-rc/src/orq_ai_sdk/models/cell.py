@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from .artifactrefs import ArtifactRefs, ArtifactRefsTypedDict
-from .cellprogress import CellProgress, CellProgressTypedDict
 from .cellstatus import CellStatus
 from .celltype import CellType
 from datetime import datetime
@@ -22,63 +21,91 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class CellTypedDict(TypedDict):
+    r"""A cell: the value of one column in one row."""
+
     cell_id: NotRequired[str]
+    r"""Cell ID. Token metric cells are derived when read and use
+    `{row_id}_{task_column_id}_{metric_key}`.
+    """
     row_id: NotRequired[str]
+    r"""Row the cell belongs to."""
     column_id: NotRequired[str]
-    repeat_index: NotRequired[int]
+    r"""Column the cell belongs to."""
     status: NotRequired[CellStatus]
     value: NotRequired[Nullable[Dict[str, Any]]]
     r"""Stored documents are returned as-is; strings are wrapped as {\"text\"},
     arrays as {\"messages\"} on messages cells and {\"items\"} elsewhere, other
-    scalars as {\"value\"}. Null for a cell that has no value yet.
+    scalars as {\"value\"}. Null for a cell that has no value yet. Prompt and
+    agent cells hold the response with `last_message`, `model`, `usage`,
+    `latency` and `total_cost`; evaluator and annotation cells hold `type` and
+    `value` (or `text`), with an optional `explanation`.
     """
     artifacts: NotRequired[Nullable[ArtifactRefsTypedDict]]
-    r"""Null when the cell holds no trace, response or session references."""
-    progress: NotRequired[Nullable[CellProgressTypedDict]]
-    r"""Only present while the cell is running."""
+    r"""Null when the cell holds no trace or response reference."""
     error_message: NotRequired[str]
+    r"""Reason the cell failed. Cleared when the cell is queued again by Execute a
+    run.
+    """
     type: NotRequired[CellType]
     task_column_id: NotRequired[str]
-    r"""Task column an evaluator, metric or review cell belongs to."""
+    r"""Task column an evaluator, metric or annotation cell belongs to. Empty on the
+    placeholder cells of a run without task columns.
+    """
     created_at: NotRequired[Nullable[datetime]]
     r"""Null on cells written before timestamps were recorded."""
     updated_at: NotRequired[Nullable[datetime]]
+    r"""Time of the last write to the cell. Null on cells written before
+    timestamps were recorded.
+    """
 
 
 class Cell(BaseModel):
+    r"""A cell: the value of one column in one row."""
+
     cell_id: Optional[str] = None
+    r"""Cell ID. Token metric cells are derived when read and use
+    `{row_id}_{task_column_id}_{metric_key}`.
+    """
 
     row_id: Optional[str] = None
+    r"""Row the cell belongs to."""
 
     column_id: Optional[str] = None
-
-    repeat_index: Optional[int] = None
+    r"""Column the cell belongs to."""
 
     status: Optional[CellStatus] = None
 
     value: OptionalNullable[Dict[str, Any]] = UNSET
     r"""Stored documents are returned as-is; strings are wrapped as {\"text\"},
     arrays as {\"messages\"} on messages cells and {\"items\"} elsewhere, other
-    scalars as {\"value\"}. Null for a cell that has no value yet.
+    scalars as {\"value\"}. Null for a cell that has no value yet. Prompt and
+    agent cells hold the response with `last_message`, `model`, `usage`,
+    `latency` and `total_cost`; evaluator and annotation cells hold `type` and
+    `value` (or `text`), with an optional `explanation`.
     """
 
     artifacts: OptionalNullable[ArtifactRefs] = UNSET
-    r"""Null when the cell holds no trace, response or session references."""
-
-    progress: OptionalNullable[CellProgress] = UNSET
-    r"""Only present while the cell is running."""
+    r"""Null when the cell holds no trace or response reference."""
 
     error_message: Optional[str] = None
+    r"""Reason the cell failed. Cleared when the cell is queued again by Execute a
+    run.
+    """
 
     type: Optional[CellType] = None
 
     task_column_id: Optional[str] = None
-    r"""Task column an evaluator, metric or review cell belongs to."""
+    r"""Task column an evaluator, metric or annotation cell belongs to. Empty on the
+    placeholder cells of a run without task columns.
+    """
 
     created_at: OptionalNullable[datetime] = UNSET
     r"""Null on cells written before timestamps were recorded."""
 
     updated_at: OptionalNullable[datetime] = UNSET
+    r"""Time of the last write to the cell. Null on cells written before
+    timestamps were recorded.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -90,11 +117,9 @@ class Cell(BaseModel):
                 "cell_id",
                 "row_id",
                 "column_id",
-                "repeat_index",
                 "status",
                 "value",
                 "artifacts",
-                "progress",
                 "error_message",
                 "type",
                 "task_column_id",
@@ -102,9 +127,7 @@ class Cell(BaseModel):
                 "updated_at",
             ]
         )
-        nullable_fields = set(
-            ["value", "artifacts", "progress", "created_at", "updated_at"]
-        )
+        nullable_fields = set(["value", "artifacts", "created_at", "updated_at"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

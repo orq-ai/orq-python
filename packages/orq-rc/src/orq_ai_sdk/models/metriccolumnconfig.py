@@ -14,11 +14,21 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class MetricColumnConfigTypedDict(TypedDict):
+    r"""Configuration of a metric column."""
+
     metric_key: NotRequired[str]
+    r"""Metric shown: `cost`, `latency`, `ttft`, `input_tokens`, `output_tokens`
+    or `reasoning_tokens`.
+    """
 
 
 class MetricColumnConfig(BaseModel):
+    r"""Configuration of a metric column."""
+
     metric_key: Optional[str] = None
+    r"""Metric shown: `cost`, `latency`, `ttft`, `input_tokens`, `output_tokens`
+    or `reasoning_tokens`.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

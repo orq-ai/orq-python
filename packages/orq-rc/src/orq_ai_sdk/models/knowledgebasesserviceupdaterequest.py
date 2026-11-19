@@ -34,7 +34,7 @@ class KnowledgeBasesServiceUpdateRequest2RerankConfigTypedDict(TypedDict):
     rerank_model: str
     r"""The rerank model to use for the knowledge base."""
     top_k: NotRequired[int]
-    r"""The number of results to return by the reranking model"""
+    r"""The number of results to return by the reranking model, 1 to 100. Stored as the knowledge base rerank setting, 5 when omitted."""
     rerank_threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
@@ -46,7 +46,7 @@ class KnowledgeBasesServiceUpdateRequest2RerankConfig(BaseModel):
     r"""The rerank model to use for the knowledge base."""
 
     top_k: Optional[int] = 5
-    r"""The number of results to return by the reranking model"""
+    r"""The number of results to return by the reranking model, 1 to 100. Stored as the knowledge base rerank setting, 5 when omitted."""
 
     rerank_threshold: Optional[float] = 0.5
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
@@ -272,7 +272,7 @@ class KnowledgeBasesServiceUpdateRequestRerankConfigTypedDict(TypedDict):
     rerank_model: str
     r"""The rerank model to use for the knowledge base."""
     top_k: NotRequired[int]
-    r"""The number of results to return by the reranking model"""
+    r"""The number of results to return by the reranking model, 1 to 100. Stored as the knowledge base rerank setting, 5 when omitted."""
     rerank_threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
@@ -284,7 +284,7 @@ class KnowledgeBasesServiceUpdateRequestRerankConfig(BaseModel):
     r"""The rerank model to use for the knowledge base."""
 
     top_k: Optional[int] = 5
-    r"""The number of results to return by the reranking model"""
+    r"""The number of results to return by the reranking model, 1 to 100. Stored as the knowledge base rerank setting, 5 when omitted."""
 
     rerank_threshold: Optional[float] = 0.5
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""

@@ -16,23 +16,33 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class ExperimentRunMetricsGetRequestTypedDict(TypedDict):
     experiment_id: str
+    r"""ID of the experiment."""
     run_id: str
+    r"""ID of the run."""
     baseline_run_id: NotRequired[str]
+    r"""Run of the same experiment to compare against. A run without values
+    returns no baseline.
+    """
 
 
 class ExperimentRunMetricsGetRequest(BaseModel):
     experiment_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the experiment."""
 
     run_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the run."""
 
     baseline_run_id: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Run of the same experiment to compare against. A run without values
+    returns no baseline.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

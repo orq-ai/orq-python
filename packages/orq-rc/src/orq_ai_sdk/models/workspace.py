@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .workspacecapabilities import WorkspaceCapabilities, WorkspaceCapabilitiesTypedDict
+from .workspacefeatures import WorkspaceFeatures, WorkspaceFeaturesTypedDict
 from .workspaceorganization import WorkspaceOrganization, WorkspaceOrganizationTypedDict
 from .workspacesettingsfields import (
     WorkspaceSettingsFields,
@@ -18,14 +19,6 @@ from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
-
-
-class FeaturesTypedDict(TypedDict):
-    pass
-
-
-class Features(BaseModel):
-    pass
 
 
 class WorkspaceMetadataTypedDict(TypedDict):
@@ -46,7 +39,7 @@ class WorkspaceTypedDict(TypedDict):
     organization: NotRequired[WorkspaceOrganizationTypedDict]
     settings: NotRequired[WorkspaceSettingsFieldsTypedDict]
     sidebar_version: NotRequired[str]
-    features: NotRequired[FeaturesTypedDict]
+    features: NotRequired[WorkspaceFeaturesTypedDict]
     total_members: NotRequired[int]
     metadata: NotRequired[WorkspaceMetadataTypedDict]
     capabilities: NotRequired[WorkspaceCapabilitiesTypedDict]
@@ -71,7 +64,7 @@ class Workspace(BaseModel):
 
     sidebar_version: Optional[str] = None
 
-    features: Optional[Features] = None
+    features: Optional[WorkspaceFeatures] = None
 
     total_members: Optional[int] = None
 

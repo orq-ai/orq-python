@@ -27,6 +27,10 @@ class SkillListRequestTypedDict(TypedDict):
     r"""Cursor for backward pagination. Set to the `skill_id` of the first
     item from the previous page.
     """
+    search: NotRequired[str]
+    r"""Case-insensitive substring match on display name and description."""
+    project_id: NotRequired[str]
+    r"""Restrict results to one project: its own skills plus the workspace-level skills shared with it."""
 
 
 class SkillListRequest(BaseModel):
@@ -54,12 +58,26 @@ class SkillListRequest(BaseModel):
     item from the previous page.
     """
 
+    search: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Case-insensitive substring match on display name and description."""
+
+    project_id: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Restrict results to one project: its own skills plus the workspace-level skills shared with it."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["limit", "starting_after", "ending_before"])
+        optional_fields = set(
+            ["limit", "starting_after", "ending_before", "search", "project_id"]
+        )
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

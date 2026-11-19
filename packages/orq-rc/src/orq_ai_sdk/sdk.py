@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.apikeys import APIKeys
     from orq_ai_sdk.auditlogdestinations import AuditLogDestinations
+    from orq_ai_sdk.batches import Batches
     from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.datasets import Datasets
@@ -46,7 +47,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.monitors import Monitors
     from orq_ai_sdk.notifiers import Notifiers
     from orq_ai_sdk.pii import Pii
-    from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.projects import Projects
     from orq_ai_sdk.prompts import Prompts
     from orq_ai_sdk.reporting import Reporting
@@ -58,6 +58,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.skills import Skills
     from orq_ai_sdk.smartrouters import SmartRouters
     from orq_ai_sdk.telemetry_sdk import TelemetrySDK
+    from orq_ai_sdk.telemetrydestinations import TelemetryDestinations
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
     from orq_ai_sdk.users import Users
@@ -91,12 +92,12 @@ class Orq(BaseSDK):
     logs: "Logs"
     reporting: "Reporting"
     telemetry: "TelemetrySDK"
+    telemetry_destinations: "TelemetryDestinations"
     traces: "Traces"
     views: "Views"
     datasets: "Datasets"
     experiments: "Experiments"
     models: "Models"
-    policies: "Policies"
     alerts: "Alerts"
     annotation_queues: "AnnotationQueues"
     audit_log_destinations: "AuditLogDestinations"
@@ -125,6 +126,7 @@ class Orq(BaseSDK):
     workspace_settings: "WorkspaceSettingsSDK"
     responses: "Responses"
     schedules: "Schedules"
+    batches: "Batches"
     websearch: "Websearch"
     _sub_sdk_map = {
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
@@ -144,12 +146,15 @@ class Orq(BaseSDK):
         "logs": ("orq_ai_sdk.logs", "Logs"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
         "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
+        "telemetry_destinations": (
+            "orq_ai_sdk.telemetrydestinations",
+            "TelemetryDestinations",
+        ),
         "traces": ("orq_ai_sdk.traces", "Traces"),
         "views": ("orq_ai_sdk.views", "Views"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "experiments": ("orq_ai_sdk.experiments", "Experiments"),
         "models": ("orq_ai_sdk.models_", "Models"),
-        "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
         "audit_log_destinations": (
@@ -184,6 +189,7 @@ class Orq(BaseSDK):
         ),
         "responses": ("orq_ai_sdk.responses", "Responses"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
+        "batches": ("orq_ai_sdk.batches", "Batches"),
         "websearch": ("orq_ai_sdk.websearch", "Websearch"),
     }
 

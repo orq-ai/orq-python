@@ -16,13 +16,17 @@ from typing_extensions import NotRequired, TypedDict
 
 class ListExperimentRunsResponseTypedDict(TypedDict):
     data: NotRequired[List[RunTypedDict]]
+    r"""Page of runs, newest first."""
     has_more: NotRequired[bool]
+    r"""Whether more runs are available in the selected pagination direction."""
 
 
 class ListExperimentRunsResponse(BaseModel):
     data: Optional[List[Run]] = None
+    r"""Page of runs, newest first."""
 
     has_more: Optional[bool] = None
+    r"""Whether more runs are available in the selected pagination direction."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

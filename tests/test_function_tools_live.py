@@ -14,6 +14,7 @@ import pytest
 
 from orq_ai_sdk import Orq
 from orq_ai_sdk.function_tools import tool
+from orq_ai_sdk.models import OrqError
 
 pytestmark = pytest.mark.skipif(
     not os.environ.get("ORQ_API_KEY"),
@@ -80,9 +81,10 @@ def test_pre_fix_schema_still_400s_on_openai():
         "strict": True,
     }
 
-    with pytest.raises(Exception, match="400"):
+    with pytest.raises(OrqError) as exc_info:
         client.responses.create(
             model="openai/gpt-4o",
             input="What is the weather in Paris?",
             tools=[pre_fix_tool],
         )
+    assert exc_info.value.status_code == 400

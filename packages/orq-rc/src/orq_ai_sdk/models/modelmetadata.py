@@ -91,6 +91,7 @@ class ModelMetadataTypedDict(TypedDict):
     supported_video_resolutions: NotRequired[Nullable[List[str]]]
     supported_video_sizes: NotRequired[Nullable[List[str]]]
     supports_adaptive_reasoning: NotRequired[bool]
+    supports_agent_message_item_type: NotRequired[bool]
     supports_audio_input: NotRequired[bool]
     supports_audio_output: NotRequired[bool]
     supports_b64_json_response_format: NotRequired[bool]
@@ -293,6 +294,8 @@ class ModelMetadata(BaseModel):
     supported_video_sizes: OptionalNullable[List[str]] = UNSET
 
     supports_adaptive_reasoning: Optional[bool] = None
+
+    supports_agent_message_item_type: Optional[bool] = None
 
     supports_audio_input: Optional[bool] = None
 
@@ -499,6 +502,7 @@ class ModelMetadata(BaseModel):
                 "supported_video_resolutions",
                 "supported_video_sizes",
                 "supports_adaptive_reasoning",
+                "supports_agent_message_item_type",
                 "supports_audio_input",
                 "supports_audio_output",
                 "supports_b64_json_response_format",

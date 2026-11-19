@@ -16,37 +16,58 @@ from typing_extensions import NotRequired, TypedDict
 
 class QueryRunRequestTypedDict(TypedDict):
     rows: NotRequired[List[str]]
+    r"""Row IDs to return. Unknown IDs are ignored. Omit for every row."""
     columns: NotRequired[List[str]]
-    repeat_index: NotRequired[int]
+    r"""Columns to return, matched against column ID, key and display name. Every
+    matching column is used, and an entry that matches nothing is rejected.
+    Omit for every column.
+    """
     limit: NotRequired[int]
+    r"""Page size, 1 to 1000. Defaults to 25."""
     starting_after: NotRequired[str]
+    r"""Cursor for forward pagination. Set to the `row_id` of the last row from
+    the previous page.
+    """
     updated_after: NotRequired[datetime]
-    r"""Incremental refresh: returns running rows plus completed or failed rows
-    updated after this instant.
+    r"""Incremental refresh: return only rows updated after this instant. Pass the
+    previous response's `server_timestamp`. With `partial_rows`, running rows
+    are returned as well.
     """
     partial_rows: NotRequired[bool]
+    r"""Return only running, completed and failed rows."""
     exclude_static_cells: NotRequired[bool]
+    r"""Leave out data cells: inputs, messages, expected output and job output."""
 
 
 class QueryRunRequest(BaseModel):
     rows: Optional[List[str]] = None
+    r"""Row IDs to return. Unknown IDs are ignored. Omit for every row."""
 
     columns: Optional[List[str]] = None
-
-    repeat_index: Optional[int] = None
+    r"""Columns to return, matched against column ID, key and display name. Every
+    matching column is used, and an entry that matches nothing is rejected.
+    Omit for every column.
+    """
 
     limit: Optional[int] = None
+    r"""Page size, 1 to 1000. Defaults to 25."""
 
     starting_after: Optional[str] = None
+    r"""Cursor for forward pagination. Set to the `row_id` of the last row from
+    the previous page.
+    """
 
     updated_after: Optional[datetime] = None
-    r"""Incremental refresh: returns running rows plus completed or failed rows
-    updated after this instant.
+    r"""Incremental refresh: return only rows updated after this instant. Pass the
+    previous response's `server_timestamp`. With `partial_rows`, running rows
+    are returned as well.
     """
 
     partial_rows: Optional[bool] = None
+    r"""Return only running, completed and failed rows."""
 
     exclude_static_cells: Optional[bool] = None
+    r"""Leave out data cells: inputs, messages, expected output and job output."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -57,7 +78,6 @@ class QueryRunRequest(BaseModel):
             [
                 "rows",
                 "columns",
-                "repeat_index",
                 "limit",
                 "starting_after",
                 "updated_after",

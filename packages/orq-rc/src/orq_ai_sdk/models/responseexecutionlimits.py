@@ -15,22 +15,32 @@ from typing_extensions import NotRequired, TypedDict
 
 class ResponseExecutionLimitsTypedDict(TypedDict):
     max_cost: NotRequired[float]
+    r"""Total cost in USD. Unset means uncapped; 0 disables a cap set on the agent manifest. Reaching it ends the run with status incomplete and incomplete_details.reason max_cost."""
     max_depth: NotRequired[int]
+    r"""Sub-agent nesting levels, 0 to 10. Defaults to the manifest's max_agent_depth, itself 3 when unset. Exceeding it fails the call_sub_agent call with \"maximum agent depth exceeded\"; the run continues."""
     max_execution_time: NotRequired[int]
+    r"""Elapsed seconds for the agent loop, excluding tool execution. Defaults to 720 when neither the request nor the agent manifest sets it; reaching it ends the run with status incomplete and incomplete_details.reason max_time."""
     max_iterations: NotRequired[int]
+    r"""LLM calls in the agent loop, 1 to 100. Defaults to 10 when neither the request nor the agent manifest sets it; reaching it ends the run with status incomplete and incomplete_details.reason max_iterations."""
     tool_timeout: NotRequired[int]
+    r"""Seconds for one tool execution. Defaults to 300. On timeout the call fails with {\"error\":\"timeout\"}; the run continues."""
 
 
 class ResponseExecutionLimits(BaseModel):
     max_cost: Optional[float] = None
+    r"""Total cost in USD. Unset means uncapped; 0 disables a cap set on the agent manifest. Reaching it ends the run with status incomplete and incomplete_details.reason max_cost."""
 
     max_depth: Optional[int] = None
+    r"""Sub-agent nesting levels, 0 to 10. Defaults to the manifest's max_agent_depth, itself 3 when unset. Exceeding it fails the call_sub_agent call with \"maximum agent depth exceeded\"; the run continues."""
 
     max_execution_time: Optional[int] = None
+    r"""Elapsed seconds for the agent loop, excluding tool execution. Defaults to 720 when neither the request nor the agent manifest sets it; reaching it ends the run with status incomplete and incomplete_details.reason max_time."""
 
     max_iterations: Optional[int] = None
+    r"""LLM calls in the agent loop, 1 to 100. Defaults to 10 when neither the request nor the agent manifest sets it; reaching it ends the run with status incomplete and incomplete_details.reason max_iterations."""
 
     tool_timeout: Optional[int] = None
+    r"""Seconds for one tool execution. Defaults to 300. On timeout the call fails with {\"error\":\"timeout\"}; the run continues."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

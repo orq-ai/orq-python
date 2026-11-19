@@ -1,0 +1,19 @@
+name: shared custom code
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  symlinks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Hand-written modules live once in src/; the prerelease package symlinks them.
+      # Fails if a regeneration or a copy replaced a link with a real directory.
+      - run: |
+          for d in traced openai_agents_instrumentation langchain; do
+            test "$(readlink packages/orq-rc/src/orq_ai_sdk/$d)" = "../../../../src/orq_ai_sdk/$d" || { echo "::error::packages/orq-rc/src/orq_ai_sdk/$d must be a symlink to src/orq_ai_sdk/$d"; exit 1; }
+          done

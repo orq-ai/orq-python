@@ -149,7 +149,9 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ModelCreateResponseBody, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -297,7 +299,9 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ModelCreateResponseBody, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -309,7 +313,7 @@ class Models(BaseSDK):
     def create_aws_bedrock(
         self,
         *,
-        auth_mode: str,
+        auth_mode: models.AuthMode,
         display_name: str,
         model_developer: str,
         model_id: str,
@@ -353,11 +357,11 @@ class Models(BaseSDK):
 
         Registers an AWS Bedrock inference profile as a custom model for the workspace. Credentials are resolved at request time via either the integration reference or pod-identity — nothing is stored with the model.
 
-        :param auth_mode:
+        :param auth_mode: Where the AWS credentials come from. integration reads static AWS access keys from the integration named by integration_id, which is required with it. pod-identity resolves credentials from the AWS default credential chain of the deployment, such as EKS Pod Identity, IAM Roles for Service Accounts or the instance metadata service, and ignores integration_id; set assume_role_arn to assume a role in another account and assume_role_external_id to pass the external ID that role's trust policy requires.
         :param display_name:
-        :param model_developer:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
-        :param region:
+        :param model_developer: Developer of the model behind the inference profile, such as anthropic or amazon.
+        :param model_id: Bedrock inference profile ARN to invoke, for example arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0. When configuration.model_id is supplied, this field is instead the immutable workspace-unique slug and the ARN comes from configuration.model_id.
+        :param region: AWS region that serves the inference profile, such as us-east-1.
         :param assume_role_arn:
         :param assume_role_external_id:
         :param autorouter_id: Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools.
@@ -482,7 +486,12 @@ class Models(BaseSDK):
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "integration",\n  integrationId: "int_...",\n});',
-                        }
+                        },
+                        {
+                            "label": "Node.js: Pod identity",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "pod-identity",\n  assumeRoleArn: "arn:aws:iam::123456789012:role/bedrock-access-role",\n});',
+                        },
                     ],
                 },
             ),
@@ -495,7 +504,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateAwsBedrockResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -507,7 +518,7 @@ class Models(BaseSDK):
     async def create_aws_bedrock_async(
         self,
         *,
-        auth_mode: str,
+        auth_mode: models.AuthMode,
         display_name: str,
         model_developer: str,
         model_id: str,
@@ -551,11 +562,11 @@ class Models(BaseSDK):
 
         Registers an AWS Bedrock inference profile as a custom model for the workspace. Credentials are resolved at request time via either the integration reference or pod-identity — nothing is stored with the model.
 
-        :param auth_mode:
+        :param auth_mode: Where the AWS credentials come from. integration reads static AWS access keys from the integration named by integration_id, which is required with it. pod-identity resolves credentials from the AWS default credential chain of the deployment, such as EKS Pod Identity, IAM Roles for Service Accounts or the instance metadata service, and ignores integration_id; set assume_role_arn to assume a role in another account and assume_role_external_id to pass the external ID that role's trust policy requires.
         :param display_name:
-        :param model_developer:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
-        :param region:
+        :param model_developer: Developer of the model behind the inference profile, such as anthropic or amazon.
+        :param model_id: Bedrock inference profile ARN to invoke, for example arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0. When configuration.model_id is supplied, this field is instead the immutable workspace-unique slug and the ARN comes from configuration.model_id.
+        :param region: AWS region that serves the inference profile, such as us-east-1.
         :param assume_role_arn:
         :param assume_role_external_id:
         :param autorouter_id: Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools.
@@ -680,7 +691,12 @@ class Models(BaseSDK):
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "integration",\n  integrationId: "int_...",\n});',
-                        }
+                        },
+                        {
+                            "label": "Node.js: Pod identity",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "pod-identity",\n  assumeRoleArn: "arn:aws:iam::123456789012:role/bedrock-access-role",\n});',
+                        },
                     ],
                 },
             ),
@@ -693,7 +709,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateAwsBedrockResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1352,7 +1370,7 @@ class Models(BaseSDK):
     ) -> models.ModelAzureFoundryDeploymentsResponseBody:
         r"""List Azure Foundry deployments under a resource
 
-        Lists Azure Foundry deployments under the given base_url and merges each entry with the matching Orq model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
+        Lists Azure Foundry deployments under the given base_url and merges each entry with the matching model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
 
         :param api_key:
         :param base_url:
@@ -1469,7 +1487,7 @@ class Models(BaseSDK):
     ) -> models.ModelAzureFoundryDeploymentsResponseBody:
         r"""List Azure Foundry deployments under a resource
 
-        Lists Azure Foundry deployments under the given base_url and merges each entry with the matching Orq model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
+        Lists Azure Foundry deployments under the given base_url and merges each entry with the matching model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
 
         :param api_key:
         :param base_url:
@@ -2000,7 +2018,7 @@ class Models(BaseSDK):
     ) -> models.ModelCreateOpenAILikeResponseBody:
         r"""Create OpenAI-compatible custom model
 
-        Creates a custom model backed by any OpenAI-compatible endpoint. Orq.ai calls the target API with the supplied credentials before saving the model.
+        Creates a custom model backed by any OpenAI-compatible endpoint. The platform calls the target API with the supplied credentials before saving the model.
 
         :param api_key:
         :param base_url:
@@ -2126,7 +2144,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateOpenAILikeResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2171,7 +2191,7 @@ class Models(BaseSDK):
     ) -> models.ModelCreateOpenAILikeResponseBody:
         r"""Create OpenAI-compatible custom model
 
-        Creates a custom model backed by any OpenAI-compatible endpoint. Orq.ai calls the target API with the supplied credentials before saving the model.
+        Creates a custom model backed by any OpenAI-compatible endpoint. The platform calls the target API with the supplied credentials before saving the model.
 
         :param api_key:
         :param base_url:
@@ -2297,7 +2317,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateOpenAILikeResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2342,7 +2364,7 @@ class Models(BaseSDK):
     ) -> models.ModelUpdateOpenAILikeResponseBody:
         r"""Update OpenAI-compatible custom model
 
-        Updates an OpenAI-compatible custom model. Live-re-probes the target API when base_url or model_id changes, using the stored encrypted api_key. Metadata is merged (existing preserved, new overrides).
+        Updates an OpenAI-compatible custom model. `display_name`, `region` and `model_type` are required on every update. Live-re-probes the target API when `base_url` or `configuration.model_id` changes, using the stored encrypted api_key. The body carries no `metadata` field: metadata keys already stored on the model are preserved.
 
         :param id: The ID of the model
         :param display_name:
@@ -2519,7 +2541,7 @@ class Models(BaseSDK):
     ) -> models.ModelUpdateOpenAILikeResponseBody:
         r"""Update OpenAI-compatible custom model
 
-        Updates an OpenAI-compatible custom model. Live-re-probes the target API when base_url or model_id changes, using the stored encrypted api_key. Metadata is merged (existing preserved, new overrides).
+        Updates an OpenAI-compatible custom model. `display_name`, `region` and `model_type` are required on every update. Live-re-probes the target API when `base_url` or `configuration.model_id` changes, using the stored encrypted api_key. The body carries no `metadata` field: metadata keys already stored on the model are preserved.
 
         :param id: The ID of the model
         :param display_name:
@@ -3008,7 +3030,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateVertexResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -3125,7 +3149,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateVertexResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
