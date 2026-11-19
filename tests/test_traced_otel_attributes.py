@@ -1,5 +1,7 @@
 """Attributes @traced writes on its OpenTelemetry span when a global SDK provider is set."""
 
+import dataclasses
+import datetime
 import enum
 import json
 from unittest.mock import MagicMock
@@ -171,6 +173,9 @@ class Node:
         self.name = name
         self.parent = None
 
+    def __repr__(self):
+        return f"<Node {self.name}>"
+
 
 def _cyclic():
     d = {"a": 1}
@@ -197,7 +202,7 @@ def _only_finished_span(memory):
         ({"output": {(1, 2): "v"}}, "output", {"(1, 2)": "v"}),
         ({"metadata": {"env": Env.PROD}}, "metadata.env", "prod"),
         ({"metadata": _cyclic()}, "metadata.self", "[Circular]"),
-        ({"metadata": {"node": _linked()}}, "metadata.node.parent.parent", "[Circular]"),
+        ({"metadata": {"node": _linked()}}, "metadata.node", "<Node n>"),
     ],
 )
 @pytest.mark.parametrize("raises", [False, True])
@@ -472,3 +477,58 @@ def test_http_path_sends_the_same_attributes_as_otel(exporter, monkeypatch):
     assert http["generate"]["gen_ai.usage.prompt_tokens_details.cached_tokens"] == 64
     assert "metrics.prompt_tokens" not in http["generate"]
     assert http["fails"]["error.type"] == "ValueError"
+
+
+class _Client:
+    def __init__(self):
+        self.api_key = "sk-secret"
+
+    def __repr__(self):
+        return "<Client>"
+
+
+@dataclasses.dataclass
+class _Point:
+    x: int
+    y: int
+
+
+@pytest.mark.parametrize(
+    "value, expected",
+    [
+        (_Client(), "<Client>"),
+        (ValueError("boom"), "boom"),
+        (_Point(1, 2), {"x": 1, "y": 2}),
+        (datetime.date(2026, 1, 2), "2026-01-02"),
+        ({"when": datetime.date(2026, 1, 2)}, {"when": "2026-01-02"}),
+    ],
+)
+def test_objects_are_encoded_without_dumping_their_fields(value, expected):
+    assert to_json_safe(value) == expected
+
+
+def test_client_argument_does_not_leak_its_fields(exporter):
+    @traced(type="function")
+    def call(client):
+        return "ok"
+
+    call(_Client())
+    attrs = _only_span(exporter)
+
+    assert "sk-secret" not in attrs["input"]
+    assert json.loads(attrs["input"]) == {"client": "<Client>"}
+
+
+def test_whole_number_float_token_count_is_renamed(exporter):
+    @traced(type="llm")
+    def generate():
+        current_span().log(metrics={"prompt_tokens": 76.0, "prompt_tokens_details": {"cached_tokens": 64.0}})
+        return "ok"
+
+    generate()
+    attrs = _only_span(exporter)
+
+    assert attrs["gen_ai.usage.input_tokens"] == 76
+    assert isinstance(attrs["gen_ai.usage.input_tokens"], int)
+    assert attrs["gen_ai.usage.prompt_tokens_details.cached_tokens"] == 64
+    assert "metrics.prompt_tokens" not in attrs

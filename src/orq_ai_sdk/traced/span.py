@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Optional, Union, TypedDict
 from dataclasses import dataclass, field
 
 from .semconv import to_genai
-from .utils import flatten_attribute, serialize_value, to_attribute_text, validate_span_type, get_current_time_iso
+from .utils import flatten_attribute, to_json_safe, to_attribute_text, validate_span_type, get_current_time_iso
 
 
 class CompletionTokensDetails(TypedDict, total=False):
@@ -165,7 +165,7 @@ class Span:
                 {
                     "name": event.name,
                     "timestamp": event.timestamp,
-                    "attributes": serialize_value(event.attributes)
+                    "attributes": to_json_safe(event.attributes)
                 }
                 for event in self.events
             ]
@@ -185,9 +185,9 @@ class Span:
             span_dict["context"]["user_id"] = self.user_id
         
         if self.input is not None:
-            span_dict["input"] = serialize_value(self.input)
+            span_dict["input"] = to_json_safe(self.input)
         
         if self.output is not None:
-            span_dict["output"] = serialize_value(self.output)
+            span_dict["output"] = to_json_safe(self.output)
         
         return span_dict

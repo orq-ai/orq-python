@@ -4,21 +4,20 @@
 import enum
 import json
 import math
+import numbers
 import time
 import random
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional, Set, Union
+
+from pydantic_core import to_jsonable_python
+
 from .constants import VALID_SPAN_TYPES
 
 
 def get_current_time_iso() -> str:
     """Get current time in ISO 8601 format."""
     return datetime.now(timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
-
-
-def serialize_value(value: Any) -> Any:
-    """Serialize a value for JSON encoding. Never raises; see to_json_safe."""
-    return to_json_safe(value)
 
 
 MAX_ENCODE_DEPTH = 32
@@ -42,7 +41,9 @@ def to_json_safe(value: Any, _stack: Optional[Set[int]] = None, _depth: int = 0)
     """Convert any value into a tree of plain JSON types. Never raises.
 
     NaN/Infinity and ints outside int64 become strings: JSON has no NaN, and
-    OTel attributes are int64.
+    OTel attributes are int64. Other objects go through pydantic (dataclasses,
+    models, dates, bytes) and otherwise become ``str()``; their fields are
+    never dumped, so a client's ``api_key`` cannot leak into a span.
     """
     if value is None or isinstance(value, bool):
         return value
@@ -70,9 +71,11 @@ def to_json_safe(value: Any, _stack: Optional[Set[int]] = None, _depth: int = 0)
             }
         if isinstance(value, (list, tuple, set, frozenset)):
             return [to_json_safe(v, stack, _depth + 1) for v in value]
-        if hasattr(value, "__dict__"):
-            return to_json_safe(dict(vars(value)), stack, _depth)
-        return _safe_str(value)
+        if isinstance(value, numbers.Integral):  # numpy ints and friends
+            return to_json_safe(int(value))
+        if isinstance(value, numbers.Real):
+            return to_json_safe(float(value))
+        return to_json_safe(to_jsonable_python(value, fallback=_safe_str), stack, _depth + 1)
     except Exception:  # pylint: disable=broad-except
         return _safe_str(value)
     finally:

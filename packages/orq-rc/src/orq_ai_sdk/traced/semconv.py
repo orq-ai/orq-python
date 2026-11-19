@@ -7,52 +7,51 @@ Orq bills them from ``gen_ai.usage.*_tokens_details.*``, so they are written
 under that key as well as the semconv one.
 """
 
-from typing import Any, Dict, Mapping
+from typing import Any, Dict, Mapping, NamedTuple, Optional, Tuple
 
 from .constants import SPAN_TYPE_OPERATIONS
 
-# span.log() key -> semconv key. The span.log() key is replaced.
-RENAMES = {
-    "request.provider": "gen_ai.provider.name",
-    "request.model": "gen_ai.request.model",
-    "request.temperature": "gen_ai.request.temperature",
-    "request.top_p": "gen_ai.request.top_p",
-    "request.max_tokens": "gen_ai.request.max_tokens",
-    "request.frequency_penalty": "gen_ai.request.frequency_penalty",
-    "request.presence_penalty": "gen_ai.request.presence_penalty",
-    "request.seed": "gen_ai.request.seed",
-    "metrics.prompt_tokens": "gen_ai.usage.input_tokens",
-    "metrics.completion_tokens": "gen_ai.usage.output_tokens",
-    "metrics.prompt_tokens_details.cached_tokens": "gen_ai.usage.cache_read.input_tokens",
-    "metrics.completion_tokens_details.reasoning_tokens": "gen_ai.usage.reasoning.output_tokens",
-}
 
-# Semconv key -> the key Orq billing reads. Both are written.
-ORQ_BILLING_KEYS = {
-    "gen_ai.usage.cache_read.input_tokens": "gen_ai.usage.prompt_tokens_details.cached_tokens",
-    "gen_ai.usage.reasoning.output_tokens": "gen_ai.usage.completion_tokens_details.reasoning_tokens",
-}
+class Rule(NamedTuple):
+    semconv_key: str
+    kind: type  # int, float (any real number) or str
+    billing_key: Optional[str] = None  # remove once ENG-3594 ships
 
-# Semconv attribute types. A value of another type keeps its span.log() key.
-_NUMBER = (int, float)
-_SEMCONV_TYPES = {
-    "gen_ai.provider.name": (str,),
-    "gen_ai.request.model": (str,),
-    "gen_ai.request.temperature": _NUMBER,
-    "gen_ai.request.top_p": _NUMBER,
-    "gen_ai.request.max_tokens": (int,),
-    "gen_ai.request.frequency_penalty": _NUMBER,
-    "gen_ai.request.presence_penalty": _NUMBER,
-    "gen_ai.request.seed": (int,),
-    "gen_ai.usage.input_tokens": (int,),
-    "gen_ai.usage.output_tokens": (int,),
-    "gen_ai.usage.cache_read.input_tokens": (int,),
-    "gen_ai.usage.reasoning.output_tokens": (int,),
+
+# span.log() key -> how it is exported.
+RULES: Dict[str, Rule] = {
+    "request.provider": Rule("gen_ai.provider.name", str),
+    "request.model": Rule("gen_ai.request.model", str),
+    "request.temperature": Rule("gen_ai.request.temperature", float),
+    "request.top_p": Rule("gen_ai.request.top_p", float),
+    "request.max_tokens": Rule("gen_ai.request.max_tokens", int),
+    "request.frequency_penalty": Rule("gen_ai.request.frequency_penalty", float),
+    "request.presence_penalty": Rule("gen_ai.request.presence_penalty", float),
+    "request.seed": Rule("gen_ai.request.seed", int),
+    "metrics.prompt_tokens": Rule("gen_ai.usage.input_tokens", int),
+    "metrics.completion_tokens": Rule("gen_ai.usage.output_tokens", int),
+    "metrics.prompt_tokens_details.cached_tokens": Rule(
+        "gen_ai.usage.cache_read.input_tokens", int, "gen_ai.usage.prompt_tokens_details.cached_tokens"
+    ),
+    "metrics.completion_tokens_details.reasoning_tokens": Rule(
+        "gen_ai.usage.reasoning.output_tokens", int, "gen_ai.usage.completion_tokens_details.reasoning_tokens"
+    ),
 }
 
 
-def _renamable(semconv_key: str, value: Any) -> bool:
-    return isinstance(value, _SEMCONV_TYPES[semconv_key]) and not isinstance(value, bool)
+def _coerce(value: Any, kind: type) -> Tuple[bool, Any]:
+    """(fits, value as ``kind``). ``76.0`` fits int; bools and strings never fit a number."""
+    if isinstance(value, bool):
+        return False, value
+    if kind is str:
+        return isinstance(value, str), value
+    if isinstance(value, int):
+        return True, value
+    if isinstance(value, float) and kind is float:
+        return True, value
+    if isinstance(value, float) and value.is_integer():
+        return True, int(value)
+    return False, value
 
 
 def to_genai(attributes: Mapping[str, Any], span_type: str, span_name: str) -> Dict[str, Any]:
@@ -62,17 +61,20 @@ def to_genai(attributes: Mapping[str, Any], span_type: str, span_name: str) -> D
     """
     out: Dict[str, Any] = {}
     for key, value in attributes.items():
-        semconv_key = RENAMES.get(key)
-        if semconv_key and semconv_key not in attributes and _renamable(semconv_key, value):
-            out[semconv_key] = value
+        rule = RULES.get(key)
+        fits, coerced = _coerce(value, rule.kind) if rule else (False, value)
+        if rule and fits and rule.semconv_key not in attributes:
+            out[rule.semconv_key] = coerced
         else:
             out[key] = value
 
-    for semconv_key, billing_key in ORQ_BILLING_KEYS.items():
-        if semconv_key in out and billing_key not in out:
-            out[billing_key] = out[semconv_key]
-        elif billing_key in out and semconv_key not in out:
-            out[semconv_key] = out[billing_key]
+    for rule in RULES.values():
+        if rule.billing_key is None:
+            continue
+        if rule.semconv_key in out:
+            out.setdefault(rule.billing_key, out[rule.semconv_key])
+        elif rule.billing_key in out:
+            out[rule.semconv_key] = out[rule.billing_key]
 
     operation = SPAN_TYPE_OPERATIONS.get(span_type)
     if operation:

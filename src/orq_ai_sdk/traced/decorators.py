@@ -9,7 +9,7 @@ from .client import get_client, OrqClient
 from .config import get_config, Config
 from .span import Span
 from .context import create_span_context, SpanContext, SpanContextManager
-from .utils import serialize_value, to_attribute_text, validate_span_type
+from .utils import to_json_safe, to_attribute_text, validate_span_type
 from .otel_integration import is_otel_available
 from .semconv import error_type
 from .http_propagation import install_http_propagation
@@ -69,7 +69,7 @@ def _setup_tracing(
             input_data = {}
             for param_name, param_value in bound_args.arguments.items():
                 if param_name not in ('self', 'cls'):
-                    input_data[param_name] = serialize_value(param_value)
+                    input_data[param_name] = to_json_safe(param_value)
 
             span.set_input(input_data)
         except Exception as e:
@@ -103,7 +103,7 @@ def _finalize_span_success(span: Span, result: Any, capture_output: bool, otel_s
     """Handle successful span completion: capture output and update OTel span."""
     if capture_output:
         try:
-            span.set_output(serialize_value(result))
+            span.set_output(to_json_safe(result))
         except Exception as e:
             if config.debug:
                 print(f"Failed to capture output: {e}")
