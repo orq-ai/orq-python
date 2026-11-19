@@ -14,6 +14,7 @@ from opentelemetry.util._once import Once
 from orq_ai_sdk.traced.config import Config, set_config
 from orq_ai_sdk.traced.context import current_span
 from orq_ai_sdk.traced.decorators import traced
+from orq_ai_sdk.traced.span import Span
 from orq_ai_sdk.traced.utils import to_json_safe
 
 
@@ -360,3 +361,57 @@ def test_error_span_sets_error_type(exporter, error, expected):
 
     assert attrs["error.type"] == expected
     assert attrs["error.message"] == str(error)
+
+
+def test_cyclic_argument_and_return_value_are_captured(exporter):
+    @traced(type="function")
+    def echo(payload):
+        return payload
+
+    echo(_cyclic())
+    attrs = _only_span(exporter)
+
+    assert json.loads(attrs["input"]) == {"payload": {"a": 1, "self": "[Circular]"}}
+    assert json.loads(attrs["output"]) == {"a": 1, "self": "[Circular]"}
+
+
+def test_non_otel_span_dict_never_raises():
+    set_config(Config(api_key="test-key", enabled=True))
+    try:
+        span = Span(trace_id="0" * 31 + "1", span_id="0" * 15 + "1", name="no-otel")
+        span.set_attribute("loop", _cyclic())
+        span.set_input(_cyclic())
+        payload = span.to_dict()
+    finally:
+        set_config(Config(enabled=False))
+
+    assert payload["attributes"]["loop"] == {"a": 1, "self": "[Circular]"}
+    json.dumps(payload["input"], allow_nan=False)
+
+
+def test_non_finite_floats_and_big_ints_stay_valid(exporter):
+    @traced(type="function")
+    def stats():
+        current_span().log(metrics={"score": float("nan"), "count": 2 ** 70})
+        return {"ratio": float("inf")}
+
+    stats()
+    attrs = _only_span(exporter)
+
+    assert json.loads(attrs["output"]) == {"ratio": "inf"}
+    assert attrs["metrics.score"] == "nan"
+    assert attrs["metrics.count"] == str(2 ** 70)
+
+
+def test_wrongly_typed_usage_keeps_its_span_log_key(exporter):
+    @traced(type="llm")
+    def generate():
+        current_span().log(metrics={"prompt_tokens": "76", "completion_tokens": 425})
+        return "ok"
+
+    generate()
+    attrs = _only_span(exporter)
+
+    assert attrs["metrics.prompt_tokens"] == "76"
+    assert "gen_ai.usage.input_tokens" not in attrs
+    assert attrs["gen_ai.usage.output_tokens"] == 425

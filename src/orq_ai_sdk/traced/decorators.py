@@ -133,13 +133,12 @@ def _finalize_span_success(span: Span, result: Any, capture_output: bool, otel_s
         _write_otel_attributes(otel_span, span, config)
 
 
-def _finalize_span_error(span: Span, error: Exception, otel_span: Any) -> None:
+def _finalize_span_error(span: Span, error: Exception, otel_span: Any, config: Config) -> None:
     """Handle failed span: record error attributes and update OTel span."""
     span.set_attribute("status", "error")
     span.set_attribute("error.message", str(error))
 
     if otel_span:
-        config = get_config()
         try:
             from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel,import-error
 
@@ -245,7 +244,7 @@ def traced(
                 with SpanContextManager(span_context, span):
                     result = func(*args, **kwargs)
             except Exception as e:
-                _finalize_span_error(span, e, otel_span)
+                _finalize_span_error(span, e, otel_span, config)
                 raise
             else:
                 _finalize_span_success(span, result, capture_output, otel_span, config)
@@ -268,7 +267,7 @@ def traced(
                 async with SpanContextManager(span_context, span):
                     result = await func(*args, **kwargs)
             except Exception as e:
-                _finalize_span_error(span, e, otel_span)
+                _finalize_span_error(span, e, otel_span, config)
                 raise
             else:
                 _finalize_span_success(span, result, capture_output, otel_span, config)

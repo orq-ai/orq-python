@@ -3,6 +3,7 @@
 
 import enum
 import json
+import math
 import time
 import random
 from datetime import datetime, timezone
@@ -16,20 +17,12 @@ def get_current_time_iso() -> str:
 
 
 def serialize_value(value: Any) -> Any:
-    """Serialize a value for JSON encoding."""
-    if hasattr(value, "__dict__"):
-        return {k: serialize_value(v) for k, v in value.__dict__.items()}
-    elif isinstance(value, (list, tuple)):
-        return [serialize_value(v) for v in value]
-    elif isinstance(value, dict):
-        return {k: serialize_value(v) for k, v in value.items()}
-    elif isinstance(value, (str, int, float, bool, type(None))):
-        return value
-    else:
-        return str(value)
+    """Serialize a value for JSON encoding. Never raises; see to_json_safe."""
+    return to_json_safe(value)
 
 
 MAX_ENCODE_DEPTH = 32
+_INT64_MIN, _INT64_MAX = -(2 ** 63), 2 ** 63 - 1
 
 
 def _safe_str(value: Any) -> str:
@@ -48,10 +41,8 @@ def _json_key(key: Any) -> str:
 def to_json_safe(value: Any, _stack: Optional[Set[int]] = None, _depth: int = 0) -> Any:
     """Convert any value into a tree of plain JSON types. Never raises.
 
-    Enums become their value, str/int/float subclasses become the plain type,
-    dict keys become strings, cycles become ``"[Circular]"``, nesting deeper than
-    MAX_ENCODE_DEPTH becomes ``"[MaxDepth]"``, objects with ``__dict__`` become
-    dicts, and anything else becomes ``str(value)``.
+    NaN/Infinity and ints outside int64 become strings: JSON has no NaN, and
+    OTel attributes are int64.
     """
     if value is None or isinstance(value, bool):
         return value
@@ -60,9 +51,11 @@ def to_json_safe(value: Any, _stack: Optional[Set[int]] = None, _depth: int = 0)
     if isinstance(value, str):
         return str.__str__(value)
     if isinstance(value, int):
-        return int.__int__(value)
+        number = int.__int__(value)
+        return number if _INT64_MIN <= number <= _INT64_MAX else str(number)
     if isinstance(value, float):
-        return float.__float__(value)
+        real = float.__float__(value)
+        return real if math.isfinite(real) else str(real)
     if _depth >= MAX_ENCODE_DEPTH:
         return "[MaxDepth]"
     stack = _stack if _stack is not None else set()

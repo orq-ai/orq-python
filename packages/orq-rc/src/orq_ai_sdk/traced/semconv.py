@@ -9,14 +9,7 @@ under that key as well as the semconv one.
 
 from typing import Any, Dict, Mapping
 
-# span.type -> gen_ai.operation.name. "function" has no GenAI operation.
-OPERATION_NAMES = {
-    "agent": "invoke_agent",
-    "embedding": "embeddings",
-    "llm": "chat",
-    "retrieval": "retrieval",
-    "tool": "execute_tool",
-}
+from .constants import SPAN_TYPE_OPERATIONS
 
 # span.log() key -> semconv key. The span.log() key is replaced.
 RENAMES = {
@@ -40,12 +33,26 @@ ORQ_BILLING_KEYS = {
     "gen_ai.usage.reasoning.output_tokens": "gen_ai.usage.completion_tokens_details.reasoning_tokens",
 }
 
-# Semconv types these as int; a string seed keeps its span.log() key.
-_INT_ONLY = {"gen_ai.request.seed"}
+# Semconv attribute types. A value of another type keeps its span.log() key.
+_NUMBER = (int, float)
+_SEMCONV_TYPES = {
+    "gen_ai.provider.name": (str,),
+    "gen_ai.request.model": (str,),
+    "gen_ai.request.temperature": _NUMBER,
+    "gen_ai.request.top_p": _NUMBER,
+    "gen_ai.request.max_tokens": (int,),
+    "gen_ai.request.frequency_penalty": _NUMBER,
+    "gen_ai.request.presence_penalty": _NUMBER,
+    "gen_ai.request.seed": (int,),
+    "gen_ai.usage.input_tokens": (int,),
+    "gen_ai.usage.output_tokens": (int,),
+    "gen_ai.usage.cache_read.input_tokens": (int,),
+    "gen_ai.usage.reasoning.output_tokens": (int,),
+}
 
 
 def _renamable(semconv_key: str, value: Any) -> bool:
-    return semconv_key not in _INT_ONLY or (isinstance(value, int) and not isinstance(value, bool))
+    return isinstance(value, _SEMCONV_TYPES[semconv_key]) and not isinstance(value, bool)
 
 
 def to_genai(attributes: Mapping[str, Any], span_type: str, span_name: str) -> Dict[str, Any]:
@@ -67,7 +74,7 @@ def to_genai(attributes: Mapping[str, Any], span_type: str, span_name: str) -> D
         elif billing_key in out and semconv_key not in out:
             out[semconv_key] = out[billing_key]
 
-    operation = OPERATION_NAMES.get(span_type)
+    operation = SPAN_TYPE_OPERATIONS.get(span_type)
     if operation:
         out.setdefault("gen_ai.operation.name", operation)
     if span_type == "agent":
