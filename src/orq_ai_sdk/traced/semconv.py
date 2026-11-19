@@ -15,7 +15,7 @@ from .constants import SPAN_TYPE_OPERATIONS
 class Rule(NamedTuple):
     semconv_key: str
     kind: type  # int, float (any real number) or str
-    billing_key: Optional[str] = None  # remove once ENG-3594 ships
+    billing_key: Optional[str] = None  # remove once BOPS-1505 ships
 
 
 # span.log() key -> how it is exported.
