@@ -9,8 +9,9 @@ from .client import get_client, OrqClient
 from .config import get_config, Config
 from .span import Span
 from .context import create_span_context, SpanContext, SpanContextManager
-from .utils import serialize_value, validate_span_type
+from .utils import to_json_safe, to_attribute_text, validate_span_type
 from .otel_integration import is_otel_available
+from .semconv import error_type
 from .http_propagation import install_http_propagation
 
 
@@ -68,7 +69,7 @@ def _setup_tracing(
             input_data = {}
             for param_name, param_value in bound_args.arguments.items():
                 if param_name not in ('self', 'cls'):
-                    input_data[param_name] = serialize_value(param_value)
+                    input_data[param_name] = to_json_safe(param_value)
 
             span.set_input(input_data)
         except Exception as e:
@@ -79,11 +80,30 @@ def _setup_tracing(
     return config, span, span_context, otel_span, otel_context_token, client
 
 
+def _apply_otel_attributes(otel_span: Any, span: Span) -> None:
+    """Write the span's exported attributes and its JSON input/output."""
+    for key, value in span.export_attributes().items():
+        otel_span.set_attribute(key, value)
+    if span.input is not None:
+        otel_span.set_attribute("input", to_attribute_text(span.input))
+    if span.output is not None:
+        otel_span.set_attribute("output", to_attribute_text(span.output))
+
+
+def _write_otel_attributes(otel_span: Any, span: Span, config: Config) -> None:
+    """Apply attributes without letting a failure affect the span's status."""
+    try:
+        _apply_otel_attributes(otel_span, span)
+    except Exception as e:  # pylint: disable=broad-except
+        if config.debug:
+            print(f"Failed to write OTel span attributes: {e}")
+
+
 def _finalize_span_success(span: Span, result: Any, capture_output: bool, otel_span: Any, config: Config) -> None:
     """Handle successful span completion: capture output and update OTel span."""
     if capture_output:
         try:
-            span.set_output(serialize_value(result))
+            span.set_output(to_json_safe(result))
         except Exception as e:
             if config.debug:
                 print(f"Failed to capture output: {e}")
@@ -94,36 +114,29 @@ def _finalize_span_success(span: Span, result: Any, capture_output: bool, otel_s
         try:
             from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel,import-error
 
-            for key, value in span.attributes.items():
-                otel_span.set_attribute(key, str(value))
-            otel_span.set_attribute("type", span.type)
-            if span.input is not None:
-                otel_span.set_attribute("input", str(span.input))
-            if span.output is not None:
-                otel_span.set_attribute("output", str(span.output))
             otel_span.set_status(Status(StatusCode.OK))
-        except Exception:
-            pass
+        except Exception as e:
+            if config.debug:
+                print(f"Failed to set OTel span status: {e}")
+        _write_otel_attributes(otel_span, span, config)
 
 
-def _finalize_span_error(span: Span, error: Exception, otel_span: Any) -> None:
+def _finalize_span_error(span: Span, error: Exception, otel_span: Any, config: Config) -> None:
     """Handle failed span: record error attributes and update OTel span."""
     span.set_attribute("status", "error")
     span.set_attribute("error.message", str(error))
+    span.set_attribute("error.type", error_type(error))
 
     if otel_span:
         try:
             from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel,import-error
 
-            for key, value in span.attributes.items():
-                otel_span.set_attribute(key, str(value))
-            otel_span.set_attribute("type", span.type)
-            if span.input is not None:
-                otel_span.set_attribute("input", str(span.input))
             otel_span.set_status(Status(StatusCode.ERROR, str(error)))
             otel_span.record_exception(error)
-        except Exception:
-            pass
+        except Exception as e:
+            if config.debug:
+                print(f"Failed to set OTel span status: {e}")
+        _write_otel_attributes(otel_span, span, config)
 
 
 def _teardown_tracing(span: Span, otel_span: Any, otel_context_token: Any, client: OrqClient, config: Config) -> None:
@@ -165,8 +178,29 @@ def traced(
 
     Args:
         name: Custom name for the span. Defaults to function name.
-        type: Type of span. Must be one of: "llm", "score", "function", "eval", "task", "tool". Defaults to "function".
+        type: Type of span. Must be one of: "agent", "embedding", "function",
+            "llm", "retrieval", "tool". Defaults to "function". Any other value
+            raises ValueError.
+        capture_input: Record the bound call arguments (minus self/cls) as span input.
+        capture_output: Record the return value as span output.
         attributes: Additional attributes to add to the span.
+
+    Export:
+        If a global OpenTelemetry SDK ``TracerProvider`` is installed
+        (``trace.set_tracer_provider(...)``), each call becomes an OTel span and
+        nests with spans from other instrumentations. Nothing is sent to Orq
+        separately in that case; your exporter ships it. Without a global SDK
+        provider, spans are posted to the Orq API using ``ORQ_API_KEY``.
+
+        On the OTel span, input and output are written as JSON (strings as-is,
+        non-JSON values via str()) under ``input`` / ``output``, and the span
+        type under ``type``. Custom attributes, including those set via
+        ``current_span().log(metrics=..., request=...)``, are flattened into
+        dotted keys; lists become JSON text. Usage and request keys use their
+        OTel GenAI semconv names (``metrics.prompt_tokens`` ->
+        ``gen_ai.usage.input_tokens``, ``request.model`` ->
+        ``gen_ai.request.model``), and spans get ``gen_ai.operation.name``.
+        See ``semconv.py``.
 
     Usage:
         @traced
@@ -198,7 +232,7 @@ def traced(
                 with SpanContextManager(span_context, span):
                     result = func(*args, **kwargs)
             except Exception as e:
-                _finalize_span_error(span, e, otel_span)
+                _finalize_span_error(span, e, otel_span, config)
                 raise
             else:
                 _finalize_span_success(span, result, capture_output, otel_span, config)
@@ -221,7 +255,7 @@ def traced(
                 async with SpanContextManager(span_context, span):
                     result = await func(*args, **kwargs)
             except Exception as e:
-                _finalize_span_error(span, e, otel_span)
+                _finalize_span_error(span, e, otel_span, config)
                 raise
             else:
                 _finalize_span_success(span, result, capture_output, otel_span, config)
