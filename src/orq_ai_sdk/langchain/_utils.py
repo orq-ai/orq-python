@@ -10,6 +10,22 @@ from typing import Any, Dict, List, Optional
 logger = logging.getLogger("orq_ai_sdk.langchain")
 
 
+def extract_streaming_token_text(token: str | list[str | dict[str, Any]]) -> str:
+    """Extract assistant text from a streamed token or content blocks."""
+    if isinstance(token, str):
+        return token
+
+    parts: list[str] = []
+    for block in token:
+        if isinstance(block, str):
+            parts.append(block)
+        elif block.get("type") == "text":
+            text = block.get("text")
+            if isinstance(text, str):
+                parts.append(text)
+    return "".join(parts)
+
+
 def serialize_tool_payload(value: Any) -> str:
     """JSON-encode a tool input/output, preserving structure for Pydantic models.
 
