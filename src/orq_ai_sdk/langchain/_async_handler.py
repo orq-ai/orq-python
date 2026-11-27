@@ -1,5 +1,5 @@
 """Async LangChain callback handler."""
-# pylint: disable=unused-argument
+# pylint: disable=unused-argument,too-many-ancestors
 
 from typing import Any, Dict, List, Optional, Sequence
 from uuid import UUID
@@ -8,6 +8,7 @@ from langchain_core.callbacks import AsyncCallbackHandler  # type: ignore  # pyl
 from langchain_core.agents import AgentAction, AgentFinish  # type: ignore  # pylint: disable=import-error
 from langchain_core.documents import Document  # type: ignore  # pylint: disable=import-error
 from langchain_core.messages import BaseMessage  # type: ignore  # pylint: disable=import-error
+from langchain_core.outputs import ChatGenerationChunk, GenerationChunk
 from langchain_core.outputs import LLMResult  # type: ignore  # pylint: disable=import-error
 
 from ._client import AsyncOrqTracesClient
@@ -19,6 +20,7 @@ from ._utils import (
     extract_assistant_tool_calls,
     extract_model_name,
     extract_model_parameters,
+    extract_streaming_token_text,
     extract_token_usage,
     format_error,
     logger,
@@ -126,18 +128,20 @@ class AsyncOrqLangchainCallback(AsyncCallbackHandler):
 
     async def on_llm_new_token(
         self,
-        token: str,
+        token: str | list[str | dict[str, Any]],
         *,
+        chunk: GenerationChunk | ChatGenerationChunk | None = None,
         run_id: UUID,
         parent_run_id: Optional[UUID] = None,
+        tags: Optional[List[str]] = None,
         **kwargs: Any,
-    ) -> Any:
+    ) -> None:
         try:
             event = self._events.get(str(run_id))
             if event:
                 if event.streaming_tokens is None:
                     event.streaming_tokens = []
-                event.streaming_tokens.append(token)
+                event.streaming_tokens.append(extract_streaming_token_text(token))
         except Exception:
             logger.debug("on_llm_new_token error", exc_info=True)
 
