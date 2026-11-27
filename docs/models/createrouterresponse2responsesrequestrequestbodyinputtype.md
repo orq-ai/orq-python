@@ -1,15 +1,13 @@
 # CreateRouterResponse2ResponsesRequestRequestBodyInputType
 
-Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
-
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateRouterResponse2ResponsesRequestRequestBodyInputType
-value: CreateRouterResponse2ResponsesRequestRequestBodyInputType = "ephemeral"
+value: CreateRouterResponse2ResponsesRequestRequestBodyInputType = "reasoning_text"
 ```
 
 
 ## Values
 
-- `"ephemeral"`
+- `"reasoning_text"`

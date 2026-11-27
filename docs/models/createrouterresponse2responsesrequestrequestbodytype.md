@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import CreateRouterResponse2ResponsesRequestRequestBodyType
-value: CreateRouterResponse2ResponsesRequestRequestBodyType = "input_image"
+value: CreateRouterResponse2ResponsesRequestRequestBodyType = "output_text"
 ```
 
 
 ## Values
 
-- `"input_image"`
+- `"output_text"`

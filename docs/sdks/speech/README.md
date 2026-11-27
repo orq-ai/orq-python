@@ -23,6 +23,7 @@ with Orq(
 ) as orq:
 
     orq.router.audio.speech.create(input="<value>", model="Grand Caravan", voice="<value>", response_format="mp3", speed=1.0, retry={
+        "count": 3.0,
         "on_codes": [
             429.0,
             500.0,
@@ -42,6 +43,7 @@ with Orq(
         "call_timeout": 30000.0,
     }, orq={
         "retry": {
+            "count": 3.0,
             "on_codes": [
                 429.0,
                 500.0,

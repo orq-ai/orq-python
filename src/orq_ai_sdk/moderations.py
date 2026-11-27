@@ -89,6 +89,7 @@ class Moderations(BaseSDK):
                 tags=["Moderations"],
                 extensions={
                     "x-cli-group": "moderations",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },
@@ -198,6 +199,7 @@ class Moderations(BaseSDK):
                 tags=["Moderations"],
                 extensions={
                     "x-cli-group": "moderations",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },

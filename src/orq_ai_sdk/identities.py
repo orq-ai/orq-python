@@ -108,6 +108,7 @@ class Identities(BaseSDK):
                 tags=["Identities"],
                 extensions={
                     "x-cli-group": "identities",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -118,12 +119,12 @@ class Identities(BaseSDK):
                         {
                             "label": "Python - List identities by tag",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.identities.list(\n    limit=25,\n    search="acme",\n    filter_by={"tags": ["enterprise"]},\n    include_metrics=True,\n)\n\nfor identity in page.data:\n    print(identity.external_id, identity.display_name)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.identities.list(\n    limit=25,\n    search="acme",\n    filter_by_tags=["enterprise"],\n    include_metrics=True,\n)\n\nfor identity in page.data:\n    print(identity.external_id, identity.display_name)\n',
                         },
                         {
                             "label": "Node.js - List identities by tag",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.identities.list({\n  limit: 25,\n  search: 'acme',\n  filterBy: {\n    tags: ['enterprise'],\n  },\n  includeMetrics: true,\n});\n\nfor (const identity of page.data) {\n  console.log(identity.externalId, identity.displayName);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.identities.list({\n  limit: 25,\n  search: 'acme',\n  filterByTags: ['enterprise'],\n  includeMetrics: true,\n});\n\nfor (const identity of page.data) {\n  console.log(identity.externalId, identity.displayName);\n}\n",
                         },
                     ],
                 },
@@ -246,6 +247,7 @@ class Identities(BaseSDK):
                 tags=["Identities"],
                 extensions={
                     "x-cli-group": "identities",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -256,12 +258,12 @@ class Identities(BaseSDK):
                         {
                             "label": "Python - List identities by tag",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.identities.list(\n    limit=25,\n    search="acme",\n    filter_by={"tags": ["enterprise"]},\n    include_metrics=True,\n)\n\nfor identity in page.data:\n    print(identity.external_id, identity.display_name)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.identities.list(\n    limit=25,\n    search="acme",\n    filter_by_tags=["enterprise"],\n    include_metrics=True,\n)\n\nfor identity in page.data:\n    print(identity.external_id, identity.display_name)\n',
                         },
                         {
                             "label": "Node.js - List identities by tag",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.identities.list({\n  limit: 25,\n  search: 'acme',\n  filterBy: {\n    tags: ['enterprise'],\n  },\n  includeMetrics: true,\n});\n\nfor (const identity of page.data) {\n  console.log(identity.externalId, identity.displayName);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.identities.list({\n  limit: 25,\n  search: 'acme',\n  filterByTags: ['enterprise'],\n  includeMetrics: true,\n});\n\nfor (const identity of page.data) {\n  console.log(identity.externalId, identity.displayName);\n}\n",
                         },
                     ],
                 },
@@ -378,6 +380,7 @@ class Identities(BaseSDK):
                 tags=["Identities"],
                 extensions={
                     "x-cli-group": "identities",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -393,7 +396,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Node.js - Create customer identity",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'customer_12345',\n  displayName: 'Ada Lovelace',\n  email: 'ada@example.com',\n  tags: ['enterprise', 'beta'],\n  metadata: {\n    plan: 'enterprise',\n    region: 'eu',\n  },\n});\n\nconsole.log(result.identity.externalId);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'customer_12345',\n  displayName: 'Ada Lovelace',\n  email: 'ada@example.com',\n  tags: ['enterprise', 'beta'],\n  metadata: {\n    plan: 'enterprise',\n    region: 'eu',\n  },\n});\n\nconsole.log(result.result.identity.externalId);\n",
                         },
                         {
                             "label": "Core - Create minimal identity",
@@ -408,7 +411,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Node.js - Create minimal identity",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'user_9f4b2a',\n});\n\nconsole.log(result.identity.externalId);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'user_9f4b2a',\n});\n\nconsole.log(result.result.identity.externalId);\n",
                         },
                     ],
                 },
@@ -528,6 +531,7 @@ class Identities(BaseSDK):
                 tags=["Identities"],
                 extensions={
                     "x-cli-group": "identities",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -543,7 +547,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Node.js - Create customer identity",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'customer_12345',\n  displayName: 'Ada Lovelace',\n  email: 'ada@example.com',\n  tags: ['enterprise', 'beta'],\n  metadata: {\n    plan: 'enterprise',\n    region: 'eu',\n  },\n});\n\nconsole.log(result.identity.externalId);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'customer_12345',\n  displayName: 'Ada Lovelace',\n  email: 'ada@example.com',\n  tags: ['enterprise', 'beta'],\n  metadata: {\n    plan: 'enterprise',\n    region: 'eu',\n  },\n});\n\nconsole.log(result.result.identity.externalId);\n",
                         },
                         {
                             "label": "Core - Create minimal identity",
@@ -558,7 +562,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Node.js - Create minimal identity",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'user_9f4b2a',\n});\n\nconsole.log(result.identity.externalId);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'user_9f4b2a',\n});\n\nconsole.log(result.result.identity.externalId);\n",
                         },
                     ],
                 },
@@ -666,6 +670,7 @@ class Identities(BaseSDK):
                 tags=["Identities"],
                 extensions={
                     "x-cli-group": "identities",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "retrieve",
                     "x-code-samples": [
                         {
@@ -786,6 +791,7 @@ class Identities(BaseSDK):
                 tags=["Identities"],
                 extensions={
                     "x-cli-group": "identities",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "retrieve",
                     "x-code-samples": [
                         {
@@ -899,6 +905,7 @@ class Identities(BaseSDK):
                 tags=["Identities"],
                 extensions={
                     "x-cli-group": "identities",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1012,6 +1019,7 @@ class Identities(BaseSDK):
                 tags=["Identities"],
                 extensions={
                     "x-cli-group": "identities",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1149,6 +1157,7 @@ class Identities(BaseSDK):
                 tags=["Identities"],
                 extensions={
                     "x-cli-group": "identities",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1164,7 +1173,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Node.js - Update identity profile",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.update({\n  id: 'customer_12345',\n  displayName: 'Ada L.',\n  tags: ['enterprise', 'priority'],\n  metadata: {\n    plan: 'enterprise',\n    lifecycle: 'renewal',\n  },\n});\n\nconsole.log(result.identity.displayName);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.update({\n  id: 'customer_12345',\n  updateIdentityRequest: {\n    displayName: 'Ada L.',\n    tags: ['enterprise', 'priority'],\n    metadata: {\n      plan: 'enterprise',\n      lifecycle: 'renewal',\n    },\n  },\n});\n\nconsole.log(result.identity.displayName);\n",
                         },
                     ],
                 },
@@ -1286,6 +1295,7 @@ class Identities(BaseSDK):
                 tags=["Identities"],
                 extensions={
                     "x-cli-group": "identities",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1301,7 +1311,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Node.js - Update identity profile",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.update({\n  id: 'customer_12345',\n  displayName: 'Ada L.',\n  tags: ['enterprise', 'priority'],\n  metadata: {\n    plan: 'enterprise',\n    lifecycle: 'renewal',\n  },\n});\n\nconsole.log(result.identity.displayName);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.update({\n  id: 'customer_12345',\n  updateIdentityRequest: {\n    displayName: 'Ada L.',\n    tags: ['enterprise', 'priority'],\n    metadata: {\n      plan: 'enterprise',\n      lifecycle: 'renewal',\n    },\n  },\n});\n\nconsole.log(result.identity.displayName);\n",
                         },
                     ],
                 },

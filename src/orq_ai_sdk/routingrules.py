@@ -101,6 +101,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "list",
                     "x-code-samples": [
@@ -117,7 +118,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Node.js - List routing rules",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.routingRules.list({ limit: 25 });\n\nfor (const rule of page.data) {\n  console.log(rule._id, rule.displayName);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.routingRules.list({ limit: 25 });\n\nfor (const rule of page.data) {\n  console.log(rule.id, rule.displayName);\n}\n",
                         },
                     ],
                 },
@@ -233,6 +234,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "list",
                     "x-code-samples": [
@@ -249,7 +251,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Node.js - List routing rules",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.routingRules.list({ limit: 25 });\n\nfor (const rule of page.data) {\n  console.log(rule._id, rule.displayName);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.routingRules.list({ limit: 25 });\n\nfor (const rule of page.data) {\n  console.log(rule.id, rule.displayName);\n}\n",
                         },
                     ],
                 },
@@ -395,6 +397,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "create",
                     "x-code-samples": [
@@ -411,7 +414,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Node.js - Create routing rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.create({\n  displayName: 'Private customer traffic',\n  description:\n    'Routes private customer requests through the guarded model path.',\n});\n\nconsole.log(rule._id);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.create({\n  displayName: 'Private customer traffic',\n  description:\n    'Routes private customer requests through the guarded model path.',\n});\n\nconsole.log(rule.id);\n",
                         },
                     ],
                 },
@@ -557,6 +560,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "create",
                     "x-code-samples": [
@@ -573,7 +577,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Node.js - Create routing rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.create({\n  displayName: 'Private customer traffic',\n  description:\n    'Routes private customer requests through the guarded model path.',\n});\n\nconsole.log(rule._id);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.create({\n  displayName: 'Private customer traffic',\n  description:\n    'Routes private customer requests through the guarded model path.',\n});\n\nconsole.log(rule.id);\n",
                         },
                     ],
                 },
@@ -671,6 +675,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "listUsedModels",
                     "x-code-samples": [
@@ -787,6 +792,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "listUsedModels",
                     "x-code-samples": [
@@ -903,6 +909,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "retrieve",
                     "x-code-samples": [
@@ -1017,6 +1024,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "retrieve",
                     "x-code-samples": [
@@ -1131,6 +1139,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "delete",
                     "x-code-samples": [
@@ -1245,6 +1254,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "delete",
                     "x-code-samples": [
@@ -1413,6 +1423,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "update",
                     "x-code-samples": [
@@ -1429,7 +1440,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Node.js - Configure routing rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n    fallbackOnCodes: [429, 503],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  updateRoutingRuleRequest: {\n    enabled: true,\n    priority: 10,\n    modelsConfig: {\n      mode: 'fallback',\n      models: [{ model: 'openai/gpt-5' }],\n      fallbackOnCodes: [429, 503],\n    },\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
                         },
                     ],
                 },
@@ -1581,6 +1592,7 @@ class RoutingRules(BaseSDK):
                 tags=["Routing Rules"],
                 extensions={
                     "x-cli-group": "routingRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "update",
                     "x-code-samples": [
@@ -1597,7 +1609,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Node.js - Configure routing rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n    fallbackOnCodes: [429, 503],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  updateRoutingRuleRequest: {\n    enabled: true,\n    priority: 10,\n    modelsConfig: {\n      mode: 'fallback',\n      models: [{ model: 'openai/gpt-5' }],\n      fallbackOnCodes: [429, 503],\n    },\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
                         },
                     ],
                 },

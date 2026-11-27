@@ -101,12 +101,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.list({ projectId: 'proj_01J81V5RZPVTDHXBV6M2YVJHRB', limit: 25 });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -220,12 +221,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.list({ projectId: 'proj_01J81V5RZPVTDHXBV6M2YVJHRB', limit: 25 });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -345,12 +347,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.create({ displayName: 'LLM cost', projectId: 'proj_01J81V5RZPVTDHXBV6M2YVJHRB', defaultRange: '7d', widgets: [{ widgetId: 'cost', type: 'timeseries', title: 'Cost by model', queries: [{ metric: 'genai.cost', groupBy: ['model'] }], layout: { x: 0, y: 0, w: 12, h: 4 } }] });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -470,12 +473,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.create({ displayName: 'LLM cost', projectId: 'proj_01J81V5RZPVTDHXBV6M2YVJHRB', defaultRange: '7d', widgets: [{ widgetId: 'cost', type: 'timeseries', title: 'Cost by model', queries: [{ metric: 'genai.cost', groupBy: ['model'] }], layout: { x: 0, y: 0, w: 12, h: 4 } }] });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -563,12 +567,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.listPresets();\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -656,12 +661,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.listPresets();\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -756,12 +762,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.get({ monitorId: 'monitor_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -856,12 +863,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.get({ monitorId: 'monitor_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -956,12 +964,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.delete({ monitorId: 'monitor_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1056,12 +1065,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.delete({ monitorId: 'monitor_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1190,12 +1200,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
-                            "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.update({ monitorId: 'monitor_01J81V5RZPVTDHXBV6M2YVJHRA', displayName: 'LLM cost (weekly)', defaultRange: '30d' });\n",
+                            "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.update({ monitorId: 'monitor_01J81V5RZPVTDHXBV6M2YVJHRA', updateMonitorRequest: { displayName: 'LLM cost (weekly)', defaultRange: '30d' } });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1324,12 +1335,13 @@ class Monitors(BaseSDK):
                 ),
                 tags=["Monitors"],
                 extensions={
+                    "x-cli-help-section": "Observability",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
-                            "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.update({ monitorId: 'monitor_01J81V5RZPVTDHXBV6M2YVJHRA', displayName: 'LLM cost (weekly)', defaultRange: '30d' });\n",
+                            "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.monitors.update({ monitorId: 'monitor_01J81V5RZPVTDHXBV6M2YVJHRA', updateMonitorRequest: { displayName: 'LLM cost (weekly)', defaultRange: '30d' } });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,

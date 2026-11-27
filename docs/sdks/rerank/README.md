@@ -25,6 +25,7 @@ with Orq(
     res = orq.router.rerank.create(query="<value>", documents=[
         "<value 1>",
     ], model="XTS", retry={
+        "count": 3.0,
         "on_codes": [
             429.0,
             500.0,
@@ -49,6 +50,7 @@ with Orq(
             "type": "exact_match",
         },
         "retry": {
+            "count": 3.0,
             "on_codes": [
                 429.0,
                 500.0,

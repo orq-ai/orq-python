@@ -36,6 +36,7 @@ class UpdateWorkspaceRequestTypedDict(TypedDict):
     chat_kit: NotRequired[ChatKitResourcesTypedDict]
     tracing_enabled: NotRequired[bool]
     retention_period: NotRequired[int]
+    prompt_caching: NotRequired[bool]
 
 
 class UpdateWorkspaceRequest(BaseModel):
@@ -57,6 +58,8 @@ class UpdateWorkspaceRequest(BaseModel):
 
     retention_period: Optional[int] = None
 
+    prompt_caching: Optional[bool] = None
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
@@ -73,6 +76,7 @@ class UpdateWorkspaceRequest(BaseModel):
                 "chat_kit",
                 "tracing_enabled",
                 "retention_period",
+                "prompt_caching",
             ]
         )
         exclude_none = current_exclude_none()

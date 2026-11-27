@@ -89,6 +89,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - List audit log destinations",
@@ -105,7 +107,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst page = await client.auditLogDestinations.list({ limit: 25 });\n\nfor (const destination of page.data) {\n  console.log(destination.id, destination.displayName, destination.status);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -208,6 +210,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - List audit log destinations",
@@ -224,7 +228,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst page = await client.auditLogDestinations.list({ limit: 25 });\n\nfor (const destination of page.data) {\n  console.log(destination.id, destination.displayName, destination.status);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -330,6 +334,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Create an audit log destination",
@@ -346,7 +352,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst created = await client.auditLogDestinations.create({\n  displayName: 'Splunk HEC',\n  url: 'https://siem.example.com/orq/audit',\n});\n\nconsole.log(created.destination.id, created.signingSecret);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -452,6 +458,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Create an audit log destination",
@@ -468,7 +476,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst created = await client.auditLogDestinations.create({\n  displayName: 'Splunk HEC',\n  url: 'https://siem.example.com/orq/audit',\n});\n\nconsole.log(created.destination.id, created.signingSecret);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -565,6 +573,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve an audit log destination",
@@ -581,7 +591,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.get({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n});\n\nconsole.log(result.destination.url, result.destination.signingSecretHint);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -678,6 +688,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve an audit log destination",
@@ -694,7 +706,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.get({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n});\n\nconsole.log(result.destination.url, result.destination.signingSecretHint);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -791,6 +803,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Delete an audit log destination",
@@ -807,7 +821,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nawait client.auditLogDestinations.delete({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -904,6 +918,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Delete an audit log destination",
@@ -920,7 +936,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nawait client.auditLogDestinations.delete({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1038,6 +1054,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Pause an audit log destination",
@@ -1052,9 +1070,9 @@ class AuditLogDestinations(BaseSDK):
                         {
                             "label": "Node.js - Pause an audit log destination",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.update({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n  status: 'AUDIT_LOG_DESTINATION_STATUS_PAUSED',\n});\n\nconsole.log(result.destination.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.update({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n  updateAuditLogDestinationRequest: {\n    status: 'AUDIT_LOG_DESTINATION_STATUS_PAUSED',\n  },\n});\n\nconsole.log(result.destination.status);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1172,6 +1190,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Pause an audit log destination",
@@ -1186,9 +1206,9 @@ class AuditLogDestinations(BaseSDK):
                         {
                             "label": "Node.js - Pause an audit log destination",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.update({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n  status: 'AUDIT_LOG_DESTINATION_STATUS_PAUSED',\n});\n\nconsole.log(result.destination.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.update({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n  updateAuditLogDestinationRequest: {\n    status: 'AUDIT_LOG_DESTINATION_STATUS_PAUSED',\n  },\n});\n\nconsole.log(result.destination.status);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1299,6 +1319,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - List failed deliveries",
@@ -1315,7 +1337,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst page = await client.auditLogDestinations.listDeliveries({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n  status: ['AUDIT_LOG_DELIVERY_STATUS_FAILED'],\n  limit: 25,\n});\n\nfor (const delivery of page.data) {\n  console.log(delivery.eventId, delivery.lastStatusCode, delivery.lastError);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1426,6 +1448,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - List failed deliveries",
@@ -1442,7 +1466,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst page = await client.auditLogDestinations.listDeliveries({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n  status: ['AUDIT_LOG_DELIVERY_STATUS_FAILED'],\n  limit: 25,\n});\n\nfor (const delivery of page.data) {\n  console.log(delivery.eventId, delivery.lastStatusCode, delivery.lastError);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1554,6 +1578,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Replay a day of events",
@@ -1568,9 +1594,9 @@ class AuditLogDestinations(BaseSDK):
                         {
                             "label": "Node.js - Replay a day of events",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.replay({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n  from: new Date('2026-10-01T00:00:00Z'),\n  to: new Date('2026-10-02T00:00:00Z'),\n});\n\nconsole.log(result.replayId, result.queued);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.replay({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n  replayAuditLogDeliveriesRequest: {\n    from: new Date('2026-10-01T00:00:00Z'),\n    to: new Date('2026-10-02T00:00:00Z'),\n  },\n});\n\nconsole.log(result.replayId, result.queued);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1682,6 +1708,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Replay a day of events",
@@ -1696,9 +1724,9 @@ class AuditLogDestinations(BaseSDK):
                         {
                             "label": "Node.js - Replay a day of events",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.replay({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n  from: new Date('2026-10-01T00:00:00Z'),\n  to: new Date('2026-10-02T00:00:00Z'),\n});\n\nconsole.log(result.replayId, result.queued);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.replay({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n  replayAuditLogDeliveriesRequest: {\n    from: new Date('2026-10-01T00:00:00Z'),\n    to: new Date('2026-10-02T00:00:00Z'),\n  },\n});\n\nconsole.log(result.replayId, result.queued);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1795,6 +1823,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Rotate the signing secret",
@@ -1811,7 +1841,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst rotated = await client.auditLogDestinations.rotateSecret({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n});\n\nconsole.log(rotated.signingSecret);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1908,6 +1938,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Rotate the signing secret",
@@ -1924,7 +1956,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst rotated = await client.auditLogDestinations.rotateSecret({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n});\n\nconsole.log(rotated.signingSecret);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2021,6 +2053,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Send a test event",
@@ -2037,7 +2071,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.test({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n});\n\nconsole.log(result.delivery.status, result.delivery.lastStatusCode);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2134,6 +2168,8 @@ class AuditLogDestinations(BaseSDK):
                 ),
                 tags=["Audit Log Destinations"],
                 extensions={
+                    "x-cli-help-section": "Administration",
+                    "x-cli-hidden": True,
                     "x-code-samples": [
                         {
                             "label": "Core - Send a test event",
@@ -2150,7 +2186,7 @@ class AuditLogDestinations(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.auditLogDestinations.test({\n  destinationId: 'auditdest_01k7abcde00000000000000000',\n});\n\nconsole.log(result.delivery.status, result.delivery.lastStatusCode);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,

@@ -1,0 +1,10 @@
+# McpResourceExposure
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                | Example                                                                    |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `mode`                                                                     | [models.McpToolExposureMode](../models/mcptoolexposuremode.md)             | :heavy_check_mark:                                                         | N/A                                                                        | MCP_TOOL_EXPOSURE_MODE_ALL                                                 |
+| `resource_ids`                                                             | List[*str*]                                                                | :heavy_minus_sign:                                                         | `McpResource.selection_id` values to expose when mode is SELECTED.         |                                                                            |
+| `resource_template_ids`                                                    | List[*str*]                                                                | :heavy_minus_sign:                                                         | `McpResourceTemplate.selection_id` values to expose when mode is SELECTED. |                                                                            |

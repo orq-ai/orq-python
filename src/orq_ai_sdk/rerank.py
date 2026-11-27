@@ -159,6 +159,7 @@ class Rerank(BaseSDK):
                 tags=["Rerank"],
                 extensions={
                     "x-cli-group": "rerank",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },
@@ -334,6 +335,7 @@ class Rerank(BaseSDK):
                 tags=["Rerank"],
                 extensions={
                     "x-cli-group": "rerank",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },

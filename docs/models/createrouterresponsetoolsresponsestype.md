@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import CreateRouterResponseToolsResponsesType
-value: CreateRouterResponseToolsResponsesType = "custom"
+value: CreateRouterResponseToolsResponsesType = "tool_search"
 ```
 
 
 ## Values
 
-- `"custom"`
+- `"tool_search"`

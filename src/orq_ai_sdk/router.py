@@ -137,7 +137,12 @@ class Router(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Router"],
-                extensions={"x-cli-group": "ocr", "x-cli-name": "ocr"},
+                extensions={
+                    "x-cli-aliases": ["ocr"],
+                    "x-cli-group": "ocr",
+                    "x-cli-help-section": "AI Gateway",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -246,7 +251,12 @@ class Router(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Router"],
-                extensions={"x-cli-group": "ocr", "x-cli-name": "ocr"},
+                extensions={
+                    "x-cli-aliases": ["ocr"],
+                    "x-cli-group": "ocr",
+                    "x-cli-help-section": "AI Gateway",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

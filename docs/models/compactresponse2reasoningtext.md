@@ -1,0 +1,11 @@
+# CompactResponse2ReasoningText
+
+A piece of reasoning text on a replayed reasoning item.
+
+
+## Fields
+
+| Field                                                                                                                            | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `text`                                                                                                                           | *str*                                                                                                                            | :heavy_check_mark:                                                                                                               | The reasoning text.                                                                                                              |
+| `type`                                                                                                                           | [models.CompactResponse2ResponsesRequestRequestBodyInputType](../models/compactresponse2responsesrequestrequestbodyinputtype.md) | :heavy_check_mark:                                                                                                               | N/A                                                                                                                              |

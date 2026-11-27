@@ -159,6 +159,7 @@ class Edits(BaseSDK):
                 tags=["Images"],
                 extensions={
                     "x-cli-group": "images",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "edit",
                     "x-orq-gateway-group": "true",
                 },
@@ -334,6 +335,7 @@ class Edits(BaseSDK):
                 tags=["Images"],
                 extensions={
                     "x-cli-group": "images",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "edit",
                     "x-orq-gateway-group": "true",
                 },

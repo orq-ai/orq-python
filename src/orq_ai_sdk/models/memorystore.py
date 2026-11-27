@@ -31,7 +31,7 @@ class MemoryStoreTypedDict(TypedDict):
     r"""The last update date of the memory store"""
     embedding_config: MemoryStoreEmbeddingConfigTypedDict
     id: str
-    r"""The unique identifier of the memory store"""
+    r"""The Memory's generated `_id` or its `entity_id` store"""
     created_by_id: NotRequired[Nullable[str]]
     r"""The user ID of the creator"""
     updated_by_id: NotRequired[Nullable[str]]
@@ -55,7 +55,7 @@ class MemoryStore(BaseModel):
     embedding_config: MemoryStoreEmbeddingConfig
 
     id: Annotated[str, pydantic.Field(alias="_id")]
-    r"""The unique identifier of the memory store"""
+    r"""The Memory's generated `_id` or its `entity_id` store"""
 
     created_by_id: OptionalNullable[str] = UNSET
     r"""The user ID of the creator"""

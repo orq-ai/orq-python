@@ -111,7 +111,11 @@ class Annotations(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions={"x-cli-group": "traces", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-help-section": "Observability",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -121,7 +125,7 @@ class Annotations(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["400", "401", "404"], "application/json"):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
@@ -234,7 +238,11 @@ class Annotations(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions={"x-cli-group": "traces", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-help-section": "Observability",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -244,7 +252,7 @@ class Annotations(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["400", "401", "404"], "application/json"):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
@@ -357,7 +365,11 @@ class Annotations(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions={"x-cli-group": "traces", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-help-section": "Observability",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -480,7 +492,11 @@ class Annotations(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions={"x-cli-group": "traces", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-help-section": "Observability",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -5,5 +5,5 @@
 
 | Field                                                    | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `experiment_id`                                          | *str*                                                    | :heavy_check_mark:                                       | N/A                                                      |
+| `experiment_id`                                          | *str*                                                    | :heavy_check_mark:                                       | ID of the experiment.                                    |
 | `create_run_request`                                     | [models.CreateRunRequest](../models/createrunrequest.md) | :heavy_check_mark:                                       | N/A                                                      |

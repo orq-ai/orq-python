@@ -83,6 +83,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "listDomains",
                 },
             ),
@@ -179,6 +180,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "listDomains",
                 },
             ),
@@ -287,6 +289,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "createDomain",
                 },
             ),
@@ -395,6 +398,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "createDomain",
                 },
             ),
@@ -494,6 +498,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "deleteDomain",
                 },
             ),
@@ -593,6 +598,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "deleteDomain",
                 },
             ),
@@ -692,6 +698,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "verifyDomain",
                 },
             ),
@@ -791,6 +798,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "verifyDomain",
                 },
             ),
@@ -887,6 +895,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "getIpAllowlist",
                 },
             ),
@@ -983,6 +992,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "getIpAllowlist",
                 },
             ),
@@ -1091,6 +1101,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "updateIpAllowlist",
                 },
             ),
@@ -1199,6 +1210,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "updateIpAllowlist",
                 },
             ),
@@ -1310,6 +1322,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "addIpRange",
                 },
             ),
@@ -1421,6 +1434,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "addIpRange",
                 },
             ),
@@ -1520,6 +1534,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "deleteIpRange",
                 },
             ),
@@ -1619,6 +1634,7 @@ class WorkspaceSecurity(BaseSDK):
                 tags=["Workspace Security"],
                 extensions={
                     "x-cli-group": "workspace-security",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "deleteIpRange",
                 },
             ),

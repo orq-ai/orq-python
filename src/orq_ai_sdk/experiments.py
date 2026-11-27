@@ -34,10 +34,13 @@ class Experiments(BaseSDK):
 
         Lists experiments in the workspace, newest first.
 
-        :param limit:
-        :param starting_after:
-        :param ending_before:
-        :param project_id:
+        :param limit: Page size, 1 to 200. Defaults to 25.
+        :param starting_after: Cursor for forward pagination. Set to the `experiment_id` of the last item
+            from the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `experiment_id` of the first
+            item from the previous page.
+        :param project_id: Restrict results to one project. Omit to list every project the caller
+            can access.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -100,12 +103,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List experiments",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v3/experiments' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://my.orq.ai/v3/experiments' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List experiments",
@@ -156,10 +160,13 @@ class Experiments(BaseSDK):
 
         Lists experiments in the workspace, newest first.
 
-        :param limit:
-        :param starting_after:
-        :param ending_before:
-        :param project_id:
+        :param limit: Page size, 1 to 200. Defaults to 25.
+        :param starting_after: Cursor for forward pagination. Set to the `experiment_id` of the last item
+            from the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `experiment_id` of the first
+            item from the previous page.
+        :param project_id: Restrict results to one project. Omit to list every project the caller
+            can access.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -222,12 +229,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List experiments",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v3/experiments' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://my.orq.ai/v3/experiments' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List experiments",
@@ -265,10 +273,9 @@ class Experiments(BaseSDK):
     def create(
         self,
         *,
-        display_name: Optional[str] = None,
+        display_name: str,
         project_id: Optional[str] = None,
         dataset_id: Optional[str] = None,
-        dataset_version_id: Optional[str] = None,
         source_run: Optional[Union[models.RunRef, models.RunRefTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -277,14 +284,17 @@ class Experiments(BaseSDK):
     ) -> models.Experiment:
         r"""Create an experiment
 
-        Creates an experiment. project_id defaults to the API key's project and is required for keys that span several projects. When dataset_id is set, a draft run is created with rows from that dataset.
+        Creates an experiment and its first run, a draft named Run 1. When dataset_id is set, the run gets one row per datapoint, up to 1000. project_id defaults to the caller's project and is required for API keys that span several projects.
 
-        :param display_name:
-        :param project_id: Project the experiment is created in; defaults to the API key's project when omitted.
-        :param dataset_id:
-        :param dataset_version_id:
-        :param source_run: Copies the task, evaluator and review columns of an existing run into the
-            new experiment's first run (fork).
+        :param display_name: Experiment name, 1 to 255 characters.
+        :param project_id: Project the experiment is created in. Defaults to the caller's project:
+            the API key's project, or the project open in the AI Studio. Required for
+            API keys that span several projects.
+        :param dataset_id: Dataset whose datapoints become the rows of the first run, at most 1000.
+            Must be in the experiment's project. Omit to start with an empty run.
+        :param source_run: Run to fork. Its task, metric, evaluator and annotation columns are copied
+            into the new experiment's first run; rows still come from `dataset_id`.
+            Must be in the same project as the new experiment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -307,7 +317,6 @@ class Experiments(BaseSDK):
             display_name=display_name,
             project_id=project_id,
             dataset_id=dataset_id,
-            dataset_version_id=dataset_version_id,
             source_run=utils.get_pydantic_model(source_run, Optional[models.RunRef]),
         )
 
@@ -351,12 +360,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create an experiment",
                             "lang": "curl",
-                            "source": 'curl \'https://api.orq.ai/v3/experiments\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Support replies v2",\n    "project_id": "<project_id>",\n    "dataset_id": "<dataset_id>"\n  }\'\n',
+                            "source": 'curl \'https://my.orq.ai/v3/experiments\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Support replies v2",\n    "project_id": "<project_id>",\n    "dataset_id": "<dataset_id>"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create an experiment",
@@ -394,10 +404,9 @@ class Experiments(BaseSDK):
     async def create_async(
         self,
         *,
-        display_name: Optional[str] = None,
+        display_name: str,
         project_id: Optional[str] = None,
         dataset_id: Optional[str] = None,
-        dataset_version_id: Optional[str] = None,
         source_run: Optional[Union[models.RunRef, models.RunRefTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -406,14 +415,17 @@ class Experiments(BaseSDK):
     ) -> models.Experiment:
         r"""Create an experiment
 
-        Creates an experiment. project_id defaults to the API key's project and is required for keys that span several projects. When dataset_id is set, a draft run is created with rows from that dataset.
+        Creates an experiment and its first run, a draft named Run 1. When dataset_id is set, the run gets one row per datapoint, up to 1000. project_id defaults to the caller's project and is required for API keys that span several projects.
 
-        :param display_name:
-        :param project_id: Project the experiment is created in; defaults to the API key's project when omitted.
-        :param dataset_id:
-        :param dataset_version_id:
-        :param source_run: Copies the task, evaluator and review columns of an existing run into the
-            new experiment's first run (fork).
+        :param display_name: Experiment name, 1 to 255 characters.
+        :param project_id: Project the experiment is created in. Defaults to the caller's project:
+            the API key's project, or the project open in the AI Studio. Required for
+            API keys that span several projects.
+        :param dataset_id: Dataset whose datapoints become the rows of the first run, at most 1000.
+            Must be in the experiment's project. Omit to start with an empty run.
+        :param source_run: Run to fork. Its task, metric, evaluator and annotation columns are copied
+            into the new experiment's first run; rows still come from `dataset_id`.
+            Must be in the same project as the new experiment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -436,7 +448,6 @@ class Experiments(BaseSDK):
             display_name=display_name,
             project_id=project_id,
             dataset_id=dataset_id,
-            dataset_version_id=dataset_version_id,
             source_run=utils.get_pydantic_model(source_run, Optional[models.RunRef]),
         )
 
@@ -480,12 +491,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create an experiment",
                             "lang": "curl",
-                            "source": 'curl \'https://api.orq.ai/v3/experiments\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Support replies v2",\n    "project_id": "<project_id>",\n    "dataset_id": "<dataset_id>"\n  }\'\n',
+                            "source": 'curl \'https://my.orq.ai/v3/experiments\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Support replies v2",\n    "project_id": "<project_id>",\n    "dataset_id": "<dataset_id>"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create an experiment",
@@ -533,7 +545,7 @@ class Experiments(BaseSDK):
 
         Returns experiment metadata. Runs and cell data are separate resources.
 
-        :param experiment_id:
+        :param experiment_id: ID of the experiment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -593,12 +605,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Get an experiment",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl 'https://my.orq.ai/v3/experiments/<experiment_id>' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Get an experiment",
@@ -646,7 +659,7 @@ class Experiments(BaseSDK):
 
         Returns experiment metadata. Runs and cell data are separate resources.
 
-        :param experiment_id:
+        :param experiment_id: ID of the experiment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -706,12 +719,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Get an experiment",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl 'https://my.orq.ai/v3/experiments/<experiment_id>' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Get an experiment",
@@ -757,9 +771,9 @@ class Experiments(BaseSDK):
     ):
         r"""Delete an experiment
 
-        Deletes an experiment and its runs.
+        Deletes an experiment with all its runs, rows and cells.
 
-        :param experiment_id:
+        :param experiment_id: ID of the experiment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -819,12 +833,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete an experiment",
                             "lang": "curl",
-                            "source": "curl --request DELETE 'https://api.orq.ai/v3/experiments/<experiment_id>' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE 'https://my.orq.ai/v3/experiments/<experiment_id>' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete an experiment",
@@ -870,9 +885,9 @@ class Experiments(BaseSDK):
     ):
         r"""Delete an experiment
 
-        Deletes an experiment and its runs.
+        Deletes an experiment with all its runs, rows and cells.
 
-        :param experiment_id:
+        :param experiment_id: ID of the experiment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -932,12 +947,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete an experiment",
                             "lang": "curl",
-                            "source": "curl --request DELETE 'https://api.orq.ai/v3/experiments/<experiment_id>' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE 'https://my.orq.ai/v3/experiments/<experiment_id>' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete an experiment",
@@ -989,11 +1005,12 @@ class Experiments(BaseSDK):
 
         Updates experiment metadata. Omitted optional fields keep their current values.
 
-        :param experiment_id:
-        :param display_name:
-        :param selected_run_id:
-        :param row_height_level:
-        :param project_id:
+        :param experiment_id: ID of the experiment.
+        :param display_name: New experiment name, 1 to 255 characters.
+        :param selected_run_id: Run to show by default. Must be a run of this experiment.
+        :param row_height_level: Row height in the AI Studio grid: 1 (compact), 2 or 3 (tallest).
+        :param project_id: Moves the experiment to another project the caller can access. The
+            dataset stays where it is, so new runs need a dataset in the new project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1066,12 +1083,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Rename an experiment",
                             "lang": "curl",
-                            "source": "curl --request PATCH 'https://api.orq.ai/v3/experiments/<experiment_id>' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"display_name\": \"Support replies v3\" }'\n",
+                            "source": "curl --request PATCH 'https://my.orq.ai/v3/experiments/<experiment_id>' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"display_name\": \"Support replies v3\" }'\n",
                         },
                         {
                             "label": "Python - Rename an experiment",
@@ -1081,7 +1099,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Rename an experiment",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.update({\n  experimentId: '<experiment_id>',\n  displayName: 'Support replies v3',\n});\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.update({\n  experimentId: '<experiment_id>',\n  updateExperimentRequest: {\n    displayName: 'Support replies v3',\n  },\n});\n",
                         },
                     ],
                 },
@@ -1123,11 +1141,12 @@ class Experiments(BaseSDK):
 
         Updates experiment metadata. Omitted optional fields keep their current values.
 
-        :param experiment_id:
-        :param display_name:
-        :param selected_run_id:
-        :param row_height_level:
-        :param project_id:
+        :param experiment_id: ID of the experiment.
+        :param display_name: New experiment name, 1 to 255 characters.
+        :param selected_run_id: Run to show by default. Must be a run of this experiment.
+        :param row_height_level: Row height in the AI Studio grid: 1 (compact), 2 or 3 (tallest).
+        :param project_id: Moves the experiment to another project the caller can access. The
+            dataset stays where it is, so new runs need a dataset in the new project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1200,12 +1219,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Rename an experiment",
                             "lang": "curl",
-                            "source": "curl --request PATCH 'https://api.orq.ai/v3/experiments/<experiment_id>' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"display_name\": \"Support replies v3\" }'\n",
+                            "source": "curl --request PATCH 'https://my.orq.ai/v3/experiments/<experiment_id>' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"display_name\": \"Support replies v3\" }'\n",
                         },
                         {
                             "label": "Python - Rename an experiment",
@@ -1215,7 +1235,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Rename an experiment",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.update({\n  experimentId: '<experiment_id>',\n  displayName: 'Support replies v3',\n});\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.update({\n  experimentId: '<experiment_id>',\n  updateExperimentRequest: {\n    displayName: 'Support replies v3',\n  },\n});\n",
                         },
                     ],
                 },
@@ -1257,11 +1277,13 @@ class Experiments(BaseSDK):
 
         Lists runs for an experiment, newest first. Each run is metadata only.
 
-        :param experiment_id:
-        :param limit:
-        :param starting_after:
-        :param ending_before:
-        :param include_metrics:
+        :param experiment_id: ID of the experiment.
+        :param limit: Page size, 1 to 200. Defaults to 25.
+        :param starting_after: Cursor for forward pagination. Set to the `run_id` of the last item from
+            the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `run_id` of the first item from
+            the previous page.
+        :param include_metrics: Include each run's average evaluator results in `metrics`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1325,12 +1347,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "listRuns",
                     "x-code-samples": [
                         {
                             "label": "Core - List runs",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl 'https://my.orq.ai/v3/experiments/<experiment_id>/runs' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - List runs",
@@ -1382,11 +1405,13 @@ class Experiments(BaseSDK):
 
         Lists runs for an experiment, newest first. Each run is metadata only.
 
-        :param experiment_id:
-        :param limit:
-        :param starting_after:
-        :param ending_before:
-        :param include_metrics:
+        :param experiment_id: ID of the experiment.
+        :param limit: Page size, 1 to 200. Defaults to 25.
+        :param starting_after: Cursor for forward pagination. Set to the `run_id` of the last item from
+            the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `run_id` of the first item from
+            the previous page.
+        :param include_metrics: Include each run's average evaluator results in `metrics`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1450,12 +1475,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "listRuns",
                     "x-code-samples": [
                         {
                             "label": "Core - List runs",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl 'https://my.orq.ai/v3/experiments/<experiment_id>/runs' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - List runs",
@@ -1505,11 +1531,11 @@ class Experiments(BaseSDK):
     ) -> models.Run:
         r"""Create a run
 
-        Creates a new run, copying columns from the selected run when present. A rerun is a new run.
+        Creates a new run, copying columns from the selected run when present. A new run starts with empty output cells; executing cells on an existing run does not create one.
 
-        :param experiment_id:
-        :param key:
-        :param settings:
+        :param experiment_id: ID of the experiment.
+        :param key: Run name. Defaults to `Run ` plus the last four characters of the run ID.
+        :param settings: Execution settings. Concurrency defaults to 10.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1582,12 +1608,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "createRun",
                     "x-code-samples": [
                         {
                             "label": "Core - Create a run",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"key\": \"Run 2\", \"settings\": { \"concurrency\": 5 } }'\n",
+                            "source": 'curl \'https://my.orq.ai/v3/experiments/<experiment_id>/runs\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "key": "Run 2", "settings": { "concurrency": 5 } }\'\n',
                         },
                         {
                             "label": "Python - Create a run",
@@ -1597,7 +1624,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Create a run",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.createRun({\n  experimentId: '<experiment_id>',\n  key: 'Run 2',\n  settings: { concurrency: 5 },\n});\n\nconsole.log(run.runId, run.rowCount);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.createRun({\n  experimentId: '<experiment_id>',\n  createRunRequest: {\n    key: 'Run 2',\n    settings: { concurrency: 5 },\n  },\n});\n\nconsole.log(run.runId, run.rowCount);\n",
                         },
                     ],
                 },
@@ -1637,11 +1664,11 @@ class Experiments(BaseSDK):
     ) -> models.Run:
         r"""Create a run
 
-        Creates a new run, copying columns from the selected run when present. A rerun is a new run.
+        Creates a new run, copying columns from the selected run when present. A new run starts with empty output cells; executing cells on an existing run does not create one.
 
-        :param experiment_id:
-        :param key:
-        :param settings:
+        :param experiment_id: ID of the experiment.
+        :param key: Run name. Defaults to `Run ` plus the last four characters of the run ID.
+        :param settings: Execution settings. Concurrency defaults to 10.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1714,12 +1741,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "createRun",
                     "x-code-samples": [
                         {
                             "label": "Core - Create a run",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"key\": \"Run 2\", \"settings\": { \"concurrency\": 5 } }'\n",
+                            "source": 'curl \'https://my.orq.ai/v3/experiments/<experiment_id>/runs\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "key": "Run 2", "settings": { "concurrency": 5 } }\'\n',
                         },
                         {
                             "label": "Python - Create a run",
@@ -1729,7 +1757,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Create a run",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.createRun({\n  experimentId: '<experiment_id>',\n  key: 'Run 2',\n  settings: { concurrency: 5 },\n});\n\nconsole.log(run.runId, run.rowCount);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.createRun({\n  experimentId: '<experiment_id>',\n  createRunRequest: {\n    key: 'Run 2',\n    settings: { concurrency: 5 },\n  },\n});\n\nconsole.log(run.runId, run.rowCount);\n",
                         },
                     ],
                 },
@@ -1768,8 +1796,8 @@ class Experiments(BaseSDK):
 
         Returns run status, per-cell status counts, row count, and column configs. Does not return the cell matrix.
 
-        :param experiment_id:
-        :param run_id:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1830,12 +1858,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "getRun",
                     "x-code-samples": [
                         {
                             "label": "Core - Get a run",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Get a run",
@@ -1884,8 +1913,8 @@ class Experiments(BaseSDK):
 
         Returns run status, per-cell status counts, row count, and column configs. Does not return the cell matrix.
 
-        :param experiment_id:
-        :param run_id:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1946,12 +1975,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "getRun",
                     "x-code-samples": [
                         {
                             "label": "Core - Get a run",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Get a run",
@@ -1998,10 +2028,10 @@ class Experiments(BaseSDK):
     ):
         r"""Delete a run
 
-        Deletes a run and its cell data. Distinct from cancel, which keeps completed cells.
+        Deletes a run and its cell data. The last run of an experiment cannot be deleted. Distinct from cancel, which keeps completed cells.
 
-        :param experiment_id:
-        :param run_id:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2060,7 +2090,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "deleteRun"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "deleteRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2094,10 +2128,10 @@ class Experiments(BaseSDK):
     ):
         r"""Delete a run
 
-        Deletes a run and its cell data. Distinct from cancel, which keeps completed cells.
+        Deletes a run and its cell data. The last run of an experiment cannot be deleted. Distinct from cancel, which keeps completed cells.
 
-        :param experiment_id:
-        :param run_id:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2156,7 +2190,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "deleteRun"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "deleteRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2196,10 +2234,11 @@ class Experiments(BaseSDK):
 
         Updates run key and execution settings. Does not execute the run.
 
-        :param experiment_id:
-        :param run_id:
-        :param key:
-        :param settings:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param key: New run name. Must not be empty.
+        :param settings: Settings to change. `concurrency`, `timeout` and `max_turns` change only
+            when set. `hidden_column_ids` is replaced, and cleared when omitted.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2271,7 +2310,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "updateRun"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "updateRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2311,10 +2354,11 @@ class Experiments(BaseSDK):
 
         Updates run key and execution settings. Does not execute the run.
 
-        :param experiment_id:
-        :param run_id:
-        :param key:
-        :param settings:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param key: New run name. Must not be empty.
+        :param settings: Settings to change. `concurrency`, `timeout` and `max_turns` change only
+            when set. `hidden_column_ids` is replaced, and cleared when omitted.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2386,7 +2430,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "updateRun"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "updateRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2396,6 +2444,1150 @@ class Experiments(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Run, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def list_annotations(
+        self,
+        *,
+        experiment_id: str,
+        run_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ListAnnotationColumnsResponse:
+        r"""List annotation columns
+
+        Lists the annotation columns of a run.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ExperimentAnnotationListRequest(
+            experiment_id=experiment_id,
+            run_id=run_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ExperimentAnnotationList",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Experiments"],
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "listAnnotations",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ListAnnotationColumnsResponse, http_res
+            )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def list_annotations_async(
+        self,
+        *,
+        experiment_id: str,
+        run_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ListAnnotationColumnsResponse:
+        r"""List annotation columns
+
+        Lists the annotation columns of a run.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ExperimentAnnotationListRequest(
+            experiment_id=experiment_id,
+            run_id=run_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ExperimentAnnotationList",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Experiments"],
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "listAnnotations",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ListAnnotationColumnsResponse, http_res
+            )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def create_annotation(
+        self,
+        *,
+        experiment_id: str,
+        run_id: str,
+        annotation_id: str,
+        display_name: Optional[str] = None,
+        annotation_type: Optional[str] = None,
+        position: Optional[int] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.Column:
+        r"""Add an annotation column
+
+        Adds an annotation column. Each row gets one annotation cell per task column.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param annotation_id: ID of the annotation definition. Each row gets one annotation cell per task
+            column.
+        :param display_name: Column name. Defaults to `annotation_id`.
+        :param annotation_type: Value type the annotation accepts: `range`, `single_select`, `multi_select`, `text` or `correction`. Empty accepts
+            any value.
+        :param position: 0-based position among the run's columns. Defaults to the end.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ExperimentAnnotationCreateRequest(
+            experiment_id=experiment_id,
+            run_id=run_id,
+            create_annotation_column_request=models.CreateAnnotationColumnRequest(
+                annotation_id=annotation_id,
+                display_name=display_name,
+                annotation_type=annotation_type,
+                position=position,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.create_annotation_column_request,
+                False,
+                False,
+                "json",
+                models.CreateAnnotationColumnRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ExperimentAnnotationCreate",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Experiments"],
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "createAnnotation",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Column, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def create_annotation_async(
+        self,
+        *,
+        experiment_id: str,
+        run_id: str,
+        annotation_id: str,
+        display_name: Optional[str] = None,
+        annotation_type: Optional[str] = None,
+        position: Optional[int] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.Column:
+        r"""Add an annotation column
+
+        Adds an annotation column. Each row gets one annotation cell per task column.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param annotation_id: ID of the annotation definition. Each row gets one annotation cell per task
+            column.
+        :param display_name: Column name. Defaults to `annotation_id`.
+        :param annotation_type: Value type the annotation accepts: `range`, `single_select`, `multi_select`, `text` or `correction`. Empty accepts
+            any value.
+        :param position: 0-based position among the run's columns. Defaults to the end.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ExperimentAnnotationCreateRequest(
+            experiment_id=experiment_id,
+            run_id=run_id,
+            create_annotation_column_request=models.CreateAnnotationColumnRequest(
+                annotation_id=annotation_id,
+                display_name=display_name,
+                annotation_type=annotation_type,
+                position=position,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.create_annotation_column_request,
+                False,
+                False,
+                "json",
+                models.CreateAnnotationColumnRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ExperimentAnnotationCreate",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Experiments"],
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "createAnnotation",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Column, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def delete_annotation(
+        self,
+        *,
+        experiment_id: str,
+        run_id: str,
+        annotation_column_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Remove an annotation column
+
+        Removes an annotation column and all its cells.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param annotation_column_id: ID of the annotation column.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ExperimentAnnotationDeleteRequest(
+            experiment_id=experiment_id,
+            run_id=run_id,
+            annotation_column_id=annotation_column_id,
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations/{annotation_column_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ExperimentAnnotationDelete",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Experiments"],
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "deleteAnnotation",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def delete_annotation_async(
+        self,
+        *,
+        experiment_id: str,
+        run_id: str,
+        annotation_column_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Remove an annotation column
+
+        Removes an annotation column and all its cells.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param annotation_column_id: ID of the annotation column.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ExperimentAnnotationDeleteRequest(
+            experiment_id=experiment_id,
+            run_id=run_id,
+            annotation_column_id=annotation_column_id,
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations/{annotation_column_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ExperimentAnnotationDelete",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Experiments"],
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "deleteAnnotation",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def update_annotation(
+        self,
+        *,
+        experiment_id: str,
+        run_id: str,
+        annotation_column_id: str,
+        display_name: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.Column:
+        r"""Update annotation column metadata
+
+        Updates display fields on the column. The human-eval definition is updated at source.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param annotation_column_id: ID of the annotation column.
+        :param display_name: New column name. Must not be empty.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ExperimentAnnotationUpdateRequest(
+            experiment_id=experiment_id,
+            run_id=run_id,
+            annotation_column_id=annotation_column_id,
+            update_annotation_column_request=models.UpdateAnnotationColumnRequest(
+                display_name=display_name,
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations/{annotation_column_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_annotation_column_request,
+                False,
+                False,
+                "json",
+                models.UpdateAnnotationColumnRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ExperimentAnnotationUpdate",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Experiments"],
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "updateAnnotation",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Column, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def update_annotation_async(
+        self,
+        *,
+        experiment_id: str,
+        run_id: str,
+        annotation_column_id: str,
+        display_name: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.Column:
+        r"""Update annotation column metadata
+
+        Updates display fields on the column. The human-eval definition is updated at source.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param annotation_column_id: ID of the annotation column.
+        :param display_name: New column name. Must not be empty.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ExperimentAnnotationUpdateRequest(
+            experiment_id=experiment_id,
+            run_id=run_id,
+            annotation_column_id=annotation_column_id,
+            update_annotation_column_request=models.UpdateAnnotationColumnRequest(
+                display_name=display_name,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations/{annotation_column_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_annotation_column_request,
+                False,
+                False,
+                "json",
+                models.UpdateAnnotationColumnRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ExperimentAnnotationUpdate",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Experiments"],
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "updateAnnotation",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Column, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def patch_annotation_cell(
+        self,
+        *,
+        experiment_id: str,
+        run_id: str,
+        annotation_column_id: str,
+        datapoint_id: str,
+        value: Mapping[str, Any],
+        task_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.Cell:
+        r"""Set an annotation cell
+
+        Writes the annotation value of one row for one task column. An annotation column holds one cell per task column, so task_id selects which response is being annotated. The task output of that row must be completed. The value must match the annotation type, and a running cell cannot be changed.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param annotation_column_id: ID of the annotation column.
+        :param datapoint_id: ID of the row.
+        :param value: Annotation value. type is required: range uses {type: range, value: number}; single- and multi-select use {type: categorical, value: string} or {type: categorical, values: [{value: string, sentiment: string}]}; text and correction use {type: free_form_text, text: string}.
+        :param task_id: ID of the task column whose response is being annotated. An annotation column
+            holds one cell per task column.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ExperimentAnnotationCellPatchRequest(
+            experiment_id=experiment_id,
+            run_id=run_id,
+            annotation_column_id=annotation_column_id,
+            datapoint_id=datapoint_id,
+            patch_annotation_cell_request=models.PatchAnnotationCellRequest(
+                value=utils.unmarshal(value, Dict[str, Any]),
+                task_id=task_id,
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations/{annotation_column_id}/cells/{datapoint_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.patch_annotation_cell_request,
+                False,
+                False,
+                "json",
+                models.PatchAnnotationCellRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ExperimentAnnotationCellPatch",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Experiments"],
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "patchAnnotationCell",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Set an annotation cell",
+                            "lang": "curl",
+                            "source": 'curl --request PATCH \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/annotations/<annotation_column_id>/cells/<datapoint_id>\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "task_id": "<task_id>", "value": { "type": "range", "value": 4 } }\'\n',
+                        }
+                    ],
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Cell, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def patch_annotation_cell_async(
+        self,
+        *,
+        experiment_id: str,
+        run_id: str,
+        annotation_column_id: str,
+        datapoint_id: str,
+        value: Mapping[str, Any],
+        task_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.Cell:
+        r"""Set an annotation cell
+
+        Writes the annotation value of one row for one task column. An annotation column holds one cell per task column, so task_id selects which response is being annotated. The task output of that row must be completed. The value must match the annotation type, and a running cell cannot be changed.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param annotation_column_id: ID of the annotation column.
+        :param datapoint_id: ID of the row.
+        :param value: Annotation value. type is required: range uses {type: range, value: number}; single- and multi-select use {type: categorical, value: string} or {type: categorical, values: [{value: string, sentiment: string}]}; text and correction use {type: free_form_text, text: string}.
+        :param task_id: ID of the task column whose response is being annotated. An annotation column
+            holds one cell per task column.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ExperimentAnnotationCellPatchRequest(
+            experiment_id=experiment_id,
+            run_id=run_id,
+            annotation_column_id=annotation_column_id,
+            datapoint_id=datapoint_id,
+            patch_annotation_cell_request=models.PatchAnnotationCellRequest(
+                value=utils.unmarshal(value, Dict[str, Any]),
+                task_id=task_id,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v3/experiments/{experiment_id}/runs/{run_id}/annotations/{annotation_column_id}/cells/{datapoint_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.patch_annotation_cell_request,
+                False,
+                False,
+                "json",
+                models.PatchAnnotationCellRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ExperimentAnnotationCellPatch",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Experiments"],
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "patchAnnotationCell",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Set an annotation cell",
+                            "lang": "curl",
+                            "source": 'curl --request PATCH \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/annotations/<annotation_column_id>/cells/<datapoint_id>\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "task_id": "<task_id>", "value": { "type": "range", "value": 4 } }\'\n',
+                        }
+                    ],
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Cell, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
@@ -2423,9 +3615,10 @@ class Experiments(BaseSDK):
 
         Stops queued and running cells and moves the run to canceled. A cell whose execution is already in flight may still write its result.
 
-        :param experiment_id:
-        :param run_id:
-        :param row_ids:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param row_ids: Rows whose queued and running cells are canceled. Empty cancels every row.
+            The run moves to canceled either way.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2496,12 +3689,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "cancelRun",
                     "x-code-samples": [
                         {
                             "label": "Core - Cancel a run",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/cancel' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
+                            "source": "curl 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/cancel' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
                         },
                         {
                             "label": "Python - Cancel a run",
@@ -2511,7 +3705,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Cancel a run",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.cancelRun({ experimentId: '<experiment_id>', runId: '<run_id>' });\n\nconsole.log(run.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.cancelRun({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  cancelExperimentRunRequest: {},\n});\n\nconsole.log(run.status);\n",
                         },
                     ],
                 },
@@ -2551,9 +3745,10 @@ class Experiments(BaseSDK):
 
         Stops queued and running cells and moves the run to canceled. A cell whose execution is already in flight may still write its result.
 
-        :param experiment_id:
-        :param run_id:
-        :param row_ids:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param row_ids: Rows whose queued and running cells are canceled. Empty cancels every row.
+            The run moves to canceled either way.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2624,12 +3819,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "cancelRun",
                     "x-code-samples": [
                         {
                             "label": "Core - Cancel a run",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/cancel' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
+                            "source": "curl 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/cancel' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
                         },
                         {
                             "label": "Python - Cancel a run",
@@ -2639,7 +3835,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Cancel a run",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.cancelRun({ experimentId: '<experiment_id>', runId: '<run_id>' });\n\nconsole.log(run.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.cancelRun({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  cancelExperimentRunRequest: {},\n});\n\nconsole.log(run.status);\n",
                         },
                     ],
                 },
@@ -2669,9 +3865,9 @@ class Experiments(BaseSDK):
         *,
         experiment_id: str,
         run_id: str,
-        columns: Optional[
-            Union[Iterable[models.ColumnLayout], Iterable[models.ColumnLayoutTypedDict]]
-        ] = None,
+        columns: Union[
+            Iterable[models.ColumnLayout], Iterable[models.ColumnLayoutTypedDict]
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2681,9 +3877,9 @@ class Experiments(BaseSDK):
 
         Reorders, resizes, hides or shows columns of a run in one call. Columns not listed keep their layout.
 
-        :param experiment_id:
-        :param run_id:
-        :param columns:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param columns: Layout changes, at least one. Columns not listed keep their layout.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2706,9 +3902,7 @@ class Experiments(BaseSDK):
             experiment_id=experiment_id,
             run_id=run_id,
             update_run_column_layout_request=models.UpdateRunColumnLayoutRequest(
-                columns=utils.get_pydantic_model(
-                    columns, Optional[List[models.ColumnLayout]]
-                ),
+                columns=utils.get_pydantic_model(columns, List[models.ColumnLayout]),
             ),
         )
 
@@ -2756,12 +3950,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "updateRunColumnLayout",
                     "x-code-samples": [
                         {
                             "label": "Core - Reorder and resize columns",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/columns/layout\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "columns": [{ "column_id": "<column_id>", "position": 3, "width": 320 }] }\'\n',
+                            "source": 'curl --request PATCH \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/columns/layout\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "columns": [{ "column_id": "<column_id>", "position": 3, "width": 320 }] }\'\n',
                         },
                         {
                             "label": "Python - Reorder and resize columns",
@@ -2771,7 +3966,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Reorder and resize columns",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.updateRunColumnLayout({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  columns: [{ columnId: '<column_id>', position: 3, width: 320 }],\n});\n\nconsole.log(run.columns.map((column) => column.displayName));\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.updateRunColumnLayout({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  updateRunColumnLayoutRequest: {\n    columns: [{ columnId: '<column_id>', position: 3, width: 320 }],\n  },\n});\n\nconsole.log(run.columns.map((column) => column.displayName));\n",
                         },
                     ],
                 },
@@ -2801,9 +3996,9 @@ class Experiments(BaseSDK):
         *,
         experiment_id: str,
         run_id: str,
-        columns: Optional[
-            Union[Iterable[models.ColumnLayout], Iterable[models.ColumnLayoutTypedDict]]
-        ] = None,
+        columns: Union[
+            Iterable[models.ColumnLayout], Iterable[models.ColumnLayoutTypedDict]
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2813,9 +4008,9 @@ class Experiments(BaseSDK):
 
         Reorders, resizes, hides or shows columns of a run in one call. Columns not listed keep their layout.
 
-        :param experiment_id:
-        :param run_id:
-        :param columns:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param columns: Layout changes, at least one. Columns not listed keep their layout.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2838,9 +4033,7 @@ class Experiments(BaseSDK):
             experiment_id=experiment_id,
             run_id=run_id,
             update_run_column_layout_request=models.UpdateRunColumnLayoutRequest(
-                columns=utils.get_pydantic_model(
-                    columns, Optional[List[models.ColumnLayout]]
-                ),
+                columns=utils.get_pydantic_model(columns, List[models.ColumnLayout]),
             ),
         )
 
@@ -2888,12 +4081,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "updateRunColumnLayout",
                     "x-code-samples": [
                         {
                             "label": "Core - Reorder and resize columns",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/columns/layout\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "columns": [{ "column_id": "<column_id>", "position": 3, "width": 320 }] }\'\n',
+                            "source": 'curl --request PATCH \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/columns/layout\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "columns": [{ "column_id": "<column_id>", "position": 3, "width": 320 }] }\'\n',
                         },
                         {
                             "label": "Python - Reorder and resize columns",
@@ -2903,7 +4097,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Reorder and resize columns",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.updateRunColumnLayout({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  columns: [{ columnId: '<column_id>', position: 3, width: 320 }],\n});\n\nconsole.log(run.columns.map((column) => column.displayName));\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.updateRunColumnLayout({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  updateRunColumnLayoutRequest: {\n    columns: [{ columnId: '<column_id>', position: 3, width: 320 }],\n  },\n});\n\nconsole.log(run.columns.map((column) => column.displayName));\n",
                         },
                     ],
                 },
@@ -2940,8 +4134,10 @@ class Experiments(BaseSDK):
     ) -> models.ListEvalColumnsResponse:
         r"""List eval columns
 
-        :param experiment_id:
-        :param run_id:
+        Lists the evaluator columns of a run.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -3000,7 +4196,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "listEvals"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "listEvals",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3034,8 +4234,10 @@ class Experiments(BaseSDK):
     ) -> models.ListEvalColumnsResponse:
         r"""List eval columns
 
-        :param experiment_id:
-        :param run_id:
+        Lists the evaluator columns of a run.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -3094,7 +4296,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "listEvals"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "listEvals",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3121,7 +4327,7 @@ class Experiments(BaseSDK):
         *,
         experiment_id: str,
         run_id: str,
-        evaluator_id: Optional[str] = None,
+        evaluator_id: str,
         position: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -3130,12 +4336,13 @@ class Experiments(BaseSDK):
     ) -> models.Column:
         r"""Add an eval column
 
-        Links an existing evaluator. Config is updated at the evaluator source, not here.
+        Links an existing evaluator. Each row gets one evaluator cell per task column. Config is updated at the evaluator source, not here.
 
-        :param experiment_id:
-        :param run_id:
-        :param evaluator_id:
-        :param position:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param evaluator_id: ID of the evaluator to add. Each row gets one evaluator cell per task
+            column.
+        :param position: 0-based position among the run's columns. Defaults to the end.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -3207,12 +4414,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "createEval",
                     "x-code-samples": [
                         {
                             "label": "Core - Add an evaluator column",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/evaluators' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"evaluator_id\": \"<evaluator_id>\" }'\n",
+                            "source": "curl 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/evaluators' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"evaluator_id\": \"<evaluator_id>\" }'\n",
                         },
                         {
                             "label": "Python - Add an evaluator column",
@@ -3222,7 +4430,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Add an evaluator column",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.createEval({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  evaluatorId: '<evaluator_id>',\n});\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.createEval({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  createEvalColumnRequest: {\n    evaluatorId: '<evaluator_id>',\n  },\n});\n",
                         },
                     ],
                 },
@@ -3252,7 +4460,7 @@ class Experiments(BaseSDK):
         *,
         experiment_id: str,
         run_id: str,
-        evaluator_id: Optional[str] = None,
+        evaluator_id: str,
         position: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -3261,12 +4469,13 @@ class Experiments(BaseSDK):
     ) -> models.Column:
         r"""Add an eval column
 
-        Links an existing evaluator. Config is updated at the evaluator source, not here.
+        Links an existing evaluator. Each row gets one evaluator cell per task column. Config is updated at the evaluator source, not here.
 
-        :param experiment_id:
-        :param run_id:
-        :param evaluator_id:
-        :param position:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param evaluator_id: ID of the evaluator to add. Each row gets one evaluator cell per task
+            column.
+        :param position: 0-based position among the run's columns. Defaults to the end.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -3338,12 +4547,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "createEval",
                     "x-code-samples": [
                         {
                             "label": "Core - Add an evaluator column",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/evaluators' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"evaluator_id\": \"<evaluator_id>\" }'\n",
+                            "source": "curl 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/evaluators' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"evaluator_id\": \"<evaluator_id>\" }'\n",
                         },
                         {
                             "label": "Python - Add an evaluator column",
@@ -3353,7 +4563,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Add an evaluator column",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.createEval({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  evaluatorId: '<evaluator_id>',\n});\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.createEval({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  createEvalColumnRequest: {\n    evaluatorId: '<evaluator_id>',\n  },\n});\n",
                         },
                     ],
                 },
@@ -3391,9 +4601,11 @@ class Experiments(BaseSDK):
     ):
         r"""Remove an eval column
 
-        :param experiment_id:
-        :param run_id:
-        :param eval_id:
+        Removes an evaluator column and all its cells.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param eval_id: ID of the evaluator column.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -3453,7 +4665,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "deleteEval"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "deleteEval",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3488,9 +4704,11 @@ class Experiments(BaseSDK):
     ):
         r"""Remove an eval column
 
-        :param experiment_id:
-        :param run_id:
-        :param eval_id:
+        Removes an evaluator column and all its cells.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param eval_id: ID of the evaluator column.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -3550,7 +4768,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "deleteEval"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "deleteEval",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3572,246 +4794,12 @@ class Experiments(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
-    def patch_eval_cell(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        eval_id: str,
-        datapoint_id: str,
-        value: Optional[Mapping[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Cell:
-        r"""Correct an eval cell
-
-        Human override of an automated evaluator verdict on one datapoint.
-
-        :param experiment_id:
-        :param run_id:
-        :param eval_id:
-        :param datapoint_id:
-        :param value:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentEvalCellPatchRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            eval_id=eval_id,
-            datapoint_id=datapoint_id,
-            patch_eval_cell_request=models.PatchEvalCellRequest(
-                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/evaluators/{eval_id}/cells/{datapoint_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.patch_eval_cell_request,
-                False,
-                False,
-                "json",
-                models.PatchEvalCellRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentEvalCellPatch",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={
-                    "x-cli-group": "experiments",
-                    "x-cli-name": "patchEvalCell",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Cell, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def patch_eval_cell_async(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        eval_id: str,
-        datapoint_id: str,
-        value: Optional[Mapping[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Cell:
-        r"""Correct an eval cell
-
-        Human override of an automated evaluator verdict on one datapoint.
-
-        :param experiment_id:
-        :param run_id:
-        :param eval_id:
-        :param datapoint_id:
-        :param value:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentEvalCellPatchRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            eval_id=eval_id,
-            datapoint_id=datapoint_id,
-            patch_eval_cell_request=models.PatchEvalCellRequest(
-                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/evaluators/{eval_id}/cells/{datapoint_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.patch_eval_cell_request,
-                False,
-                False,
-                "json",
-                models.PatchEvalCellRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentEvalCellPatch",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={
-                    "x-cli-group": "experiments",
-                    "x-cli-name": "patchEvalCell",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Cell, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
     def execute_run(
         self,
         *,
         experiment_id: str,
         run_id: str,
-        scope: Optional[models.ExecuteScope] = None,
+        scope: models.ExecuteScope,
         targets: Optional[
             Union[
                 Iterable[models.ExecuteTarget], Iterable[models.ExecuteTargetTypedDict]
@@ -3820,7 +4808,6 @@ class Experiments(BaseSDK):
         constraints: Optional[
             Union[models.ExecuteConstraints, models.ExecuteConstraintsTypedDict]
         ] = None,
-        repeat_count: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -3828,14 +4815,13 @@ class Experiments(BaseSDK):
     ) -> models.Run:
         r"""Execute a run
 
-        Executes cells at the requested scope. FULL, PARTIAL, ROW and COLUMN queue the matching cells (a task column also queues its linked evaluator, metric and review cells) and start the orchestrator, which also re-runs failed cells of every row it picks up. A run that is already queued or running rejects new execution until it finishes or is cancelled. CELL re-runs one task or evaluator cell in place. Re-executing a terminal run does not require creating a new run.
+        Executes cells at the requested scope. FULL, PARTIAL, ROW and COLUMN queue the matching cells (a task column also queues its linked evaluator and metric cells) and start the orchestrator, which also re-runs failed cells of every row it picks up. A run that is already queued or running rejects new execution until it finishes or is cancelled. CELL re-runs one task or evaluator cell in place. Re-executing a terminal run does not require creating a new run.
 
-        :param experiment_id:
-        :param run_id:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
         :param scope:
-        :param targets:
-        :param constraints:
-        :param repeat_count:
+        :param targets: Rows and columns to execute. Required for row, column and cell scope.
+        :param constraints: Limits for this execution, saved into the run's settings.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -3865,7 +4851,6 @@ class Experiments(BaseSDK):
                 constraints=utils.get_pydantic_model(
                     constraints, Optional[models.ExecuteConstraints]
                 ),
-                repeat_count=repeat_count,
             ),
         )
 
@@ -3913,12 +4898,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "executeRun",
                     "x-code-samples": [
                         {
                             "label": "Core - Execute a run",
                             "lang": "curl",
-                            "source": 'curl \'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/execute\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "scope": "EXECUTE_SCOPE_FULL",\n    "constraints": { "llm": { "concurrency": 5, "timeout": "300s" } }\n  }\'\n',
+                            "source": 'curl \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/execute\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "scope": "EXECUTE_SCOPE_FULL",\n    "constraints": { "llm": { "concurrency": 5, "timeout": "300s" } }\n  }\'\n',
                         },
                         {
                             "label": "Python - Execute a run",
@@ -3928,7 +4914,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Execute a run",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.executeRun({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  scope: 'EXECUTE_SCOPE_FULL',\n  constraints: { llm: { concurrency: 5, timeout: '300s' } },\n});\n\nconsole.log(run.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.executeRun({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  executeRunRequest: {\n    scope: 'EXECUTE_SCOPE_FULL',\n    constraints: { llm: { concurrency: 5, timeout: '300s' } },\n  },\n});\n\nconsole.log(run.status);\n",
                         },
                     ],
                 },
@@ -3958,7 +4944,7 @@ class Experiments(BaseSDK):
         *,
         experiment_id: str,
         run_id: str,
-        scope: Optional[models.ExecuteScope] = None,
+        scope: models.ExecuteScope,
         targets: Optional[
             Union[
                 Iterable[models.ExecuteTarget], Iterable[models.ExecuteTargetTypedDict]
@@ -3967,7 +4953,6 @@ class Experiments(BaseSDK):
         constraints: Optional[
             Union[models.ExecuteConstraints, models.ExecuteConstraintsTypedDict]
         ] = None,
-        repeat_count: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -3975,14 +4960,13 @@ class Experiments(BaseSDK):
     ) -> models.Run:
         r"""Execute a run
 
-        Executes cells at the requested scope. FULL, PARTIAL, ROW and COLUMN queue the matching cells (a task column also queues its linked evaluator, metric and review cells) and start the orchestrator, which also re-runs failed cells of every row it picks up. A run that is already queued or running rejects new execution until it finishes or is cancelled. CELL re-runs one task or evaluator cell in place. Re-executing a terminal run does not require creating a new run.
+        Executes cells at the requested scope. FULL, PARTIAL, ROW and COLUMN queue the matching cells (a task column also queues its linked evaluator and metric cells) and start the orchestrator, which also re-runs failed cells of every row it picks up. A run that is already queued or running rejects new execution until it finishes or is cancelled. CELL re-runs one task or evaluator cell in place. Re-executing a terminal run does not require creating a new run.
 
-        :param experiment_id:
-        :param run_id:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
         :param scope:
-        :param targets:
-        :param constraints:
-        :param repeat_count:
+        :param targets: Rows and columns to execute. Required for row, column and cell scope.
+        :param constraints: Limits for this execution, saved into the run's settings.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -4012,7 +4996,6 @@ class Experiments(BaseSDK):
                 constraints=utils.get_pydantic_model(
                     constraints, Optional[models.ExecuteConstraints]
                 ),
-                repeat_count=repeat_count,
             ),
         )
 
@@ -4060,12 +5043,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "executeRun",
                     "x-code-samples": [
                         {
                             "label": "Core - Execute a run",
                             "lang": "curl",
-                            "source": 'curl \'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/execute\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "scope": "EXECUTE_SCOPE_FULL",\n    "constraints": { "llm": { "concurrency": 5, "timeout": "300s" } }\n  }\'\n',
+                            "source": 'curl \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/execute\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "scope": "EXECUTE_SCOPE_FULL",\n    "constraints": { "llm": { "concurrency": 5, "timeout": "300s" } }\n  }\'\n',
                         },
                         {
                             "label": "Python - Execute a run",
@@ -4075,7 +5059,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Execute a run",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.executeRun({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  scope: 'EXECUTE_SCOPE_FULL',\n  constraints: { llm: { concurrency: 5, timeout: '300s' } },\n});\n\nconsole.log(run.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst run = await client.experiments.executeRun({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  executeRunRequest: {\n    scope: 'EXECUTE_SCOPE_FULL',\n    constraints: { llm: { concurrency: 5, timeout: '300s' } },\n  },\n});\n\nconsole.log(run.status);\n",
                         },
                     ],
                 },
@@ -4115,9 +5099,10 @@ class Experiments(BaseSDK):
 
         Returns aggregated evaluator and built-in metrics for a run, keyed by task column and metric. Pass baseline_run_id to include the delta against another run.
 
-        :param experiment_id:
-        :param run_id:
-        :param baseline_run_id:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param baseline_run_id: Run of the same experiment to compare against. A run without values
+            returns no baseline.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -4179,12 +5164,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "getRunMetrics",
                     "x-code-samples": [
                         {
                             "label": "Core - Get run metrics",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/metrics' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --get 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/metrics' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Get run metrics",
@@ -4234,9 +5220,10 @@ class Experiments(BaseSDK):
 
         Returns aggregated evaluator and built-in metrics for a run, keyed by task column and metric. Pass baseline_run_id to include the delta against another run.
 
-        :param experiment_id:
-        :param run_id:
-        :param baseline_run_id:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param baseline_run_id: Run of the same experiment to compare against. A run without values
+            returns no baseline.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -4298,12 +5285,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "getRunMetrics",
                     "x-code-samples": [
                         {
                             "label": "Core - Get run metrics",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/metrics' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --get 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/metrics' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Get run metrics",
@@ -4345,7 +5333,6 @@ class Experiments(BaseSDK):
         run_id: str,
         rows: Optional[Iterable[str]] = None,
         columns: Optional[Iterable[str]] = None,
-        repeat_index: Optional[int] = None,
         limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         updated_after: Optional[datetime] = None,
@@ -4358,19 +5345,22 @@ class Experiments(BaseSDK):
     ) -> models.QueryRunResponse:
         r"""Query run cells
 
-        Returns selected cells by row and column name. POST because selections can exceed URL limits.
+        Returns the rows of a run with their cells, filtered by row and column. POST because selections can exceed URL limits.
 
-        :param experiment_id:
-        :param run_id:
-        :param rows:
-        :param columns:
-        :param repeat_index:
-        :param limit:
-        :param starting_after:
-        :param updated_after: Incremental refresh: returns running rows plus completed or failed rows
-            updated after this instant.
-        :param partial_rows:
-        :param exclude_static_cells:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param rows: Row IDs to return. Unknown IDs are ignored. Omit for every row.
+        :param columns: Columns to return, matched against column ID, key and display name. Every
+            matching column is used, and an entry that matches nothing is rejected.
+            Omit for every column.
+        :param limit: Page size, 1 to 1000. Defaults to 25.
+        :param starting_after: Cursor for forward pagination. Set to the `row_id` of the last row from
+            the previous page.
+        :param updated_after: Incremental refresh: return only rows updated after this instant. Pass the
+            previous response's `server_timestamp`. With `partial_rows`, running rows
+            are returned as well.
+        :param partial_rows: Return only running, completed and failed rows.
+        :param exclude_static_cells: Leave out data cells: inputs, messages, expected output and job output.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -4395,7 +5385,6 @@ class Experiments(BaseSDK):
             query_run_request=models.QueryRunRequest(
                 rows=utils.unmarshal(rows, Optional[List[str]]),
                 columns=utils.unmarshal(columns, Optional[List[str]]),
-                repeat_index=repeat_index,
                 limit=limit,
                 starting_after=starting_after,
                 updated_after=updated_after,
@@ -4444,12 +5433,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "queryRun",
                     "x-code-samples": [
                         {
                             "label": "Core - Query run cells",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/query' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"columns\": [\"GPT-4o reply\"], \"limit\": 50 }'\n",
+                            "source": 'curl \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/query\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "columns": ["GPT-4o reply"], "limit": 50 }\'\n',
                         },
                         {
                             "label": "Python - Query run cells",
@@ -4459,7 +5449,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Query run cells",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst page = await client.experiments.queryRun({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  columns: ['GPT-4o reply'],\n  limit: 50,\n});\n\nfor (const row of page.rows) {\n  for (const cell of row.cells) {\n    console.log(row.rowId, cell.status, cell.value);\n  }\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst page = await client.experiments.queryRun({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  queryRunRequest: {\n    columns: ['GPT-4o reply'],\n    limit: 50,\n  },\n});\n\nfor (const row of page.rows) {\n  for (const cell of row.cells) {\n    console.log(row.rowId, cell.status, cell.value);\n  }\n}\n",
                         },
                     ],
                 },
@@ -4491,7 +5481,6 @@ class Experiments(BaseSDK):
         run_id: str,
         rows: Optional[Iterable[str]] = None,
         columns: Optional[Iterable[str]] = None,
-        repeat_index: Optional[int] = None,
         limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         updated_after: Optional[datetime] = None,
@@ -4504,19 +5493,22 @@ class Experiments(BaseSDK):
     ) -> models.QueryRunResponse:
         r"""Query run cells
 
-        Returns selected cells by row and column name. POST because selections can exceed URL limits.
+        Returns the rows of a run with their cells, filtered by row and column. POST because selections can exceed URL limits.
 
-        :param experiment_id:
-        :param run_id:
-        :param rows:
-        :param columns:
-        :param repeat_index:
-        :param limit:
-        :param starting_after:
-        :param updated_after: Incremental refresh: returns running rows plus completed or failed rows
-            updated after this instant.
-        :param partial_rows:
-        :param exclude_static_cells:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param rows: Row IDs to return. Unknown IDs are ignored. Omit for every row.
+        :param columns: Columns to return, matched against column ID, key and display name. Every
+            matching column is used, and an entry that matches nothing is rejected.
+            Omit for every column.
+        :param limit: Page size, 1 to 1000. Defaults to 25.
+        :param starting_after: Cursor for forward pagination. Set to the `row_id` of the last row from
+            the previous page.
+        :param updated_after: Incremental refresh: return only rows updated after this instant. Pass the
+            previous response's `server_timestamp`. With `partial_rows`, running rows
+            are returned as well.
+        :param partial_rows: Return only running, completed and failed rows.
+        :param exclude_static_cells: Leave out data cells: inputs, messages, expected output and job output.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -4541,7 +5533,6 @@ class Experiments(BaseSDK):
             query_run_request=models.QueryRunRequest(
                 rows=utils.unmarshal(rows, Optional[List[str]]),
                 columns=utils.unmarshal(columns, Optional[List[str]]),
-                repeat_index=repeat_index,
                 limit=limit,
                 starting_after=starting_after,
                 updated_after=updated_after,
@@ -4590,12 +5581,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "queryRun",
                     "x-code-samples": [
                         {
                             "label": "Core - Query run cells",
                             "lang": "curl",
-                            "source": "curl 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/query' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"columns\": [\"GPT-4o reply\"], \"limit\": 50 }'\n",
+                            "source": 'curl \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/query\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{ "columns": ["GPT-4o reply"], "limit": 50 }\'\n',
                         },
                         {
                             "label": "Python - Query run cells",
@@ -4605,7 +5597,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Query run cells",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst page = await client.experiments.queryRun({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  columns: ['GPT-4o reply'],\n  limit: 50,\n});\n\nfor (const row of page.rows) {\n  for (const cell of row.cells) {\n    console.log(row.rowId, cell.status, cell.value);\n  }\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst page = await client.experiments.queryRun({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  queryRunRequest: {\n    columns: ['GPT-4o reply'],\n    limit: 50,\n  },\n});\n\nfor (const row of page.rows) {\n  for (const cell of row.cells) {\n    console.log(row.rowId, cell.status, cell.value);\n  }\n}\n",
                         },
                     ],
                 },
@@ -4630,1076 +5622,12 @@ class Experiments(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
-    def list_reviews(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListReviewColumnsResponse:
-        r"""List human review columns
-
-        :param experiment_id:
-        :param run_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentReviewListRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentReviewList",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "listReviews"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListReviewColumnsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def list_reviews_async(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListReviewColumnsResponse:
-        r"""List human review columns
-
-        :param experiment_id:
-        :param run_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentReviewListRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentReviewList",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "listReviews"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListReviewColumnsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def create_review(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        human_eval_id: Optional[str] = None,
-        display_name: Optional[str] = None,
-        human_eval_type: Optional[str] = None,
-        position: Optional[int] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Column:
-        r"""Add a human review column
-
-        :param experiment_id:
-        :param run_id:
-        :param human_eval_id:
-        :param display_name:
-        :param human_eval_type:
-        :param position:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentReviewCreateRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            create_review_column_request=models.CreateReviewColumnRequest(
-                human_eval_id=human_eval_id,
-                display_name=display_name,
-                human_eval_type=human_eval_type,
-                position=position,
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.create_review_column_request,
-                False,
-                False,
-                "json",
-                models.CreateReviewColumnRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentReviewCreate",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "createReview"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Column, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def create_review_async(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        human_eval_id: Optional[str] = None,
-        display_name: Optional[str] = None,
-        human_eval_type: Optional[str] = None,
-        position: Optional[int] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Column:
-        r"""Add a human review column
-
-        :param experiment_id:
-        :param run_id:
-        :param human_eval_id:
-        :param display_name:
-        :param human_eval_type:
-        :param position:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentReviewCreateRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            create_review_column_request=models.CreateReviewColumnRequest(
-                human_eval_id=human_eval_id,
-                display_name=display_name,
-                human_eval_type=human_eval_type,
-                position=position,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.create_review_column_request,
-                False,
-                False,
-                "json",
-                models.CreateReviewColumnRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentReviewCreate",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "createReview"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Column, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def delete_review(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        review_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Remove a human review column
-
-        :param experiment_id:
-        :param run_id:
-        :param review_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentReviewDeleteRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            review_id=review_id,
-        )
-
-        req = self._build_request(
-            method="DELETE",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews/{review_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentReviewDelete",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "deleteReview"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "204", "*"):
-            return
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def delete_review_async(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        review_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Remove a human review column
-
-        :param experiment_id:
-        :param run_id:
-        :param review_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentReviewDeleteRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            review_id=review_id,
-        )
-
-        req = self._build_request_async(
-            method="DELETE",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews/{review_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentReviewDelete",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "deleteReview"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "204", "*"):
-            return
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def update_review(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        review_id: str,
-        display_name: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Column:
-        r"""Update review column metadata
-
-        Updates display fields on the column. The human-eval definition is updated at source.
-
-        :param experiment_id:
-        :param run_id:
-        :param review_id:
-        :param display_name:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentReviewUpdateRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            review_id=review_id,
-            update_review_column_request=models.UpdateReviewColumnRequest(
-                display_name=display_name,
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews/{review_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_review_column_request,
-                False,
-                False,
-                "json",
-                models.UpdateReviewColumnRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentReviewUpdate",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "updateReview"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Column, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def update_review_async(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        review_id: str,
-        display_name: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Column:
-        r"""Update review column metadata
-
-        Updates display fields on the column. The human-eval definition is updated at source.
-
-        :param experiment_id:
-        :param run_id:
-        :param review_id:
-        :param display_name:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentReviewUpdateRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            review_id=review_id,
-            update_review_column_request=models.UpdateReviewColumnRequest(
-                display_name=display_name,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews/{review_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_review_column_request,
-                False,
-                False,
-                "json",
-                models.UpdateReviewColumnRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentReviewUpdate",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "updateReview"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Column, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def patch_review_cell(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        review_id: str,
-        datapoint_id: str,
-        value: Optional[Mapping[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Cell:
-        r"""Set a human review cell
-
-        :param experiment_id:
-        :param run_id:
-        :param review_id:
-        :param datapoint_id:
-        :param value: Human review value. type is required: range uses {type: range, value: number}; single- and multi-select use {type: categorical, value: string} or {type: categorical, values: [{value: string, sentiment: string}]}; text and correction use {type: free_form_text, text: string}.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentReviewCellPatchRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            review_id=review_id,
-            datapoint_id=datapoint_id,
-            patch_review_cell_request=models.PatchReviewCellRequest(
-                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews/{review_id}/cells/{datapoint_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.patch_review_cell_request,
-                False,
-                False,
-                "json",
-                models.PatchReviewCellRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentReviewCellPatch",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={
-                    "x-cli-group": "experiments",
-                    "x-cli-name": "patchReviewCell",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Cell, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def patch_review_cell_async(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        review_id: str,
-        datapoint_id: str,
-        value: Optional[Mapping[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Cell:
-        r"""Set a human review cell
-
-        :param experiment_id:
-        :param run_id:
-        :param review_id:
-        :param datapoint_id:
-        :param value: Human review value. type is required: range uses {type: range, value: number}; single- and multi-select use {type: categorical, value: string} or {type: categorical, values: [{value: string, sentiment: string}]}; text and correction use {type: free_form_text, text: string}.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentReviewCellPatchRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            review_id=review_id,
-            datapoint_id=datapoint_id,
-            patch_review_cell_request=models.PatchReviewCellRequest(
-                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/reviews/{review_id}/cells/{datapoint_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.patch_review_cell_request,
-                False,
-                False,
-                "json",
-                models.PatchReviewCellRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentReviewCellPatch",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={
-                    "x-cli-group": "experiments",
-                    "x-cli-name": "patchReviewCell",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Cell, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
     def delete_rows(
         self,
         *,
         experiment_id: str,
         run_id: str,
-        row_ids: Optional[Iterable[str]] = None,
+        row_ids: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -5709,9 +5637,10 @@ class Experiments(BaseSDK):
 
         Deletes the given rows of a run and their cells.
 
-        :param experiment_id:
-        :param run_id:
-        :param row_ids:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param row_ids: Rows to delete, at least one. Unknown IDs are ignored as long as one row
+            matches.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -5734,7 +5663,7 @@ class Experiments(BaseSDK):
             experiment_id=experiment_id,
             run_id=run_id,
             delete_rows_request=models.DeleteRowsRequest(
-                row_ids=utils.unmarshal(row_ids, Optional[List[str]]),
+                row_ids=utils.unmarshal(row_ids, List[str]),
             ),
         )
 
@@ -5782,12 +5711,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "deleteRows",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete rows",
                             "lang": "curl",
-                            "source": "curl --request POST 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/rows/bulk-delete' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"row_ids\": [\"<row_id>\"] }'\n",
+                            "source": "curl --request POST 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/rows/bulk-delete' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"row_ids\": [\"<row_id>\"] }'\n",
                         },
                         {
                             "label": "Python - Delete rows",
@@ -5797,7 +5727,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Delete rows",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.deleteRows({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  rowIds: ['<row_id>'],\n});\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.deleteRows({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  deleteRowsRequest: {\n    rowIds: ['<row_id>'],\n  },\n});\n",
                         },
                     ],
                 },
@@ -5827,7 +5757,7 @@ class Experiments(BaseSDK):
         *,
         experiment_id: str,
         run_id: str,
-        row_ids: Optional[Iterable[str]] = None,
+        row_ids: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -5837,9 +5767,10 @@ class Experiments(BaseSDK):
 
         Deletes the given rows of a run and their cells.
 
-        :param experiment_id:
-        :param run_id:
-        :param row_ids:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param row_ids: Rows to delete, at least one. Unknown IDs are ignored as long as one row
+            matches.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -5862,7 +5793,7 @@ class Experiments(BaseSDK):
             experiment_id=experiment_id,
             run_id=run_id,
             delete_rows_request=models.DeleteRowsRequest(
-                row_ids=utils.unmarshal(row_ids, Optional[List[str]]),
+                row_ids=utils.unmarshal(row_ids, List[str]),
             ),
         )
 
@@ -5910,12 +5841,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "deleteRows",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete rows",
                             "lang": "curl",
-                            "source": "curl --request POST 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/rows/bulk-delete' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"row_ids\": [\"<row_id>\"] }'\n",
+                            "source": "curl --request POST 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/rows/bulk-delete' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"row_ids\": [\"<row_id>\"] }'\n",
                         },
                         {
                             "label": "Python - Delete rows",
@@ -5925,7 +5857,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Delete rows",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.deleteRows({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  rowIds: ['<row_id>'],\n});\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.experiments.deleteRows({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  deleteRowsRequest: {\n    rowIds: ['<row_id>'],\n  },\n});\n",
                         },
                     ],
                 },
@@ -5938,274 +5870,6 @@ class Experiments(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def update_run_cell(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        row_id: str,
-        cell_id: str,
-        value: Optional[Mapping[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Cell:
-        r"""Update a cell
-
-        Writes a cell value by cell id, including dataset and review cells. An empty value clears the cell. Running cells cannot be changed.
-
-        :param experiment_id:
-        :param run_id:
-        :param row_id:
-        :param cell_id:
-        :param value:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentRunCellUpdateRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            row_id=row_id,
-            cell_id=cell_id,
-            update_run_cell_request=models.UpdateRunCellRequest(
-                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/rows/{row_id}/cells/{cell_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_run_cell_request,
-                False,
-                False,
-                "json",
-                models.UpdateRunCellRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentRunCellUpdate",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={
-                    "x-cli-group": "experiments",
-                    "x-cli-name": "updateRunCell",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Update a cell",
-                            "lang": "curl",
-                            "source": "curl --request PATCH 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/rows/<row_id>/cells/<cell_id>' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"value\": { \"text\": \"Corrected expected output\" } }'\n",
-                        },
-                        {
-                            "label": "Python - Update a cell",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ncell = client.experiments.update_run_cell(\n    experiment_id="<experiment_id>",\n    run_id="<run_id>",\n    row_id="<row_id>",\n    cell_id="<cell_id>",\n    value={"text": "Corrected expected output"},\n)\n\nprint(cell.cell_id, cell.value)\n',
-                        },
-                        {
-                            "label": "Node.js - Update a cell",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst cell = await client.experiments.updateRunCell({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  rowId: '<row_id>',\n  cellId: '<cell_id>',\n  value: { text: 'Corrected expected output' },\n});\n\nconsole.log(cell.cellId, cell.value);\n",
-                        },
-                    ],
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Cell, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def update_run_cell_async(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        row_id: str,
-        cell_id: str,
-        value: Optional[Mapping[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Cell:
-        r"""Update a cell
-
-        Writes a cell value by cell id, including dataset and review cells. An empty value clears the cell. Running cells cannot be changed.
-
-        :param experiment_id:
-        :param run_id:
-        :param row_id:
-        :param cell_id:
-        :param value:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentRunCellUpdateRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            row_id=row_id,
-            cell_id=cell_id,
-            update_run_cell_request=models.UpdateRunCellRequest(
-                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/rows/{row_id}/cells/{cell_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_run_cell_request,
-                False,
-                False,
-                "json",
-                models.UpdateRunCellRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentRunCellUpdate",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={
-                    "x-cli-group": "experiments",
-                    "x-cli-name": "updateRunCell",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Update a cell",
-                            "lang": "curl",
-                            "source": "curl --request PATCH 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/rows/<row_id>/cells/<cell_id>' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"value\": { \"text\": \"Corrected expected output\" } }'\n",
-                        },
-                        {
-                            "label": "Python - Update a cell",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ncell = client.experiments.update_run_cell(\n    experiment_id="<experiment_id>",\n    run_id="<run_id>",\n    row_id="<row_id>",\n    cell_id="<cell_id>",\n    value={"text": "Corrected expected output"},\n)\n\nprint(cell.cell_id, cell.value)\n',
-                        },
-                        {
-                            "label": "Node.js - Update a cell",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst cell = await client.experiments.updateRunCell({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  rowId: '<row_id>',\n  cellId: '<cell_id>',\n  value: { text: 'Corrected expected output' },\n});\n\nconsole.log(cell.cellId, cell.value);\n",
-                        },
-                    ],
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Cell, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
@@ -6234,11 +5898,11 @@ class Experiments(BaseSDK):
     ) -> models.QueryRow:
         r"""Duplicate a row
 
-        Copies a row's dataset cells into a new row placed after the source. Task, evaluator, metric and review cells start empty.
+        Copies a row into a new row at the end of the run. Dataset and annotation cells keep their values; response, agent response, open response, evaluator and metric cells start empty.
 
-        :param experiment_id:
-        :param run_id:
-        :param row_id:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param row_id: ID of the row to copy.
         :param duplicate_row_request:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -6311,22 +5975,23 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "duplicateRow",
                     "x-code-samples": [
                         {
                             "label": "Core - Duplicate a row",
                             "lang": "curl",
-                            "source": "curl --request POST 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/rows/<row_id>/duplicate' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
+                            "source": "curl --request POST 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/rows/<row_id>/duplicate' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
                         },
                         {
                             "label": "Python - Duplicate a row",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nrow = client.experiments.duplicate_row(\n    experiment_id="<experiment_id>",\n    run_id="<run_id>",\n    row_id="<row_id>",\n)\n\nprint(row.row_id, len(row.cells))\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nrow = client.experiments.duplicate_row(\n    experiment_id="<experiment_id>",\n    run_id="<run_id>",\n    row_id="<row_id>",\n    duplicate_row_request={},\n)\n\nprint(row.row_id, len(row.cells))\n',
                         },
                         {
                             "label": "Node.js - Duplicate a row",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst row = await client.experiments.duplicateRow({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  rowId: '<row_id>',\n});\n\nconsole.log(row.rowId, row.cells.length);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst row = await client.experiments.duplicateRow({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  rowId: '<row_id>',\n  duplicateRowRequest: {},\n});\n\nconsole.log(row.rowId, row.cells?.length);\n",
                         },
                     ],
                 },
@@ -6367,11 +6032,11 @@ class Experiments(BaseSDK):
     ) -> models.QueryRow:
         r"""Duplicate a row
 
-        Copies a row's dataset cells into a new row placed after the source. Task, evaluator, metric and review cells start empty.
+        Copies a row into a new row at the end of the run. Dataset and annotation cells keep their values; response, agent response, open response, evaluator and metric cells start empty.
 
-        :param experiment_id:
-        :param run_id:
-        :param row_id:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param row_id: ID of the row to copy.
         :param duplicate_row_request:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -6444,22 +6109,23 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "duplicateRow",
                     "x-code-samples": [
                         {
                             "label": "Core - Duplicate a row",
                             "lang": "curl",
-                            "source": "curl --request POST 'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/rows/<row_id>/duplicate' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
+                            "source": "curl --request POST 'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/rows/<row_id>/duplicate' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
                         },
                         {
                             "label": "Python - Duplicate a row",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nrow = client.experiments.duplicate_row(\n    experiment_id="<experiment_id>",\n    run_id="<run_id>",\n    row_id="<row_id>",\n)\n\nprint(row.row_id, len(row.cells))\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nrow = client.experiments.duplicate_row(\n    experiment_id="<experiment_id>",\n    run_id="<run_id>",\n    row_id="<row_id>",\n    duplicate_row_request={},\n)\n\nprint(row.row_id, len(row.cells))\n',
                         },
                         {
                             "label": "Node.js - Duplicate a row",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst row = await client.experiments.duplicateRow({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  rowId: '<row_id>',\n});\n\nconsole.log(row.rowId, row.cells.length);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst row = await client.experiments.duplicateRow({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  rowId: '<row_id>',\n  duplicateRowRequest: {},\n});\n\nconsole.log(row.rowId, row.cells?.length);\n",
                         },
                     ],
                 },
@@ -6496,8 +6162,10 @@ class Experiments(BaseSDK):
     ) -> models.ListTaskColumnsResponse:
         r"""List task columns
 
-        :param experiment_id:
-        :param run_id:
+        Lists the task columns of a run: prompt, agent and openresponse columns.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -6556,7 +6224,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "listTasks"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "listTasks",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -6590,8 +6262,10 @@ class Experiments(BaseSDK):
     ) -> models.ListTaskColumnsResponse:
         r"""List task columns
 
-        :param experiment_id:
-        :param run_id:
+        Lists the task columns of a run: prompt, agent and openresponse columns.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -6650,7 +6324,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "listTasks"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "listTasks",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -6677,15 +6355,12 @@ class Experiments(BaseSDK):
         *,
         experiment_id: str,
         run_id: str,
-        display_name: Optional[str] = None,
+        display_name: str,
         prompt: Optional[
             Union[models.PromptTaskConfig, models.PromptTaskConfigTypedDict]
         ] = None,
         agent: Optional[
             Union[models.AgentTaskConfig, models.AgentTaskConfigTypedDict]
-        ] = None,
-        harness: Optional[
-            Union[models.HarnessTaskConfig, models.HarnessTaskConfigTypedDict]
         ] = None,
         openresponse: Optional[
             Union[models.OpenResponseTaskConfig, models.OpenResponseTaskConfigTypedDict]
@@ -6698,16 +6373,15 @@ class Experiments(BaseSDK):
     ) -> models.Column:
         r"""Add a task column
 
-        Attaches a prompt, orq agent, or (reserved) harness config as a task column. Input mapping is required.
+        Adds a task column with one source: a prompt, an agent, or an openresponse column filled outside orq.ai. Every existing row gets a cell for it, and the first task column also adds cost and latency metric columns.
 
-        :param experiment_id:
-        :param run_id:
-        :param display_name:
-        :param prompt:
-        :param agent:
-        :param harness:
-        :param openresponse:
-        :param position:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param display_name: Column name.
+        :param prompt: Runs a prompt. Set exactly one of `prompt`, `agent` or `openresponse`.
+        :param agent: Runs an agent.
+        :param openresponse: Creates a column whose cells are filled outside orq.ai.
+        :param position: 0-based position among the run's columns. Defaults to the end.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -6735,9 +6409,6 @@ class Experiments(BaseSDK):
                     prompt, Optional[models.PromptTaskConfig]
                 ),
                 agent=utils.get_pydantic_model(agent, Optional[models.AgentTaskConfig]),
-                harness=utils.get_pydantic_model(
-                    harness, Optional[models.HarnessTaskConfig]
-                ),
                 openresponse=utils.get_pydantic_model(
                     openresponse, Optional[models.OpenResponseTaskConfig]
                 ),
@@ -6789,12 +6460,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "createTask",
                     "x-code-samples": [
                         {
                             "label": "Core - Add a prompt task column",
                             "lang": "curl",
-                            "source": 'curl \'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/tasks\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GPT-4o reply",\n    "prompt": {\n      "messages_source": "MESSAGES_SOURCE_MESSAGES_COLUMN",\n      "prompt_config": { "model": "openai/gpt-4o", "messages": [] }\n    }\n  }\'\n',
+                            "source": 'curl \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/tasks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GPT-4o reply",\n    "prompt": {\n      "messages_source": "MESSAGES_SOURCE_MESSAGES_COLUMN",\n      "prompt_config": { "model": "openai/gpt-4o", "messages": [] }\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Add a prompt task column",
@@ -6804,7 +6476,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Add a prompt task column",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst column = await client.experiments.createTask({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  displayName: 'GPT-4o reply',\n  prompt: {\n    messagesSource: 'MESSAGES_SOURCE_MESSAGES_COLUMN',\n    promptConfig: { model: 'openai/gpt-4o', messages: [] },\n  },\n});\n\nconsole.log(column.columnId);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst column = await client.experiments.createTask({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  createTaskColumnRequest: {\n    displayName: 'GPT-4o reply',\n    prompt: {\n      messagesSource: 'MESSAGES_SOURCE_MESSAGES_COLUMN',\n      promptConfig: { model: 'openai/gpt-4o', messages: [] },\n    },\n  },\n});\n\nconsole.log(column.columnId);\n",
                         },
                     ],
                 },
@@ -6834,15 +6506,12 @@ class Experiments(BaseSDK):
         *,
         experiment_id: str,
         run_id: str,
-        display_name: Optional[str] = None,
+        display_name: str,
         prompt: Optional[
             Union[models.PromptTaskConfig, models.PromptTaskConfigTypedDict]
         ] = None,
         agent: Optional[
             Union[models.AgentTaskConfig, models.AgentTaskConfigTypedDict]
-        ] = None,
-        harness: Optional[
-            Union[models.HarnessTaskConfig, models.HarnessTaskConfigTypedDict]
         ] = None,
         openresponse: Optional[
             Union[models.OpenResponseTaskConfig, models.OpenResponseTaskConfigTypedDict]
@@ -6855,16 +6524,15 @@ class Experiments(BaseSDK):
     ) -> models.Column:
         r"""Add a task column
 
-        Attaches a prompt, orq agent, or (reserved) harness config as a task column. Input mapping is required.
+        Adds a task column with one source: a prompt, an agent, or an openresponse column filled outside orq.ai. Every existing row gets a cell for it, and the first task column also adds cost and latency metric columns.
 
-        :param experiment_id:
-        :param run_id:
-        :param display_name:
-        :param prompt:
-        :param agent:
-        :param harness:
-        :param openresponse:
-        :param position:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param display_name: Column name.
+        :param prompt: Runs a prompt. Set exactly one of `prompt`, `agent` or `openresponse`.
+        :param agent: Runs an agent.
+        :param openresponse: Creates a column whose cells are filled outside orq.ai.
+        :param position: 0-based position among the run's columns. Defaults to the end.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -6892,9 +6560,6 @@ class Experiments(BaseSDK):
                     prompt, Optional[models.PromptTaskConfig]
                 ),
                 agent=utils.get_pydantic_model(agent, Optional[models.AgentTaskConfig]),
-                harness=utils.get_pydantic_model(
-                    harness, Optional[models.HarnessTaskConfig]
-                ),
                 openresponse=utils.get_pydantic_model(
                     openresponse, Optional[models.OpenResponseTaskConfig]
                 ),
@@ -6946,12 +6611,13 @@ class Experiments(BaseSDK):
                 tags=["Experiments"],
                 extensions={
                     "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "createTask",
                     "x-code-samples": [
                         {
                             "label": "Core - Add a prompt task column",
                             "lang": "curl",
-                            "source": 'curl \'https://api.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/tasks\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GPT-4o reply",\n    "prompt": {\n      "messages_source": "MESSAGES_SOURCE_MESSAGES_COLUMN",\n      "prompt_config": { "model": "openai/gpt-4o", "messages": [] }\n    }\n  }\'\n',
+                            "source": 'curl \'https://my.orq.ai/v3/experiments/<experiment_id>/runs/<run_id>/tasks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GPT-4o reply",\n    "prompt": {\n      "messages_source": "MESSAGES_SOURCE_MESSAGES_COLUMN",\n      "prompt_config": { "model": "openai/gpt-4o", "messages": [] }\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Add a prompt task column",
@@ -6961,7 +6627,7 @@ class Experiments(BaseSDK):
                         {
                             "label": "Node.js - Add a prompt task column",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst column = await client.experiments.createTask({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  displayName: 'GPT-4o reply',\n  prompt: {\n    messagesSource: 'MESSAGES_SOURCE_MESSAGES_COLUMN',\n    promptConfig: { model: 'openai/gpt-4o', messages: [] },\n  },\n});\n\nconsole.log(column.columnId);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst column = await client.experiments.createTask({\n  experimentId: '<experiment_id>',\n  runId: '<run_id>',\n  createTaskColumnRequest: {\n    displayName: 'GPT-4o reply',\n    prompt: {\n      messagesSource: 'MESSAGES_SOURCE_MESSAGES_COLUMN',\n      promptConfig: { model: 'openai/gpt-4o', messages: [] },\n    },\n  },\n});\n\nconsole.log(column.columnId);\n",
                         },
                     ],
                 },
@@ -6999,9 +6665,11 @@ class Experiments(BaseSDK):
     ):
         r"""Delete a task column
 
-        :param experiment_id:
-        :param run_id:
-        :param task_id:
+        Deletes a task column with its cells and the evaluator, metric and annotation cells linked to it. Deleting the last task column also removes the metric columns.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param task_id: ID of the task column.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -7061,7 +6729,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "deleteTask"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "deleteTask",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -7096,9 +6768,11 @@ class Experiments(BaseSDK):
     ):
         r"""Delete a task column
 
-        :param experiment_id:
-        :param run_id:
-        :param task_id:
+        Deletes a task column with its cells and the evaluator, metric and annotation cells linked to it. Deleting the last task column also removes the metric columns.
+
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param task_id: ID of the task column.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -7158,7 +6832,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "deleteTask"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "deleteTask",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -7193,9 +6871,6 @@ class Experiments(BaseSDK):
         agent: Optional[
             Union[models.AgentTaskConfig, models.AgentTaskConfigTypedDict]
         ] = None,
-        harness: Optional[
-            Union[models.HarnessTaskConfig, models.HarnessTaskConfigTypedDict]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -7203,15 +6878,16 @@ class Experiments(BaseSDK):
     ) -> models.Column:
         r"""Update a task column
 
-        Updates an unlinked task column in place.
+        Renames a task column or replaces its source. Existing cells are not changed.
 
-        :param experiment_id:
-        :param run_id:
-        :param task_id:
-        :param display_name:
-        :param prompt:
-        :param agent:
-        :param harness:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param task_id: ID of the task column.
+        :param display_name: New column name. Must not be empty.
+        :param prompt: Replaces the column's source with this prompt. A new source replaces the
+            whole config and can change the column type; existing cells are not
+            changed.
+        :param agent: Replaces the column's source with this agent.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -7240,9 +6916,6 @@ class Experiments(BaseSDK):
                     prompt, Optional[models.PromptTaskConfig]
                 ),
                 agent=utils.get_pydantic_model(agent, Optional[models.AgentTaskConfig]),
-                harness=utils.get_pydantic_model(
-                    harness, Optional[models.HarnessTaskConfig]
-                ),
             ),
         )
 
@@ -7288,7 +6961,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "updateTask"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "updateTask",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -7323,9 +7000,6 @@ class Experiments(BaseSDK):
         agent: Optional[
             Union[models.AgentTaskConfig, models.AgentTaskConfigTypedDict]
         ] = None,
-        harness: Optional[
-            Union[models.HarnessTaskConfig, models.HarnessTaskConfigTypedDict]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -7333,15 +7007,16 @@ class Experiments(BaseSDK):
     ) -> models.Column:
         r"""Update a task column
 
-        Updates an unlinked task column in place.
+        Renames a task column or replaces its source. Existing cells are not changed.
 
-        :param experiment_id:
-        :param run_id:
-        :param task_id:
-        :param display_name:
-        :param prompt:
-        :param agent:
-        :param harness:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param task_id: ID of the task column.
+        :param display_name: New column name. Must not be empty.
+        :param prompt: Replaces the column's source with this prompt. A new source replaces the
+            whole config and can change the column type; existing cells are not
+            changed.
+        :param agent: Replaces the column's source with this agent.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -7370,9 +7045,6 @@ class Experiments(BaseSDK):
                     prompt, Optional[models.PromptTaskConfig]
                 ),
                 agent=utils.get_pydantic_model(agent, Optional[models.AgentTaskConfig]),
-                harness=utils.get_pydantic_model(
-                    harness, Optional[models.HarnessTaskConfig]
-                ),
             ),
         )
 
@@ -7418,7 +7090,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "updateTask"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "updateTask",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -7428,260 +7104,6 @@ class Experiments(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Column, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def patch_task_cell(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        task_id: str,
-        datapoint_id: str,
-        repeat_index: Optional[int] = None,
-        value: Optional[Mapping[str, Any]] = None,
-        artifacts: Optional[
-            Union[models.ArtifactRefs, models.ArtifactRefsTypedDict]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Cell:
-        r"""Ingest a task cell
-
-        Writes a cell result, including externally executed or harness cells.
-
-        :param experiment_id:
-        :param run_id:
-        :param task_id:
-        :param datapoint_id:
-        :param repeat_index:
-        :param value:
-        :param artifacts:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentTaskCellPatchRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            task_id=task_id,
-            datapoint_id=datapoint_id,
-            patch_task_cell_request=models.PatchTaskCellRequest(
-                repeat_index=repeat_index,
-                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
-                artifacts=utils.get_pydantic_model(
-                    artifacts, Optional[models.ArtifactRefs]
-                ),
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/tasks/{task_id}/cells/{datapoint_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.patch_task_cell_request,
-                False,
-                False,
-                "json",
-                models.PatchTaskCellRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentTaskCellPatch",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={
-                    "x-cli-group": "experiments",
-                    "x-cli-name": "patchTaskCell",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Cell, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def patch_task_cell_async(
-        self,
-        *,
-        experiment_id: str,
-        run_id: str,
-        task_id: str,
-        datapoint_id: str,
-        repeat_index: Optional[int] = None,
-        value: Optional[Mapping[str, Any]] = None,
-        artifacts: Optional[
-            Union[models.ArtifactRefs, models.ArtifactRefsTypedDict]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Cell:
-        r"""Ingest a task cell
-
-        Writes a cell result, including externally executed or harness cells.
-
-        :param experiment_id:
-        :param run_id:
-        :param task_id:
-        :param datapoint_id:
-        :param repeat_index:
-        :param value:
-        :param artifacts:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ExperimentTaskCellPatchRequest(
-            experiment_id=experiment_id,
-            run_id=run_id,
-            task_id=task_id,
-            datapoint_id=datapoint_id,
-            patch_task_cell_request=models.PatchTaskCellRequest(
-                repeat_index=repeat_index,
-                value=utils.unmarshal(value, Optional[Dict[str, Any]]),
-                artifacts=utils.get_pydantic_model(
-                    artifacts, Optional[models.ArtifactRefs]
-                ),
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v3/experiments/{experiment_id}/runs/{run_id}/tasks/{task_id}/cells/{datapoint_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.patch_task_cell_request,
-                False,
-                False,
-                "json",
-                models.PatchTaskCellRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ExperimentTaskCellPatch",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Experiments"],
-                extensions={
-                    "x-cli-group": "experiments",
-                    "x-cli-name": "patchTaskCell",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Cell, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
             raise models.ErrorResponse(response_data, http_res)
@@ -7708,11 +7130,11 @@ class Experiments(BaseSDK):
     ) -> models.ExperimentRunExportResponse:
         r"""Export a run
 
-        Downloads the run as a file, including human review and evaluator corrections made after an earlier export.
+        Downloads the run as a file, including annotations and evaluator corrections made after an earlier export.
 
-        :param experiment_id:
-        :param run_id:
-        :param format_:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param format_: File format: `json` (an array of records), `jsonl` (one record per line) or `csv`. Each record is one row and task column.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -7775,7 +7197,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "exportRun"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "exportRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -7822,11 +7248,11 @@ class Experiments(BaseSDK):
     ) -> models.ExperimentRunExportResponse:
         r"""Export a run
 
-        Downloads the run as a file, including human review and evaluator corrections made after an earlier export.
+        Downloads the run as a file, including annotations and evaluator corrections made after an earlier export.
 
-        :param experiment_id:
-        :param run_id:
-        :param format_:
+        :param experiment_id: ID of the experiment.
+        :param run_id: ID of the run.
+        :param format_: File format: `json` (an array of records), `jsonl` (one record per line) or `csv`. Each record is one row and task column.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -7889,7 +7315,11 @@ class Experiments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Experiments"],
-                extensions={"x-cli-group": "experiments", "x-cli-name": "exportRun"},
+                extensions={
+                    "x-cli-group": "experiments",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "exportRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

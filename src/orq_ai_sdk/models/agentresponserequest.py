@@ -311,17 +311,22 @@ r"""Override template engine for this invocation. If not provided, uses the agen
 
 
 class AgentResponseRequestConfigurationTypedDict(TypedDict):
-    r"""Configuration options for the agent invocation"""
+    r"""A2A compatibility options. Ignored on this endpoint; use background to control whether the call waits."""
 
     blocking: NotRequired[bool]
-    r"""Whether to block until the agent task completes. When true, the response will include the full task with messages. When false (default), returns immediately with task ID and status."""
+    r"""Accepted for A2A compatibility and ignored on this endpoint. Use background instead."""
 
 
 class AgentResponseRequestConfiguration(BaseModel):
-    r"""Configuration options for the agent invocation"""
+    r"""A2A compatibility options. Ignored on this endpoint; use background to control whether the call waits."""
 
-    blocking: Optional[bool] = False
-    r"""Whether to block until the agent task completes. When true, the response will include the full task with messages. When false (default), returns immediately with task ID and status."""
+    blocking: Annotated[
+        Optional[bool],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = False
+    r"""Accepted for A2A compatibility and ignored on this endpoint. Use background instead."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -383,9 +388,9 @@ class AgentResponseRequestTypedDict(TypedDict):
     engine: NotRequired[Engine]
     r"""Override template engine for this invocation. If not provided, uses the agent default."""
     configuration: NotRequired[AgentResponseRequestConfigurationTypedDict]
-    r"""Configuration options for the agent invocation"""
+    r"""A2A compatibility options. Ignored on this endpoint; use background to control whether the call waits."""
     background: NotRequired[bool]
-    r"""If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors."""
+    r"""The only switch that controls whether the call waits. If true, returns immediately with the task ID and status. If false (default), waits until the agent becomes inactive or errors and returns the full conversation."""
     stream: NotRequired[bool]
     r"""If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response."""
     conversation: NotRequired[ConversationTypedDict]
@@ -428,10 +433,10 @@ class AgentResponseRequest(BaseModel):
     r"""Override template engine for this invocation. If not provided, uses the agent default."""
 
     configuration: Optional[AgentResponseRequestConfiguration] = None
-    r"""Configuration options for the agent invocation"""
+    r"""A2A compatibility options. Ignored on this endpoint; use background to control whether the call waits."""
 
     background: Optional[bool] = False
-    r"""If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors."""
+    r"""The only switch that controls whether the call waits. If true, returns immediately with the task ID and status. If false (default), waits until the agent becomes inactive or errors and returns the full conversation."""
 
     stream: Optional[bool] = False
     r"""If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response."""

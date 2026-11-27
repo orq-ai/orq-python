@@ -92,6 +92,7 @@ class TelemetrySDK(BaseSDK):
                 tags=["Telemetry"],
                 extensions={
                     "x-cli-group": "telemetry",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "listCapabilities",
                 },
             ),
@@ -198,6 +199,7 @@ class TelemetrySDK(BaseSDK):
                 tags=["Telemetry"],
                 extensions={
                     "x-cli-group": "telemetry",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "listCapabilities",
                 },
             ),
@@ -324,6 +326,7 @@ class TelemetrySDK(BaseSDK):
                 tags=["Telemetry"],
                 extensions={
                     "x-cli-group": "telemetry",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "listFacetValues",
                 },
             ),
@@ -450,6 +453,7 @@ class TelemetrySDK(BaseSDK):
                 tags=["Telemetry"],
                 extensions={
                     "x-cli-group": "telemetry",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "listFacetValues",
                 },
             ),
@@ -507,7 +511,7 @@ class TelemetrySDK(BaseSDK):
     ) -> models.QueryTelemetryResponse:
         r"""Query telemetry
 
-        Canonical neutral query envelope for traces, metrics, and logs. Select a source, compute list, and time range; optionally group, filter, bucket, sort, limit, and include totals. ReportingService.QueryReport and TraceQueryService.AggregateTraces remain supported compatibility contracts.
+        Canonical neutral query envelope for traces, metrics, and logs. Select a source, compute list, and time range; optionally group, filter, bucket, sort, limit, and include totals.
 
         :param source:
         :param from_:
@@ -610,7 +614,11 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions={"x-cli-group": "telemetry", "x-cli-name": "query"},
+                extensions={
+                    "x-cli-group": "telemetry",
+                    "x-cli-help-section": "Observability",
+                    "x-cli-name": "query",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -664,7 +672,7 @@ class TelemetrySDK(BaseSDK):
     ) -> models.QueryTelemetryResponse:
         r"""Query telemetry
 
-        Canonical neutral query envelope for traces, metrics, and logs. Select a source, compute list, and time range; optionally group, filter, bucket, sort, limit, and include totals. ReportingService.QueryReport and TraceQueryService.AggregateTraces remain supported compatibility contracts.
+        Canonical neutral query envelope for traces, metrics, and logs. Select a source, compute list, and time range; optionally group, filter, bucket, sort, limit, and include totals.
 
         :param source:
         :param from_:
@@ -767,7 +775,11 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions={"x-cli-group": "telemetry", "x-cli-name": "query"},
+                extensions={
+                    "x-cli-group": "telemetry",
+                    "x-cli-help-section": "Observability",
+                    "x-cli-name": "query",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

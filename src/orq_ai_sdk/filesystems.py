@@ -93,7 +93,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -194,7 +198,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -302,7 +310,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -410,7 +422,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -499,7 +515,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "retrieve"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "retrieve",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -592,7 +612,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "retrieve"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "retrieve",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -685,7 +709,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -776,7 +804,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -893,7 +925,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1008,7 +1044,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1106,7 +1146,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "listFiles"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "listFiles",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1208,7 +1252,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "listFiles"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "listFiles",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1307,7 +1355,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "deleteFile"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "deleteFile",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1406,7 +1458,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "deleteFile"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "deleteFile",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1514,7 +1570,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "moveFile"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "moveFile",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1618,7 +1678,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "moveFile"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "moveFile",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1710,7 +1774,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "statFile"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "statFile",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1806,7 +1874,11 @@ class FileSystems(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["File Systems"],
-                extensions={"x-cli-group": "file-systems", "x-cli-name": "statFile"},
+                extensions={
+                    "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
+                    "x-cli-name": "statFile",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1913,6 +1985,7 @@ class FileSystems(BaseSDK):
                 tags=["File Systems"],
                 extensions={
                     "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
                     "x-cli-name": "createFolder",
                 },
             ),
@@ -2019,6 +2092,7 @@ class FileSystems(BaseSDK):
                 tags=["File Systems"],
                 extensions={
                     "x-cli-group": "file-systems",
+                    "x-cli-help-section": "Factory",
                     "x-cli-name": "createFolder",
                 },
             ),

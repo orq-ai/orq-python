@@ -26,7 +26,7 @@ class AutoRouterV2ConfigTypedDict(TypedDict):
     intelligence_index: float
     r"""Artificial Analysis intelligence index the router ranks the model by."""
     price: float
-    r"""Blended price per million tokens, in USD."""
+    r"""Blended price per million tokens, in USD: (7 x cache read + 2 x input + 1 x output) / 10."""
     aa_creator: NotRequired[AutoRouterV2CreatorConfigTypedDict]
     aa_evaluations: NotRequired[Dict[str, Nullable[float]]]
     r"""Benchmark scores reported by Artificial Analysis, keyed by evaluation."""
@@ -58,6 +58,10 @@ class AutoRouterV2ConfigTypedDict(TypedDict):
     r"""Reasoning effort applied when a request does not set one."""
     default_effort_scored: NotRequired[bool]
     r"""Whether the default effort has a benchmarked score."""
+    price_cache_read_source: NotRequired[str]
+    r"""Where the cache read rate in the price came from: host, artificial_analysis (capped at the input price) or input."""
+    price_mix: NotRequired[str]
+    r"""Blend the price uses. agentic is the 7:2:1 cache read, input and output blend."""
     reasoning_efforts: NotRequired[Dict[str, AutoRouterV2EffortConfigTypedDict]]
     r"""Benchmark data for each reasoning effort the model exposes."""
 
@@ -67,7 +71,7 @@ class AutoRouterV2Config(BaseModel):
     r"""Artificial Analysis intelligence index the router ranks the model by."""
 
     price: float
-    r"""Blended price per million tokens, in USD."""
+    r"""Blended price per million tokens, in USD: (7 x cache read + 2 x input + 1 x output) / 10."""
 
     aa_creator: Optional[AutoRouterV2CreatorConfig] = None
 
@@ -116,6 +120,12 @@ class AutoRouterV2Config(BaseModel):
     default_effort_scored: Optional[bool] = None
     r"""Whether the default effort has a benchmarked score."""
 
+    price_cache_read_source: Optional[str] = None
+    r"""Where the cache read rate in the price came from: host, artificial_analysis (capped at the input price) or input."""
+
+    price_mix: Optional[str] = None
+    r"""Blend the price uses. agentic is the 7:2:1 cache read, input and output blend."""
+
     reasoning_efforts: Optional[Dict[str, AutoRouterV2EffortConfig]] = None
     r"""Benchmark data for each reasoning effort the model exposes."""
 
@@ -142,6 +152,8 @@ class AutoRouterV2Config(BaseModel):
                 "aa_slug",
                 "default_effort",
                 "default_effort_scored",
+                "price_cache_read_source",
+                "price_mix",
                 "reasoning_efforts",
             ]
         )

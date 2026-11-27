@@ -18,6 +18,8 @@ class TracesListSpansRequestTypedDict(TypedDict):
     trace_id: str
     limit: NotRequired[int]
     page_token: NotRequired[str]
+    all_accessible_projects: NotRequired[bool]
+    r"""Spans every project the caller belongs to instead of the active one."""
 
 
 class TracesListSpansRequest(BaseModel):
@@ -35,12 +37,18 @@ class TracesListSpansRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
 
+    all_accessible_projects: Annotated[
+        Optional[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Spans every project the caller belongs to instead of the active one."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["limit", "page_token"])
+        optional_fields = set(["limit", "page_token", "all_accessible_projects"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

@@ -208,6 +208,7 @@ class Completions(BaseSDK):
                 tags=["Completions"],
                 extensions={
                     "x-cli-group": "completions",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },
@@ -444,6 +445,7 @@ class Completions(BaseSDK):
                 tags=["Completions"],
                 extensions={
                     "x-cli-group": "completions",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },

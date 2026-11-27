@@ -12,7 +12,9 @@ from typing_extensions import Annotated, TypedDict
 
 class ExperimentRunCancelRequestTypedDict(TypedDict):
     experiment_id: str
+    r"""ID of the experiment."""
     run_id: str
+    r"""ID of the run."""
     cancel_experiment_run_request: CancelExperimentRunRequestTypedDict
 
 
@@ -20,10 +22,12 @@ class ExperimentRunCancelRequest(BaseModel):
     experiment_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the experiment."""
 
     run_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the run."""
 
     cancel_experiment_run_request: Annotated[
         CancelExperimentRunRequest,

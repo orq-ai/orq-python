@@ -1,11 +1,13 @@
 # UniqueEvaluator
 
+An evaluator used by the experiment.
+
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `evaluator_id`     | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `evaluator_type`   | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `evaluator_name`   | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `evaluator_key`    | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `evaluator_id`                                                                                               | *Optional[str]*                                                                                              | :heavy_minus_sign:                                                                                           | Evaluator ID.                                                                                                |
+| `evaluator_type`                                                                                             | *Optional[str]*                                                                                              | :heavy_minus_sign:                                                                                           | Evaluator type, taken from the evaluator's definition.                                                       |
+| `evaluator_name`                                                                                             | *Optional[str]*                                                                                              | :heavy_minus_sign:                                                                                           | Evaluator display name.                                                                                      |
+| `evaluator_key`                                                                                              | *Optional[str]*                                                                                              | :heavy_minus_sign:                                                                                           | Column key of the evaluator in an evaluatorq upload. Empty for evaluators<br/> added through Add an eval column. |

@@ -1,0 +1,13 @@
+# OpenAIToolSearch
+
+Load deferred tools on demand through the native OpenAI Responses API.
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `description`                                                                                        | *Optional[str]*                                                                                      | :heavy_minus_sign:                                                                                   | Describe the search performed by a client-executed tool.                                             |
+| `execution`                                                                                          | [Optional[models.ToolsExecution]](../models/toolsexecution.md)                                       | :heavy_minus_sign:                                                                                   | Defaults to server. In client mode, return the matching tools in a tool_search_output item.          |
+| `parameters`                                                                                         | Dict[str, *Any*]                                                                                     | :heavy_minus_sign:                                                                                   | JSON Schema for the client-executed search arguments.                                                |
+| `type`                                                                                               | [models.CreateRouterResponseToolsResponsesType](../models/createrouterresponsetoolsresponsestype.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

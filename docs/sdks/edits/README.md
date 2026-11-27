@@ -23,6 +23,7 @@ with Orq(
 ) as orq:
 
     res = orq.router.images.edits.create(model="LeBaron", prompt="<value>", n=1.0, retry={
+        "count": 3.0,
         "on_codes": [
             429.0,
             500.0,
@@ -44,6 +45,7 @@ with Orq(
         "call_timeout": 30000.0,
     }, orq={
         "retry": {
+            "count": 3.0,
             "on_codes": [
                 429.0,
                 500.0,

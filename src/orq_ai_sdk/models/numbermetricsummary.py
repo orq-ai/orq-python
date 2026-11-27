@@ -14,32 +14,52 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class NumberMetricSummaryTypedDict(TypedDict):
+    r"""Statistics of a numeric metric."""
+
     min: NotRequired[float]
+    r"""Lowest value."""
     max: NotRequired[float]
+    r"""Highest value."""
     avg: NotRequired[float]
+    r"""Average value."""
     sum: NotRequired[float]
+    r"""Sum of the values."""
     median: NotRequired[float]
+    r"""Approximate median."""
     range: NotRequired[float]
+    r"""`max` minus `min`."""
     std_dev: NotRequired[float]
+    r"""Population standard deviation."""
     count: NotRequired[int]
+    r"""Number of rows with a value."""
 
 
 class NumberMetricSummary(BaseModel):
+    r"""Statistics of a numeric metric."""
+
     min: Optional[float] = None
+    r"""Lowest value."""
 
     max: Optional[float] = None
+    r"""Highest value."""
 
     avg: Optional[float] = None
+    r"""Average value."""
 
     sum: Optional[float] = None
+    r"""Sum of the values."""
 
     median: Optional[float] = None
+    r"""Approximate median."""
 
     range: Optional[float] = None
+    r"""`max` minus `min`."""
 
     std_dev: Optional[float] = None
+    r"""Population standard deviation."""
 
     count: Optional[int] = None
+    r"""Number of rows with a value."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

@@ -108,6 +108,7 @@ class Responses(BaseSDK):
                 tags=["Responses"],
                 extensions={
                     "x-cli-group": "responses",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "compact",
                     "x-code-samples": [
                         {
@@ -252,6 +253,7 @@ class Responses(BaseSDK):
                 tags=["Responses"],
                 extensions={
                     "x-cli-group": "responses",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "compact",
                     "x-code-samples": [
                         {
@@ -477,7 +479,7 @@ class Responses(BaseSDK):
         :param thinking:
         :param thread:
         :param timeout:
-        :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
+        :param tool_choice: How the model should use the provided tools. Native OpenAI requests can restrict the allowed tools.
         :param tools: Tools available to the model.
         :param top_k: Only sample from the top K options for each subsequent token. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param top_logprobs: Number of most likely tokens to return at each position.
@@ -633,6 +635,7 @@ class Responses(BaseSDK):
                 tags=["Responses"],
                 extensions={
                     "x-cli-group": "responses",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": True,
                 },
@@ -850,7 +853,7 @@ class Responses(BaseSDK):
         :param thinking:
         :param thread:
         :param timeout:
-        :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
+        :param tool_choice: How the model should use the provided tools. Native OpenAI requests can restrict the allowed tools.
         :param tools: Tools available to the model.
         :param top_k: Only sample from the top K options for each subsequent token. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param top_logprobs: Number of most likely tokens to return at each position.
@@ -1006,6 +1009,7 @@ class Responses(BaseSDK):
                 tags=["Responses"],
                 extensions={
                     "x-cli-group": "responses",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": True,
                 },
@@ -1123,6 +1127,7 @@ class Responses(BaseSDK):
                 tags=["Responses"],
                 extensions={
                     "x-cli-group": "responses",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "get",
                     "x-orq-gateway-group": True,
                 },
@@ -1224,6 +1229,7 @@ class Responses(BaseSDK):
                 tags=["Responses"],
                 extensions={
                     "x-cli-group": "responses",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "get",
                     "x-orq-gateway-group": True,
                 },

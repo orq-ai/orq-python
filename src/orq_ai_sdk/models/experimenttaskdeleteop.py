@@ -8,19 +8,25 @@ from typing_extensions import Annotated, TypedDict
 
 class ExperimentTaskDeleteRequestTypedDict(TypedDict):
     experiment_id: str
+    r"""ID of the experiment."""
     run_id: str
+    r"""ID of the run."""
     task_id: str
+    r"""ID of the task column."""
 
 
 class ExperimentTaskDeleteRequest(BaseModel):
     experiment_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the experiment."""
 
     run_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the run."""
 
     task_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the task column."""

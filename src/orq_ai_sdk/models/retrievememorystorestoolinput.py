@@ -21,7 +21,7 @@ class RetrieveMemoryStoresToolInputTypedDict(TypedDict):
 
     type: RetrieveMemoryStoresToolInputType
     requires_approval: NotRequired[bool]
-    r"""Whether this tool requires approval before execution"""
+    r"""Whether this tool is marked as requiring approval. An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval"""
     configuration: NotRequired[Dict[str, Any]]
     r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
@@ -32,7 +32,7 @@ class RetrieveMemoryStoresToolInput(BaseModel):
     type: RetrieveMemoryStoresToolInputType
 
     requires_approval: Optional[bool] = None
-    r"""Whether this tool requires approval before execution"""
+    r"""Whether this tool is marked as requiring approval. An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval"""
 
     configuration: Optional[Dict[str, Any]] = None
     r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""

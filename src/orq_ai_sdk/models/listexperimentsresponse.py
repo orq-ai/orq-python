@@ -16,13 +16,21 @@ from typing_extensions import NotRequired, TypedDict
 
 class ListExperimentsResponseTypedDict(TypedDict):
     data: NotRequired[List[ExperimentTypedDict]]
+    r"""Page of experiments, newest first."""
     has_more: NotRequired[bool]
+    r"""Whether more experiments are available in the selected pagination
+    direction.
+    """
 
 
 class ListExperimentsResponse(BaseModel):
     data: Optional[List[Experiment]] = None
+    r"""Page of experiments, newest first."""
 
     has_more: Optional[bool] = None
+    r"""Whether more experiments are available in the selected pagination
+    direction.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

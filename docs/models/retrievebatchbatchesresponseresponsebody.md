@@ -1,0 +1,10 @@
+# RetrieveBatchBatchesResponseResponseBody
+
+Missing, invalid, expired or revoked API key.
+
+
+## Fields
+
+| Field                                    | Type                                     | Required                                 | Description                              |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| `error`                                  | [models.APIError](../models/apierror.md) | :heavy_check_mark:                       | N/A                                      |

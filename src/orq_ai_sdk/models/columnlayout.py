@@ -14,27 +14,39 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ColumnLayoutTypedDict(TypedDict):
-    column_id: NotRequired[str]
+    r"""Layout change for one column."""
+
+    column_id: str
+    r"""ID of the column to change."""
     position: NotRequired[int]
+    r"""New 0-based position. The other columns shift to make room."""
     width: NotRequired[int]
+    r"""New width, at least 1."""
     active: NotRequired[bool]
+    r"""False hides the column; true shows it."""
 
 
 class ColumnLayout(BaseModel):
-    column_id: Optional[str] = None
+    r"""Layout change for one column."""
+
+    column_id: str
+    r"""ID of the column to change."""
 
     position: Optional[int] = None
+    r"""New 0-based position. The other columns shift to make room."""
 
     width: Optional[int] = None
+    r"""New width, at least 1."""
 
     active: Optional[bool] = None
+    r"""False hides the column; true shows it."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["column_id", "position", "width", "active"])
+        optional_fields = set(["position", "width", "active"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

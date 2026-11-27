@@ -103,6 +103,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -236,6 +237,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -364,6 +366,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "upload",
                     "x-code-samples": [
                         {
@@ -492,6 +495,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "upload",
                     "x-code-samples": [
                         {
@@ -605,6 +609,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "content",
                     "x-code-samples": [
                         {
@@ -718,6 +723,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "content",
                     "x-code-samples": [
                         {
@@ -831,6 +837,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -944,6 +951,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -1057,6 +1065,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1170,6 +1179,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1295,6 +1305,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1310,7 +1321,7 @@ class Files(BaseSDK):
                         {
                             "label": "Node.js - Rename file",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.update({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  fileName: 'support-faq-v2.md',\n});\n\nconsole.log(result.file.fileName);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.update({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  updateFileRequest: {\n    fileName: 'support-faq-v2.md',\n  },\n});\n\nconsole.log(result.file.fileName);\n",
                         },
                     ],
                 },
@@ -1420,6 +1431,7 @@ class Files(BaseSDK):
                 tags=["Files"],
                 extensions={
                     "x-cli-group": "files",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1435,7 +1447,7 @@ class Files(BaseSDK):
                         {
                             "label": "Node.js - Rename file",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.update({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  fileName: 'support-faq-v2.md',\n});\n\nconsole.log(result.file.fileName);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.update({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  updateFileRequest: {\n    fileName: 'support-faq-v2.md',\n  },\n});\n\nconsole.log(result.file.fileName);\n",
                         },
                     ],
                 },

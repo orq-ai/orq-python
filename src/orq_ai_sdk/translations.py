@@ -165,6 +165,7 @@ class Translations(BaseSDK):
                 tags=["Audio"],
                 extensions={
                     "x-cli-group": "translations",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },
@@ -351,6 +352,7 @@ class Translations(BaseSDK):
                 tags=["Audio"],
                 extensions={
                     "x-cli-group": "translations",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },

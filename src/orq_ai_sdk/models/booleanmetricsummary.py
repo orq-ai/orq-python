@@ -14,14 +14,22 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class BooleanMetricSummaryTypedDict(TypedDict):
+    r"""Statistics of a pass or fail metric."""
+
     passed_rate: NotRequired[float]
+    r"""Percentage of rows that passed, 0 to 100, rounded to a whole number."""
     count: NotRequired[int]
+    r"""Number of rows with a value."""
 
 
 class BooleanMetricSummary(BaseModel):
+    r"""Statistics of a pass or fail metric."""
+
     passed_rate: Optional[float] = None
+    r"""Percentage of rows that passed, 0 to 100, rounded to a whole number."""
 
     count: Optional[int] = None
+    r"""Number of rows with a value."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

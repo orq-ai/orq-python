@@ -9,6 +9,7 @@ from typing_extensions import Annotated, TypedDict
 class RetrieveMemoryRequestTypedDict(TypedDict):
     memory_store_key: str
     memory_entity_id: str
+    r"""The Memory's generated `_id` or its `entity_id`."""
 
 
 class RetrieveMemoryRequest(BaseModel):
@@ -19,3 +20,4 @@ class RetrieveMemoryRequest(BaseModel):
     memory_entity_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The Memory's generated `_id` or its `entity_id`."""

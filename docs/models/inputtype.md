@@ -20,3 +20,4 @@ value: InputType = "message"
 - `"custom_tool_call"`
 - `"custom_tool_call_output"`
 - `"compaction"`
+- `"agent_message"`

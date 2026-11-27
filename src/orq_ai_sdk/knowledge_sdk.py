@@ -101,6 +101,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -220,6 +221,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -329,6 +331,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -436,6 +439,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -535,6 +539,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieve",
                     "x-code-samples": [
                         {
@@ -634,6 +639,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieve",
                     "x-code-samples": [
                         {
@@ -733,6 +739,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -832,6 +839,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -947,6 +955,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1062,6 +1071,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1178,6 +1188,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listDatasources",
                     "x-code-samples": [
                         {
@@ -1300,6 +1311,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listDatasources",
                     "x-code-samples": [
                         {
@@ -1450,6 +1462,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "createDatasource",
                     "x-code-samples": [
                         {
@@ -1598,6 +1611,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "createDatasource",
                     "x-code-samples": [
                         {
@@ -1723,6 +1737,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "previewChunks",
                 },
             ),
@@ -1843,6 +1858,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "previewChunks",
                 },
             ),
@@ -1944,6 +1960,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveDatasource",
                     "x-code-samples": [
                         {
@@ -2050,6 +2067,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveDatasource",
                     "x-code-samples": [
                         {
@@ -2156,6 +2174,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "deleteDatasource",
                     "x-code-samples": [
                         {
@@ -2262,6 +2281,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "deleteDatasource",
                     "x-code-samples": [
                         {
@@ -2383,6 +2403,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "updateDatasource",
                     "x-code-samples": [
                         {
@@ -2504,6 +2525,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "updateDatasource",
                     "x-code-samples": [
                         {
@@ -2630,6 +2652,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listChunks",
                     "x-code-samples": [
                         {
@@ -2756,6 +2779,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listChunks",
                     "x-code-samples": [
                         {
@@ -2872,6 +2896,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "createChunks",
                     "x-code-samples": [
                         {
@@ -2988,6 +3013,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "createChunks",
                     "x-code-samples": [
                         {
@@ -3106,6 +3132,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "deleteChunks",
                     "x-code-samples": [
                         {
@@ -3226,6 +3253,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "deleteChunks",
                     "x-code-samples": [
                         {
@@ -3352,6 +3380,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "getChunksCount",
                     "x-code-samples": [
                         {
@@ -3476,6 +3505,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "getChunksCount",
                     "x-code-samples": [
                         {
@@ -3606,6 +3636,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listChunksPaginated",
                     "x-code-samples": [
                         {
@@ -3738,6 +3769,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listChunksPaginated",
                     "x-code-samples": [
                         {
@@ -3849,6 +3881,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveChunk",
                     "x-code-samples": [
                         {
@@ -3958,6 +3991,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveChunk",
                     "x-code-samples": [
                         {
@@ -4067,6 +4101,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "deleteChunk",
                     "x-code-samples": [
                         {
@@ -4176,6 +4211,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "deleteChunk",
                     "x-code-samples": [
                         {
@@ -4234,7 +4270,7 @@ class KnowledgeSDK(BaseSDK):
         :param chunk_id:
         :param text: The text content of the chunk
         :param embedding:
-        :param metadata: Metadata of the chunk
+        :param metadata: Metadata of the chunk. Replaces the existing metadata object: send every key you want to keep.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -4311,6 +4347,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "updateChunk",
                     "x-code-samples": [
                         {
@@ -4369,7 +4406,7 @@ class KnowledgeSDK(BaseSDK):
         :param chunk_id:
         :param text: The text content of the chunk
         :param embedding:
-        :param metadata: Metadata of the chunk
+        :param metadata: Metadata of the chunk. Replaces the existing metadata object: send every key you want to keep.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -4446,6 +4483,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "updateChunk",
                     "x-code-samples": [
                         {
@@ -4567,6 +4605,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "toggleChunk",
                     "x-code-samples": [
                         {
@@ -4688,6 +4727,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "toggleChunk",
                     "x-code-samples": [
                         {
@@ -4794,6 +4834,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveProcessingStatus",
                     "x-code-samples": [
                         {
@@ -4902,6 +4943,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveProcessingStatus",
                     "x-code-samples": [
                         {
@@ -5065,6 +5107,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "search",
                     "x-code-samples": [
                         {
@@ -5075,7 +5118,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({\n  apiKey: process.env["ORQ_API_KEY"]\n});\n\nconst result = await orq.knowledge.search({\n  knowledgeId: process.env["KNOWLEDGE_ID"],\n  requestBody: {\n    query: "What is our refund policy?",\n    topK: 10,\n    searchType: "hybrid_search",\n    searchOptions: {\n      includeVectors: false,\n      includeMetadata: true,\n      includeScores: true\n    }\n  }\n});\n\nconsole.log(result.matches);',
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({\n  apiKey: process.env["ORQ_API_KEY"]\n});\n\nconst result = await orq.knowledge.search({\n  knowledgeId: process.env["KNOWLEDGE_ID"],\n  searchKnowledgeRequest: {\n    query: "What is our refund policy?",\n    topK: 10,\n    searchType: "hybrid_search",\n    searchOptions: {\n      includeVectors: false,\n      includeMetadata: true,\n      includeScores: true\n    }\n  }\n});\n\nconsole.log(result.matches);',
                         },
                         {
                             "label": "Python",
@@ -5232,6 +5275,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "search",
                     "x-code-samples": [
                         {
@@ -5242,7 +5286,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({\n  apiKey: process.env["ORQ_API_KEY"]\n});\n\nconst result = await orq.knowledge.search({\n  knowledgeId: process.env["KNOWLEDGE_ID"],\n  requestBody: {\n    query: "What is our refund policy?",\n    topK: 10,\n    searchType: "hybrid_search",\n    searchOptions: {\n      includeVectors: false,\n      includeMetadata: true,\n      includeScores: true\n    }\n  }\n});\n\nconsole.log(result.matches);',
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({\n  apiKey: process.env["ORQ_API_KEY"]\n});\n\nconst result = await orq.knowledge.search({\n  knowledgeId: process.env["KNOWLEDGE_ID"],\n  searchKnowledgeRequest: {\n    query: "What is our refund policy?",\n    topK: 10,\n    searchType: "hybrid_search",\n    searchOptions: {\n      includeVectors: false,\n      includeMetadata: true,\n      includeScores: true\n    }\n  }\n});\n\nconsole.log(result.matches);',
                         },
                         {
                             "label": "Python",
@@ -5350,6 +5394,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveFileUrl",
                     "x-code-samples": [
                         {
@@ -5467,6 +5512,7 @@ class KnowledgeSDK(BaseSDK):
                 tags=["Knowledge Bases"],
                 extensions={
                     "x-cli-group": "knowledge-bases",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveFileUrl",
                     "x-code-samples": [
                         {

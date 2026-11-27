@@ -38,14 +38,14 @@ ThinkingParamType = Literal[
     "adaptive",
     "between_tools",
 ]
-r"""The thinking mode to use for the model. Sonnet 5.5 supports between_tools for progress updates without extended thinking."""
+r"""The thinking mode to use for the model. between_tools returns progress updates between tool calls without extended thinking on models that support it."""
 
 
 class ThinkingParamTypedDict(TypedDict):
     budget_tokens: Nullable[int]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking where supported. Budget tokens should never exceed the max output tokens parameter. Supported by budget-based models such as Anthropic and Gemini 2.5."""
     type: Nullable[ThinkingParamType]
-    r"""The thinking mode to use for the model. Sonnet 5.5 supports between_tools for progress updates without extended thinking."""
+    r"""The thinking mode to use for the model. between_tools returns progress updates between tool calls without extended thinking on models that support it."""
     display: NotRequired[ThinkingParamDisplay]
     r"""Controls how Anthropic thinking content appears in the response. Use updates for progress summaries on supported models."""
     thinking_level: NotRequired[ThinkingParamThinkingLevel]
@@ -57,7 +57,7 @@ class ThinkingParam(BaseModel):
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking where supported. Budget tokens should never exceed the max output tokens parameter. Supported by budget-based models such as Anthropic and Gemini 2.5."""
 
     type: Nullable[ThinkingParamType]
-    r"""The thinking mode to use for the model. Sonnet 5.5 supports between_tools for progress updates without extended thinking."""
+    r"""The thinking mode to use for the model. between_tools returns progress updates between tool calls without extended thinking on models that support it."""
 
     display: Optional[ThinkingParamDisplay] = None
     r"""Controls how Anthropic thinking content appears in the response. Use updates for progress summaries on supported models."""

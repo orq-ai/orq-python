@@ -15,26 +15,48 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class AgentTaskConfigTypedDict(TypedDict):
+    r"""Configuration of an agent task column."""
+
     agent_key: NotRequired[str]
+    r"""Key of the agent to run. Required."""
     messages_source: NotRequired[MessagesSource]
     messages: NotRequired[List[Dict[str, Any]]]
+    r"""Conversation sent to the agent when `messages_source` is not the messages
+    column.
+    """
     engine: NotRequired[str]
+    r"""Template engine for variables in the messages: `text` (default), `jinja`
+    or `mustache`.
+    """
     parent_id: NotRequired[str]
+    r"""Saved with the column; not used during execution."""
     agent_tag: NotRequired[str]
+    r"""Agent version tag. When set, the column runs that tagged version."""
 
 
 class AgentTaskConfig(BaseModel):
+    r"""Configuration of an agent task column."""
+
     agent_key: Optional[str] = None
+    r"""Key of the agent to run. Required."""
 
     messages_source: Optional[MessagesSource] = None
 
     messages: Optional[List[Dict[str, Any]]] = None
+    r"""Conversation sent to the agent when `messages_source` is not the messages
+    column.
+    """
 
     engine: Optional[str] = None
+    r"""Template engine for variables in the messages: `text` (default), `jinja`
+    or `mustache`.
+    """
 
     parent_id: Optional[str] = None
+    r"""Saved with the column; not used during execution."""
 
     agent_tag: Optional[str] = None
+    r"""Agent version tag. When set, the column runs that tagged version."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

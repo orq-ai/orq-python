@@ -16,36 +16,54 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class ExperimentRunListRequestTypedDict(TypedDict):
     experiment_id: str
+    r"""ID of the experiment."""
     limit: NotRequired[int]
+    r"""Page size, 1 to 200. Defaults to 25."""
     starting_after: NotRequired[str]
+    r"""Cursor for forward pagination. Set to the `run_id` of the last item from
+    the previous page.
+    """
     ending_before: NotRequired[str]
+    r"""Cursor for backward pagination. Set to the `run_id` of the first item from
+    the previous page.
+    """
     include_metrics: NotRequired[bool]
+    r"""Include each run's average evaluator results in `metrics`."""
 
 
 class ExperimentRunListRequest(BaseModel):
     experiment_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the experiment."""
 
     limit: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Page size, 1 to 200. Defaults to 25."""
 
     starting_after: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Cursor for forward pagination. Set to the `run_id` of the last item from
+    the previous page.
+    """
 
     ending_before: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Cursor for backward pagination. Set to the `run_id` of the first item from
+    the previous page.
+    """
 
     include_metrics: Annotated[
         Optional[bool],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Include each run's average evaluator results in `metrics`."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

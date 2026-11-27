@@ -23,6 +23,7 @@ with Orq(
 ) as orq:
 
     res = orq.router.images.generations.create(prompt="<value>", model="2", n=1, retry={
+        "count": 3.0,
         "on_codes": [
             429.0,
             500.0,
@@ -39,6 +40,7 @@ with Orq(
         "call_timeout": 30000.0,
     }, orq={
         "retry": {
+            "count": 3.0,
             "on_codes": [
                 429.0,
                 500.0,

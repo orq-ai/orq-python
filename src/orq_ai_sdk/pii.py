@@ -74,7 +74,11 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions={"x-cli-group": "pii", "x-cli-name": "capabilities"},
+                extensions={
+                    "x-cli-group": "pii",
+                    "x-cli-help-section": "AI Gateway",
+                    "x-cli-name": "capabilities",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -160,7 +164,11 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions={"x-cli-group": "pii", "x-cli-name": "capabilities"},
+                extensions={
+                    "x-cli-group": "pii",
+                    "x-cli-help-section": "AI Gateway",
+                    "x-cli-name": "capabilities",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -301,6 +309,7 @@ class Pii(BaseSDK):
                 tags=None,
                 extensions={
                     "x-cli-group": "pii",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "detect",
                     "x-code-samples": [
                         {
@@ -450,6 +459,7 @@ class Pii(BaseSDK):
                 tags=None,
                 extensions={
                     "x-cli-group": "pii",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "detect",
                     "x-code-samples": [
                         {
@@ -596,6 +606,7 @@ class Pii(BaseSDK):
                 tags=None,
                 extensions={
                     "x-cli-group": "pii",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "redact",
                     "x-code-samples": [
                         {
@@ -742,6 +753,7 @@ class Pii(BaseSDK):
                 tags=None,
                 extensions={
                     "x-cli-group": "pii",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "redact",
                     "x-code-samples": [
                         {
@@ -849,7 +861,11 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions={"x-cli-group": "pii", "x-cli-name": "restore"},
+                extensions={
+                    "x-cli-group": "pii",
+                    "x-cli-help-section": "AI Gateway",
+                    "x-cli-name": "restore",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -948,7 +964,11 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions={"x-cli-group": "pii", "x-cli-name": "restore"},
+                extensions={
+                    "x-cli-group": "pii",
+                    "x-cli-help-section": "AI Gateway",
+                    "x-cli-name": "restore",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

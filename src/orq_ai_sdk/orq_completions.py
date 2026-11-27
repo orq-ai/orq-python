@@ -339,6 +339,7 @@ class OrqCompletions(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-cli-group": "chat",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },
@@ -708,6 +709,7 @@ class OrqCompletions(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-cli-group": "chat",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },

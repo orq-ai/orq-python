@@ -67,7 +67,6 @@ GroupBy = Literal[
     "evaluator",
     "dataset",
     "prompt",
-    "policy",
     "conversation",
     "thread",
     "memory_store",

@@ -88,6 +88,7 @@ class Chunking(BaseSDK):
                 tags=["Chunking"],
                 extensions={
                     "x-cli-group": "chunking",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "parse",
                     "x-code-samples": [
                         {
@@ -98,7 +99,7 @@ class Chunking(BaseSDK):
                         {
                             "label": "Python",
                             "lang": "python",
-                            "source": 'from orq_ai_sdk import Orq\n\norq = Orq(api_key=os.getenv("ORQ_API_KEY"))\n\nresult = orq.chunking.parse(\n    text="Your long text content here...",\n    strategy="semantic",\n    chunk_size=256,\n    threshold=0.8,\n    embedding_model="openai/text-embedding-3-small",\n    dimensions=512\n)\n\nfor chunk in result.chunks:\n    print(f"Chunk {chunk.index}: {chunk.text[:50]}...")',
+                            "source": 'import os\n\nfrom orq_ai_sdk import Orq\n\norq = Orq(api_key=os.getenv("ORQ_API_KEY"))\n\nresult = orq.chunking.parse(\n    request={\n        "text": "Your long text content here...",\n        "strategy": "semantic",\n        "chunk_size": 256,\n        "threshold": 0.8,\n        "embedding_model": "openai/text-embedding-3-small",\n        "dimensions": 512,\n    }\n)\n\nfor chunk in result.chunks:\n    print(f"Chunk {chunk.index}: {chunk.text[:50]}...")',
                         },
                     ],
                 },
@@ -201,6 +202,7 @@ class Chunking(BaseSDK):
                 tags=["Chunking"],
                 extensions={
                     "x-cli-group": "chunking",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "parse",
                     "x-code-samples": [
                         {
@@ -211,7 +213,7 @@ class Chunking(BaseSDK):
                         {
                             "label": "Python",
                             "lang": "python",
-                            "source": 'from orq_ai_sdk import Orq\n\norq = Orq(api_key=os.getenv("ORQ_API_KEY"))\n\nresult = orq.chunking.parse(\n    text="Your long text content here...",\n    strategy="semantic",\n    chunk_size=256,\n    threshold=0.8,\n    embedding_model="openai/text-embedding-3-small",\n    dimensions=512\n)\n\nfor chunk in result.chunks:\n    print(f"Chunk {chunk.index}: {chunk.text[:50]}...")',
+                            "source": 'import os\n\nfrom orq_ai_sdk import Orq\n\norq = Orq(api_key=os.getenv("ORQ_API_KEY"))\n\nresult = orq.chunking.parse(\n    request={\n        "text": "Your long text content here...",\n        "strategy": "semantic",\n        "chunk_size": 256,\n        "threshold": 0.8,\n        "embedding_model": "openai/text-embedding-3-small",\n        "dimensions": 512,\n    }\n)\n\nfor chunk in result.chunks:\n    print(f"Chunk {chunk.index}: {chunk.text[:50]}...")',
                         },
                     ],
                 },

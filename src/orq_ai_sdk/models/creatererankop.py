@@ -34,7 +34,7 @@ class CreateRerankRetryTypedDict(TypedDict):
     r"""Retry configuration for the request"""
 
     count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
     on_codes: NotRequired[List[float]]
     r"""HTTP status codes that trigger retry logic"""
 
@@ -42,8 +42,8 @@ class CreateRerankRetryTypedDict(TypedDict):
 class CreateRerankRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3.0
-    r"""Number of retry attempts (1-5)"""
+    count: Optional[float] = 0.0
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
 
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""
@@ -246,7 +246,7 @@ class CreateRerankRouterRerankRetryTypedDict(TypedDict):
     r"""Retry configuration for the request"""
 
     count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
     on_codes: NotRequired[List[float]]
     r"""HTTP status codes that trigger retry logic"""
 
@@ -254,8 +254,8 @@ class CreateRerankRouterRerankRetryTypedDict(TypedDict):
 class CreateRerankRouterRerankRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3.0
-    r"""Number of retry attempts (1-5)"""
+    count: Optional[float] = 0.0
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
 
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""

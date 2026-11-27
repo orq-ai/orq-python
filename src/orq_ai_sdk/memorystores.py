@@ -97,7 +97,11 @@ class MemoryStores(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -205,7 +209,11 @@ class MemoryStores(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -316,7 +324,11 @@ class MemoryStores(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -427,7 +439,11 @@ class MemoryStores(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -520,7 +536,11 @@ class MemoryStores(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "retrieve"},
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "retrieve",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -613,7 +633,11 @@ class MemoryStores(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "retrieve"},
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "retrieve",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -706,7 +730,11 @@ class MemoryStores(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -795,7 +823,11 @@ class MemoryStores(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -905,7 +937,11 @@ class MemoryStores(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1015,7 +1051,11 @@ class MemoryStores(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1118,6 +1158,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listMemories",
                 },
             ),
@@ -1226,6 +1267,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listMemories",
                 },
             ),
@@ -1334,6 +1376,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "createMemory",
                 },
             ),
@@ -1438,6 +1481,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "createMemory",
                 },
             ),
@@ -1472,7 +1516,7 @@ class MemoryStores(BaseSDK):
         Retrieves details of a specific memory by its ID
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1533,6 +1577,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveMemory",
                 },
             ),
@@ -1567,7 +1612,7 @@ class MemoryStores(BaseSDK):
         Retrieves details of a specific memory by its ID
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1628,6 +1673,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveMemory",
                 },
             ),
@@ -1667,7 +1713,7 @@ class MemoryStores(BaseSDK):
         - Manage memory storage space
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1728,6 +1774,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "deleteMemory",
                 },
             ),
@@ -1767,7 +1814,7 @@ class MemoryStores(BaseSDK):
         - Manage memory storage space
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1828,6 +1875,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "deleteMemory",
                 },
             ),
@@ -1863,7 +1911,7 @@ class MemoryStores(BaseSDK):
         Updates the details of a specific memory.
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param metadata:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1935,6 +1983,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "updateMemory",
                 },
             ),
@@ -1970,7 +2019,7 @@ class MemoryStores(BaseSDK):
         Updates the details of a specific memory.
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param metadata:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2042,6 +2091,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "updateMemory",
                 },
             ),
@@ -2081,7 +2131,7 @@ class MemoryStores(BaseSDK):
         Retrieves a paginated list of documents associated with a specific memory.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -2152,6 +2202,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listDocuments",
                 },
             ),
@@ -2191,7 +2242,7 @@ class MemoryStores(BaseSDK):
         Retrieves a paginated list of documents associated with a specific memory.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -2262,6 +2313,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listDocuments",
                 },
             ),
@@ -2298,7 +2350,7 @@ class MemoryStores(BaseSDK):
         Creates a new document in the specified memory.
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param text: The content of the memory document (whitespace trimmed).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs.
         :param retries: Override the default retry configuration for this method
@@ -2372,6 +2424,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "createDocument",
                 },
             ),
@@ -2408,7 +2461,7 @@ class MemoryStores(BaseSDK):
         Creates a new document in the specified memory.
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param text: The content of the memory document (whitespace trimmed).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs.
         :param retries: Override the default retry configuration for this method
@@ -2482,6 +2535,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "createDocument",
                 },
             ),
@@ -2517,7 +2571,7 @@ class MemoryStores(BaseSDK):
         Retrieves details of a specific memory document by its ID.
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param document_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2580,6 +2634,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveDocument",
                 },
             ),
@@ -2615,7 +2670,7 @@ class MemoryStores(BaseSDK):
         Retrieves details of a specific memory document by its ID.
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param document_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2678,6 +2733,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieveDocument",
                 },
             ),
@@ -2718,7 +2774,7 @@ class MemoryStores(BaseSDK):
         - Manage document storage space
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param document_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2781,6 +2837,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "deleteDocument",
                 },
             ),
@@ -2821,7 +2878,7 @@ class MemoryStores(BaseSDK):
         - Manage document storage space
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param document_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2884,6 +2941,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "deleteDocument",
                 },
             ),
@@ -2921,7 +2979,7 @@ class MemoryStores(BaseSDK):
         Updates the details of a specific memory document.
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param document_id:
         :param text: The content of the memory document (whitespace trimmed).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs.
@@ -2997,6 +3055,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "updateDocument",
                 },
             ),
@@ -3034,7 +3093,7 @@ class MemoryStores(BaseSDK):
         Updates the details of a specific memory document.
 
         :param memory_store_key:
-        :param memory_entity_id:
+        :param memory_entity_id: The Memory's generated `_id` or its `entity_id`.
         :param document_id:
         :param text: The content of the memory document (whitespace trimmed).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs.
@@ -3110,6 +3169,7 @@ class MemoryStores(BaseSDK):
                 tags=["Memory Stores"],
                 extensions={
                     "x-cli-group": "memory-stores",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "updateDocument",
                 },
             ),

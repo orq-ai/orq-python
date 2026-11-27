@@ -74,7 +74,11 @@ class WorkspaceSettingsSDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Settings"],
-                extensions={"x-cli-group": "workspace-settings", "x-cli-name": "get"},
+                extensions={
+                    "x-cli-group": "workspace-settings",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "get",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -162,7 +166,11 @@ class WorkspaceSettingsSDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Settings"],
-                extensions={"x-cli-group": "workspace-settings", "x-cli-name": "get"},
+                extensions={
+                    "x-cli-group": "workspace-settings",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "get",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -275,6 +283,7 @@ class WorkspaceSettingsSDK(BaseSDK):
                 tags=["Workspace Settings"],
                 extensions={
                     "x-cli-group": "workspace-settings",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "update",
                 },
             ),
@@ -389,6 +398,7 @@ class WorkspaceSettingsSDK(BaseSDK):
                 tags=["Workspace Settings"],
                 extensions={
                     "x-cli-group": "workspace-settings",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "update",
                 },
             ),

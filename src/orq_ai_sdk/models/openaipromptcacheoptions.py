@@ -26,11 +26,16 @@ OpenAIPromptCacheOptionsTTL = Literal[
 
 
 class OpenAIPromptCacheOptionsTypedDict(TypedDict):
+    comparison_response_id: NotRequired[str]
+    r"""ID of a stored Orq response to compare for OpenAI prompt cache diagnostics."""
     mode: NotRequired[OpenAIPromptCacheOptionsMode]
     ttl: NotRequired[OpenAIPromptCacheOptionsTTL]
 
 
 class OpenAIPromptCacheOptions(BaseModel):
+    comparison_response_id: Optional[str] = None
+    r"""ID of a stored Orq response to compare for OpenAI prompt cache diagnostics."""
+
     mode: Optional[OpenAIPromptCacheOptionsMode] = None
 
     ttl: Optional[OpenAIPromptCacheOptionsTTL] = None
@@ -40,7 +45,7 @@ class OpenAIPromptCacheOptions(BaseModel):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["mode", "ttl"])
+        optional_fields = set(["comparison_response_id", "mode", "ttl"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

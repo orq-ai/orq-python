@@ -15,3 +15,4 @@ value: RetrieveResponseStatus = "queued"
 - `"completed"`
 - `"failed"`
 - `"incomplete"`
+- `"cancelled"`

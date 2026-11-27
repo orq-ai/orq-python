@@ -14,21 +14,29 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class CreateEvalColumnRequestTypedDict(TypedDict):
-    evaluator_id: NotRequired[str]
+    evaluator_id: str
+    r"""ID of the evaluator to add. Each row gets one evaluator cell per task
+    column.
+    """
     position: NotRequired[int]
+    r"""0-based position among the run's columns. Defaults to the end."""
 
 
 class CreateEvalColumnRequest(BaseModel):
-    evaluator_id: Optional[str] = None
+    evaluator_id: str
+    r"""ID of the evaluator to add. Each row gets one evaluator cell per task
+    column.
+    """
 
     position: Optional[int] = None
+    r"""0-based position among the run's columns. Defaults to the end."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["evaluator_id", "position"])
+        optional_fields = set(["position"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

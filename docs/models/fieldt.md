@@ -31,7 +31,6 @@ value: FieldT = "project"
 - `"evaluator"`
 - `"dataset"`
 - `"prompt"`
-- `"policy"`
 - `"conversation"`
 - `"thread"`
 - `"memory_store"`

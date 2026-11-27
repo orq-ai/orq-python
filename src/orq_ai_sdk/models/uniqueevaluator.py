@@ -14,20 +14,36 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class UniqueEvaluatorTypedDict(TypedDict):
+    r"""An evaluator used by the experiment."""
+
     evaluator_id: NotRequired[str]
+    r"""Evaluator ID."""
     evaluator_type: NotRequired[str]
+    r"""Evaluator type, taken from the evaluator's definition."""
     evaluator_name: NotRequired[str]
+    r"""Evaluator display name."""
     evaluator_key: NotRequired[str]
+    r"""Column key of the evaluator in an evaluatorq upload. Empty for evaluators
+    added through Add an eval column.
+    """
 
 
 class UniqueEvaluator(BaseModel):
+    r"""An evaluator used by the experiment."""
+
     evaluator_id: Optional[str] = None
+    r"""Evaluator ID."""
 
     evaluator_type: Optional[str] = None
+    r"""Evaluator type, taken from the evaluator's definition."""
 
     evaluator_name: Optional[str] = None
+    r"""Evaluator display name."""
 
     evaluator_key: Optional[str] = None
+    r"""Column key of the evaluator in an evaluatorq upload. Empty for evaluators
+    added through Add an eval column.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

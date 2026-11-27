@@ -27,7 +27,7 @@ class HTTPToolInputTypedDict(TypedDict):
     id: NotRequired[str]
     r"""The ID of the pre-created HTTP tool"""
     requires_approval: NotRequired[bool]
-    r"""Whether this tool requires approval before execution"""
+    r"""Whether this tool is marked as requiring approval. An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval"""
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
@@ -45,7 +45,7 @@ class HTTPToolInput(BaseModel):
     r"""The ID of the pre-created HTTP tool"""
 
     requires_approval: Optional[bool] = False
-    r"""Whether this tool requires approval before execution"""
+    r"""Whether this tool is marked as requiring approval. An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval"""
 
     timeout: Optional[float] = None
     r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""

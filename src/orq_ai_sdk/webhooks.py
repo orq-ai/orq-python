@@ -113,6 +113,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -128,7 +129,7 @@ class Webhooks(BaseSDK):
                         {
                             "label": "Node.js - List filtered webhooks",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.webhooks.list({\n  search: 'production',\n  event: 'llm.response',\n  contentType: 'application/json',\n  enabled: true,\n  page: 1,\n  limit: 20,\n  sort: 'created',\n  direction: 'desc',\n});\n\nconsole.log(`${page.count} matching webhooks`);\nfor (const webhook of page.items) {\n  console.log(webhook._id, webhook.displayName);\n}\nconsole.log(`Has more: ${page.hasMore}`);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.webhooks.list({\n  search: 'production',\n  event: 'llm.response',\n  contentType: 'application/json',\n  enabled: true,\n  page: 1,\n  limit: 20,\n  sort: 'created',\n  direction: 'desc',\n});\n\nconsole.log(`${page.count} matching webhooks`);\nfor (const webhook of page.items) {\n  console.log(webhook.id, webhook.displayName);\n}\nconsole.log(`Has more: ${page.hasMore}`);\n",
                         },
                     ],
                 },
@@ -255,6 +256,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -270,7 +272,7 @@ class Webhooks(BaseSDK):
                         {
                             "label": "Node.js - List filtered webhooks",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.webhooks.list({\n  search: 'production',\n  event: 'llm.response',\n  contentType: 'application/json',\n  enabled: true,\n  page: 1,\n  limit: 20,\n  sort: 'created',\n  direction: 'desc',\n});\n\nconsole.log(`${page.count} matching webhooks`);\nfor (const webhook of page.items) {\n  console.log(webhook._id, webhook.displayName);\n}\nconsole.log(`Has more: ${page.hasMore}`);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.webhooks.list({\n  search: 'production',\n  event: 'llm.response',\n  contentType: 'application/json',\n  enabled: true,\n  page: 1,\n  limit: 20,\n  sort: 'created',\n  direction: 'desc',\n});\n\nconsole.log(`${page.count} matching webhooks`);\nfor (const webhook of page.items) {\n  console.log(webhook.id, webhook.displayName);\n}\nconsole.log(`Has more: ${page.hasMore}`);\n",
                         },
                     ],
                 },
@@ -389,6 +391,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -513,6 +516,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -609,6 +613,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "count",
                     "x-code-samples": [
                         {
@@ -705,6 +710,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "count",
                     "x-code-samples": [
                         {
@@ -839,6 +845,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "query",
                     "x-code-samples": [
                         {
@@ -973,6 +980,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "query",
                     "x-code-samples": [
                         {
@@ -1069,6 +1077,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "generateSecret",
                     "x-code-samples": [
                         {
@@ -1167,6 +1176,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "generateSecret",
                     "x-code-samples": [
                         {
@@ -1272,6 +1282,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -1375,6 +1386,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -1478,6 +1490,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1581,6 +1594,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1698,6 +1712,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1815,6 +1830,7 @@ class Webhooks(BaseSDK):
                 tags=["Webhooks"],
                 extensions={
                     "x-cli-group": "webhooks",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {

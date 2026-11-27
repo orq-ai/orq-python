@@ -95,6 +95,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -222,6 +223,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -346,6 +348,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -468,6 +471,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -581,6 +585,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -694,6 +699,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -807,6 +813,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -920,6 +927,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1054,6 +1062,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1069,7 +1078,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Node.js - Update an annotation queue",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst queue = await client.annotationQueues.update({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  displayName: 'Support quality review (Q3)',\n  description: 'Updated review scope',\n});\n\nconsole.log(queue.updated);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst queue = await client.annotationQueues.update({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  updateAnnotationQueueRequest: {\n    displayName: 'Support quality review (Q3)',\n    description: 'Updated review scope',\n  },\n});\n\nconsole.log(queue.updated);\n",
                         },
                     ],
                 },
@@ -1188,6 +1197,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1203,7 +1213,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Node.js - Update an annotation queue",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst queue = await client.annotationQueues.update({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  displayName: 'Support quality review (Q3)',\n  description: 'Updated review scope',\n});\n\nconsole.log(queue.updated);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst queue = await client.annotationQueues.update({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  updateAnnotationQueueRequest: {\n    displayName: 'Support quality review (Q3)',\n    description: 'Updated review scope',\n  },\n});\n\nconsole.log(queue.updated);\n",
                         },
                     ],
                 },
@@ -1301,6 +1311,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "clear",
                     "x-code-samples": [
                         {
@@ -1414,6 +1425,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "clear",
                     "x-code-samples": [
                         {
@@ -1536,6 +1548,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "queryItems",
                     "x-code-samples": [
                         {
@@ -1660,6 +1673,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "queryItems",
                     "x-code-samples": [
                         {
@@ -1792,6 +1806,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "addItems",
                     "x-code-samples": [
                         {
@@ -1807,7 +1822,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Node.js - Add span items to a queue",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst result = await client.annotationQueues.addItems({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  items: [\n    { spanId: 'span_01', traceId: 'trace_01' },\n    { spanId: 'span_02', traceId: 'trace_02' },\n  ],\n});\n\nconsole.log(`added ${result.length} items`);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst result = await client.annotationQueues.addItems({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  addAnnotationQueueItemsRequest: {\n    items: [\n      { spanId: 'span_01', traceId: 'trace_01' },\n      { spanId: 'span_02', traceId: 'trace_02' },\n    ],\n  },\n});\n\nconsole.log(`added ${result.length} items`);\n",
                         },
                     ],
                 },
@@ -1922,6 +1937,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "addItems",
                     "x-code-samples": [
                         {
@@ -1937,7 +1953,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Node.js - Add span items to a queue",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst result = await client.annotationQueues.addItems({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  items: [\n    { spanId: 'span_01', traceId: 'trace_01' },\n    { spanId: 'span_02', traceId: 'trace_02' },\n  ],\n});\n\nconsole.log(`added ${result.length} items`);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst result = await client.annotationQueues.addItems({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  addAnnotationQueueItemsRequest: {\n    items: [\n      { spanId: 'span_01', traceId: 'trace_01' },\n      { spanId: 'span_02', traceId: 'trace_02' },\n    ],\n  },\n});\n\nconsole.log(`added ${result.length} items`);\n",
                         },
                     ],
                 },
@@ -2047,6 +2063,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "removeItems",
                     "x-code-samples": [
                         {
@@ -2062,7 +2079,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Node.js - Remove span items from a queue",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.annotationQueues.removeItems({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  spanIds: ['span_01', 'span_02'],\n});\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.annotationQueues.removeItems({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  removeAnnotationQueueItemsRequest: {\n    spanIds: ['span_01', 'span_02'],\n  },\n});\n",
                         },
                     ],
                 },
@@ -2172,6 +2189,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "removeItems",
                     "x-code-samples": [
                         {
@@ -2187,7 +2205,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Node.js - Remove span items from a queue",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.annotationQueues.removeItems({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  spanIds: ['span_01', 'span_02'],\n});\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.annotationQueues.removeItems({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  removeAnnotationQueueItemsRequest: {\n    spanIds: ['span_01', 'span_02'],\n  },\n});\n",
                         },
                     ],
                 },
@@ -2288,6 +2306,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "getItem",
                     "x-code-samples": [
                         {
@@ -2303,7 +2322,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Node.js - Retrieve a queue item",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst item = await client.annotationQueues.retrieveItem({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  itemId: 'item_01',\n});\n\nconsole.log(item.spanId);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst item = await client.annotationQueues.retrieveItem({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  itemId: 'item_01',\n});\n\nconsole.log(item);\n",
                         },
                     ],
                 },
@@ -2406,6 +2425,7 @@ class AnnotationQueues(BaseSDK):
                 tags=["Annotation Queues"],
                 extensions={
                     "x-cli-group": "annotation-queues",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "getItem",
                     "x-code-samples": [
                         {
@@ -2421,7 +2441,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Node.js - Retrieve a queue item",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst item = await client.annotationQueues.retrieveItem({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  itemId: 'item_01',\n});\n\nconsole.log(item.spanId);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst item = await client.annotationQueues.retrieveItem({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n  itemId: 'item_01',\n});\n\nconsole.log(item);\n",
                         },
                     ],
                 },

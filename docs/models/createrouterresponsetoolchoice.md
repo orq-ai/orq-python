@@ -1,6 +1,6 @@
 # CreateRouterResponseToolChoice
 
-How the model should use the provided tools. Can be a string shorthand or a specific function selector.
+How the model should use the provided tools. Native OpenAI requests can restrict the allowed tools.
 
 
 ## Supported Types
@@ -15,5 +15,11 @@ value: models.Shorthand = /* values here */
 
 ```python
 value: models.SpecificFunction = /* values here */
+```
+
+### `models.AllowedTools`
+
+```python
+value: models.AllowedTools = /* values here */
 ```
 

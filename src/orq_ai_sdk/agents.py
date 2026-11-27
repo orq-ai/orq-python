@@ -177,7 +177,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -344,7 +348,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -444,7 +452,18 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-list-fields": [
+                        "key",
+                        "model.id",
+                        "settings.tools[].display_name",
+                        "team_of_agents[].key",
+                        "updated",
+                    ],
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -542,7 +561,18 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-list-fields": [
+                        "key",
+                        "model.id",
+                        "settings.tools[].display_name",
+                        "team_of_agents[].key",
+                        "updated",
+                    ],
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -631,7 +661,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -726,7 +760,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -821,7 +859,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "retrieve"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "retrieve",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -918,7 +960,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "retrieve"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "retrieve",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1125,7 +1171,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1330,7 +1380,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1494,6 +1548,7 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "invoke",
                 },
@@ -1658,6 +1713,7 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "invoke",
                 },
@@ -1860,6 +1916,7 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "run",
                 },
@@ -2062,6 +2119,7 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "run",
                 },
@@ -2279,6 +2337,7 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "streamRun",
                 },
@@ -2512,6 +2571,7 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "streamRun",
                 },
@@ -2695,6 +2755,7 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "stream",
                 },
@@ -2878,6 +2939,7 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "stream",
                 },

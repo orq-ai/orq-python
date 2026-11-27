@@ -18,10 +18,10 @@ ClassifyScoreAnswerType = Literal["score",]
 
 class ClassifyScoreAnswerTypedDict(TypedDict):
     score: float
-    r"""Position on the scale, not an index: on emulated chat models and OpenAI Decisions the weighted index, each level index multiplied by that level probability and summed, so the value is usually fractional; typesafe/jev-latest returns its own score. Present for score answers."""
+    r"""Position on the ordered scale. OpenAI returns the probability-weighted index. TypeSafe returns its own score. Present for score answers."""
     type: ClassifyScoreAnswerType
     confidence: NotRequired[float]
-    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice, score and box answers."""
+    r"""How sure the model is of its answer. The provider returns its own confidence value, which can be below the largest probability. Present for choice, score and box answers, and native Gemini noul answers."""
     legend: NotRequired[Dict[str, str]]
     r"""Level index to level description. Present for score answers."""
     probabilities: NotRequired[Dict[str, float]]
@@ -30,12 +30,12 @@ class ClassifyScoreAnswerTypedDict(TypedDict):
 
 class ClassifyScoreAnswer(BaseModel):
     score: float
-    r"""Position on the scale, not an index: on emulated chat models and OpenAI Decisions the weighted index, each level index multiplied by that level probability and summed, so the value is usually fractional; typesafe/jev-latest returns its own score. Present for score answers."""
+    r"""Position on the ordered scale. OpenAI returns the probability-weighted index. TypeSafe returns its own score. Present for score answers."""
 
     type: ClassifyScoreAnswerType
 
     confidence: Optional[float] = None
-    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice, score and box answers."""
+    r"""How sure the model is of its answer. The provider returns its own confidence value, which can be below the largest probability. Present for choice, score and box answers, and native Gemini noul answers."""
 
     legend: Optional[Dict[str, str]] = None
     r"""Level index to level description. Present for score answers."""

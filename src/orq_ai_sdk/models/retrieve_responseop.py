@@ -4,14 +4,20 @@ from __future__ import annotations
 from .apierror import APIError
 from .conversationparam import ConversationParam, ConversationParamTypedDict
 from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
+from .inputtransformation import InputTransformation, InputTransformationTypedDict
 from .memoryparam import MemoryParam, MemoryParamTypedDict
 from .openaipromptcacheoptions import (
     OpenAIPromptCacheOptions,
     OpenAIPromptCacheOptionsTypedDict,
 )
+from .promptcachediagnostics import (
+    PromptCacheDiagnostics,
+    PromptCacheDiagnosticsTypedDict,
+)
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .responseerror import ResponseError, ResponseErrorTypedDict
+from .responseoutputitem import ResponseOutputItem, ResponseOutputItemTypedDict
 from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
 from dataclasses import dataclass, field
 import httpx
@@ -19,6 +25,8 @@ from orq_ai_sdk.models import OrqError
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
+    OptionalNullable,
+    UNSET,
     UNSET_SENTINEL,
     current_exclude_none,
     serialize_with_info,
@@ -81,6 +89,7 @@ RetrieveResponseStatus = Literal[
     "completed",
     "failed",
     "incomplete",
+    "cancelled",
 ]
 
 
@@ -110,7 +119,7 @@ class RetrieveResponseResponseBodyTypedDict(TypedDict):
     model: str
     object: str
     r"""Always \"response\" """
-    output: Nullable[List[Any]]
+    output: Nullable[List[ResponseOutputItemTypedDict]]
     r"""Array of output items (messages, function calls, reasoning, etc.)"""
     parallel_tool_calls: bool
     presence_penalty: float
@@ -136,7 +145,10 @@ class RetrieveResponseResponseBodyTypedDict(TypedDict):
     usage: Nullable[PublicUsageTypedDict]
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
+    input_transformations: NotRequired[Nullable[List[InputTransformationTypedDict]]]
+    r"""Reasoning items removed by OpenAI and the reason for each removal, in input order."""
     memory: NotRequired[MemoryParamTypedDict]
+    prompt_cache_diagnostics: NotRequired[PromptCacheDiagnosticsTypedDict]
     telemetry: NotRequired[ResponseTelemetryTypedDict]
     top_k: NotRequired[int]
     r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""
@@ -177,7 +189,7 @@ class RetrieveResponseResponseBody(BaseModel):
     object: str
     r"""Always \"response\" """
 
-    output: Nullable[List[Any]]
+    output: Nullable[List[ResponseOutputItem]]
     r"""Array of output items (messages, function calls, reasoning, etc.)"""
 
     parallel_tool_calls: bool
@@ -225,7 +237,12 @@ class RetrieveResponseResponseBody(BaseModel):
 
     conversation: Optional[ConversationParam] = None
 
+    input_transformations: OptionalNullable[List[InputTransformation]] = UNSET
+    r"""Reasoning items removed by OpenAI and the reason for each removal, in input order."""
+
     memory: Optional[MemoryParam] = None
+
+    prompt_cache_diagnostics: Optional[PromptCacheDiagnostics] = None
 
     telemetry: Optional[ResponseTelemetry] = None
 
@@ -240,7 +257,15 @@ class RetrieveResponseResponseBody(BaseModel):
 
     def serialize_model(self, handler):
         optional_fields = set(
-            ["conversation", "memory", "telemetry", "top_k", "variables"]
+            [
+                "conversation",
+                "input_transformations",
+                "memory",
+                "prompt_cache_diagnostics",
+                "telemetry",
+                "top_k",
+                "variables",
+            ]
         )
         nullable_fields = set(
             [
@@ -248,6 +273,7 @@ class RetrieveResponseResponseBody(BaseModel):
                 "error",
                 "incomplete_details",
                 "input",
+                "input_transformations",
                 "instructions",
                 "max_output_tokens",
                 "max_tool_calls",

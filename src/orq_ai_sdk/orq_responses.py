@@ -79,8 +79,8 @@ class OrqResponses(BaseSDK):
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
         :param engine: Override template engine for this invocation. If not provided, uses the agent default.
-        :param configuration: Configuration options for the agent invocation
-        :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
+        :param configuration: A2A compatibility options. Ignored on this endpoint; use background to control whether the call waits.
+        :param background: The only switch that controls whether the call waits. If true, returns immediately with the task ID and status. If false (default), waits until the agent becomes inactive or errors and returns the full conversation.
         :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
         :param conversation: Conversation context for chat studio integration
         :param retries: Override the default retry configuration for this method
@@ -177,6 +177,7 @@ class OrqResponses(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents-responses",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "create",
                     "x-code-samples": [
@@ -193,7 +194,7 @@ class OrqResponses(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst response = await client.agents.responses.create({\n  agentKey: 'customer_support',\n  message: {\n    role: 'user',\n    parts: [\n      {\n        kind: 'text',\n        text: 'Hi! I am testing your capabilities. Can you describe what you can do?',\n      },\n    ],\n  }\n});\n\nconsole.log(response.output[0].parts[0].text);\nconsole.log(response.usage);",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst response = await client.agents.responses.create(\n  {\n    message: {\n      role: 'user',\n      parts: [\n        {\n          kind: 'text',\n          text: 'Hi! I am testing your capabilities. Can you describe what you can do?',\n        },\n      ],\n    },\n  },\n  'customer_support',\n);\n\nif ('output' in response) {\n  const part = response.output[0]?.parts[0];\n  if (part?.kind === 'text') {\n    console.log(part.text);\n  }\n  console.log(response.usage);\n}",
                         },
                     ],
                 },
@@ -300,8 +301,8 @@ class OrqResponses(BaseSDK):
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
         :param engine: Override template engine for this invocation. If not provided, uses the agent default.
-        :param configuration: Configuration options for the agent invocation
-        :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
+        :param configuration: A2A compatibility options. Ignored on this endpoint; use background to control whether the call waits.
+        :param background: The only switch that controls whether the call waits. If true, returns immediately with the task ID and status. If false (default), waits until the agent becomes inactive or errors and returns the full conversation.
         :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
         :param conversation: Conversation context for chat studio integration
         :param retries: Override the default retry configuration for this method
@@ -398,6 +399,7 @@ class OrqResponses(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents-responses",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "create",
                     "x-code-samples": [
@@ -414,7 +416,7 @@ class OrqResponses(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst response = await client.agents.responses.create({\n  agentKey: 'customer_support',\n  message: {\n    role: 'user',\n    parts: [\n      {\n        kind: 'text',\n        text: 'Hi! I am testing your capabilities. Can you describe what you can do?',\n      },\n    ],\n  }\n});\n\nconsole.log(response.output[0].parts[0].text);\nconsole.log(response.usage);",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst response = await client.agents.responses.create(\n  {\n    message: {\n      role: 'user',\n      parts: [\n        {\n          kind: 'text',\n          text: 'Hi! I am testing your capabilities. Can you describe what you can do?',\n        },\n      ],\n    },\n  },\n  'customer_support',\n);\n\nif ('output' in response) {\n  const part = response.output[0]?.parts[0];\n  if (part?.kind === 'text') {\n    console.log(part.text);\n  }\n  console.log(response.usage);\n}",
                         },
                     ],
                 },
@@ -538,6 +540,7 @@ class OrqResponses(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "getResponse",
                 },
@@ -641,6 +644,7 @@ class OrqResponses(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-cli-group": "agents",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-hidden": True,
                     "x-cli-name": "getResponse",
                 },

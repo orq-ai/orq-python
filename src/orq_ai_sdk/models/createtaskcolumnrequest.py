@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from .agenttaskconfig import AgentTaskConfig, AgentTaskConfigTypedDict
-from .harnesstaskconfig import HarnessTaskConfig, HarnessTaskConfigTypedDict
 from .openresponsetaskconfig import (
     OpenResponseTaskConfig,
     OpenResponseTaskConfigTypedDict,
@@ -21,35 +20,40 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class CreateTaskColumnRequestTypedDict(TypedDict):
-    display_name: NotRequired[str]
+    display_name: str
+    r"""Column name."""
     prompt: NotRequired[PromptTaskConfigTypedDict]
+    r"""Runs a prompt. Set exactly one of `prompt`, `agent` or `openresponse`."""
     agent: NotRequired[AgentTaskConfigTypedDict]
-    harness: NotRequired[HarnessTaskConfigTypedDict]
+    r"""Runs an agent."""
     openresponse: NotRequired[OpenResponseTaskConfigTypedDict]
+    r"""Creates a column whose cells are filled outside orq.ai."""
     position: NotRequired[int]
+    r"""0-based position among the run's columns. Defaults to the end."""
 
 
 class CreateTaskColumnRequest(BaseModel):
-    display_name: Optional[str] = None
+    display_name: str
+    r"""Column name."""
 
     prompt: Optional[PromptTaskConfig] = None
+    r"""Runs a prompt. Set exactly one of `prompt`, `agent` or `openresponse`."""
 
     agent: Optional[AgentTaskConfig] = None
-
-    harness: Optional[HarnessTaskConfig] = None
+    r"""Runs an agent."""
 
     openresponse: Optional[OpenResponseTaskConfig] = None
+    r"""Creates a column whose cells are filled outside orq.ai."""
 
     position: Optional[int] = None
+    r"""0-based position among the run's columns. Defaults to the end."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["display_name", "prompt", "agent", "harness", "openresponse", "position"]
-        )
+        optional_fields = set(["prompt", "agent", "openresponse", "position"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

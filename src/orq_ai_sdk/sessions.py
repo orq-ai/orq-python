@@ -126,6 +126,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -281,6 +282,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -403,6 +405,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "getCount",
                     "x-code-samples": [
                         {
@@ -525,6 +528,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "getCount",
                     "x-code-samples": [
                         {
@@ -647,6 +651,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -769,6 +774,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -875,6 +881,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "listTags",
                     "x-code-samples": [
                         {
@@ -981,6 +988,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "listTags",
                     "x-code-samples": [
                         {
@@ -1094,6 +1102,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -1207,6 +1216,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -1320,6 +1330,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1433,6 +1444,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1607,6 +1619,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1622,7 +1635,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Node.js - Update session",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.sessions.update({\n  sessionId: 'thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  tags: ['support', 'escalated'],\n  tracesCount: 3,\n});\n\nconsole.log(result.tags);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.sessions.update({\n  sessionId: 'thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  updateThreadRequest: {\n    tags: ['support', 'escalated'],\n    tracesCount: 3,\n  },\n});\n\nconsole.log(result.tags);\n",
                         },
                     ],
                 },
@@ -1781,6 +1794,7 @@ class Sessions(BaseSDK):
                 tags=["Threads"],
                 extensions={
                     "x-cli-group": "sessions",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1796,7 +1810,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Node.js - Update session",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.sessions.update({\n  sessionId: 'thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  tags: ['support', 'escalated'],\n  tracesCount: 3,\n});\n\nconsole.log(result.tags);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.sessions.update({\n  sessionId: 'thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  updateThreadRequest: {\n    tags: ['support', 'escalated'],\n    tracesCount: 3,\n  },\n});\n\nconsole.log(result.tags);\n",
                         },
                     ],
                 },

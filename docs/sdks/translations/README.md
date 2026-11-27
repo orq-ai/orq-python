@@ -23,6 +23,7 @@ with Orq(
 ) as orq:
 
     res = orq.router.audio.translations.create(model="Impala", enable_logging=True, diarize=False, tag_audio_events=True, timestamps_granularity="word", temperature=0.5, retry={
+        "count": 3.0,
         "on_codes": [
             429.0,
             500.0,
@@ -47,6 +48,7 @@ with Orq(
             },
         ],
         "retry": {
+            "count": 3.0,
             "on_codes": [
                 429.0,
                 500.0,

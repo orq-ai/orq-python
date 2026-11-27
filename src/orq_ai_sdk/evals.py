@@ -98,6 +98,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "all",
                     "x-code-samples": [
                         {
@@ -218,6 +219,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "all",
                     "x-code-samples": [
                         {
@@ -328,6 +330,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -438,6 +441,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -543,6 +547,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -648,6 +653,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -753,6 +759,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -863,6 +870,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1064,6 +1072,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1260,6 +1269,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1372,7 +1382,11 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "listVersions"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "listVersions",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1476,7 +1490,11 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "listVersions"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
+                    "x-cli-name": "listVersions",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1576,6 +1594,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-hidden": True,
                     "x-cli-name": "getVersion",
                 },
@@ -1676,6 +1695,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-hidden": True,
                     "x-cli-name": "getVersion",
                 },
@@ -1834,6 +1854,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "invoke",
                     "x-code-samples": [
                         {
@@ -1849,7 +1870,7 @@ class Evals(BaseSDK):
                         {
                             "label": "Node.js - Run an evaluator",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  invokeEvaluatorRequest: {\n    timeout: { call_timeout: 45000 },\n    retry: { count: 2, on_codes: [429, 500, 502, 503, 504] },\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  invokeEvaluatorRequest: {\n    timeout: { callTimeout: 45000 },\n    retry: { count: 2, onCodes: [429, 500, 502, 503, 504] },\n    context: {\n      input: {\n        userQuery: 'What is the capital of France?',\n        expectedOutput: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
                         },
                         {
                             "label": "Core - Grade a conversation instead of a single turn",
@@ -2013,6 +2034,7 @@ class Evals(BaseSDK):
                 tags=["Evals"],
                 extensions={
                     "x-cli-group": "evals",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "invoke",
                     "x-code-samples": [
                         {
@@ -2028,7 +2050,7 @@ class Evals(BaseSDK):
                         {
                             "label": "Node.js - Run an evaluator",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  invokeEvaluatorRequest: {\n    timeout: { call_timeout: 45000 },\n    retry: { count: 2, on_codes: [429, 500, 502, 503, 504] },\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  invokeEvaluatorRequest: {\n    timeout: { callTimeout: 45000 },\n    retry: { count: 2, onCodes: [429, 500, 502, 503, 504] },\n    context: {\n      input: {\n        userQuery: 'What is the capital of France?',\n        expectedOutput: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
                         },
                         {
                             "label": "Core - Grade a conversation instead of a single turn",

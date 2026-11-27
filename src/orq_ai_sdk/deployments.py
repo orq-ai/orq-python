@@ -159,6 +159,7 @@ class Deployments(BaseSDK):
                 tags=["Deployments"],
                 extensions={
                     "x-cli-group": "deployments",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "invoke",
                     "x-code-samples": [
                         {
@@ -341,6 +342,7 @@ class Deployments(BaseSDK):
                 tags=["Deployments"],
                 extensions={
                     "x-cli-group": "deployments",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "invoke",
                     "x-code-samples": [
                         {
@@ -529,6 +531,7 @@ class Deployments(BaseSDK):
                 tags=["Deployments"],
                 extensions={
                     "x-cli-group": "deployments",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "stream",
                     "x-code-samples": [
                         {
@@ -728,6 +731,7 @@ class Deployments(BaseSDK):
                 tags=["Deployments"],
                 extensions={
                     "x-cli-group": "deployments",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "stream",
                     "x-code-samples": [
                         {
@@ -849,7 +853,11 @@ class Deployments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Deployments"],
-                extensions={"x-cli-group": "deployments", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "deployments",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -951,7 +959,11 @@ class Deployments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Deployments"],
-                extensions={"x-cli-group": "deployments", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "deployments",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1061,6 +1073,7 @@ class Deployments(BaseSDK):
                 tags=["Deployments"],
                 extensions={
                     "x-cli-group": "deployments",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listVersions",
                     "x-code-samples": [
                         {
@@ -1174,6 +1187,7 @@ class Deployments(BaseSDK):
                 tags=["Deployments"],
                 extensions={
                     "x-cli-group": "deployments",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "listVersions",
                     "x-code-samples": [
                         {
@@ -1359,7 +1373,11 @@ class Deployments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Deployments"],
-                extensions={"x-cli-group": "deployments", "x-cli-name": "getConfig"},
+                extensions={
+                    "x-cli-group": "deployments",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "getConfig",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1538,7 +1556,11 @@ class Deployments(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Deployments"],
-                extensions={"x-cli-group": "deployments", "x-cli-name": "getConfig"},
+                extensions={
+                    "x-cli-group": "deployments",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "getConfig",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

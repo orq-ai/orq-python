@@ -14,22 +14,36 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class MetricBaselineTypedDict(TypedDict):
+    r"""Comparison with the baseline run."""
+
     avg: NotRequired[float]
+    r"""Average of the baseline run."""
     delta: NotRequired[float]
+    r"""This run's average minus the baseline average."""
     pct_change: NotRequired[float]
+    r"""`delta` as a percentage of the baseline average; 0 when the baseline
+    average is 0.
+    """
     direction: NotRequired[str]
-    r"""\"up\", \"down\" or \"flat\"."""
+    r"""`up`, `down` or `same`, by the sign of `delta`."""
 
 
 class MetricBaseline(BaseModel):
+    r"""Comparison with the baseline run."""
+
     avg: Optional[float] = None
+    r"""Average of the baseline run."""
 
     delta: Optional[float] = None
+    r"""This run's average minus the baseline average."""
 
     pct_change: Optional[float] = None
+    r"""`delta` as a percentage of the baseline average; 0 when the baseline
+    average is 0.
+    """
 
     direction: Optional[str] = None
-    r"""\"up\", \"down\" or \"flat\"."""
+    r"""`up`, `down` or `same`, by the sign of `delta`."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

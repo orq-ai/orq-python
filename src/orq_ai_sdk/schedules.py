@@ -83,6 +83,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "list",
                     "x-orq-gateway-group": True,
                 },
@@ -187,6 +188,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "list",
                     "x-orq-gateway-group": True,
                 },
@@ -317,6 +319,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": True,
                 },
@@ -453,6 +456,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": True,
                 },
@@ -566,6 +570,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "delete",
                     "x-orq-gateway-group": True,
                 },
@@ -668,6 +673,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "delete",
                     "x-orq-gateway-group": True,
                 },
@@ -770,6 +776,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieve",
                     "x-orq-gateway-group": True,
                 },
@@ -876,6 +883,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "retrieve",
                     "x-orq-gateway-group": True,
                 },
@@ -1013,6 +1021,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "update",
                     "x-orq-gateway-group": True,
                 },
@@ -1157,6 +1166,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "update",
                     "x-orq-gateway-group": True,
                 },
@@ -1270,6 +1280,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "trigger",
                     "x-orq-gateway-group": True,
                 },
@@ -1383,6 +1394,7 @@ class Schedules(BaseSDK):
                 tags=["Agent Schedules"],
                 extensions={
                     "x-cli-group": "schedules",
+                    "x-cli-help-section": "Managed agents",
                     "x-cli-name": "trigger",
                     "x-orq-gateway-group": True,
                 },

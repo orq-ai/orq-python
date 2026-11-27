@@ -14,9 +14,1148 @@ from orq_ai_sdk.types import (
     serialize_with_info,
 )
 from orq_ai_sdk.types.basemodel import current_filtered_dump
-from pydantic import model_serializer
-from typing import Any, List, Literal, Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
+from orq_ai_sdk.utils import get_discriminator
+from pydantic import Discriminator, Tag, model_serializer
+from typing import Any, Dict, List, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+CompactResponse3ResponsesRequestRequestBodyType = Literal["encrypted_content",]
+
+
+class EncryptedContentTypedDict(TypedDict):
+    r"""An encrypted content part of an agent_message item."""
+
+    encrypted_content: str
+    r"""The encrypted content."""
+    type: CompactResponse3ResponsesRequestRequestBodyType
+
+
+class EncryptedContent(BaseModel):
+    r"""An encrypted content part of an agent_message item."""
+
+    encrypted_content: str
+    r"""The encrypted content."""
+
+    type: CompactResponse3ResponsesRequestRequestBodyType
+
+
+CompactResponse3ResponsesTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CompactResponse3ResponsesType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class CompactResponse3CacheControlTypedDict(TypedDict):
+    type: CompactResponse3ResponsesType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CompactResponse3ResponsesTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CompactResponse3CacheControl(BaseModel):
+    type: CompactResponse3ResponsesType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CompactResponse3ResponsesTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ThreeDetail = Literal[
+    "auto",
+    "low",
+    "high",
+]
+r"""The detail level for image understanding."""
+
+
+CompactResponse3Mode = Literal["explicit",]
+
+
+CompactResponse3ResponsesRequestTTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class CompactResponse3PromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CompactResponse3Mode
+    ttl: NotRequired[CompactResponse3ResponsesRequestTTL]
+
+
+class CompactResponse3PromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CompactResponse3Mode
+
+    ttl: Optional[CompactResponse3ResponsesRequestTTL] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponse3ResponsesRequestType = Literal["input_image",]
+
+
+class ThreeImageTypedDict(TypedDict):
+    r"""An image content part."""
+
+    type: CompactResponse3ResponsesRequestType
+    cache_control: NotRequired[CompactResponse3CacheControlTypedDict]
+    detail: NotRequired[ThreeDetail]
+    r"""The detail level for image understanding."""
+    file_id: NotRequired[str]
+    r"""The ID of a previously uploaded file."""
+    image_url: NotRequired[str]
+    r"""The URL of the image."""
+    prompt_cache_breakpoint: NotRequired[CompactResponse3PromptCacheBreakpointTypedDict]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+
+class ThreeImage(BaseModel):
+    r"""An image content part."""
+
+    type: CompactResponse3ResponsesRequestType
+
+    cache_control: Optional[CompactResponse3CacheControl] = None
+
+    detail: Optional[ThreeDetail] = None
+    r"""The detail level for image understanding."""
+
+    file_id: Optional[str] = None
+    r"""The ID of a previously uploaded file."""
+
+    image_url: Optional[str] = None
+    r"""The URL of the image."""
+
+    prompt_cache_breakpoint: Optional[CompactResponse3PromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "cache_control",
+                "detail",
+                "file_id",
+                "image_url",
+                "prompt_cache_breakpoint",
+            ]
+        )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ThreeTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+ThreeType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class ThreeCacheControlTypedDict(TypedDict):
+    type: ThreeType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[ThreeTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class ThreeCacheControl(BaseModel):
+    type: ThreeType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[ThreeTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ThreeMode = Literal["explicit",]
+
+
+CompactResponse3TTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class ThreePromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: ThreeMode
+    ttl: NotRequired[CompactResponse3TTL]
+
+
+class ThreePromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: ThreeMode
+
+    ttl: Optional[CompactResponse3TTL] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponse3Type = Literal["input_text",]
+
+
+class ThreeTextTypedDict(TypedDict):
+    r"""A text content part."""
+
+    text: str
+    r"""The text content."""
+    type: CompactResponse3Type
+    cache_control: NotRequired[ThreeCacheControlTypedDict]
+    prompt_cache_breakpoint: NotRequired[ThreePromptCacheBreakpointTypedDict]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+
+class ThreeText(BaseModel):
+    r"""A text content part."""
+
+    text: str
+    r"""The text content."""
+
+    type: CompactResponse3Type
+
+    cache_control: Optional[ThreeCacheControl] = None
+
+    prompt_cache_breakpoint: Optional[ThreePromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["cache_control", "prompt_cache_breakpoint"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+Content3TypedDict = TypeAliasType(
+    "Content3TypedDict",
+    Union[EncryptedContentTypedDict, ThreeTextTypedDict, ThreeImageTypedDict],
+)
+r"""A content part within an agent_message item."""
+
+
+Content3 = Annotated[
+    Union[
+        Annotated[ThreeText, Tag("input_text")],
+        Annotated[ThreeImage, Tag("input_image")],
+        Annotated[EncryptedContent, Tag("encrypted_content")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+r"""A content part within an agent_message item."""
+
+
+CompactResponse2ResponsesRequestRequestBodyInput2TTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CompactResponse2ResponsesRequestRequestBodyInput2Content5Type = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class CompactResponse2ResponsesRequestRequestBodyCacheControlTypedDict(TypedDict):
+    type: CompactResponse2ResponsesRequestRequestBodyInput2Content5Type
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CompactResponse2ResponsesRequestRequestBodyInput2TTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CompactResponse2ResponsesRequestRequestBodyCacheControl(BaseModel):
+    type: CompactResponse2ResponsesRequestRequestBodyInput2Content5Type
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CompactResponse2ResponsesRequestRequestBodyInput2TTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponse2ResponsesMode = Literal["explicit",]
+
+
+CompactResponse2ResponsesRequestRequestBodyInput2ContentTTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class CompactResponse2PromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CompactResponse2ResponsesMode
+    ttl: NotRequired[CompactResponse2ResponsesRequestRequestBodyInput2ContentTTL]
+
+
+class CompactResponse2PromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CompactResponse2ResponsesMode
+
+    ttl: Optional[CompactResponse2ResponsesRequestRequestBodyInput2ContentTTL] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponse2ResponsesRequestRequestBodyInput2Content5Type1 = Literal["input_file",]
+
+
+class TwoFileTypedDict(TypedDict):
+    r"""A file content part. Provide file_id, file_data (base64), or file_url."""
+
+    type: CompactResponse2ResponsesRequestRequestBodyInput2Content5Type1
+    cache_control: NotRequired[
+        CompactResponse2ResponsesRequestRequestBodyCacheControlTypedDict
+    ]
+    file_data: NotRequired[str]
+    r"""Base64-encoded file content."""
+    file_id: NotRequired[str]
+    r"""The ID of a previously uploaded file."""
+    file_url: NotRequired[str]
+    r"""A URL to fetch the file from."""
+    filename: NotRequired[str]
+    r"""The name of the file."""
+    mime_type: NotRequired[str]
+    r"""The MIME type of the file (e.g., application/pdf)."""
+    prompt_cache_breakpoint: NotRequired[CompactResponse2PromptCacheBreakpointTypedDict]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+
+class TwoFile(BaseModel):
+    r"""A file content part. Provide file_id, file_data (base64), or file_url."""
+
+    type: CompactResponse2ResponsesRequestRequestBodyInput2Content5Type1
+
+    cache_control: Optional[CompactResponse2ResponsesRequestRequestBodyCacheControl] = (
+        None
+    )
+
+    file_data: Optional[str] = None
+    r"""Base64-encoded file content."""
+
+    file_id: Optional[str] = None
+    r"""The ID of a previously uploaded file."""
+
+    file_url: Optional[str] = None
+    r"""A URL to fetch the file from."""
+
+    filename: Optional[str] = None
+    r"""The name of the file."""
+
+    mime_type: Optional[str] = None
+    r"""The MIME type of the file (e.g., application/pdf)."""
+
+    prompt_cache_breakpoint: Optional[CompactResponse2PromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "cache_control",
+                "file_data",
+                "file_id",
+                "file_url",
+                "filename",
+                "mime_type",
+                "prompt_cache_breakpoint",
+            ]
+        )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponse2ResponsesRequestRequestBodyTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CompactResponse2ResponsesRequestRequestBodyInput2Type = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class CompactResponse2ResponsesRequestCacheControlTypedDict(TypedDict):
+    type: CompactResponse2ResponsesRequestRequestBodyInput2Type
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CompactResponse2ResponsesRequestRequestBodyTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CompactResponse2ResponsesRequestCacheControl(BaseModel):
+    type: CompactResponse2ResponsesRequestRequestBodyInput2Type
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CompactResponse2ResponsesRequestRequestBodyTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+TwoDetail = Literal[
+    "auto",
+    "low",
+    "high",
+]
+r"""The detail level for image understanding."""
+
+
+CompactResponse2Mode = Literal["explicit",]
+
+
+CompactResponse2ResponsesRequestRequestBodyInputTTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class TwoPromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CompactResponse2Mode
+    ttl: NotRequired[CompactResponse2ResponsesRequestRequestBodyInputTTL]
+
+
+class TwoPromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CompactResponse2Mode
+
+    ttl: Optional[CompactResponse2ResponsesRequestRequestBodyInputTTL] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponse2ResponsesRequestRequestBodyInput2ContentType = Literal["input_image",]
+
+
+class TwoImageTypedDict(TypedDict):
+    r"""An image content part."""
+
+    type: CompactResponse2ResponsesRequestRequestBodyInput2ContentType
+    cache_control: NotRequired[CompactResponse2ResponsesRequestCacheControlTypedDict]
+    detail: NotRequired[TwoDetail]
+    r"""The detail level for image understanding."""
+    file_id: NotRequired[str]
+    r"""The ID of a previously uploaded file."""
+    image_url: NotRequired[str]
+    r"""The URL of the image."""
+    prompt_cache_breakpoint: NotRequired[TwoPromptCacheBreakpointTypedDict]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+
+class TwoImage(BaseModel):
+    r"""An image content part."""
+
+    type: CompactResponse2ResponsesRequestRequestBodyInput2ContentType
+
+    cache_control: Optional[CompactResponse2ResponsesRequestCacheControl] = None
+
+    detail: Optional[TwoDetail] = None
+    r"""The detail level for image understanding."""
+
+    file_id: Optional[str] = None
+    r"""The ID of a previously uploaded file."""
+
+    image_url: Optional[str] = None
+    r"""The URL of the image."""
+
+    prompt_cache_breakpoint: Optional[TwoPromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "cache_control",
+                "detail",
+                "file_id",
+                "image_url",
+                "prompt_cache_breakpoint",
+            ]
+        )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponse2ResponsesRequestRequestBodyInputType = Literal["reasoning_text",]
+
+
+class CompactResponse2ReasoningTextTypedDict(TypedDict):
+    r"""A piece of reasoning text on a replayed reasoning item."""
+
+    text: str
+    r"""The reasoning text."""
+    type: CompactResponse2ResponsesRequestRequestBodyInputType
+
+
+class CompactResponse2ReasoningText(BaseModel):
+    r"""A piece of reasoning text on a replayed reasoning item."""
+
+    text: str
+    r"""The reasoning text."""
+
+    type: CompactResponse2ResponsesRequestRequestBodyInputType
+
+
+CompactResponse2ResponsesRequestTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CompactResponse2ResponsesRequestType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class CompactResponse2ResponsesCacheControlTypedDict(TypedDict):
+    type: CompactResponse2ResponsesRequestType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CompactResponse2ResponsesRequestTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CompactResponse2ResponsesCacheControl(BaseModel):
+    type: CompactResponse2ResponsesRequestType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CompactResponse2ResponsesRequestTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponse2ResponsesRequestRequestBodyType = Literal["output_text",]
+
+
+class CompactResponse2OutputTextTypedDict(TypedDict):
+    r"""A model-generated text content part replayed in conversation history."""
+
+    text: str
+    r"""The text content."""
+    type: CompactResponse2ResponsesRequestRequestBodyType
+    annotations: NotRequired[List[Dict[str, Any]]]
+    r"""Annotations on the text, such as URL citations."""
+    cache_control: NotRequired[CompactResponse2ResponsesCacheControlTypedDict]
+    logprobs: NotRequired[List[Dict[str, Any]]]
+    r"""Token log probabilities, when present."""
+    thought_signature: NotRequired[str]
+    r"""An opaque signature some providers, such as Google Gemini, attach to their output. Send it back unchanged with the item so the model can continue its reasoning."""
+
+
+class CompactResponse2OutputText(BaseModel):
+    r"""A model-generated text content part replayed in conversation history."""
+
+    text: str
+    r"""The text content."""
+
+    type: CompactResponse2ResponsesRequestRequestBodyType
+
+    annotations: Optional[List[Dict[str, Any]]] = None
+    r"""Annotations on the text, such as URL citations."""
+
+    cache_control: Optional[CompactResponse2ResponsesCacheControl] = None
+
+    logprobs: Optional[List[Dict[str, Any]]] = None
+    r"""Token log probabilities, when present."""
+
+    thought_signature: Optional[str] = None
+    r"""An opaque signature some providers, such as Google Gemini, attach to their output. Send it back unchanged with the item so the model can continue its reasoning."""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["annotations", "cache_control", "logprobs", "thought_signature"]
+        )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponse2TTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CompactResponse2Type = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class CompactResponse2CacheControlTypedDict(TypedDict):
+    type: CompactResponse2Type
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CompactResponse2TTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CompactResponse2CacheControl(BaseModel):
+    type: CompactResponse2Type
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CompactResponse2TTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+TwoMode = Literal["explicit",]
+
+
+CompactResponse2ResponsesTTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class PromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: TwoMode
+    ttl: NotRequired[CompactResponse2ResponsesTTL]
+
+
+class PromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: TwoMode
+
+    ttl: Optional[CompactResponse2ResponsesTTL] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponse2ResponsesType = Literal["input_text",]
+
+
+class TwoTextTypedDict(TypedDict):
+    r"""A text content part."""
+
+    text: str
+    r"""The text content."""
+    type: CompactResponse2ResponsesType
+    cache_control: NotRequired[CompactResponse2CacheControlTypedDict]
+    prompt_cache_breakpoint: NotRequired[PromptCacheBreakpointTypedDict]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+
+class TwoText(BaseModel):
+    r"""A text content part."""
+
+    text: str
+    r"""The text content."""
+
+    type: CompactResponse2ResponsesType
+
+    cache_control: Optional[CompactResponse2CacheControl] = None
+
+    prompt_cache_breakpoint: Optional[PromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["cache_control", "prompt_cache_breakpoint"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CompactResponseContent2TypedDict = TypeAliasType(
+    "CompactResponseContent2TypedDict",
+    Union[
+        CompactResponse2ReasoningTextTypedDict,
+        TwoTextTypedDict,
+        CompactResponse2OutputTextTypedDict,
+        TwoImageTypedDict,
+        TwoFileTypedDict,
+    ],
+)
+r"""A content part within a message."""
+
+
+CompactResponseContent2 = Annotated[
+    Union[
+        Annotated[TwoText, Tag("input_text")],
+        Annotated[CompactResponse2OutputText, Tag("output_text")],
+        Annotated[CompactResponse2ReasoningText, Tag("reasoning_text")],
+        Annotated[TwoImage, Tag("input_image")],
+        Annotated[TwoFile, Tag("input_file")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+r"""A content part within a message."""
+
+
+InputContentTypedDict = TypeAliasType(
+    "InputContentTypedDict",
+    Union[str, List[CompactResponseContent2TypedDict], List[Content3TypedDict]],
+)
+r"""The content of the item: a string or an array of content parts."""
+
+
+InputContent = TypeAliasType(
+    "InputContent", Union[str, List[CompactResponseContent2], List[Content3]]
+)
+r"""The content of the item: a string or an array of content parts."""
 
 
 InputRole = Literal[
@@ -36,6 +1175,7 @@ InputType = Literal[
     "custom_tool_call",
     "custom_tool_call_output",
     "compaction",
+    "agent_message",
 ]
 r"""The type of item."""
 
@@ -43,10 +1183,14 @@ r"""The type of item."""
 class Input2TypedDict(TypedDict):
     r"""An input item. The \"type\" field determines the item kind."""
 
-    content: NotRequired[str]
-    r"""The content of the item."""
+    author: NotRequired[str]
+    r"""The path of the agent that sent the message (for agent_message items)."""
+    content: NotRequired[InputContentTypedDict]
+    r"""The content of the item: a string or an array of content parts."""
     id: NotRequired[str]
     r"""The ID of the item."""
+    recipient: NotRequired[str]
+    r"""The path of the agent the message is addressed to (for agent_message items)."""
     role: NotRequired[InputRole]
     r"""The role of the message sender (for message items)."""
     type: NotRequired[InputType]
@@ -56,11 +1200,17 @@ class Input2TypedDict(TypedDict):
 class Input2(BaseModel):
     r"""An input item. The \"type\" field determines the item kind."""
 
-    content: Optional[str] = None
-    r"""The content of the item."""
+    author: Optional[str] = None
+    r"""The path of the agent that sent the message (for agent_message items)."""
+
+    content: Optional[InputContent] = None
+    r"""The content of the item: a string or an array of content parts."""
 
     id: Optional[str] = None
     r"""The ID of the item."""
+
+    recipient: Optional[str] = None
+    r"""The path of the agent the message is addressed to (for agent_message items)."""
 
     role: Optional[InputRole] = None
     r"""The role of the message sender (for message items)."""
@@ -73,7 +1223,7 @@ class Input2(BaseModel):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["content", "id", "role", "type"])
+        optional_fields = set(["author", "content", "id", "recipient", "role", "type"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

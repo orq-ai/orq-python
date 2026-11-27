@@ -26,6 +26,7 @@ with Orq(
         "word",
         "segment",
     ], retry={
+        "count": 3.0,
         "on_codes": [
             429.0,
             500.0,
@@ -50,6 +51,7 @@ with Orq(
             },
         ],
         "retry": {
+            "count": 3.0,
             "on_codes": [
                 429.0,
                 500.0,

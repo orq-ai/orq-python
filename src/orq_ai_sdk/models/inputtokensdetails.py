@@ -24,6 +24,7 @@ class InputTokensDetailsTypedDict(TypedDict):
     cache_creation_1h_tokens: NotRequired[int]
     cache_creation_5m_tokens: NotRequired[int]
     cache_write_tokens_details: NotRequired[CacheWriteTokensDetailsTypedDict]
+    tool_use_tokens: NotRequired[int]
 
 
 class InputTokensDetails(BaseModel):
@@ -39,6 +40,8 @@ class InputTokensDetails(BaseModel):
 
     cache_write_tokens_details: Optional[CacheWriteTokensDetails] = None
 
+    tool_use_tokens: Optional[int] = None
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
@@ -49,6 +52,7 @@ class InputTokensDetails(BaseModel):
                 "cache_creation_1h_tokens",
                 "cache_creation_5m_tokens",
                 "cache_write_tokens_details",
+                "tool_use_tokens",
             ]
         )
         exclude_none = current_exclude_none()

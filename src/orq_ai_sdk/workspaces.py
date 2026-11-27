@@ -87,7 +87,11 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions={"x-cli-group": "workspaces", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "workspaces",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -186,7 +190,11 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions={"x-cli-group": "workspaces", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "workspaces",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -279,7 +287,11 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions={"x-cli-group": "workspaces", "x-cli-name": "get"},
+                extensions={
+                    "x-cli-group": "workspaces",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "get",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -372,7 +384,11 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions={"x-cli-group": "workspaces", "x-cli-name": "get"},
+                extensions={
+                    "x-cli-group": "workspaces",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "get",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -418,6 +434,7 @@ class Workspaces(BaseSDK):
         ] = None,
         tracing_enabled: Optional[bool] = None,
         retention_period: Optional[int] = None,
+        prompt_caching: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -437,6 +454,7 @@ class Workspaces(BaseSDK):
         :param chat_kit:
         :param tracing_enabled:
         :param retention_period:
+        :param prompt_caching:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -473,6 +491,7 @@ class Workspaces(BaseSDK):
                 ),
                 tracing_enabled=tracing_enabled,
                 retention_period=retention_period,
+                prompt_caching=prompt_caching,
             ),
         )
 
@@ -518,7 +537,11 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions={"x-cli-group": "workspaces", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "workspaces",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -564,6 +587,7 @@ class Workspaces(BaseSDK):
         ] = None,
         tracing_enabled: Optional[bool] = None,
         retention_period: Optional[int] = None,
+        prompt_caching: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -583,6 +607,7 @@ class Workspaces(BaseSDK):
         :param chat_kit:
         :param tracing_enabled:
         :param retention_period:
+        :param prompt_caching:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -619,6 +644,7 @@ class Workspaces(BaseSDK):
                 ),
                 tracing_enabled=tracing_enabled,
                 retention_period=retention_period,
+                prompt_caching=prompt_caching,
             ),
         )
 
@@ -664,7 +690,11 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions={"x-cli-group": "workspaces", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "workspaces",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -149,6 +149,7 @@ class Speech(BaseSDK):
                 tags=["Audio"],
                 extensions={
                     "x-cli-group": "speech",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },
@@ -314,6 +315,7 @@ class Speech(BaseSDK):
                 tags=["Audio"],
                 extensions={
                     "x-cli-group": "speech",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },

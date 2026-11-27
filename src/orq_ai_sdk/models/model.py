@@ -48,6 +48,20 @@ class ArtificialIntelligence(BaseModel):
     """
 
 
+class ReasoningEffortsTypedDict(TypedDict):
+    r"""Artificial Analysis intelligence index per reasoning effort, keyed by
+    effort name. Each value has `intelligence_index`, plus `index_version`
+    and `index_is_estimated` when known. Absent when there is no effort ladder.
+    """
+
+
+class ReasoningEfforts(BaseModel):
+    r"""Artificial Analysis intelligence index per reasoning effort, keyed by
+    effort name. Each value has `intelligence_index`, plus `index_version`
+    and `index_is_estimated` when known. Absent when there is no effort ladder.
+    """
+
+
 class ModelTypedDict(TypedDict):
     id: str
     r"""Catalog identifier, `<provider>/<model>` (for example `openai/gpt-4o`)."""
@@ -101,6 +115,50 @@ class ModelTypedDict(TypedDict):
     artificial_intelligence: NotRequired[ArtificialIntelligenceTypedDict]
     r"""Artificial Analysis benchmark scores keyed by evaluation name. Absent
     when unavailable for this offering.
+    """
+    default_effort: NotRequired[str]
+    r"""Reasoning effort that the `artificial_intelligence` scores are measured
+    at. Absent when the model has no default effort.
+    """
+    reasoning_efforts: NotRequired[ReasoningEffortsTypedDict]
+    r"""Artificial Analysis intelligence index per reasoning effort, keyed by
+    effort name. Each value has `intelligence_index`, plus `index_version`
+    and `index_is_estimated` when known. Absent when there is no effort ladder.
+    """
+    blended_price: NotRequired[float]
+    r"""Blended price in USD per 1M tokens, weighting cache read, input and output
+    7:2:1: (7 x cache read + 2 x input + 1 x output) / 10. It uses base pricing
+    only, so service tiers and conditional prices are ignored. Absent when the
+    model has no Artificial Analysis data.
+    """
+    default_effort_scored: NotRequired[bool]
+    r"""False when `artificial_intelligence` is not the `default_effort` score:
+    the default effort has no scored rung, so the score of the model's
+    Artificial Analysis slug is used instead. Absent when the model has no
+    default effort.
+    """
+    intelligence_index_total_cost: NotRequired[float]
+    r"""Artificial Analysis cost in USD to run the whole Intelligence Index.
+    Absent when Artificial Analysis has not published it for this model.
+    """
+    intelligence_index_cost_per_task: NotRequired[float]
+    r"""Artificial Analysis cost in USD per Intelligence Index task. Absent when
+    Artificial Analysis has not published it for this model.
+    """
+    median_end_to_end_response_time_seconds: NotRequired[float]
+    r"""Artificial Analysis median end-to-end response time in seconds. Absent
+    when unmeasured.
+    """
+    blended_price_mix: NotRequired[str]
+    r"""Blend `blended_price` uses: `agentic` is the 7:2:1 cache read, input and
+    output blend. Absent when `blended_price` is absent.
+    """
+    blended_price_cache_read_source: NotRequired[str]
+    r"""Where the cache read rate in `blended_price` came from: `host` is the
+    model's own cache read price, `artificial_analysis` is the Artificial
+    Analysis cache hit price capped at the input price, and `input` is the
+    input price, used when neither exists. Absent when `blended_price` is
+    absent.
     """
 
 
@@ -176,13 +234,80 @@ class Model(BaseModel):
     when unavailable for this offering.
     """
 
+    default_effort: Optional[str] = None
+    r"""Reasoning effort that the `artificial_intelligence` scores are measured
+    at. Absent when the model has no default effort.
+    """
+
+    reasoning_efforts: Optional[ReasoningEfforts] = None
+    r"""Artificial Analysis intelligence index per reasoning effort, keyed by
+    effort name. Each value has `intelligence_index`, plus `index_version`
+    and `index_is_estimated` when known. Absent when there is no effort ladder.
+    """
+
+    blended_price: Optional[float] = None
+    r"""Blended price in USD per 1M tokens, weighting cache read, input and output
+    7:2:1: (7 x cache read + 2 x input + 1 x output) / 10. It uses base pricing
+    only, so service tiers and conditional prices are ignored. Absent when the
+    model has no Artificial Analysis data.
+    """
+
+    default_effort_scored: Optional[bool] = None
+    r"""False when `artificial_intelligence` is not the `default_effort` score:
+    the default effort has no scored rung, so the score of the model's
+    Artificial Analysis slug is used instead. Absent when the model has no
+    default effort.
+    """
+
+    intelligence_index_total_cost: Optional[float] = None
+    r"""Artificial Analysis cost in USD to run the whole Intelligence Index.
+    Absent when Artificial Analysis has not published it for this model.
+    """
+
+    intelligence_index_cost_per_task: Optional[float] = None
+    r"""Artificial Analysis cost in USD per Intelligence Index task. Absent when
+    Artificial Analysis has not published it for this model.
+    """
+
+    median_end_to_end_response_time_seconds: Optional[float] = None
+    r"""Artificial Analysis median end-to-end response time in seconds. Absent
+    when unmeasured.
+    """
+
+    blended_price_mix: Optional[str] = None
+    r"""Blend `blended_price` uses: `agentic` is the 7:2:1 cache read, input and
+    output blend. Absent when `blended_price` is absent.
+    """
+
+    blended_price_cache_read_source: Optional[str] = None
+    r"""Where the cache read rate in `blended_price` came from: `host` is the
+    model's own cache read price, `artificial_analysis` is the Artificial
+    Analysis cache hit price capped at the input price, and `input` is the
+    input price, used when neither exists. Absent when `blended_price` is
+    absent.
+    """
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
         optional_fields = set(
-            ["deprecation", "pricing", "context_window", "artificial_intelligence"]
+            [
+                "deprecation",
+                "pricing",
+                "context_window",
+                "artificial_intelligence",
+                "default_effort",
+                "reasoning_efforts",
+                "blended_price",
+                "default_effort_scored",
+                "intelligence_index_total_cost",
+                "intelligence_index_cost_per_task",
+                "median_end_to_end_response_time_seconds",
+                "blended_price_mix",
+                "blended_price_cache_read_source",
+            ]
         )
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()

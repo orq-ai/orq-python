@@ -120,7 +120,11 @@ class Reporting(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Reporting"],
-                extensions={"x-cli-group": "reporting", "x-cli-name": "query"},
+                extensions={
+                    "x-cli-group": "reporting",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "query",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -251,7 +255,11 @@ class Reporting(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Reporting"],
-                extensions={"x-cli-group": "reporting", "x-cli-name": "query"},
+                extensions={
+                    "x-cli-group": "reporting",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "query",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

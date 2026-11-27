@@ -1,0 +1,13 @@
+# ThreeText
+
+A text content part.
+
+
+## Fields
+
+| Field                                                                                                   | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `cache_control`                                                                                         | [Optional[models.ThreeCacheControl]](../models/threecachecontrol.md)                                    | :heavy_minus_sign:                                                                                      | N/A                                                                                                     |
+| `prompt_cache_breakpoint`                                                                               | [Optional[models.ThreePromptCacheBreakpoint]](../models/threepromptcachebreakpoint.md)                  | :heavy_minus_sign:                                                                                      | An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl. |
+| `text`                                                                                                  | *str*                                                                                                   | :heavy_check_mark:                                                                                      | The text content.                                                                                       |
+| `type`                                                                                                  | [models.CompactResponse3Type](../models/compactresponse3type.md)                                        | :heavy_check_mark:                                                                                      | N/A                                                                                                     |

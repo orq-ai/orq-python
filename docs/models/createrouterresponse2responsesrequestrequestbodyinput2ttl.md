@@ -1,14 +1,21 @@
 # CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL
 
+The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL
-value: CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL = "30m"
+value: CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL = "5m"
 ```
 
 
 ## Values
 
-- `"30m"`
-- `"12h"`
+- `"5m"`
+- `"1h"`

@@ -13,6 +13,7 @@ from typing_extensions import Annotated, TypedDict
 class CreateMemoryDocumentRequest1TypedDict(TypedDict):
     memory_store_key: str
     memory_entity_id: str
+    r"""The Memory's generated `_id` or its `entity_id`."""
     create_memory_document_request: CreateMemoryDocumentRequestTypedDict
 
 
@@ -24,6 +25,7 @@ class CreateMemoryDocumentRequest1(BaseModel):
     memory_entity_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The Memory's generated `_id` or its `entity_id`."""
 
     create_memory_document_request: Annotated[
         CreateMemoryDocumentRequest,

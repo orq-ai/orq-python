@@ -1,11 +1,12 @@
 # AllowedTools
 
-Filter which tools from the MCP server are exposed.
+Restrict callable tools without changing their definitions. Native OpenAI Responses API only.
 
 
 ## Fields
 
-| Field                                           | Type                                            | Required                                        | Description                                     |
-| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| `read_only`                                     | *Optional[bool]*                                | :heavy_minus_sign:                              | Only expose tools with readOnlyHint annotation. |
-| `tool_names`                                    | List[*str*]                                     | :heavy_minus_sign:                              | List of allowed tool names.                     |
+| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `mode`                                                                                                         | [models.ToolChoiceMode](../models/toolchoicemode.md)                                                           | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
+| `tools`                                                                                                        | List[[models.ToolChoiceTools](../models/toolchoicetools.md)]                                                   | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
+| `type`                                                                                                         | [models.CreateRouterResponseToolChoiceResponsesType](../models/createrouterresponsetoolchoiceresponsestype.md) | :heavy_check_mark:                                                                                             | N/A                                                                                                            |

@@ -28,7 +28,7 @@ class ChunksServiceUpdateRequestTypedDict(TypedDict):
     r"""The text content of the chunk"""
     embedding: NotRequired[List[float]]
     metadata: NotRequired[Dict[str, ChunksServiceUpdateRequestMetadataTypedDict]]
-    r"""Metadata of the chunk"""
+    r"""Metadata of the chunk. Replaces the existing metadata object: send every key you want to keep."""
 
 
 class ChunksServiceUpdateRequest(BaseModel):
@@ -38,7 +38,7 @@ class ChunksServiceUpdateRequest(BaseModel):
     embedding: Optional[List[float]] = None
 
     metadata: Optional[Dict[str, ChunksServiceUpdateRequestMetadata]] = None
-    r"""Metadata of the chunk"""
+    r"""Metadata of the chunk. Replaces the existing metadata object: send every key you want to keep."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

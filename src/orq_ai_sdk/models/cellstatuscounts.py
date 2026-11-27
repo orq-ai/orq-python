@@ -14,26 +14,46 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class CellStatusCountsTypedDict(TypedDict):
+    r"""Number of cells in each status, across every row and column of the run,
+    dataset and annotation cells included.
+    """
+
     not_run: NotRequired[int]
+    r"""Cells that have never executed, including cells without a status."""
     queued: NotRequired[int]
+    r"""Cells waiting to execute."""
     running: NotRequired[int]
+    r"""Cells executing now."""
     completed: NotRequired[int]
+    r"""Cells that finished successfully."""
     failed: NotRequired[int]
+    r"""Cells whose execution failed."""
     canceled: NotRequired[int]
+    r"""Cells canceled before they finished."""
 
 
 class CellStatusCounts(BaseModel):
+    r"""Number of cells in each status, across every row and column of the run,
+    dataset and annotation cells included.
+    """
+
     not_run: Optional[int] = None
+    r"""Cells that have never executed, including cells without a status."""
 
     queued: Optional[int] = None
+    r"""Cells waiting to execute."""
 
     running: Optional[int] = None
+    r"""Cells executing now."""
 
     completed: Optional[int] = None
+    r"""Cells that finished successfully."""
 
     failed: Optional[int] = None
+    r"""Cells whose execution failed."""
 
     canceled: Optional[int] = None
+    r"""Cells canceled before they finished."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

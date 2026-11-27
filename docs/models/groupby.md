@@ -28,7 +28,6 @@ value: GroupBy = "project"
 - `"evaluator"`
 - `"dataset"`
 - `"prompt"`
-- `"policy"`
 - `"conversation"`
 - `"thread"`
 - `"memory_store"`

@@ -104,6 +104,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "list",
                     "x-code-samples": [
@@ -229,6 +230,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "list",
                     "x-code-samples": [
@@ -374,6 +376,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "create",
                     "x-code-samples": [
@@ -390,7 +393,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Node.js - Create guardrail rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.guardrailRules.create({\n  displayName: 'Protect customer data',\n  description: 'Blocks sensitive customer data from model output.',\n  enabled: true,\n  guardrails: [{\n    id: 'orq_pii_detection',\n    executeOn: 'output',\n    sampleRate: 1,\n    isGuardrail: true,\n  }],\n});\n\nconsole.log(rule._id);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.guardrailRules.create({\n  displayName: 'Protect customer data',\n  description: 'Blocks sensitive customer data from model output.',\n  enabled: true,\n  guardrails: [{\n    id: 'orq_pii_detection',\n    executeOn: 'output',\n    sampleRate: 1,\n    isGuardrail: true,\n  }],\n});\n\nconsole.log(rule.guardrailRule.id);\n",
                         },
                     ],
                 },
@@ -529,6 +532,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "create",
                     "x-code-samples": [
@@ -545,7 +549,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Node.js - Create guardrail rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.guardrailRules.create({\n  displayName: 'Protect customer data',\n  description: 'Blocks sensitive customer data from model output.',\n  enabled: true,\n  guardrails: [{\n    id: 'orq_pii_detection',\n    executeOn: 'output',\n    sampleRate: 1,\n    isGuardrail: true,\n  }],\n});\n\nconsole.log(rule._id);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.guardrailRules.create({\n  displayName: 'Protect customer data',\n  description: 'Blocks sensitive customer data from model output.',\n  enabled: true,\n  guardrails: [{\n    id: 'orq_pii_detection',\n    executeOn: 'output',\n    sampleRate: 1,\n    isGuardrail: true,\n  }],\n});\n\nconsole.log(rule.guardrailRule.id);\n",
                         },
                     ],
                 },
@@ -643,6 +647,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "listUsedGuardrails",
                     "x-code-samples": [
@@ -749,6 +754,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "listUsedGuardrails",
                     "x-code-samples": [
@@ -855,6 +861,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "retrieve",
                     "x-code-samples": [
@@ -959,6 +966,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "retrieve",
                     "x-code-samples": [
@@ -1063,6 +1071,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "delete",
                     "x-code-samples": [
@@ -1167,6 +1176,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "delete",
                     "x-code-samples": [
@@ -1318,6 +1328,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "update",
                     "x-code-samples": [
@@ -1469,6 +1480,7 @@ class GuardrailRules(BaseSDK):
                 tags=["Guardrail Rules"],
                 extensions={
                     "x-cli-group": "guardrailRules",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-hidden": True,
                     "x-cli-name": "update",
                     "x-code-samples": [

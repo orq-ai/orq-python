@@ -9,8 +9,11 @@ from typing_extensions import Annotated, TypedDict
 
 class ExperimentRunRowDuplicateRequestTypedDict(TypedDict):
     experiment_id: str
+    r"""ID of the experiment."""
     run_id: str
+    r"""ID of the run."""
     row_id: str
+    r"""ID of the row to copy."""
     duplicate_row_request: DuplicateRowRequestTypedDict
 
 
@@ -18,14 +21,17 @@ class ExperimentRunRowDuplicateRequest(BaseModel):
     experiment_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the experiment."""
 
     run_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the run."""
 
     row_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the row to copy."""
 
     duplicate_row_request: Annotated[
         DuplicateRowRequest,

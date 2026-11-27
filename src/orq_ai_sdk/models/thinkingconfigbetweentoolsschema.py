@@ -14,7 +14,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 ThinkingConfigBetweenToolsSchemaType = Literal["between_tools",]
-r"""Returns Sonnet 5.5 progress updates between tool calls without extended thinking."""
+r"""Returns progress updates between tool calls without extended thinking."""
 
 
 ThinkingConfigBetweenToolsSchemaDisplay = Literal[
@@ -26,20 +26,20 @@ r"""Controls how Anthropic thinking content appears in the response. Use updates
 
 
 class ThinkingConfigBetweenToolsSchemaTypedDict(TypedDict):
-    r"""Enables progress updates between tool calls on Sonnet 5.5."""
+    r"""Enables progress updates between tool calls on models that support it."""
 
     type: ThinkingConfigBetweenToolsSchemaType
-    r"""Returns Sonnet 5.5 progress updates between tool calls without extended thinking."""
+    r"""Returns progress updates between tool calls without extended thinking."""
     budget_tokens: NotRequired[float]
     display: NotRequired[ThinkingConfigBetweenToolsSchemaDisplay]
     r"""Controls how Anthropic thinking content appears in the response. Use updates for progress summaries on supported models."""
 
 
 class ThinkingConfigBetweenToolsSchema(BaseModel):
-    r"""Enables progress updates between tool calls on Sonnet 5.5."""
+    r"""Enables progress updates between tool calls on models that support it."""
 
     type: ThinkingConfigBetweenToolsSchemaType
-    r"""Returns Sonnet 5.5 progress updates between tool calls without extended thinking."""
+    r"""Returns progress updates between tool calls without extended thinking."""
 
     budget_tokens: Optional[float] = None
 

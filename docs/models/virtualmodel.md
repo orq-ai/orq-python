@@ -1,0 +1,15 @@
+# VirtualModel
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `virtual_model_id`                                                   | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `workspace_id`                                                       | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `slug`                                                               | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `display_name`                                                       | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `target_model`                                                       | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | Model reference the alias runs on, for example openai/gpt-4.1.       |
+| `model_ref`                                                          | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | Reference to call the alias with, orq/<slug>.                        |
+| `created_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `updated_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | N/A                                                                  |

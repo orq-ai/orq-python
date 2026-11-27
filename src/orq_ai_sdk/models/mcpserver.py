@@ -3,8 +3,14 @@
 from __future__ import annotations
 from .mcpauthconfig_output import McpAuthConfigOutput, McpAuthConfigOutputTypedDict
 from .mcpconnection import McpConnection, McpConnectionTypedDict
+from .mcpdiscoverystatus import McpDiscoveryStatus
+from .mcphealthcheckconfig import McpHealthCheckConfig, McpHealthCheckConfigTypedDict
 from .mcpicon import McpIcon, McpIconTypedDict
 from .mcpopenapiconfig import McpOpenAPIConfig, McpOpenAPIConfigTypedDict
+from .mcppromptcatalog import McpPromptCatalog, McpPromptCatalogTypedDict
+from .mcpresource import McpResource, McpResourceTypedDict
+from .mcpresourcetemplate import McpResourceTemplate, McpResourceTemplateTypedDict
+from .mcpserverhealth import McpServerHealth, McpServerHealthTypedDict
 from .mcpskill import McpSkill, McpSkillTypedDict
 from .mcpsyncstate import McpSyncState, McpSyncStateTypedDict
 from .mcptool import McpTool, McpToolTypedDict
@@ -20,6 +26,101 @@ from orq_ai_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
+
+
+class CapabilitiesTypedDict(TypedDict):
+    r"""Capabilities from shared MCP discovery or the caller's current sync."""
+
+    tools: NotRequired[bool]
+    resources: NotRequired[bool]
+    prompts: NotRequired[bool]
+    completions: NotRequired[bool]
+
+
+class Capabilities(BaseModel):
+    r"""Capabilities from shared MCP discovery or the caller's current sync."""
+
+    tools: Optional[bool] = None
+
+    resources: Optional[bool] = None
+
+    prompts: Optional[bool] = None
+
+    completions: Optional[bool] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(["tools", "resources", "prompts", "completions"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class ResourceCatalogTypedDict(TypedDict):
+    r"""Get returns the shared catalog. Sync returns the caller's catalog for user-specific credentials or discovery variables. List omits this field."""
+
+    resources: NotRequired[List[McpResourceTypedDict]]
+    resource_templates: NotRequired[List[McpResourceTemplateTypedDict]]
+    resources_status: NotRequired[McpDiscoveryStatus]
+    resource_templates_status: NotRequired[McpDiscoveryStatus]
+
+
+class ResourceCatalog(BaseModel):
+    r"""Get returns the shared catalog. Sync returns the caller's catalog for user-specific credentials or discovery variables. List omits this field."""
+
+    resources: Optional[List[McpResource]] = None
+
+    resource_templates: Optional[List[McpResourceTemplate]] = None
+
+    resources_status: Optional[McpDiscoveryStatus] = None
+
+    resource_templates_status: Optional[McpDiscoveryStatus] = None
+
+    @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "resources",
+                "resource_templates",
+                "resources_status",
+                "resource_templates_status",
+            ]
+        )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class McpServerTypedDict(TypedDict):
@@ -57,6 +158,13 @@ class McpServerTypedDict(TypedDict):
     r"""Icons advertised by the upstream server during discovery."""
     website_url: NotRequired[str]
     r"""Website advertised by the upstream server during discovery."""
+    capabilities: NotRequired[CapabilitiesTypedDict]
+    r"""Capabilities from shared MCP discovery or the caller's current sync."""
+    resource_catalog: NotRequired[ResourceCatalogTypedDict]
+    r"""Get returns the shared catalog. Sync returns the caller's catalog for user-specific credentials or discovery variables. List omits this field."""
+    prompt_catalog: NotRequired[McpPromptCatalogTypedDict]
+    health: NotRequired[McpServerHealthTypedDict]
+    health_check: NotRequired[McpHealthCheckConfigTypedDict]
 
 
 class McpServer(BaseModel):
@@ -111,6 +219,18 @@ class McpServer(BaseModel):
     website_url: Optional[str] = None
     r"""Website advertised by the upstream server during discovery."""
 
+    capabilities: Optional[Capabilities] = None
+    r"""Capabilities from shared MCP discovery or the caller's current sync."""
+
+    resource_catalog: Optional[ResourceCatalog] = None
+    r"""Get returns the shared catalog. Sync returns the caller's catalog for user-specific credentials or discovery variables. List omits this field."""
+
+    prompt_catalog: Optional[McpPromptCatalog] = None
+
+    health: Optional[McpServerHealth] = None
+
+    health_check: Optional[McpHealthCheckConfig] = None
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
@@ -135,6 +255,11 @@ class McpServer(BaseModel):
                 "openapi",
                 "icons",
                 "website_url",
+                "capabilities",
+                "resource_catalog",
+                "prompt_catalog",
+                "health",
+                "health_check",
             ]
         )
         exclude_none = current_exclude_none()

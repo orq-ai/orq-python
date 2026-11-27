@@ -91,6 +91,7 @@ class Projects(BaseSDK):
                 tags=["Projects"],
                 extensions={
                     "x-cli-group": "projects",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -212,6 +213,7 @@ class Projects(BaseSDK):
                 tags=["Projects"],
                 extensions={
                     "x-cli-group": "projects",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -334,6 +336,7 @@ class Projects(BaseSDK):
                 tags=["Projects"],
                 extensions={
                     "x-cli-group": "projects",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -456,6 +459,7 @@ class Projects(BaseSDK):
                 tags=["Projects"],
                 extensions={
                     "x-cli-group": "projects",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -569,6 +573,7 @@ class Projects(BaseSDK):
                 tags=["Projects"],
                 extensions={
                     "x-cli-group": "projects",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -682,6 +687,7 @@ class Projects(BaseSDK):
                 tags=["Projects"],
                 extensions={
                     "x-cli-group": "projects",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -795,6 +801,7 @@ class Projects(BaseSDK):
                 tags=["Projects"],
                 extensions={
                     "x-cli-group": "projects",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -908,6 +915,7 @@ class Projects(BaseSDK):
                 tags=["Projects"],
                 extensions={
                     "x-cli-group": "projects",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1040,6 +1048,7 @@ class Projects(BaseSDK):
                 tags=["Projects"],
                 extensions={
                     "x-cli-group": "projects",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1055,7 +1064,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Node.js - Update project",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.update({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  name: 'Customer Success Production',\n  description: 'Production support and retention automations',\n  teams: ['team_support'],\n});\n\nconsole.log(result.project.name);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.update({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  updateProjectRequest: {\n    name: 'Customer Success Production',\n    description: 'Production support and retention automations',\n    teams: ['team_support'],\n  },\n});\n\nconsole.log(result.project.name);\n",
                         },
                     ],
                 },
@@ -1172,6 +1181,7 @@ class Projects(BaseSDK):
                 tags=["Projects"],
                 extensions={
                     "x-cli-group": "projects",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1187,7 +1197,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Node.js - Update project",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.update({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  name: 'Customer Success Production',\n  description: 'Production support and retention automations',\n  teams: ['team_support'],\n});\n\nconsole.log(result.project.name);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.update({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  updateProjectRequest: {\n    name: 'Customer Success Production',\n    description: 'Production support and retention automations',\n    teams: ['team_support'],\n  },\n});\n\nconsole.log(result.project.name);\n",
                         },
                     ],
                 },

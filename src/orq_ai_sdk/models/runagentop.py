@@ -848,19 +848,19 @@ class RunAgentModelConfigurationParameters(BaseModel):
 
 
 class RunAgentModelConfigurationRetryTypedDict(TypedDict):
-    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+    r"""Retry configuration for model requests. Allows customizing retry count (0-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
     count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
     on_codes: NotRequired[List[float]]
     r"""HTTP status codes that trigger retry logic"""
 
 
 class RunAgentModelConfigurationRetry(BaseModel):
-    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+    r"""Retry configuration for model requests. Allows customizing retry count (0-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
-    count: Optional[float] = 3.0
-    r"""Number of retry attempts (1-5)"""
+    count: Optional[float] = 0.0
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
 
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""
@@ -900,7 +900,7 @@ class RunAgentModelConfiguration2TypedDict(TypedDict):
     parameters: NotRequired[RunAgentModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-2, randomness; the selected model may impose a lower maximum), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
     retry: NotRequired[RunAgentModelConfigurationRetryTypedDict]
-    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+    r"""Retry configuration for model requests. Allows customizing retry count (0-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
 
 class RunAgentModelConfiguration2(BaseModel):
@@ -916,7 +916,7 @@ class RunAgentModelConfiguration2(BaseModel):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-2, randomness; the selected model may impose a lower maximum), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
     retry: Optional[RunAgentModelConfigurationRetry] = None
-    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+    r"""Retry configuration for model requests. Allows customizing retry count (0-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -1726,19 +1726,19 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
 
 
 class RunAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
-    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+    r"""Retry configuration for this fallback model. Allows customizing retry count (0-5) and HTTP status codes that trigger retries."""
 
     count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
     on_codes: NotRequired[List[float]]
     r"""HTTP status codes that trigger retry logic"""
 
 
 class RunAgentFallbackModelConfigurationRetry(BaseModel):
-    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+    r"""Retry configuration for this fallback model. Allows customizing retry count (0-5) and HTTP status codes that trigger retries."""
 
-    count: Optional[float] = 3.0
-    r"""Number of retry attempts (1-5)"""
+    count: Optional[float] = 0.0
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
 
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""
@@ -1775,7 +1775,7 @@ class RunAgentFallbackModelConfiguration2TypedDict(TypedDict):
     parameters: NotRequired[RunAgentFallbackModelConfigurationParametersTypedDict]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
     retry: NotRequired[RunAgentFallbackModelConfigurationRetryTypedDict]
-    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+    r"""Retry configuration for this fallback model. Allows customizing retry count (0-5) and HTTP status codes that trigger retries."""
 
 
 class RunAgentFallbackModelConfiguration2(BaseModel):
@@ -1788,7 +1788,7 @@ class RunAgentFallbackModelConfiguration2(BaseModel):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
     retry: Optional[RunAgentFallbackModelConfigurationRetry] = None
-    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+    r"""Retry configuration for this fallback model. Allows customizing retry count (0-5) and HTTP status codes that trigger retries."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -2244,7 +2244,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01M7RA704Q4D1Q4J9PH9KZQ3P5"
+    id: Optional[str] = "01M8C8VY65CT05T613WG7APXMN"
 
     description: Optional[str] = None
 
@@ -3168,7 +3168,7 @@ RunAgentToolApprovalRequired = Literal[
     "respect_tool",
     "none",
 ]
-r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+r"""An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval."""
 
 
 RunAgentExecuteOn = Literal[
@@ -3285,7 +3285,7 @@ class RunAgentSettingsTypedDict(TypedDict):
     tools: NotRequired[List[AgentToolInputRunTypedDict]]
     r"""Tools available to the agent"""
     tool_approval_required: NotRequired[RunAgentToolApprovalRequired]
-    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    r"""An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval."""
     max_iterations: NotRequired[int]
     r"""Maximum iterations (LLM calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
@@ -3305,7 +3305,7 @@ class RunAgentSettings(BaseModel):
     r"""Tools available to the agent"""
 
     tool_approval_required: Optional[RunAgentToolApprovalRequired] = "none"
-    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    r"""An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval."""
 
     max_iterations: Optional[int] = 100
     r"""Maximum iterations (LLM calls) before the agent will stop executing."""

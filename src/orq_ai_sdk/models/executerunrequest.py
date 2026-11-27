@@ -17,27 +17,28 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ExecuteRunRequestTypedDict(TypedDict):
-    scope: NotRequired[ExecuteScope]
+    scope: ExecuteScope
     targets: NotRequired[List[ExecuteTargetTypedDict]]
+    r"""Rows and columns to execute. Required for row, column and cell scope."""
     constraints: NotRequired[ExecuteConstraintsTypedDict]
-    repeat_count: NotRequired[int]
+    r"""Limits for this execution, saved into the run's settings."""
 
 
 class ExecuteRunRequest(BaseModel):
-    scope: Optional[ExecuteScope] = None
+    scope: ExecuteScope
 
     targets: Optional[List[ExecuteTarget]] = None
+    r"""Rows and columns to execute. Required for row, column and cell scope."""
 
     constraints: Optional[ExecuteConstraints] = None
-
-    repeat_count: Optional[int] = None
+    r"""Limits for this execution, saved into the run's settings."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["scope", "targets", "constraints", "repeat_count"])
+        optional_fields = set(["targets", "constraints"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

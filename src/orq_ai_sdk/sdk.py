@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.apikeys import APIKeys
     from orq_ai_sdk.auditlogdestinations import AuditLogDestinations
+    from orq_ai_sdk.batches import Batches
     from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.datasets import Datasets
@@ -35,6 +36,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.hub import Hub
     from orq_ai_sdk.identities import Identities
     from orq_ai_sdk.knowledge_sdk import KnowledgeSDK
+    from orq_ai_sdk.live import Live
     from orq_ai_sdk.logs import Logs
     from orq_ai_sdk.managementkeys import ManagementKeys
     from orq_ai_sdk.mcpgateways import McpGateways
@@ -46,7 +48,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.monitors import Monitors
     from orq_ai_sdk.notifiers import Notifiers
     from orq_ai_sdk.pii import Pii
-    from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.projects import Projects
     from orq_ai_sdk.prompts import Prompts
     from orq_ai_sdk.reporting import Reporting
@@ -58,10 +59,12 @@ if TYPE_CHECKING:
     from orq_ai_sdk.skills import Skills
     from orq_ai_sdk.smartrouters import SmartRouters
     from orq_ai_sdk.telemetry_sdk import TelemetrySDK
+    from orq_ai_sdk.telemetrydestinations import TelemetryDestinations
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
     from orq_ai_sdk.users import Users
     from orq_ai_sdk.views import Views
+    from orq_ai_sdk.virtualmodels import VirtualModels
     from orq_ai_sdk.webhooks import Webhooks
     from orq_ai_sdk.websearch import Websearch
     from orq_ai_sdk.workspaces import Workspaces
@@ -91,12 +94,12 @@ class Orq(BaseSDK):
     logs: "Logs"
     reporting: "Reporting"
     telemetry: "TelemetrySDK"
+    telemetry_destinations: "TelemetryDestinations"
     traces: "Traces"
     views: "Views"
     datasets: "Datasets"
     experiments: "Experiments"
     models: "Models"
-    policies: "Policies"
     alerts: "Alerts"
     annotation_queues: "AnnotationQueues"
     audit_log_destinations: "AuditLogDestinations"
@@ -119,12 +122,15 @@ class Orq(BaseSDK):
     skills: "Skills"
     smart_routers: "SmartRouters"
     users: "Users"
+    virtual_models: "VirtualModels"
     webhooks: "Webhooks"
     workspaces: "Workspaces"
     workspace_security: "WorkspaceSecurity"
     workspace_settings: "WorkspaceSettingsSDK"
     responses: "Responses"
     schedules: "Schedules"
+    batches: "Batches"
+    live: "Live"
     websearch: "Websearch"
     _sub_sdk_map = {
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
@@ -144,12 +150,15 @@ class Orq(BaseSDK):
         "logs": ("orq_ai_sdk.logs", "Logs"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
         "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
+        "telemetry_destinations": (
+            "orq_ai_sdk.telemetrydestinations",
+            "TelemetryDestinations",
+        ),
         "traces": ("orq_ai_sdk.traces", "Traces"),
         "views": ("orq_ai_sdk.views", "Views"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "experiments": ("orq_ai_sdk.experiments", "Experiments"),
         "models": ("orq_ai_sdk.models_", "Models"),
-        "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
         "audit_log_destinations": (
@@ -175,6 +184,7 @@ class Orq(BaseSDK):
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "users": ("orq_ai_sdk.users", "Users"),
+        "virtual_models": ("orq_ai_sdk.virtualmodels", "VirtualModels"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
         "workspaces": ("orq_ai_sdk.workspaces", "Workspaces"),
         "workspace_security": ("orq_ai_sdk.workspacesecurity", "WorkspaceSecurity"),
@@ -184,6 +194,8 @@ class Orq(BaseSDK):
         ),
         "responses": ("orq_ai_sdk.responses", "Responses"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
+        "batches": ("orq_ai_sdk.batches", "Batches"),
+        "live": ("orq_ai_sdk.live", "Live"),
         "websearch": ("orq_ai_sdk.websearch", "Websearch"),
     }
 

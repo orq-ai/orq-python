@@ -20,21 +20,29 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class QueryRowTypedDict(TypedDict):
+    r"""A row of a run with its cells."""
+
     row_id: NotRequired[str]
-    display_name: NotRequired[str]
+    r"""Row ID (ULID)."""
     cells: NotRequired[List[CellTypedDict]]
+    r"""Cells of the row, including the derived token metric cells."""
     status: NotRequired[RowStatus]
     created_at: NotRequired[Nullable[datetime]]
     r"""Null on rows written before timestamps were recorded."""
     updated_at: NotRequired[Nullable[datetime]]
+    r"""Time of the last change to the row. Null on rows written before
+    timestamps were recorded.
+    """
 
 
 class QueryRow(BaseModel):
-    row_id: Optional[str] = None
+    r"""A row of a run with its cells."""
 
-    display_name: Optional[str] = None
+    row_id: Optional[str] = None
+    r"""Row ID (ULID)."""
 
     cells: Optional[List[Cell]] = None
+    r"""Cells of the row, including the derived token metric cells."""
 
     status: Optional[RowStatus] = None
 
@@ -42,15 +50,16 @@ class QueryRow(BaseModel):
     r"""Null on rows written before timestamps were recorded."""
 
     updated_at: OptionalNullable[datetime] = UNSET
+    r"""Time of the last change to the row. Null on rows written before
+    timestamps were recorded.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["row_id", "display_name", "cells", "status", "created_at", "updated_at"]
-        )
+        optional_fields = set(["row_id", "cells", "status", "created_at", "updated_at"])
         nullable_fields = set(["created_at", "updated_at"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()

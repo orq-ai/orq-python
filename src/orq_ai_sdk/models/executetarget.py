@@ -14,27 +14,43 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ExecuteTargetTypedDict(TypedDict):
+    r"""Selects rows and columns for Execute a run."""
+
     row_id: NotRequired[str]
+    r"""Row to execute."""
     column_id: NotRequired[str]
+    r"""Column to execute, by column ID."""
     column_key: NotRequired[str]
-    repeat_index: NotRequired[int]
+    r"""Column to execute, matched against column ID, key and display name. Every
+    matching column is used.
+    """
+    source_column_id: NotRequired[str]
+    r"""Limits an evaluator column target to the cells grading this task column."""
 
 
 class ExecuteTarget(BaseModel):
+    r"""Selects rows and columns for Execute a run."""
+
     row_id: Optional[str] = None
+    r"""Row to execute."""
 
     column_id: Optional[str] = None
+    r"""Column to execute, by column ID."""
 
     column_key: Optional[str] = None
+    r"""Column to execute, matched against column ID, key and display name. Every
+    matching column is used.
+    """
 
-    repeat_index: Optional[int] = None
+    source_column_id: Optional[str] = None
+    r"""Limits an evaluator column target to the cells grading this task column."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["row_id", "column_id", "column_key", "repeat_index"])
+        optional_fields = set(["row_id", "column_id", "column_key", "source_column_id"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

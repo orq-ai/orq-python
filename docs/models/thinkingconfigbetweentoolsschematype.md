@@ -1,6 +1,6 @@
 # ThinkingConfigBetweenToolsSchemaType
 
-Returns Sonnet 5.5 progress updates between tool calls without extended thinking.
+Returns progress updates between tool calls without extended thinking.
 
 ## Example Usage
 

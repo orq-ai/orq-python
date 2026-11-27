@@ -1,0 +1,11 @@
+# ExperimentAnnotationUpdateRequest
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `experiment_id`                                                                    | *str*                                                                              | :heavy_check_mark:                                                                 | ID of the experiment.                                                              |
+| `run_id`                                                                           | *str*                                                                              | :heavy_check_mark:                                                                 | ID of the run.                                                                     |
+| `annotation_column_id`                                                             | *str*                                                                              | :heavy_check_mark:                                                                 | ID of the annotation column.                                                       |
+| `update_annotation_column_request`                                                 | [models.UpdateAnnotationColumnRequest](../models/updateannotationcolumnrequest.md) | :heavy_check_mark:                                                                 | N/A                                                                                |

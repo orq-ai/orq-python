@@ -76,6 +76,7 @@ class Users(BaseSDK):
                 ),
                 tags=["Users"],
                 extensions={
+                    "x-cli-help-section": "Administration",
                     "x-code-samples": [
                         {
                             "label": "cURL",
@@ -87,7 +88,7 @@ class Users(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.list();\nconsole.log(result.users);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -175,6 +176,7 @@ class Users(BaseSDK):
                 ),
                 tags=["Users"],
                 extensions={
+                    "x-cli-help-section": "Administration",
                     "x-code-samples": [
                         {
                             "label": "cURL",
@@ -186,7 +188,7 @@ class Users(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.list();\nconsole.log(result.users);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -281,6 +283,7 @@ class Users(BaseSDK):
                 ),
                 tags=["Users"],
                 extensions={
+                    "x-cli-help-section": "Administration",
                     "x-code-samples": [
                         {
                             "label": "cURL",
@@ -292,7 +295,7 @@ class Users(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.get({ userId: '550e8400-e29b-41d4-a716-446655440000' });\nconsole.log(result.user);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -387,6 +390,7 @@ class Users(BaseSDK):
                 ),
                 tags=["Users"],
                 extensions={
+                    "x-cli-help-section": "Administration",
                     "x-code-samples": [
                         {
                             "label": "cURL",
@@ -398,7 +402,7 @@ class Users(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.get({ userId: '550e8400-e29b-41d4-a716-446655440000' });\nconsole.log(result.user);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -493,6 +497,7 @@ class Users(BaseSDK):
                 ),
                 tags=["Users"],
                 extensions={
+                    "x-cli-help-section": "Administration",
                     "x-code-samples": [
                         {
                             "label": "cURL",
@@ -504,7 +509,7 @@ class Users(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nawait orq.users.delete({ userId: '550e8400-e29b-41d4-a716-446655440000' });\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -599,6 +604,7 @@ class Users(BaseSDK):
                 ),
                 tags=["Users"],
                 extensions={
+                    "x-cli-help-section": "Administration",
                     "x-code-samples": [
                         {
                             "label": "cURL",
@@ -610,7 +616,7 @@ class Users(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nawait orq.users.delete({ userId: '550e8400-e29b-41d4-a716-446655440000' });\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -720,6 +726,7 @@ class Users(BaseSDK):
                 ),
                 tags=["Users"],
                 extensions={
+                    "x-cli-help-section": "Administration",
                     "x-code-samples": [
                         {
                             "label": "cURL",
@@ -729,9 +736,9 @@ class Users(BaseSDK):
                         {
                             "label": "TypeScript (orq SDK)",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.update({ userId: '550e8400-e29b-41d4-a716-446655440000', role: '01J3HZA12M14T6Z82BZ35B170K' });\nconsole.log(result.user);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.update({ userId: '550e8400-e29b-41d4-a716-446655440000', updateUserRequest: { role: '01J3HZA12M14T6Z82BZ35B170K' } });\nconsole.log(result.user);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -841,6 +848,7 @@ class Users(BaseSDK):
                 ),
                 tags=["Users"],
                 extensions={
+                    "x-cli-help-section": "Administration",
                     "x-code-samples": [
                         {
                             "label": "cURL",
@@ -850,9 +858,9 @@ class Users(BaseSDK):
                         {
                             "label": "TypeScript (orq SDK)",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.update({ userId: '550e8400-e29b-41d4-a716-446655440000', role: '01J3HZA12M14T6Z82BZ35B170K' });\nconsole.log(result.user);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.update({ userId: '550e8400-e29b-41d4-a716-446655440000', updateUserRequest: { role: '01J3HZA12M14T6Z82BZ35B170K' } });\nconsole.log(result.user);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -963,6 +971,7 @@ class Users(BaseSDK):
                 ),
                 tags=["Users"],
                 extensions={
+                    "x-cli-help-section": "Administration",
                     "x-code-samples": [
                         {
                             "label": "cURL",
@@ -972,9 +981,9 @@ class Users(BaseSDK):
                         {
                             "label": "TypeScript (orq SDK)",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.create({ teamId: '550e8400-e29b-41d4-a716-446655440001', emails: ['member@example.com'], roles: ['01J3HZA12M14T6Z82BZ35B170K'] });\nconsole.log(result.users);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.create({ teamId: '550e8400-e29b-41d4-a716-446655440001', createUsersRequest: { emails: ['member@example.com'], roles: ['01J3HZA12M14T6Z82BZ35B170K'] } });\nconsole.log(result.users);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1085,6 +1094,7 @@ class Users(BaseSDK):
                 ),
                 tags=["Users"],
                 extensions={
+                    "x-cli-help-section": "Administration",
                     "x-code-samples": [
                         {
                             "label": "cURL",
@@ -1094,9 +1104,9 @@ class Users(BaseSDK):
                         {
                             "label": "TypeScript (orq SDK)",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.create({ teamId: '550e8400-e29b-41d4-a716-446655440001', emails: ['member@example.com'], roles: ['01J3HZA12M14T6Z82BZ35B170K'] });\nconsole.log(result.users);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_MANAGEMENT_KEY });\nconst result = await orq.users.create({ teamId: '550e8400-e29b-41d4-a716-446655440001', createUsersRequest: { emails: ['member@example.com'], roles: ['01J3HZA12M14T6Z82BZ35B170K'] } });\nconsole.log(result.users);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,

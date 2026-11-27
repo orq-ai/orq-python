@@ -14,19 +14,23 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ModelValidateRequestBodyTypedDict(TypedDict):
-    api_key: str
     provider: str
+    api_key: NotRequired[str]
+    r"""Required unless integration_id is set."""
     api_version: NotRequired[str]
     base_url: NotRequired[str]
     deployment_name: NotRequired[str]
     endpoint: NotRequired[str]
+    integration_id: NotRequired[str]
+    r"""Azure workload identity federation integration that authenticates the probe with an Entra access token instead of api_key."""
     subtype: NotRequired[str]
 
 
 class ModelValidateRequestBody(BaseModel):
-    api_key: str
-
     provider: str
+
+    api_key: Optional[str] = None
+    r"""Required unless integration_id is set."""
 
     api_version: Optional[str] = None
 
@@ -36,6 +40,9 @@ class ModelValidateRequestBody(BaseModel):
 
     endpoint: Optional[str] = None
 
+    integration_id: Optional[str] = None
+    r"""Azure workload identity federation integration that authenticates the probe with an Entra access token instead of api_key."""
+
     subtype: Optional[str] = None
 
     @model_serializer(mode="wrap")
@@ -44,7 +51,15 @@ class ModelValidateRequestBody(BaseModel):
 
     def serialize_model(self, handler):
         optional_fields = set(
-            ["api_version", "base_url", "deployment_name", "endpoint", "subtype"]
+            [
+                "api_key",
+                "api_version",
+                "base_url",
+                "deployment_name",
+                "endpoint",
+                "integration_id",
+                "subtype",
+            ]
         )
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()

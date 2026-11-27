@@ -176,6 +176,7 @@ class Generations(BaseSDK):
                 tags=["Images"],
                 extensions={
                     "x-cli-group": "images",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "generate",
                     "x-orq-gateway-group": "true",
                 },
@@ -368,6 +369,7 @@ class Generations(BaseSDK):
                 tags=["Images"],
                 extensions={
                     "x-cli-group": "images",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "generate",
                     "x-orq-gateway-group": "true",
                 },

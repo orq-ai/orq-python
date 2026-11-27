@@ -21,7 +21,7 @@ class ClassifyBoxAnswerTypedDict(TypedDict):
     box: ClassifyBoxTypedDict
     type: ClassifyBoxAnswerType
     confidence: NotRequired[float]
-    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice, score and box answers."""
+    r"""How sure the model is of its answer. The provider returns its own confidence value, which can be below the largest probability. Present for choice, score and box answers, and native Gemini noul answers."""
 
 
 class ClassifyBoxAnswer(BaseModel):
@@ -30,7 +30,7 @@ class ClassifyBoxAnswer(BaseModel):
     type: ClassifyBoxAnswerType
 
     confidence: Optional[float] = None
-    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice, score and box answers."""
+    r"""How sure the model is of its answer. The provider returns its own confidence value, which can be below the largest probability. Present for choice, score and box answers, and native Gemini noul answers."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

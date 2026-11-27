@@ -132,6 +132,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -149,7 +150,9 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ModelCreateResponseBody, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -280,6 +283,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -297,7 +301,9 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ModelCreateResponseBody, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -309,7 +315,7 @@ class Models(BaseSDK):
     def create_aws_bedrock(
         self,
         *,
-        auth_mode: str,
+        auth_mode: models.AuthMode,
         display_name: str,
         model_developer: str,
         model_id: str,
@@ -353,11 +359,11 @@ class Models(BaseSDK):
 
         Registers an AWS Bedrock inference profile as a custom model for the workspace. Credentials are resolved at request time via either the integration reference or pod-identity — nothing is stored with the model.
 
-        :param auth_mode:
+        :param auth_mode: Where the AWS credentials come from. integration reads static AWS access keys from the integration named by integration_id, which is required with it. pod-identity resolves credentials from the AWS default credential chain of the deployment, such as EKS Pod Identity, IAM Roles for Service Accounts or the instance metadata service, and ignores integration_id; set assume_role_arn to assume a role in another account and assume_role_external_id to pass the external ID that role's trust policy requires.
         :param display_name:
-        :param model_developer:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
-        :param region:
+        :param model_developer: Developer of the model behind the inference profile, such as anthropic or amazon.
+        :param model_id: Bedrock inference profile ARN to invoke, for example arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0. When configuration.model_id is supplied, this field is instead the immutable workspace-unique slug and the ARN comes from configuration.model_id.
+        :param region: AWS region that serves the inference profile, such as us-east-1.
         :param assume_role_arn:
         :param assume_role_external_id:
         :param autorouter_id: Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools.
@@ -476,13 +482,19 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "createAwsBedrock",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "integration",\n  integrationId: "int_...",\n});',
-                        }
+                        },
+                        {
+                            "label": "Node.js: Pod identity",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "pod-identity",\n  assumeRoleArn: "arn:aws:iam::123456789012:role/bedrock-access-role",\n});',
+                        },
                     ],
                 },
             ),
@@ -495,7 +507,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateAwsBedrockResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -507,7 +521,7 @@ class Models(BaseSDK):
     async def create_aws_bedrock_async(
         self,
         *,
-        auth_mode: str,
+        auth_mode: models.AuthMode,
         display_name: str,
         model_developer: str,
         model_id: str,
@@ -551,11 +565,11 @@ class Models(BaseSDK):
 
         Registers an AWS Bedrock inference profile as a custom model for the workspace. Credentials are resolved at request time via either the integration reference or pod-identity — nothing is stored with the model.
 
-        :param auth_mode:
+        :param auth_mode: Where the AWS credentials come from. integration reads static AWS access keys from the integration named by integration_id, which is required with it. pod-identity resolves credentials from the AWS default credential chain of the deployment, such as EKS Pod Identity, IAM Roles for Service Accounts or the instance metadata service, and ignores integration_id; set assume_role_arn to assume a role in another account and assume_role_external_id to pass the external ID that role's trust policy requires.
         :param display_name:
-        :param model_developer:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
-        :param region:
+        :param model_developer: Developer of the model behind the inference profile, such as anthropic or amazon.
+        :param model_id: Bedrock inference profile ARN to invoke, for example arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0. When configuration.model_id is supplied, this field is instead the immutable workspace-unique slug and the ARN comes from configuration.model_id.
+        :param region: AWS region that serves the inference profile, such as us-east-1.
         :param assume_role_arn:
         :param assume_role_external_id:
         :param autorouter_id: Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools.
@@ -674,13 +688,19 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "createAwsBedrock",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "integration",\n  integrationId: "int_...",\n});',
-                        }
+                        },
+                        {
+                            "label": "Node.js: Pod identity",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "pod-identity",\n  assumeRoleArn: "arn:aws:iam::123456789012:role/bedrock-access-role",\n});',
+                        },
                     ],
                 },
             ),
@@ -693,7 +713,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateAwsBedrockResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -796,6 +818,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "validateAwsBedrock",
                     "x-code-samples": [
                         {
@@ -916,6 +939,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "validateAwsBedrock",
                     "x-code-samples": [
                         {
@@ -1112,12 +1136,13 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "updateAwsBedrock",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  displayName: "Updated name",\n  region: "us-east-1",\n});',
+                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  requestBody: {\n    displayName: "Updated name",\n    region: "us-east-1",\n  },\n});',
                         }
                     ],
                 },
@@ -1310,12 +1335,13 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "updateAwsBedrock",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  displayName: "Updated name",\n  region: "us-east-1",\n});',
+                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  requestBody: {\n    displayName: "Updated name",\n    region: "us-east-1",\n  },\n});',
                         }
                     ],
                 },
@@ -1341,10 +1367,11 @@ class Models(BaseSDK):
     def azure_foundry_deployments(
         self,
         *,
-        api_key: str,
         base_url: str,
         provider: str,
+        api_key: Optional[str] = None,
         api_version: Optional[str] = None,
+        integration_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1354,10 +1381,11 @@ class Models(BaseSDK):
 
         Lists Azure Foundry deployments under the given base_url and merges each entry with the matching model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
 
-        :param api_key:
         :param base_url:
         :param provider:
+        :param api_key: Required unless integration_id is set.
         :param api_version:
+        :param integration_id: Azure workload identity federation integration that authenticates the listing with an Entra access token instead of api_key.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1380,6 +1408,7 @@ class Models(BaseSDK):
             api_key=api_key,
             api_version=api_version,
             base_url=base_url,
+            integration_id=integration_id,
             provider=provider,
         )
 
@@ -1427,6 +1456,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "azureFoundryDeployments",
                     "x-code-samples": [
                         {
@@ -1458,10 +1488,11 @@ class Models(BaseSDK):
     async def azure_foundry_deployments_async(
         self,
         *,
-        api_key: str,
         base_url: str,
         provider: str,
+        api_key: Optional[str] = None,
         api_version: Optional[str] = None,
+        integration_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1471,10 +1502,11 @@ class Models(BaseSDK):
 
         Lists Azure Foundry deployments under the given base_url and merges each entry with the matching model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
 
-        :param api_key:
         :param base_url:
         :param provider:
+        :param api_key: Required unless integration_id is set.
         :param api_version:
+        :param integration_id: Azure workload identity federation integration that authenticates the listing with an Entra access token instead of api_key.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1497,6 +1529,7 @@ class Models(BaseSDK):
             api_key=api_key,
             api_version=api_version,
             base_url=base_url,
+            integration_id=integration_id,
             provider=provider,
         )
 
@@ -1544,6 +1577,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "azureFoundryDeployments",
                     "x-code-samples": [
                         {
@@ -1650,6 +1684,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "importLitellm",
                     "x-code-samples": [
                         {
@@ -1754,6 +1789,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "importLitellm",
                     "x-code-samples": [
                         {
@@ -1846,6 +1882,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "listLitellm",
                     "x-code-samples": [
                         {
@@ -1938,6 +1975,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "listLitellm",
                     "x-code-samples": [
                         {
@@ -2107,6 +2145,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "createOpenaiLike",
                     "x-code-samples": [
                         {
@@ -2126,7 +2165,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateOpenAILikeResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2278,6 +2319,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "createOpenaiLike",
                     "x-code-samples": [
                         {
@@ -2297,7 +2339,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateOpenAILikeResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2342,7 +2386,7 @@ class Models(BaseSDK):
     ) -> models.ModelUpdateOpenAILikeResponseBody:
         r"""Update OpenAI-compatible custom model
 
-        Updates an OpenAI-compatible custom model. Live-re-probes the target API when base_url or model_id changes, using the stored encrypted api_key. Metadata is merged (existing preserved, new overrides).
+        Updates an OpenAI-compatible custom model. `display_name`, `region` and `model_type` are required on every update. Live-re-probes the target API when `base_url` or `configuration.model_id` changes, using the stored encrypted api_key. The body carries no `metadata` field: metadata keys already stored on the model are preserved.
 
         :param id: The ID of the model
         :param display_name:
@@ -2455,12 +2499,13 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "updateOpenaiLike",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  displayName: "My Renamed Model",\n  region: "us",\n  modelType: "chat",\n  inputCost: 0.002,\n  outputCost: 0.004,\n});',
+                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  requestBody: {\n    displayName: "My Renamed Model",\n    region: "us",\n    modelType: "chat",\n    inputCost: 0.002,\n    outputCost: 0.004,\n  },\n});',
                         }
                     ],
                 },
@@ -2519,7 +2564,7 @@ class Models(BaseSDK):
     ) -> models.ModelUpdateOpenAILikeResponseBody:
         r"""Update OpenAI-compatible custom model
 
-        Updates an OpenAI-compatible custom model. Live-re-probes the target API when base_url or model_id changes, using the stored encrypted api_key. Metadata is merged (existing preserved, new overrides).
+        Updates an OpenAI-compatible custom model. `display_name`, `region` and `model_type` are required on every update. Live-re-probes the target API when `base_url` or `configuration.model_id` changes, using the stored encrypted api_key. The body carries no `metadata` field: metadata keys already stored on the model are preserved.
 
         :param id: The ID of the model
         :param display_name:
@@ -2632,12 +2677,13 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "updateOpenaiLike",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  displayName: "My Renamed Model",\n  region: "us",\n  modelType: "chat",\n  inputCost: 0.002,\n  outputCost: 0.004,\n});',
+                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  requestBody: {\n    displayName: "My Renamed Model",\n    region: "us",\n    modelType: "chat",\n    inputCost: 0.002,\n    outputCost: 0.004,\n  },\n});',
                         }
                     ],
                 },
@@ -2663,12 +2709,13 @@ class Models(BaseSDK):
     def validate(
         self,
         *,
-        api_key: str,
         provider: str,
+        api_key: Optional[str] = None,
         api_version: Optional[str] = None,
         base_url: Optional[str] = None,
         deployment_name: Optional[str] = None,
         endpoint: Optional[str] = None,
+        integration_id: Optional[str] = None,
         subtype: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2679,12 +2726,13 @@ class Models(BaseSDK):
 
         Validates a provider endpoint by performing a minimal live probe. Currently supports Azure OpenAI. Response includes the resolved region, whether the model is known to Orq, and either the full model document or a synthesized default.
 
-        :param api_key:
         :param provider:
+        :param api_key: Required unless integration_id is set.
         :param api_version:
         :param base_url:
         :param deployment_name:
         :param endpoint:
+        :param integration_id: Azure workload identity federation integration that authenticates the probe with an Entra access token instead of api_key.
         :param subtype:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2710,6 +2758,7 @@ class Models(BaseSDK):
             base_url=base_url,
             deployment_name=deployment_name,
             endpoint=endpoint,
+            integration_id=integration_id,
             provider=provider,
             subtype=subtype,
         )
@@ -2754,6 +2803,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "validate",
                     "x-code-samples": [
                         {
@@ -2783,12 +2833,13 @@ class Models(BaseSDK):
     async def validate_async(
         self,
         *,
-        api_key: str,
         provider: str,
+        api_key: Optional[str] = None,
         api_version: Optional[str] = None,
         base_url: Optional[str] = None,
         deployment_name: Optional[str] = None,
         endpoint: Optional[str] = None,
+        integration_id: Optional[str] = None,
         subtype: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2799,12 +2850,13 @@ class Models(BaseSDK):
 
         Validates a provider endpoint by performing a minimal live probe. Currently supports Azure OpenAI. Response includes the resolved region, whether the model is known to Orq, and either the full model document or a synthesized default.
 
-        :param api_key:
         :param provider:
+        :param api_key: Required unless integration_id is set.
         :param api_version:
         :param base_url:
         :param deployment_name:
         :param endpoint:
+        :param integration_id: Azure workload identity federation integration that authenticates the probe with an Entra access token instead of api_key.
         :param subtype:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2830,6 +2882,7 @@ class Models(BaseSDK):
             base_url=base_url,
             deployment_name=deployment_name,
             endpoint=endpoint,
+            integration_id=integration_id,
             provider=provider,
             subtype=subtype,
         )
@@ -2874,6 +2927,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "validate",
                     "x-code-samples": [
                         {
@@ -2989,6 +3043,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "createVertex",
                     "x-code-samples": [
                         {
@@ -3008,7 +3063,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateVertexResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -3106,6 +3163,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "createVertex",
                     "x-code-samples": [
                         {
@@ -3125,7 +3183,9 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateVertexResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -3207,6 +3267,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -3306,6 +3367,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -3452,12 +3514,13 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.update({\n  id: "019d...",\n  displayName: "New display name",\n  hasFunctions: true,\n});',
+                            "source": 'await orq.models.update({\n  id: "019d...",\n  requestBody: {\n    displayName: "New display name",\n    hasFunctions: true,\n  },\n});',
                         }
                     ],
                 },
@@ -3598,12 +3661,13 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.update({\n  id: "019d...",\n  displayName: "New display name",\n  hasFunctions: true,\n});',
+                            "source": 'await orq.models.update({\n  id: "019d...",\n  requestBody: {\n    displayName: "New display name",\n    hasFunctions: true,\n  },\n});',
                         }
                     ],
                 },
@@ -3700,6 +3764,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "enable",
                     "x-code-samples": [
                         {
@@ -3802,6 +3867,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "enable",
                     "x-code-samples": [
                         {
@@ -3901,6 +3967,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "disable",
                     "x-code-samples": [
                         {
@@ -4000,6 +4067,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "disable",
                     "x-code-samples": [
                         {
@@ -4092,6 +4160,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "list",
                     "x-orq-gateway-group": True,
                 },
@@ -4184,6 +4253,7 @@ class Models(BaseSDK):
                 tags=["Models"],
                 extensions={
                     "x-cli-group": "models",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "list",
                     "x-orq-gateway-group": True,
                 },

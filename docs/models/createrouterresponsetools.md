@@ -11,10 +11,28 @@ A tool definition. The "type" field determines the tool kind.
 value: models.ToolsFunction = /* values here */
 ```
 
-### `models.Custom`
+### `models.OpenAIToolSearch`
 
 ```python
-value: models.Custom = /* values here */
+value: models.OpenAIToolSearch = /* values here */
+```
+
+### `models.OpenAIToolNamespace`
+
+```python
+value: models.OpenAIToolNamespace = /* values here */
+```
+
+### `models.OpenAIMCPTool`
+
+```python
+value: models.OpenAIMCPTool = /* values here */
+```
+
+### `models.ToolsCustom`
+
+```python
+value: models.ToolsCustom = /* values here */
 ```
 
 ### `models.OrqAdvisorTool`
@@ -27,114 +45,6 @@ value: models.OrqAdvisorTool = /* values here */
 
 ```python
 value: models.OrqSidekickTool = /* values here */
-```
-
-### `models.OrqSidekickTool`
-
-```python
-value: models.OrqSidekickTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
 ```
 
 ### `models.OrqAiTool`

@@ -19,27 +19,34 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ModelAzureFoundryDeploymentsRequestBodyTypedDict(TypedDict):
-    api_key: str
     base_url: str
     provider: str
+    api_key: NotRequired[str]
+    r"""Required unless integration_id is set."""
     api_version: NotRequired[str]
+    integration_id: NotRequired[str]
+    r"""Azure workload identity federation integration that authenticates the listing with an Entra access token instead of api_key."""
 
 
 class ModelAzureFoundryDeploymentsRequestBody(BaseModel):
-    api_key: str
-
     base_url: str
 
     provider: str
 
+    api_key: Optional[str] = None
+    r"""Required unless integration_id is set."""
+
     api_version: Optional[str] = None
+
+    integration_id: Optional[str] = None
+    r"""Azure workload identity federation integration that authenticates the listing with an Entra access token instead of api_key."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["api_version"])
+        optional_fields = set(["api_key", "api_version", "integration_id"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

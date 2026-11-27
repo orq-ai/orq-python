@@ -98,22 +98,23 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List datasets",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/datasets' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/datasets' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List datasets",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.datasets.list(\n    limit=25,\n)\n\nfor dataset in page.data:\n    print(dataset.dataset_id, dataset.display_name)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.datasets.list(\n    limit=25,\n)\n\nfor dataset in page.data:\n    print(dataset.id, dataset.display_name)\n',
                         },
                         {
                             "label": "Node.js - List datasets",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.datasets.list({\n  limit: 25,\n});\n\nfor (const dataset of page.data) {\n  console.log(dataset.datasetId, dataset.displayName);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.datasets.list({\n  limit: 25,\n});\n\nfor (const dataset of page.data) {\n  console.log(dataset.id, dataset.displayName);\n}\n",
                         },
                     ],
                 },
@@ -226,22 +227,23 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List datasets",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/datasets' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/datasets' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List datasets",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.datasets.list(\n    limit=25,\n)\n\nfor dataset in page.data:\n    print(dataset.dataset_id, dataset.display_name)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.datasets.list(\n    limit=25,\n)\n\nfor dataset in page.data:\n    print(dataset.id, dataset.display_name)\n',
                         },
                         {
                             "label": "Node.js - List datasets",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.datasets.list({\n  limit: 25,\n});\n\nfor (const dataset of page.data) {\n  console.log(dataset.datasetId, dataset.displayName);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.datasets.list({\n  limit: 25,\n});\n\nfor (const dataset of page.data) {\n  console.log(dataset.id, dataset.displayName);\n}\n",
                         },
                     ],
                 },
@@ -345,22 +347,23 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create dataset",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/datasets' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval\",\n    \"path\": \"/customer-success/datasets/support-quality-eval\"\n  }'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/datasets\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "support_quality_eval",\n    "path": "/customer-success/datasets/support-quality-eval"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create dataset",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ndataset = client.datasets.create(\n    display_name="support_quality_eval",\n    path="/customer-success/datasets/support-quality-eval",\n)\n\nprint(dataset.dataset_id)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ndataset = client.datasets.create(\n    display_name="support_quality_eval",\n    path="/customer-success/datasets/support-quality-eval",\n)\n\nprint(dataset.id)\n',
                         },
                         {
                             "label": "Node.js - Create dataset",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.create({\n  displayName: 'support_quality_eval',\n  path: '/customer-success/datasets/support-quality-eval',\n});\n\nconsole.log(dataset.datasetId);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.create({\n  displayName: 'support_quality_eval',\n  path: '/customer-success/datasets/support-quality-eval',\n});\n\nconsole.log(dataset.id);\n",
                         },
                     ],
                 },
@@ -464,22 +467,23 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create dataset",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/datasets' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval\",\n    \"path\": \"/customer-success/datasets/support-quality-eval\"\n  }'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/datasets\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "support_quality_eval",\n    "path": "/customer-success/datasets/support-quality-eval"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create dataset",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ndataset = client.datasets.create(\n    display_name="support_quality_eval",\n    path="/customer-success/datasets/support-quality-eval",\n)\n\nprint(dataset.dataset_id)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ndataset = client.datasets.create(\n    display_name="support_quality_eval",\n    path="/customer-success/datasets/support-quality-eval",\n)\n\nprint(dataset.id)\n',
                         },
                         {
                             "label": "Node.js - Create dataset",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.create({\n  displayName: 'support_quality_eval',\n  path: '/customer-success/datasets/support-quality-eval',\n});\n\nconsole.log(dataset.datasetId);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.create({\n  displayName: 'support_quality_eval',\n  path: '/customer-success/datasets/support-quality-eval',\n});\n\nconsole.log(dataset.id);\n",
                         },
                     ],
                 },
@@ -577,12 +581,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "retrieve",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve dataset",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve dataset",
@@ -690,12 +695,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "retrieve",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve dataset",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve dataset",
@@ -803,12 +809,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete dataset",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -906,12 +913,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete dataset",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1027,12 +1035,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update dataset",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval_v2\"\n  }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval_v2\"\n  }'\n",
                         }
                     ],
                 },
@@ -1148,12 +1157,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update dataset",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval_v2\"\n  }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval_v2\"\n  }'\n",
                         }
                     ],
                 },
@@ -1251,12 +1261,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "clear",
                     "x-code-samples": [
                         {
                             "label": "Core - Clear dataset",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/clear' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/clear' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1354,12 +1365,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "clear",
                     "x-code-samples": [
                         {
                             "label": "Core - Clear dataset",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/clear' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/clear' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1466,12 +1478,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "listDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - List datapoints",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         }
                     ],
                 },
@@ -1578,12 +1591,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "listDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - List datapoints",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         }
                     ],
                 },
@@ -1691,12 +1705,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "createDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Create datapoints",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "inputs": {\n        "ticket": "Customer cannot reset their password."\n      },\n      "expected_output": "Ask the customer to use the reset link and verify delivery."\n    }\n  ]\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "inputs": {\n        "ticket": "Customer cannot reset their password."\n      },\n      "expected_output": "Ask the customer to use the reset link and verify delivery."\n    }\n  ]\'\n',
                         }
                     ],
                 },
@@ -1804,12 +1819,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "createDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Create datapoints",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "inputs": {\n        "ticket": "Customer cannot reset their password."\n      },\n      "expected_output": "Ask the customer to use the reset link and verify delivery."\n    }\n  ]\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "inputs": {\n        "ticket": "Customer cannot reset their password."\n      },\n      "expected_output": "Ask the customer to use the reset link and verify delivery."\n    }\n  ]\'\n',
                         }
                     ],
                 },
@@ -1919,13 +1935,24 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "deleteDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete datapoints",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints-bulk-delete' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"item_ids\": [\n      \"01J6V6H1Z2A3B4C5D6E7F8G9H0\"\n    ]\n  }'\n",
-                        }
+                            "source": "curl --request POST \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints-bulk-delete' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"item_ids\": [\n      \"01J6V6H1Z2A3B4C5D6E7F8G9H0\"\n    ]\n  }'\n",
+                        },
+                        {
+                            "label": "Python - Delete datapoints",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.datasets.delete_datapoints(\n    dataset_id="01J6V6G8M4F5N8P9Q0R1S2T3U4",\n    item_ids=[\n        "01J6V6H1Z2A3B4C5D6E7F8G9H0",\n    ],\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete datapoints",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.datasets.deleteDatapoints({\n  datasetId: '01J6V6G8M4F5N8P9Q0R1S2T3U4',\n  deleteDatapointsRequest: {\n    itemIds: ['01J6V6H1Z2A3B4C5D6E7F8G9H0'],\n  },\n});\n",
+                        },
                     ],
                 },
             ),
@@ -2034,13 +2061,24 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "deleteDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete datapoints",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints-bulk-delete' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"item_ids\": [\n      \"01J6V6H1Z2A3B4C5D6E7F8G9H0\"\n    ]\n  }'\n",
-                        }
+                            "source": "curl --request POST \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints-bulk-delete' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"item_ids\": [\n      \"01J6V6H1Z2A3B4C5D6E7F8G9H0\"\n    ]\n  }'\n",
+                        },
+                        {
+                            "label": "Python - Delete datapoints",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.datasets.delete_datapoints(\n    dataset_id="01J6V6G8M4F5N8P9Q0R1S2T3U4",\n    item_ids=[\n        "01J6V6H1Z2A3B4C5D6E7F8G9H0",\n    ],\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete datapoints",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.datasets.deleteDatapoints({\n  datasetId: '01J6V6G8M4F5N8P9Q0R1S2T3U4',\n  deleteDatapointsRequest: {\n    itemIds: ['01J6V6H1Z2A3B4C5D6E7F8G9H0'],\n  },\n});\n",
+                        },
                     ],
                 },
             ),
@@ -2151,13 +2189,24 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "createDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - Bulk create datapoints",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/bulk\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      {\n        "inputs": {\n          "ticket": "Customer asks for an invoice copy."\n        },\n        "expected_output": "Explain where invoices are available and offer to resend it."\n      }\n    ]\n  }\'\n',
-                        }
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/bulk\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      {\n        "inputs": {\n          "ticket": "Customer asks for an invoice copy."\n        },\n        "expected_output": "Explain where invoices are available and offer to resend it."\n      }\n    ]\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Bulk create datapoints",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ndatapoints = client.datasets.create_datapoints(\n    dataset_id="01J6V6G8M4F5N8P9Q0R1S2T3U4",\n    items=[\n        {\n            "inputs": {"ticket": "Customer asks for an invoice copy."},\n            "expected_output": "Explain where invoices are available and offer to resend it.",\n        }\n    ],\n)\n\nfor datapoint in datapoints:\n    print(datapoint.id)\n',
+                        },
+                        {
+                            "label": "Node.js - Bulk create datapoints",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst datapoints = await client.datasets.createDatapoints({\n  datasetId: '01J6V6G8M4F5N8P9Q0R1S2T3U4',\n  bulkCreateDatapointsRequest: {\n    items: [\n      {\n        inputs: { ticket: 'Customer asks for an invoice copy.' },\n        expectedOutput: 'Explain where invoices are available and offer to resend it.',\n      },\n    ],\n  },\n});\n\nfor (const datapoint of datapoints) {\n  console.log(datapoint.id);\n}\n",
+                        },
                     ],
                 },
             ),
@@ -2268,13 +2317,24 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "createDatapoints",
                     "x-code-samples": [
                         {
                             "label": "Core - Bulk create datapoints",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/bulk\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      {\n        "inputs": {\n          "ticket": "Customer asks for an invoice copy."\n        },\n        "expected_output": "Explain where invoices are available and offer to resend it."\n      }\n    ]\n  }\'\n',
-                        }
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/bulk\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      {\n        "inputs": {\n          "ticket": "Customer asks for an invoice copy."\n        },\n        "expected_output": "Explain where invoices are available and offer to resend it."\n      }\n    ]\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Bulk create datapoints",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ndatapoints = client.datasets.create_datapoints(\n    dataset_id="01J6V6G8M4F5N8P9Q0R1S2T3U4",\n    items=[\n        {\n            "inputs": {"ticket": "Customer asks for an invoice copy."},\n            "expected_output": "Explain where invoices are available and offer to resend it.",\n        }\n    ],\n)\n\nfor datapoint in datapoints:\n    print(datapoint.id)\n',
+                        },
+                        {
+                            "label": "Node.js - Bulk create datapoints",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst datapoints = await client.datasets.createDatapoints({\n  datasetId: '01J6V6G8M4F5N8P9Q0R1S2T3U4',\n  bulkCreateDatapointsRequest: {\n    items: [\n      {\n        inputs: { ticket: 'Customer asks for an invoice copy.' },\n        expectedOutput: 'Explain where invoices are available and offer to resend it.',\n      },\n    ],\n  },\n});\n\nfor (const datapoint of datapoints) {\n  console.log(datapoint.id);\n}\n",
+                        },
                     ],
                 },
             ),
@@ -2374,12 +2434,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "retrieveDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve datapoint",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2480,12 +2541,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "retrieveDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve datapoint",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2586,12 +2648,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "deleteDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete datapoint",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2692,12 +2755,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "deleteDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete datapoint",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2816,12 +2880,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "updateDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Update datapoint",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"expected_output\": \"Confirm the invoice email address before resending the invoice.\"\n  }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"expected_output\": \"Confirm the invoice email address before resending the invoice.\"\n  }'\n",
                         }
                     ],
                 },
@@ -2940,12 +3005,13 @@ class Datasets(BaseSDK):
                 tags=["Datasets"],
                 extensions={
                     "x-cli-group": "datasets",
+                    "x-cli-help-section": "Optimization",
                     "x-cli-name": "updateDatapoint",
                     "x-code-samples": [
                         {
                             "label": "Core - Update datapoint",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"expected_output\": \"Confirm the invoice email address before resending the invoice.\"\n  }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"expected_output\": \"Confirm the invoice email address before resending the invoice.\"\n  }'\n",
                         }
                     ],
                 },

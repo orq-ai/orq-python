@@ -8,6 +8,7 @@ from .embeddingdimensionsupport import (
 )
 from .modelfusionconfig import ModelFusionConfig, ModelFusionConfigTypedDict
 from .pricing import Pricing, PricingTypedDict
+from .virtualmodelconfig import VirtualModelConfig, VirtualModelConfigTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -91,6 +92,7 @@ class ModelMetadataTypedDict(TypedDict):
     supported_video_resolutions: NotRequired[Nullable[List[str]]]
     supported_video_sizes: NotRequired[Nullable[List[str]]]
     supports_adaptive_reasoning: NotRequired[bool]
+    supports_agent_message_item_type: NotRequired[bool]
     supports_audio_input: NotRequired[bool]
     supports_audio_output: NotRequired[bool]
     supports_b64_json_response_format: NotRequired[bool]
@@ -116,6 +118,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_max_completion_tokens: NotRequired[bool]
     supports_mid_conversation_system: NotRequired[bool]
     supports_native_classify: NotRequired[bool]
+    supports_openai_live_api: NotRequired[bool]
     supports_openai_realtime_api: NotRequired[bool]
     supports_openai_sdk: NotRequired[bool]
     supports_parallel_tool_calls: NotRequired[bool]
@@ -131,6 +134,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_reasoning_effort_minimal: NotRequired[bool]
     supports_reasoning_effort_none: NotRequired[bool]
     supports_reasoning_effort_xhigh: NotRequired[bool]
+    supports_response_schema_with_tools: NotRequired[bool]
     supports_responses_api: NotRequired[bool]
     supports_sampling_params: NotRequired[bool]
     supports_service_tier: NotRequired[bool]
@@ -157,6 +161,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_web_search: NotRequired[bool]
     supports_zdr: NotRequired[bool]
     thinking_enforced: NotRequired[bool]
+    virtual_model: NotRequired[VirtualModelConfigTypedDict]
 
 
 class ModelMetadata(BaseModel):
@@ -294,6 +299,8 @@ class ModelMetadata(BaseModel):
 
     supports_adaptive_reasoning: Optional[bool] = None
 
+    supports_agent_message_item_type: Optional[bool] = None
+
     supports_audio_input: Optional[bool] = None
 
     supports_audio_output: Optional[bool] = None
@@ -344,6 +351,8 @@ class ModelMetadata(BaseModel):
 
     supports_native_classify: Optional[bool] = None
 
+    supports_openai_live_api: Optional[bool] = None
+
     supports_openai_realtime_api: Optional[bool] = None
 
     supports_openai_sdk: Optional[bool] = None
@@ -373,6 +382,8 @@ class ModelMetadata(BaseModel):
     supports_reasoning_effort_none: Optional[bool] = None
 
     supports_reasoning_effort_xhigh: Optional[bool] = None
+
+    supports_response_schema_with_tools: Optional[bool] = None
 
     supports_responses_api: Optional[bool] = None
 
@@ -425,6 +436,8 @@ class ModelMetadata(BaseModel):
     supports_zdr: Optional[bool] = None
 
     thinking_enforced: Optional[bool] = None
+
+    virtual_model: Optional[VirtualModelConfig] = None
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -499,6 +512,7 @@ class ModelMetadata(BaseModel):
                 "supported_video_resolutions",
                 "supported_video_sizes",
                 "supports_adaptive_reasoning",
+                "supports_agent_message_item_type",
                 "supports_audio_input",
                 "supports_audio_output",
                 "supports_b64_json_response_format",
@@ -524,6 +538,7 @@ class ModelMetadata(BaseModel):
                 "supports_max_completion_tokens",
                 "supports_mid_conversation_system",
                 "supports_native_classify",
+                "supports_openai_live_api",
                 "supports_openai_realtime_api",
                 "supports_openai_sdk",
                 "supports_parallel_tool_calls",
@@ -539,6 +554,7 @@ class ModelMetadata(BaseModel):
                 "supports_reasoning_effort_minimal",
                 "supports_reasoning_effort_none",
                 "supports_reasoning_effort_xhigh",
+                "supports_response_schema_with_tools",
                 "supports_responses_api",
                 "supports_sampling_params",
                 "supports_service_tier",
@@ -565,6 +581,7 @@ class ModelMetadata(BaseModel):
                 "supports_web_search",
                 "supports_zdr",
                 "thinking_enforced",
+                "virtual_model",
             ]
         )
         nullable_fields = set(

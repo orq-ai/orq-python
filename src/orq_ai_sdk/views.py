@@ -90,6 +90,7 @@ class Views(BaseSDK):
                 tags=["Views"],
                 extensions={
                     "x-cli-group": "views",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -200,6 +201,7 @@ class Views(BaseSDK):
                 tags=["Views"],
                 extensions={
                     "x-cli-group": "views",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -328,6 +330,7 @@ class Views(BaseSDK):
                 tags=["Views"],
                 extensions={
                     "x-cli-group": "views",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -456,6 +459,7 @@ class Views(BaseSDK):
                 tags=["Views"],
                 extensions={
                     "x-cli-group": "views",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -557,6 +561,7 @@ class Views(BaseSDK):
                 tags=["Views"],
                 extensions={
                     "x-cli-group": "views",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -658,6 +663,7 @@ class Views(BaseSDK):
                 tags=["Views"],
                 extensions={
                     "x-cli-group": "views",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -759,6 +765,7 @@ class Views(BaseSDK):
                 tags=["Views"],
                 extensions={
                     "x-cli-group": "views",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -860,6 +867,7 @@ class Views(BaseSDK):
                 tags=["Views"],
                 extensions={
                     "x-cli-group": "views",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -997,12 +1005,13 @@ class Views(BaseSDK):
                 tags=["Views"],
                 extensions={
                     "x-cli-group": "views",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.update({ viewId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V', displayName: 'Production errors' });\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.update({ viewId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V', updateViewRequest: { displayName: 'Production errors' } });\n",
                         }
                     ],
                 },
@@ -1134,12 +1143,13 @@ class Views(BaseSDK):
                 tags=["Views"],
                 extensions={
                     "x-cli-group": "views",
+                    "x-cli-help-section": "Observability",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.update({ viewId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V', displayName: 'Production errors' });\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.update({ viewId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V', updateViewRequest: { displayName: 'Production errors' } });\n",
                         }
                     ],
                 },

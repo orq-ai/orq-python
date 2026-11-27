@@ -14,20 +14,52 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class RunSettingsTypedDict(TypedDict):
+    r"""Execution settings of a run."""
+
     concurrency: NotRequired[int]
+    r"""Maximum number of cells the run executes at the same time, 1 to 100.
+    Defaults to 10.
+    """
     timeout: NotRequired[str]
+    r"""Wall-clock limit for each prompt or agent cell, as a duration string such
+    as `90s`. Fractions of a second are dropped, and a cell that exceeds the
+    limit fails. When unset, the agent's own limit or the platform default
+    applies.
+    """
     max_turns: NotRequired[int]
+    r"""Maximum number of model calls in a cell's agent loop, at least 1. When
+    unset, the agent's own limit or the platform default (10) applies.
+    """
     hidden_column_ids: NotRequired[List[str]]
+    r"""Columns hidden in the AI Studio grid. Display only: hidden columns still
+    execute.
+    """
 
 
 class RunSettings(BaseModel):
+    r"""Execution settings of a run."""
+
     concurrency: Optional[int] = None
+    r"""Maximum number of cells the run executes at the same time, 1 to 100.
+    Defaults to 10.
+    """
 
     timeout: Optional[str] = None
+    r"""Wall-clock limit for each prompt or agent cell, as a duration string such
+    as `90s`. Fractions of a second are dropped, and a cell that exceeds the
+    limit fails. When unset, the agent's own limit or the platform default
+    applies.
+    """
 
     max_turns: Optional[int] = None
+    r"""Maximum number of model calls in a cell's agent loop, at least 1. When
+    unset, the agent's own limit or the platform default (10) applies.
+    """
 
     hidden_column_ids: Optional[List[str]] = None
+    r"""Columns hidden in the AI Studio grid. Display only: hidden columns still
+    execute.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

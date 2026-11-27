@@ -8,9 +8,11 @@ from typing_extensions import Annotated, TypedDict
 
 class ExperimentGetRequestTypedDict(TypedDict):
     experiment_id: str
+    r"""ID of the experiment."""
 
 
 class ExperimentGetRequest(BaseModel):
     experiment_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the experiment."""

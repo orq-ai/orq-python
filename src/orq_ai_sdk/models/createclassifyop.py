@@ -305,7 +305,7 @@ r"""The content to evaluate. A string, an object or an array. For TypeSafe model
 
 class CreateClassifyRequestBodyTypedDict(TypedDict):
     model: str
-    r"""ID of a model that supports native or emulated classify, including openai/gpt-6-luna."""
+    r"""ID of a model that supports native Decisions, such as openai/gpt-6-luna."""
     questions: Dict[str, QuestionsTypedDict]
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key. Native OpenAI accepts 1 to 400 questions."""
     state: StateTypedDict
@@ -316,7 +316,7 @@ class CreateClassifyRequestBodyTypedDict(TypedDict):
     fallback_on_codes: NotRequired[Nullable[List[int]]]
     r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
-    r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Requests with images in state require native OpenAI image-capable fallbacks; requests with assets or box questions require TypeSafe fallbacks."""
+    r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support native Decisions and satisfy access checks. Requests with images in state require native OpenAI image-capable fallbacks; requests with assets or box questions require TypeSafe fallbacks."""
     identity: NotRequired[ResponseIdentityTypedDict]
     metadata: NotRequired[Dict[str, str]]
     r"""Key-value metadata attached to the trace."""
@@ -331,7 +331,7 @@ class CreateClassifyRequestBodyTypedDict(TypedDict):
 
 class CreateClassifyRequestBody(BaseModel):
     model: str
-    r"""ID of a model that supports native or emulated classify, including openai/gpt-6-luna."""
+    r"""ID of a model that supports native Decisions, such as openai/gpt-6-luna."""
 
     questions: Dict[str, Questions]
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key. Native OpenAI accepts 1 to 400 questions."""
@@ -348,7 +348,7 @@ class CreateClassifyRequestBody(BaseModel):
     r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
 
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
-    r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Requests with images in state require native OpenAI image-capable fallbacks; requests with assets or box questions require TypeSafe fallbacks."""
+    r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support native Decisions and satisfy access checks. Requests with images in state require native OpenAI image-capable fallbacks; requests with assets or box questions require TypeSafe fallbacks."""
 
     identity: Optional[ResponseIdentity] = None
 

@@ -88,6 +88,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - List external agents",
@@ -104,7 +105,7 @@ class External(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.agents.external.list({\n  limit: 25,\n});\n\nfor (const agent of page.data) {\n  console.log(agent.key, agent.agentUrl);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -205,6 +206,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - List external agents",
@@ -221,7 +223,7 @@ class External(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.agents.external.list({\n  limit: 25,\n});\n\nfor (const agent of page.data) {\n  console.log(agent.key, agent.agentUrl);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -353,6 +355,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Create external agent",
@@ -369,7 +372,7 @@ class External(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.create({\n  key: 'support_agent',\n  displayName: 'Support Agent',\n  description: 'External support specialist',\n  path: '/agents/support-agent',\n  agentUrl: 'https://agents.example.com/a2a',\n  headers: {\n    Authorization: { value: 'Bearer secret', encrypted: true },\n  },\n});\n\nconsole.log(result.agent.agentId, result.agent.protocolVersion);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -501,6 +504,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Create external agent",
@@ -517,7 +521,7 @@ class External(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.create({\n  key: 'support_agent',\n  displayName: 'Support Agent',\n  description: 'External support specialist',\n  path: '/agents/support-agent',\n  agentUrl: 'https://agents.example.com/a2a',\n  headers: {\n    Authorization: { value: 'Bearer secret', encrypted: true },\n  },\n});\n\nconsole.log(result.agent.agentId, result.agent.protocolVersion);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -612,6 +616,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve external agent",
@@ -628,7 +633,7 @@ class External(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.retrieve({\n  agentKey: 'support_agent',\n});\n\nconsole.log(result.agent.displayName, result.agent.cardRefreshedAt);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -723,6 +728,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve external agent",
@@ -739,7 +745,7 @@ class External(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.retrieve({\n  agentKey: 'support_agent',\n});\n\nconsole.log(result.agent.displayName, result.agent.cardRefreshedAt);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -834,6 +840,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete external agent",
@@ -850,7 +857,7 @@ class External(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.agents.external.delete({\n  agentKey: 'support_agent',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -945,6 +952,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete external agent",
@@ -961,7 +969,7 @@ class External(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.agents.external.delete({\n  agentKey: 'support_agent',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1102,6 +1110,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Update external agent",
@@ -1116,9 +1125,9 @@ class External(BaseSDK):
                         {
                             "label": "Node.js - Update external agent",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.update({\n  agentKey: 'support_agent',\n  displayName: 'Support Agent (EU)',\n  preferredTransport: 'JSONRPC',\n});\n\nconsole.log(result.agent.displayName, result.agent.version);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.update({\n  agentKey: 'support_agent',\n  updateExternalAgentRequest: {\n    displayName: 'Support Agent (EU)',\n    preferredTransport: 'JSONRPC',\n  },\n});\n\nconsole.log(result.agent.displayName, result.agent.version);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1259,6 +1268,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Update external agent",
@@ -1273,9 +1283,9 @@ class External(BaseSDK):
                         {
                             "label": "Node.js - Update external agent",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.update({\n  agentKey: 'support_agent',\n  displayName: 'Support Agent (EU)',\n  preferredTransport: 'JSONRPC',\n});\n\nconsole.log(result.agent.displayName, result.agent.version);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.update({\n  agentKey: 'support_agent',\n  updateExternalAgentRequest: {\n    displayName: 'Support Agent (EU)',\n    preferredTransport: 'JSONRPC',\n  },\n});\n\nconsole.log(result.agent.displayName, result.agent.version);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1386,6 +1396,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Refresh external agent card",
@@ -1395,14 +1406,14 @@ class External(BaseSDK):
                         {
                             "label": "Python - Refresh external agent card",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.agents.external.refresh_card(\n    agent_key="support_agent",\n)\n\nprint(result.agent.card_refreshed_at)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.agents.external.refresh_card(\n    agent_key="support_agent",\n    refresh_external_agent_card_request={},\n)\n\nprint(result.agent.card_refreshed_at)\n',
                         },
                         {
                             "label": "Node.js - Refresh external agent card",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.refreshCard({\n  agentKey: 'support_agent',\n});\n\nconsole.log(result.agent.cardRefreshedAt);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.refreshCard({\n  agentKey: 'support_agent',\n  refreshExternalAgentCardRequest: {},\n});\n\nconsole.log(result.agent?.cardRefreshedAt);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1515,6 +1526,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Refresh external agent card",
@@ -1524,14 +1536,14 @@ class External(BaseSDK):
                         {
                             "label": "Python - Refresh external agent card",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.agents.external.refresh_card(\n    agent_key="support_agent",\n)\n\nprint(result.agent.card_refreshed_at)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.agents.external.refresh_card(\n    agent_key="support_agent",\n    refresh_external_agent_card_request={},\n)\n\nprint(result.agent.card_refreshed_at)\n',
                         },
                         {
                             "label": "Node.js - Refresh external agent card",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.refreshCard({\n  agentKey: 'support_agent',\n});\n\nconsole.log(result.agent.cardRefreshedAt);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.refreshCard({\n  agentKey: 'support_agent',\n  refreshExternalAgentCardRequest: {},\n});\n\nconsole.log(result.agent?.cardRefreshedAt);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1644,6 +1656,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Test external agent connection",
@@ -1653,14 +1666,14 @@ class External(BaseSDK):
                         {
                             "label": "Python - Test external agent connection",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.agents.external.test_connection(\n    agent_key="support_agent",\n)\n\nprint(result.reachable)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.agents.external.test_connection(\n    agent_key="support_agent",\n    test_external_agent_connection_request={},\n)\n\nprint(result.reachable)\n',
                         },
                         {
                             "label": "Node.js - Test external agent connection",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.testConnection({\n  agentKey: 'support_agent',\n});\n\nconsole.log(result.reachable);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.testConnection({\n  agentKey: 'support_agent',\n  testExternalAgentConnectionRequest: {},\n});\n\nconsole.log(result.reachable);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1773,6 +1786,7 @@ class External(BaseSDK):
                 ),
                 tags=["Agents"],
                 extensions={
+                    "x-cli-help-section": "Managed agents",
                     "x-code-samples": [
                         {
                             "label": "Core - Test external agent connection",
@@ -1782,14 +1796,14 @@ class External(BaseSDK):
                         {
                             "label": "Python - Test external agent connection",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.agents.external.test_connection(\n    agent_key="support_agent",\n)\n\nprint(result.reachable)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.agents.external.test_connection(\n    agent_key="support_agent",\n    test_external_agent_connection_request={},\n)\n\nprint(result.reachable)\n',
                         },
                         {
                             "label": "Node.js - Test external agent connection",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.testConnection({\n  agentKey: 'support_agent',\n});\n\nconsole.log(result.reachable);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.agents.external.testConnection({\n  agentKey: 'support_agent',\n  testExternalAgentConnectionRequest: {},\n});\n\nconsole.log(result.reachable);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,

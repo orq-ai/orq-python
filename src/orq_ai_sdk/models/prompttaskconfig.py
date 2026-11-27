@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .messagessource import MessagesSource
+from .promptconfig import PromptConfig, PromptConfigTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -18,33 +19,56 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class PromptTaskConfigTypedDict(TypedDict):
-    prompt_config: Dict[str, Any]
+    r"""Configuration of a prompt task column."""
+
+    prompt_config: PromptConfigTypedDict
+    r"""Prompt to execute."""
     messages_source: NotRequired[MessagesSource]
     engine: NotRequired[str]
+    r"""Template engine for variables in the messages: `text` (default), `jinja`
+    or `mustache`.
+    """
     tools: NotRequired[List[Dict[str, Any]]]
+    r"""Tools saved with the column."""
     knowledge_bases: NotRequired[List[Dict[str, Any]]]
+    r"""Knowledge bases searched on each execution, as `{knowledge_id,
+    configuration}` with a configuration `type` of `last_user_message` or
+    `query`. The retrieved context is available as `{{knowledge_retrieval}}`;
+    when the prompt does not use it, it is appended to the system message.
+    """
     metadata: NotRequired[Nullable[Dict[str, Any]]]
-    r"""Null when the column was saved without metadata."""
-    entity_configuration: NotRequired[Nullable[Dict[str, Any]]]
-    r"""Null when the column was saved without an entity configuration."""
+    r"""Metadata saved with the column. Null when the column was saved without
+    metadata.
+    """
 
 
 class PromptTaskConfig(BaseModel):
-    prompt_config: Dict[str, Any]
+    r"""Configuration of a prompt task column."""
+
+    prompt_config: PromptConfig
+    r"""Prompt to execute."""
 
     messages_source: Optional[MessagesSource] = None
 
     engine: Optional[str] = None
+    r"""Template engine for variables in the messages: `text` (default), `jinja`
+    or `mustache`.
+    """
 
     tools: Optional[List[Dict[str, Any]]] = None
+    r"""Tools saved with the column."""
 
     knowledge_bases: Optional[List[Dict[str, Any]]] = None
+    r"""Knowledge bases searched on each execution, as `{knowledge_id,
+    configuration}` with a configuration `type` of `last_user_message` or
+    `query`. The retrieved context is available as `{{knowledge_retrieval}}`;
+    when the prompt does not use it, it is appended to the system message.
+    """
 
     metadata: OptionalNullable[Dict[str, Any]] = UNSET
-    r"""Null when the column was saved without metadata."""
-
-    entity_configuration: OptionalNullable[Dict[str, Any]] = UNSET
-    r"""Null when the column was saved without an entity configuration."""
+    r"""Metadata saved with the column. Null when the column was saved without
+    metadata.
+    """
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -52,16 +76,9 @@ class PromptTaskConfig(BaseModel):
 
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "messages_source",
-                "engine",
-                "tools",
-                "knowledge_bases",
-                "metadata",
-                "entity_configuration",
-            ]
+            ["messages_source", "engine", "tools", "knowledge_bases", "metadata"]
         )
-        nullable_fields = set(["metadata", "entity_configuration"])
+        nullable_fields = set(["metadata"])
         exclude_none = current_exclude_none()
         skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)

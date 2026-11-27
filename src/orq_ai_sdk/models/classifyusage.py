@@ -21,7 +21,7 @@ class ClassifyUsageTypedDict(TypedDict):
     input_tokens: int
     r"""The number of input tokens processed."""
     output_tokens: int
-    r"""The number of output tokens generated. Free for native classify providers, billed at the model rate for emulated chat models."""
+    r"""The number of output tokens reported by the provider. Native Decisions output tokens are free."""
     input_cost: NotRequired[float]
     r"""Cost (USD) of input tokens. Present when billing was computed for this request."""
     input_tokens_details: NotRequired[ClassifyInputTokensDetailsTypedDict]
@@ -36,7 +36,7 @@ class ClassifyUsage(BaseModel):
     r"""The number of input tokens processed."""
 
     output_tokens: int
-    r"""The number of output tokens generated. Free for native classify providers, billed at the model rate for emulated chat models."""
+    r"""The number of output tokens reported by the provider. Native Decisions output tokens are free."""
 
     input_cost: Optional[float] = None
     r"""Cost (USD) of input tokens. Present when billing was computed for this request."""

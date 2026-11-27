@@ -29,7 +29,7 @@ class McpToolInputTypedDict(TypedDict):
     tool_id: NotRequired[str]
     r"""The ID of a specific tool within the MCP server. Omit to attach every tool the server or gateway exposes."""
     requires_approval: NotRequired[bool]
-    r"""Whether this tool requires approval before execution"""
+    r"""Whether this tool is marked as requiring approval. An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval"""
 
 
 class McpToolInput(BaseModel):
@@ -48,7 +48,7 @@ class McpToolInput(BaseModel):
     r"""The ID of a specific tool within the MCP server. Omit to attach every tool the server or gateway exposes."""
 
     requires_approval: Optional[bool] = False
-    r"""Whether this tool requires approval before execution"""
+    r"""Whether this tool is marked as requiring approval. An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval"""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

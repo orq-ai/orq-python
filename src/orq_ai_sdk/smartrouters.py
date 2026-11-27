@@ -100,6 +100,7 @@ class SmartRouters(BaseSDK):
                 tags=["Smart Routers"],
                 extensions={
                     "x-cli-group": "smart-routers",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -225,6 +226,7 @@ class SmartRouters(BaseSDK):
                 tags=["Smart Routers"],
                 extensions={
                     "x-cli-group": "smart-routers",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "list",
                     "x-code-samples": [
                         {
@@ -352,6 +354,7 @@ class SmartRouters(BaseSDK):
                 tags=["Smart Routers"],
                 extensions={
                     "x-cli-group": "smart-routers",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -479,6 +482,7 @@ class SmartRouters(BaseSDK):
                 tags=["Smart Routers"],
                 extensions={
                     "x-cli-group": "smart-routers",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -587,6 +591,7 @@ class SmartRouters(BaseSDK):
                 tags=["Smart Routers"],
                 extensions={
                     "x-cli-group": "smart-routers",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -695,6 +700,7 @@ class SmartRouters(BaseSDK):
                 tags=["Smart Routers"],
                 extensions={
                     "x-cli-group": "smart-routers",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -803,6 +809,7 @@ class SmartRouters(BaseSDK):
                 tags=["Smart Routers"],
                 extensions={
                     "x-cli-group": "smart-routers",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -911,6 +918,7 @@ class SmartRouters(BaseSDK):
                 tags=["Smart Routers"],
                 extensions={
                     "x-cli-group": "smart-routers",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "delete",
                     "x-code-samples": [
                         {
@@ -1044,6 +1052,7 @@ class SmartRouters(BaseSDK):
                 tags=["Smart Routers"],
                 extensions={
                     "x-cli-group": "smart-routers",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {
@@ -1177,6 +1186,7 @@ class SmartRouters(BaseSDK):
                 tags=["Smart Routers"],
                 extensions={
                     "x-cli-group": "smart-routers",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "update",
                     "x-code-samples": [
                         {

@@ -152,6 +152,7 @@ class Embeddings(BaseSDK):
                 tags=["Embeddings"],
                 extensions={
                     "x-cli-group": "embeddings",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": True,
                 },
@@ -320,6 +321,7 @@ class Embeddings(BaseSDK):
                 tags=["Embeddings"],
                 extensions={
                     "x-cli-group": "embeddings",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": True,
                 },

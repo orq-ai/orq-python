@@ -103,7 +103,11 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -217,7 +221,11 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -327,7 +335,11 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -437,7 +449,11 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -525,6 +541,7 @@ class ManagementKeys(BaseSDK):
                 tags=["Management keys"],
                 extensions={
                     "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "listCapabilities",
                 },
             ),
@@ -616,6 +633,7 @@ class ManagementKeys(BaseSDK):
                 tags=["Management keys"],
                 extensions={
                     "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
                     "x-cli-name": "listCapabilities",
                 },
             ),
@@ -712,7 +730,11 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "get"},
+                extensions={
+                    "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "get",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -805,7 +827,11 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "get"},
+                extensions={
+                    "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "get",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -898,7 +924,11 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -991,7 +1021,11 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1114,7 +1148,11 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1237,7 +1275,11 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "management-keys",
+                    "x-cli-help-section": "Administration",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

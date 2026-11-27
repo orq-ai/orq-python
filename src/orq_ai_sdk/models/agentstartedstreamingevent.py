@@ -109,7 +109,7 @@ ToolApprovalRequired = Literal[
     "respect_tool",
     "none",
 ]
-r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+r"""An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval."""
 
 
 class AgentStartedStreamingEventConditionsTypedDict(TypedDict):
@@ -335,7 +335,7 @@ class SettingsTypedDict(TypedDict):
     max_cost: NotRequired[float]
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     tool_approval_required: NotRequired[ToolApprovalRequired]
-    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    r"""An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval."""
     chat_exposed: NotRequired[bool]
     r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     tools: NotRequired[List[ToolsModelTypedDict]]
@@ -356,7 +356,7 @@ class Settings(BaseModel):
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
     tool_approval_required: Optional[ToolApprovalRequired] = "respect_tool"
-    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    r"""An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval."""
 
     chat_exposed: Optional[bool] = None
     r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""

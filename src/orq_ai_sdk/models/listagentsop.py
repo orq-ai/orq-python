@@ -229,7 +229,7 @@ ListAgentsToolApprovalRequired = Literal[
     "respect_tool",
     "none",
 ]
-r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+r"""An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval."""
 
 
 class ListAgentsConditionsTypedDict(TypedDict):
@@ -455,7 +455,7 @@ class ListAgentsSettingsTypedDict(TypedDict):
     max_cost: NotRequired[float]
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     tool_approval_required: NotRequired[ListAgentsToolApprovalRequired]
-    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    r"""An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval."""
     chat_exposed: NotRequired[bool]
     r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     tools: NotRequired[List[ListAgentsToolsTypedDict]]
@@ -476,7 +476,7 @@ class ListAgentsSettings(BaseModel):
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
     tool_approval_required: Optional[ListAgentsToolApprovalRequired] = "respect_tool"
-    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    r"""An Agent runs its tools without waiting for a human decision on `POST /v3/router/responses`. See https://docs.orq.ai/ai-studio/ai-engineering/build-agents#tool-approval."""
 
     chat_exposed: Optional[bool] = None
     r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
@@ -1278,19 +1278,19 @@ class ListAgentsParameters(BaseModel):
 
 
 class ListAgentsRetryTypedDict(TypedDict):
-    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+    r"""Retry configuration for model requests. Allows customizing retry count (0-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
     count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
     on_codes: NotRequired[List[float]]
     r"""HTTP status codes that trigger retry logic"""
 
 
 class ListAgentsRetry(BaseModel):
-    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+    r"""Retry configuration for model requests. Allows customizing retry count (0-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
-    count: Optional[float] = 3.0
-    r"""Number of retry attempts (1-5)"""
+    count: Optional[float] = 0.0
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
 
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""
@@ -2098,19 +2098,19 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
 
 
 class ListAgentsFallbackModelConfigurationRetryTypedDict(TypedDict):
-    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+    r"""Retry configuration for this fallback model. Allows customizing retry count (0-5) and HTTP status codes that trigger retries."""
 
     count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
     on_codes: NotRequired[List[float]]
     r"""HTTP status codes that trigger retry logic"""
 
 
 class ListAgentsFallbackModelConfigurationRetry(BaseModel):
-    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+    r"""Retry configuration for this fallback model. Allows customizing retry count (0-5) and HTTP status codes that trigger retries."""
 
-    count: Optional[float] = 3.0
-    r"""Number of retry attempts (1-5)"""
+    count: Optional[float] = 0.0
+    r"""Number of retries per model after the initial attempt (0-5). Defaults to 0 when a retry object is sent; omit retry to use the gateway default of two."""
 
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""
@@ -2147,7 +2147,7 @@ class ListAgentsFallbackModelConfiguration2TypedDict(TypedDict):
     parameters: NotRequired[ListAgentsFallbackModelConfigurationParametersTypedDict]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
     retry: NotRequired[ListAgentsFallbackModelConfigurationRetryTypedDict]
-    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+    r"""Retry configuration for this fallback model. Allows customizing retry count (0-5) and HTTP status codes that trigger retries."""
 
 
 class ListAgentsFallbackModelConfiguration2(BaseModel):
@@ -2160,7 +2160,7 @@ class ListAgentsFallbackModelConfiguration2(BaseModel):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
     retry: Optional[ListAgentsFallbackModelConfigurationRetry] = None
-    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+    r"""Retry configuration for this fallback model. Allows customizing retry count (0-5) and HTTP status codes that trigger retries."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
@@ -2208,7 +2208,7 @@ class ListAgentsModelTypedDict(TypedDict):
     parameters: NotRequired[Nullable[ListAgentsParametersTypedDict]]
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
     retry: NotRequired[ListAgentsRetryTypedDict]
-    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+    r"""Retry configuration for model requests. Allows customizing retry count (0-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
     fallback_models: NotRequired[
         Nullable[List[ListAgentsFallbackModelConfigurationTypedDict]]
     ]
@@ -2226,7 +2226,7 @@ class ListAgentsModel(BaseModel):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     retry: Optional[ListAgentsRetry] = None
-    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+    r"""Retry configuration for model requests. Allows customizing retry count (0-5) and HTTP status codes that trigger retries. Default codes: 408, 429, 500, 502, 503, 504, 529."""
 
     fallback_models: OptionalNullable[List[ListAgentsFallbackModelConfiguration]] = (
         UNSET

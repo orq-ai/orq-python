@@ -5,15 +5,15 @@ The output format: plain text or structured JSON schema.
 
 ## Supported Types
 
-### `models.PlainText`
+### `models.FormatPlainText`
 
 ```python
-value: models.PlainText = /* values here */
+value: models.FormatPlainText = /* values here */
 ```
 
-### `models.FormatJSONSchema`
+### `models.CreateRouterResponseFormatJSONSchema`
 
 ```python
-value: models.FormatJSONSchema = /* values here */
+value: models.CreateRouterResponseFormatJSONSchema = /* values here */
 ```
 

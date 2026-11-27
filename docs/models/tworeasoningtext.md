@@ -1,0 +1,11 @@
+# TwoReasoningText
+
+A piece of reasoning text on a replayed reasoning item.
+
+
+## Fields
+
+| Field                                                                                                                                      | Type                                                                                                                                       | Required                                                                                                                                   | Description                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `text`                                                                                                                                     | *str*                                                                                                                                      | :heavy_check_mark:                                                                                                                         | The reasoning text.                                                                                                                        |
+| `type`                                                                                                                                     | [models.CreateRouterResponse2ResponsesRequestRequestBodyInputType](../models/createrouterresponse2responsesrequestrequestbodyinputtype.md) | :heavy_check_mark:                                                                                                                         | N/A                                                                                                                                        |

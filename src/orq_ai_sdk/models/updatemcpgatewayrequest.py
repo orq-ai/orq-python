@@ -55,6 +55,8 @@ class UpdateMcpGatewayRequestTypedDict(TypedDict):
     r"""Empty restores the default ORQ documentation website."""
     guardrails: NotRequired[List[GuardrailRuleGuardrailTypedDict]]
     r"""Guardrails run on the arguments and result of every tool call this gateway serves."""
+    expected_updated: NotRequired[str]
+    r"""Latest observed `McpGateway.updated` value. Required when changing resource exposure or re-enabling a link that exposes resources."""
 
 
 class UpdateMcpGatewayRequest(BaseModel):
@@ -104,6 +106,9 @@ class UpdateMcpGatewayRequest(BaseModel):
     guardrails: Optional[List[GuardrailRuleGuardrail]] = None
     r"""Guardrails run on the arguments and result of every tool call this gateway serves."""
 
+    expected_updated: Optional[str] = None
+    r"""Latest observed `McpGateway.updated` value. Required when changing resource exposure or re-enabling a link that exposes resources."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
@@ -126,6 +131,7 @@ class UpdateMcpGatewayRequest(BaseModel):
                 "replace_icons",
                 "website_url",
                 "guardrails",
+                "expected_updated",
             ]
         )
         exclude_none = current_exclude_none()

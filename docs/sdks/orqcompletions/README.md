@@ -27,6 +27,7 @@ with Orq(
             "model": "openai/gpt-4o-mini",
         },
     ], retry={
+        "count": 3.0,
         "on_codes": [
             429.0,
             500.0,

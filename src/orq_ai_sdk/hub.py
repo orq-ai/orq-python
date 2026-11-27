@@ -86,6 +86,7 @@ class Hub(BaseSDK):
                 tags=["Hub"],
                 extensions={
                     "x-cli-group": "hub",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "search",
                     "x-code-samples": [
                         {
@@ -202,6 +203,7 @@ class Hub(BaseSDK):
                 tags=["Hub"],
                 extensions={
                     "x-cli-group": "hub",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "search",
                     "x-code-samples": [
                         {
@@ -315,6 +317,7 @@ class Hub(BaseSDK):
                 tags=["Hub"],
                 extensions={
                     "x-cli-group": "hub",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {
@@ -428,6 +431,7 @@ class Hub(BaseSDK):
                 tags=["Hub"],
                 extensions={
                     "x-cli-group": "hub",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "get",
                     "x-code-samples": [
                         {

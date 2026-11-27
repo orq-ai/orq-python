@@ -184,6 +184,7 @@ class Transcriptions(BaseSDK):
                 tags=["Audio"],
                 extensions={
                     "x-cli-group": "transcriptions",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },
@@ -389,6 +390,7 @@ class Transcriptions(BaseSDK):
                 tags=["Audio"],
                 extensions={
                     "x-cli-group": "transcriptions",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "create",
                     "x-orq-gateway-group": "true",
                 },

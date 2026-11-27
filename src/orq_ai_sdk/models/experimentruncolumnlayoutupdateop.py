@@ -12,7 +12,9 @@ from typing_extensions import Annotated, TypedDict
 
 class ExperimentRunColumnLayoutUpdateRequestTypedDict(TypedDict):
     experiment_id: str
+    r"""ID of the experiment."""
     run_id: str
+    r"""ID of the run."""
     update_run_column_layout_request: UpdateRunColumnLayoutRequestTypedDict
 
 
@@ -20,10 +22,12 @@ class ExperimentRunColumnLayoutUpdateRequest(BaseModel):
     experiment_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the experiment."""
 
     run_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""ID of the run."""
 
     update_run_column_layout_request: Annotated[
         UpdateRunColumnLayoutRequest,

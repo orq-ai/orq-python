@@ -131,6 +131,7 @@ class Websearch(BaseSDK):
                 tags=["Web Search"],
                 extensions={
                     "x-cli-group": "websearch",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "search",
                     "x-code-samples": [
                         {
@@ -356,6 +357,7 @@ class Websearch(BaseSDK):
                 tags=["Web Search"],
                 extensions={
                     "x-cli-group": "websearch",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "search",
                     "x-code-samples": [
                         {

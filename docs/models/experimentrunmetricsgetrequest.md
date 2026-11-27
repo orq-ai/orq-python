@@ -3,8 +3,8 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `experiment_id`    | *str*              | :heavy_check_mark: | N/A                |
-| `run_id`           | *str*              | :heavy_check_mark: | N/A                |
-| `baseline_run_id`  | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `experiment_id`                                                                           | *str*                                                                                     | :heavy_check_mark:                                                                        | ID of the experiment.                                                                     |
+| `run_id`                                                                                  | *str*                                                                                     | :heavy_check_mark:                                                                        | ID of the run.                                                                            |
+| `baseline_run_id`                                                                         | *Optional[str]*                                                                           | :heavy_minus_sign:                                                                        | Run of the same experiment to compare against. A run without values<br/> returns no baseline. |

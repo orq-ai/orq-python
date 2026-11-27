@@ -175,6 +175,7 @@ class Variations(BaseSDK):
                 tags=["Images"],
                 extensions={
                     "x-cli-group": "images",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "variation",
                     "x-orq-gateway-group": "true",
                 },
@@ -368,6 +369,7 @@ class Variations(BaseSDK):
                 tags=["Images"],
                 extensions={
                     "x-cli-group": "images",
+                    "x-cli-help-section": "AI Gateway",
                     "x-cli-name": "variation",
                     "x-orq-gateway-group": "true",
                 },

@@ -14,11 +14,17 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class DatasetColumnConfigTypedDict(TypedDict):
+    r"""Configuration of a dataset column."""
+
     column_type: NotRequired[str]
+    r"""`inputs`, `messages` or `expected_output`. Dataset cells are read-only."""
 
 
 class DatasetColumnConfig(BaseModel):
+    r"""Configuration of a dataset column."""
+
     column_type: Optional[str] = None
+    r"""`inputs`, `messages` or `expected_output`. Dataset cells are read-only."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

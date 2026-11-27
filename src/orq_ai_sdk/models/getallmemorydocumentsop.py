@@ -19,7 +19,7 @@ class GetAllMemoryDocumentsRequestTypedDict(TypedDict):
     memory_store_key: str
     r"""The unique key identifier of the memory store"""
     memory_entity_id: str
-    r"""The unique identifier of the memory"""
+    r"""The Memory's generated `_id` or its `entity_id`"""
     limit: NotRequired[int]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10"""
     starting_after: NotRequired[str]
@@ -41,7 +41,7 @@ class GetAllMemoryDocumentsRequest(BaseModel):
     memory_entity_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique identifier of the memory"""
+    r"""The Memory's generated `_id` or its `entity_id`"""
 
     limit: Annotated[
         Optional[int],

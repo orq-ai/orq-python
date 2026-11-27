@@ -87,7 +87,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -186,7 +190,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "list"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -293,7 +301,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -400,7 +412,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -493,7 +509,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "retrieve"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "retrieve",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -586,7 +606,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "retrieve"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "retrieve",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -735,7 +759,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -886,7 +914,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -981,7 +1013,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1076,7 +1112,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1180,7 +1220,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "listVersions"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "listVersions",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1284,7 +1328,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "listVersions"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "listVersions",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1382,7 +1430,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "getVersion"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "getVersion",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1482,7 +1534,11 @@ class Prompts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Prompts"],
-                extensions={"x-cli-group": "prompts", "x-cli-name": "getVersion"},
+                extensions={
+                    "x-cli-group": "prompts",
+                    "x-cli-help-section": "Managed agents",
+                    "x-cli-name": "getVersion",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
